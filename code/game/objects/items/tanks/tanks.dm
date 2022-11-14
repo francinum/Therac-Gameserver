@@ -363,7 +363,7 @@
 
 		var/strength = 1+((pressure-TANK_LEAK_PRESSURE)/TANK_FRAGMENT_SCALE)
 
-		var/mult = (air_contents.total_moles**2/3)/((29*0.64) **2/3) //tanks appear to be experiencing a reduction on scale of about 0.64 total moles
+		var/mult = (air_contents.total_moles ** (2/3)) / ((29*0.64) ** (2/3)) //tanks appear to be experiencing a reduction on scale of about 0.64 total moles
 
 		var/num_fragments = round(rand(6,8) * sqrt(strength * mult)) //Less chunks, but bigger
 		AddComponent(/datum/component/pellet_cloud, projectile_type = /obj/projectile/bullet/shrapnel/mega, magnitude = num_fragments)
