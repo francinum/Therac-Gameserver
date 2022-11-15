@@ -22,6 +22,8 @@
 ///from datum/component/drift/allow_final_movement(): ()
 #define COMSIG_MOVABLE_DRIFT_BLOCK_INPUT "movable_drift_block_input"
 	#define DRIFT_ALLOW_INPUT (1<<0)
+///from /turf/open/space/Entered(): (/turf)
+#define COMSIG_MOVABLE_SPACE_TRANSITION "movable_space_transition"
 ///from base of atom/movable/throw_impact(): (/atom/hit_atom, /datum/thrownthing/throwingdatum)
 #define COMSIG_MOVABLE_IMPACT "movable_impact"
 	#define COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH (1<<0) //if true, flip if the impact will push what it hits

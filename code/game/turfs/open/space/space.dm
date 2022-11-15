@@ -151,7 +151,8 @@
 				ty--
 			DT = locate(tx, ty, destination_z)
 
-		arrived.zMove(null, DT, ZMOVE_ALLOW_BUCKLED)
+		if(arrived.zMove(null, DT, ZMOVE_ALLOW_BUCKLED))
+			SEND_SIGNAL(arrived, COMSIG_MOVABLE_SPACE_TRANSITION, DT)
 
 		var/atom/movable/current_pull = arrived.pulling
 		while (current_pull)
