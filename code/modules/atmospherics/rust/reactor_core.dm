@@ -15,25 +15,8 @@
 
 	var/is_on = FALSE
 	var/obj/effect/reactor_em_field/owned_field
-	var/field_strength = 1//0.01
+	var/field_strength = 1 //0.01
 	var/initial_id_tag
-
-	var/list/all_rods = list()
-	var/list/control_rods = list()
-	var/list/moderator_rods = list()
-	var/list/fuel_rods = list()
-
-	var/list/rods_by_slot = list(
-		REACTOR_SLOT_1 = null,
-		REACTOR_SLOT_2 = null,
-		REACTOR_SLOT_3 = null,
-		REACTOR_SLOT_4 = null,
-		REACTOR_SLOT_5 = null,
-		REACTOR_SLOT_6 = null,
-		REACTOR_SLOT_7 = null,
-		REACTOR_SLOT_8 = null,
-		REACTOR_SLOT_9 = null
-	)
 
 /obj/machinery/power/reactor_core/mapped
 	anchored = TRUE
@@ -131,6 +114,18 @@
 /obj/machinery/power/reactor_core/proc/check_core_status()
 	if(machine_stat & BROKEN)
 		return FALSE
-	/*if(idle_power_usage > avail())
-		return FALSE*/
+	if(idle_power_usage > avail())
+		return FALSE
 	return TRUE
+
+/obj/machinery/power/reactor_core/bullet_act(obj/projectile/Proj)
+	if(istype(proj, /obj/projectile/energy/nuclear_particle))
+		var/obj/projectile/energy/nuclear_particle/particle = proj
+		if(proj.particle_type && proj.particle_type != "neutron")
+			if(AddParticles(particle_type, 1 + additional_particles))
+				owned_field.plasma_temperature += mega_energy
+				owned_field.energy += energy
+				qdel(proj)
+		return BULLET_ACT_BLOCK
+
+	return ..()

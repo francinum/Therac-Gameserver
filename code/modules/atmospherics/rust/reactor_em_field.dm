@@ -341,14 +341,13 @@ Deuterium-tritium fusion: 4.5 x 10^7 K
 /obj/effect/reactor_em_field/proc/radiate()
 	if(isturf(loc))
 		var/list/cache4speed = ignore_types
-		var/empsev = max(1, min(3, Ceil(size/2)))
 		for(var/atom/movable/AM in range(max(1,Floor(size/2)), loc))
 			if(AM == src || AM == owned_core || !AM.simulated || cache4speed[AM.type])
 				continue
 
 			AM.visible_message(span_danger("The field buckles visibly around \the [AM]!"))
 			tick_instability += rand(30,50)
-			AM.emp_act(empsev)
+			radiation_pulse(AM, 0, RAD_FULL_INSULATION, 100)
 
 	if(owned_core && owned_core.loc)
 		var/datum/gas_mixture/environment = owned_core.loc.return_air()
@@ -399,8 +398,7 @@ Deuterium-tritium fusion: 4.5 x 10^7 K
 		//loop through all the reacting reagents, picking out random reactions for them
 		var/list/produced_reactants = new/list
 		var/list/p_react_pool = react_pool.Copy()
-		while(p_react_pool.len)
-		//for(var/i = 1; i <= p_react_pool.len; i++)
+		for(var/i = 1; i <= p_react_pool.len; i++)
 			//pick one of the unprocessed reacting reagents randomly
 			var/cur_p_react = pick(p_react_pool)
 			p_react_pool.Remove(cur_p_react)
@@ -510,7 +508,7 @@ Deuterium-tritium fusion: 4.5 x 10^7 K
 /obj/effect/reactor_em_field/bullet_act(obj/projectile/proj)
 	add_energy(proj.damage)
 	update_icon()
-	return 0
+	return ..()
 
 #undef FUSION_INSTABILITY_DIVISOR
 #undef FUSION_RUPTURE_THRESHOLD

@@ -33,9 +33,17 @@
 		name = "collector [mysize] OFF"
 
 /obj/effect/fusion_particle_catcher/bullet_act(obj/projectile/Proj)
+	if(istype(proj, /obj/projectile/energy/nuclear_particle))
+		var/obj/projectile/energy/nuclear_particle/particle = proj
+		if(proj.particle_type && proj.particle_type != "neutron")
+			if(parent.owned_core.AddParticles(particle_type, 1 + additional_particles))
+				parent.owned_core.plasma_temperature += mega_energy
+				parent.owned_core.energy += energy
+				qdel(proj)
+		return BULLET_ACT_BLOCK
+
 	parent.add_energy(Proj.damage)
-	update_icon()
-	return 0
+	return BULLET_ACT_BLOCK
 
 /obj/effect/fusion_particle_catcher/CanAllowThrough(atom/movable/mover, border_dir)
 	..()
