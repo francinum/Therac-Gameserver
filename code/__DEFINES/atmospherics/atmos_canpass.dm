@@ -5,7 +5,7 @@
 #warn zas_canpass profiling enabled
 #endif
 
-#if defined(MULTIZAS) && !defined(PROFILE_ZAS_CANPASS) //This will be used for multiZAS
+#if defined(MULTIZAS) && !defined(PROFILE_ZAS_CANPASS) && !defined(ZASDBG) //This will be used for multiZAS
 ///Can air move from B to A?
 #define ATMOS_CANPASS_TURF(ret,A,B) \
 	if ((A.blocks_air & AIR_BLOCKED) || (B.blocks_air & AIR_BLOCKED)) { \
@@ -54,7 +54,7 @@
 	}
 #endif
 
-#if !defined(MULTIZAS) && !defined(PROFILE_ZAS_CANPASS) //This will be used when multiZAS is disabled.
+#if !defined(MULTIZAS) && !defined(PROFILE_ZAS_CANPASS) && !defined(ZASDBG)//This will be used when multiZAS is disabled.
 ///Can air move from B to A?
 #define ATMOS_CANPASS_TURF(ret,A,B) \
 	if ((A.blocks_air & AIR_BLOCKED) || (B.blocks_air & AIR_BLOCKED)) { \
@@ -89,6 +89,59 @@
 	}
 #endif
 
+#if defined(MULTIZAS) && !defined(PROFILE_ZAS_CANPASS) && defined(ZASDBG)//This will be used for ZASDBG
+///Can air move from B to A?
+#define ATMOS_CANPASS_TURF(ret,A,B) \
+	if(B.zas_debug_blocker_images[dir2text(get_dir(B,A))]) { \
+		B.vis_contents -= B.zas_debug_blocker_images[dir2text(get_dir(B,A))]; \
+		B.zas_debug_blocker_images[dir2text(get_dir(B,A))] = null; \
+	} \
+	if ((A.blocks_air & AIR_BLOCKED) || (B.blocks_air & AIR_BLOCKED)) { \
+		ret = AIR_BLOCKED|ZONE_BLOCKED; \
+	} \
+	else if (B.z != A.z) { \
+		var/canpass_dir = get_dir_multiz_fast(B, A); \
+		if(canpass_dir) { \
+			if (canpass_dir & UP) { \
+				ret = ((A.z_flags & Z_ATMOS_IN_DOWN) && (B.z_flags & Z_ATMOS_OUT_UP)) ? ZONE_BLOCKED : AIR_BLOCKED|ZONE_BLOCKED; \
+			} \
+			else { \
+				ret = ((A.z_flags & Z_ATMOS_IN_UP) && (B.z_flags & Z_ATMOS_OUT_DOWN)) ? ZONE_BLOCKED : AIR_BLOCKED|ZONE_BLOCKED; \
+			} \
+		} \
+		else { \
+			ret = AIR_BLOCKED|ZONE_BLOCKED; \
+		} \
+	} \
+	else if ((A.blocks_air & ZONE_BLOCKED) || (B.blocks_air & ZONE_BLOCKED)) { \
+		ret = ZONE_BLOCKED; \
+	} \
+	else if (length(A.contents)) { \
+		ret = 0;\
+		for (var/atom/movable/AM as anything in A) { \
+			switch (AM.can_atmos_pass) { \
+				if (CANPASS_ALWAYS) { \
+					continue; \
+				} \
+				if (CANPASS_DENSITY) { \
+					if (AM.density) { \
+						ret |= AIR_BLOCKED|ZONE_BLOCKED; \
+					} \
+				} \
+				if (CANPASS_PROC) { \
+					ret |= AM.zas_canpass(B); \
+				} \
+				if (CANPASS_NEVER) { \
+					ret = AIR_BLOCKED|ZONE_BLOCKED; \
+				} \
+			} \
+			if (ret & AIR_BLOCKED) { \
+				break;\
+			}\
+		}\
+	}\
+	if(ret & ZONE_BLOCKED) !(ret & AIR_BLOCKED) ? B.zasdbg_directional_zone_blocker_overlay(get_dir(B, A)) : B.zasdbg_directional_blocker_overlay(get_dir(B, A));
+#endif
 //////////////////////////////PROFILING//////////////////////////////
 #ifdef PROFILE_ZAS_CANPASS
 #define ATMOS_CANPASS_TURF(ret,A,B) ret = atmos_canpass_turf(A, B)

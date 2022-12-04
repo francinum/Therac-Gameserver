@@ -244,7 +244,7 @@ SUBSYSTEM_DEF(zas)
 
 		T.update_air_properties()
 		T.post_update_air_properties()
-		T.needs_air_update = 0
+		T.zas_enqueued = 0
 		#ifdef ZASDBG
 		T.vis_contents -= zasdbgovl_mark
 		//updated++
@@ -268,7 +268,7 @@ SUBSYSTEM_DEF(zas)
 
 		T.update_air_properties()
 		T.post_update_air_properties()
-		T.needs_air_update = 0
+		T.zas_enqueued = 0
 		#ifdef ZASDBG
 		T.vis_contents -= zasdbgovl_mark
 		//updated++
@@ -379,6 +379,7 @@ SUBSYSTEM_DEF(zas)
 	ASSERT(isturf(A))
 	ASSERT(isturf(B))
 	#endif
+
 	var/ablock
 	ATMOS_CANPASS_TURF(ablock, A, B)
 	if(ablock & AIR_BLOCKED)
@@ -395,6 +396,7 @@ SUBSYSTEM_DEF(zas)
 	ASSERT(!B.invalid)
 	ASSERT(A != B)
 	#endif
+
 	if(A.contents.len < B.contents.len)
 		A.merge_into(B)
 		mark_zone_update(B)
@@ -409,9 +411,9 @@ SUBSYSTEM_DEF(zas)
 	ASSERT(isturf(B))
 	ASSERT(A.zone)
 	ASSERT(!A.zone.invalid)
-	//ASSERT(B.zone)
 	ASSERT(A != B)
 	#endif
+
 	var/block = air_blocked(A,B)
 	if(block & AIR_BLOCKED)
 		return
@@ -463,13 +465,13 @@ SUBSYSTEM_DEF(zas)
 	#ifdef ZASDBG
 	ASSERT(isturf(T))
 	#endif
-	if(T.needs_air_update)
+	if(T.zas_enqueued)
 		return
 	tiles_to_update += T
 	#ifdef ZASDBG
 	T.vis_contents += zasdbgovl_mark
 	#endif
-	T.needs_air_update = 1
+	T.zas_enqueued = 1
 
 ///Marks a zone for update.
 /datum/controller/subsystem/zas/proc/mark_zone_update(zone/Z)

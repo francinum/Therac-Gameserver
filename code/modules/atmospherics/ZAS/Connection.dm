@@ -81,16 +81,13 @@ Class Procs:
 		edge = SSzas.get_edge(A.zone,B.zone)
 		edge.add_connection(src)
 
-///Unmarks this connection as direct. Does not update the edge. Called by update() as a correction.
+///Marks this connection as direct. Does not update the edge. Called by update() as a correction.
 /connection/proc/mark_direct()
 	if(!direct())
 		state |= CONNECTION_DIRECT
 		edge.direct++
 
-	#ifdef ZASDBG
-	if(verbose)
-		zas_log("Marked direct.")
-	#endif
+	ZASDBG_LOG("Marked direct.")
 
 ///Unmarks this connection as direct. Does not update the edge. Called by update() as a correction.
 /connection/proc/mark_indirect()
@@ -98,10 +95,7 @@ Class Procs:
 		state &= ~CONNECTION_DIRECT
 		edge.direct--
 
-	#ifdef ZASDBG
-	if(verbose)
-		zas_log("Marked indirect.")
-	#endif
+		ZASDBG_LOG("Marked indirect.")
 
 ///Marks this connection as unsimulated. Updating the connection will check the validity of this. See file header for more information.
 /connection/proc/mark_unsimulated()
@@ -120,33 +114,21 @@ Class Procs:
 	edge.remove_connection(src)
 	state |= CONNECTION_INVALID
 
-	#ifdef ZASDBG
-	if(verbose)
-		zas_log("Connection Erased: [state]")
-	#endif
+	ZASDBG_LOG("Connection Erased: [state]")
 
 ///Makes numerous checks to decide whether the connection is still valid. Erases it automatically if not.
 /connection/proc/update()
-	#ifdef ZASDBG
-	if(verbose)
-		zas_log("Updated, \...")
-	#endif
+	ZASDBG_LOG("Updated, \...")
 
 	if(!A.simulated) //If turf A isn't simulated, erase this connection.
-		#ifdef ZASDBG
-		if(verbose)
-			zas_log("Invalid A. Erasing...")
-		#endif
+		ZASDBG_LOG("Invalid A. Erasing...")
 
 		erase()
 		return
 
 	var/block_status = SSzas.air_blocked(A,B)
 	if(block_status & AIR_BLOCKED) //If turfs A and B cant mingle, erase this connection
-		#ifdef ZASDBG
-		if(verbose)
-			zas_log("Blocked connection. Erasing...")
-		#endif
+		ZASDBG_LOG("Blocked connection. Erasing...")
 
 		erase()
 		return
@@ -160,26 +142,17 @@ Class Procs:
 
 	if(state & CONNECTION_UNSIMULATED)
 		if(!b_is_space) //If this is an unsimulated connection and B isn't unsimulated, erase.
-			#ifdef ZASDBG
-			if(verbose)
-				zas_log("Invalid B. Erasing...")
-			#endif
+			ZASDBG_LOG("Invalid B. Erasing...")
 			erase()
 			return
 
 		if(A.zone != zoneA) //If turf A's zone has changed, attempt to migrate the connection to the new zone. Otherwise, erase.
-			#ifdef ZASDBG
-			if(verbose)
-				zas_log("Zone changed, \...")
-			#endif
+			ZASDBG_LOG("Zone changed, \...")
 
 			if(!A.zone) //No zone, erase.
 				erase()
 
-				#ifdef ZASDBG
-				if(verbose)
-					zas_log("Turf A's zone has disappeared. Erasing...")
-				#endif
+				ZASDBG_LOG("Turf A's zone has disappeared. Erasing...")
 				return
 
 			else
@@ -188,33 +161,22 @@ Class Procs:
 				edge.add_connection(src)
 				zoneA = A.zone
 
-		#ifdef ZASDBG
-		if(verbose)
-			zas_log("Connection is valid.")
-		#endif
+
+		ZASDBG_LOG("Connection is valid.")
 		return
 
 	else if(b_is_space) //If B is unsimulated and this isn't an unsimulated connection, erase.
-		#ifdef ZASDBG
-		if(verbose)
-			zas_log("Turf B is unsimulated, but this is a simulated connection. Erasing...")
-		#endif
+		ZASDBG_LOG("Turf B is unsimulated, but this is a simulated connection. Erasing...")
 		erase()
 		return
 
 	if(A.zone == B.zone) //If both turfs share a zone, erase.
-		#ifdef ZASDBG
-		if(verbose)
-			zas_log("Turf A and Turf B share a zone. Erasing...")
-		#endif
+		ZASDBG_LOG("Turf A and Turf B share a zone. Erasing...")
 		erase()
 		return
 
 	if(A.zone != zoneA || (zoneB && (B.zone != zoneB))) //If either turf's zone changed
-		#ifdef ZASDBG
-		if(verbose)
-			zas_log("Zones changed, \...")
-		#endif
+		ZASDBG_LOG("Zones changed, \...")
 
 		if(A.zone && B.zone) //Find where we're supposed to be and move us there
 			edge.remove_connection(src)
@@ -223,17 +185,11 @@ Class Procs:
 			zoneA = A.zone
 			zoneB = B.zone
 		else
-			#ifdef ZASDBG
-			if(verbose)
-				zas_log("Turf A or B lost it's zone. Erasing...")
-			#endif
+			ZASDBG_LOG("Turf A or B lost it's zone. Erasing...")
 			erase()
 			return
 
-	#ifdef ZASDBG
-	if(verbose)
-		zas_log("Connection is valid.")
-	#endif
+	ZASDBG_LOG("Connection is valid.")
 
 /connection_edge/proc/queue_spacewind()
 	return

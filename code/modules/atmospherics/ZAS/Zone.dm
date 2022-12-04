@@ -134,9 +134,7 @@ Class Procs:
 			continue
 		into.add_turf(T)
 		T.update_graphic(graphic_remove = air.graphic)
-		#ifdef ZASDBG
-		T.dbg(zasdbgovl_merged)
-		#endif
+		ZAS_DEBUG_OVERLAY(T, zasdbgovl_merged)
 
 	//rebuild the old zone's edges so that they will be possessed by the new zone
 	for(var/edge_source in edges)
@@ -151,6 +149,7 @@ Class Procs:
 /zone/proc/invalidate()
 	invalid = 1
 	SSzas.remove_zone(src)
+
 	#ifdef ZASDBG
 	for(var/turf/T as anything in contents)
 		if(!T.simulated)
@@ -167,10 +166,8 @@ Class Procs:
 		if(!T.simulated)
 			continue
 		T.update_graphic(graphic_remove = air.graphic) //we need to remove the overlays so they're not doubled when the zone is rebuilt
-		#ifdef ZASDBG
-		//T.dbg(invalid_zone)
-		#endif
-		T.needs_air_update = 0 //Reset the marker so that it will be added to the list.
+		ZAS_DEBUG_OVERLAY(T, zasdbgovl_invalid_zone)
+		T.zas_enqueued = 0 //Reset the marker so that it will be added to the list.
 		SSzas.mark_for_update(T)
 
 		CHECK_TICK

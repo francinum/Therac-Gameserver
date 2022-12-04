@@ -83,10 +83,7 @@ Class Procs:
 	if(c.direct())
 		direct++
 
-	#ifdef ZASDBG
-	if(verbose)
-		zas_log("Connection added: [type] Coefficient: [coefficient]")
-	#endif
+	ZASDBG_LOG("Connection added: [type] Coefficient: [coefficient]")
 
 ///Removes a connection from this edge. This works even if c is not in the edge, so be careful.
 /connection_edge/proc/remove_connection(connection/c)
@@ -96,10 +93,7 @@ Class Procs:
 	if(c.direct())
 		direct--
 
-	#ifdef ZASDBG
-	if(verbose)
-		zas_log("Connection removed: [type] Coefficient: [coefficient-1]")
-	#endif
+	ZASDBG_LOG("Connection removed: [type] Coefficient: [coefficient-1]")
 
 ///Returns true if either A or B is equal to Z. Unsimulated connections return true only on A.
 /connection_edge/proc/contains_zone(zone/Z)
@@ -108,10 +102,8 @@ Class Procs:
 ///Removes this connection from processing and zone edge lists.
 /connection_edge/proc/erase()
 	SSzas.remove_edge(src)
-	#ifdef ZASDBG
-	if(verbose)
-		zas_log("[type] Erased.")
-	#endif
+
+	ZASDBG_LOG("[type] Erased.")
 
 ///Called every air tick on edges in the processing list. Equalizes gas.
 /connection_edge/proc/tick()
@@ -170,11 +162,8 @@ Class Procs:
 	src.B = B
 	A.edges[B] = src
 	B.edges[A] = src
-	//id = edge_id(A,B)
-	#ifdef ZASDBG
-	if(verbose)
-		zas_log("New edge between [A] and [B]")
-	#endif
+
+	ZASDBG_LOG("New edge between [A] and [B]")
 
 	SSzas.edges += src
 	recheck()
@@ -246,10 +235,7 @@ Class Procs:
 	src.B = B
 	A.edges[B] = src
 	air = B.return_air()
-	#ifdef ZASDBG
-	if(verbose)
-		zas_log("New edge from [A] to [B] ([B.x], [B.y], [B.z]).")
-	#endif
+	ZASDBG_LOG("New edge from [A] to [B] ([B.x], [B.y], [B.z]).")
 
 	SSzas.edges += src
 	recheck()

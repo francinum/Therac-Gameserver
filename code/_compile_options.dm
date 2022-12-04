@@ -127,7 +127,7 @@
 /////////////////////// ZONE ATMOSPHERIC SYSTEM
 
 ///Enables verbose debugging and the debug overlay. NOTE: Debug Overlay does not report MultiZAS information at this time.
-// #define ZASDBG
+//#define ZASDBG
 
 ///Enables multi-Z air movement. Zones do not merge across Z levels.
 #define MULTIZAS
@@ -228,4 +228,22 @@
 #ifdef GC_FAILURE_HARD_LOOKUP
 // Don't stop when searching, go till you're totally done
 #define FIND_REF_NO_CHECK_TICK
+#endif
+
+#ifdef ZASDBG
+#define ZASDBG_LOG(text) if(verbose) {zas_log(text)}
+#define ZAS_DEBUG_OVERLAY(target, overlay) target.dbg(overlay)
+#define ZAS_ASSERT(condition) ASSERT(condition)
+#define ZAS_DEBUG_DIRECTIONAL_BLOCKER_OVERLAY(target, dir, zone) zone ? target.zasdbg_directional_zone_blocker_overlay(dir) : target.zasdbg_directional_blocker_overlay(dir)
+#define ZAS_DEBUG_CLEAR_DIRECTIONAL_OVERLAYS(target) for(var/_dir in target.zas_debug_blocker_images) {target.vis_contents -= target.zas_debug_blocker_images[_dir]}; target.zas_debug_blocker_images.Cut();
+#define ZAS_DEBUG_CLEAR_DIRECTIONAL_OVERLAY_FOR_DIR(target, dir) if(target.zas_debug_blocker_images[dir]) \
+		target.vis_contents -= target.zas_debug_blocker_images[dir]; \
+		target.zas_debug_blocker_images[dir] = null;
+#else
+#define ZASDBG_LOG(...) NOTHING(...)
+#define ZAS_DEBUG_OVERLAY(...) NOTHING(...)
+#define ZAS_ASSERT(...) NOTHING(...)
+#define ZAS_DEBUG_CLEAR_DIRECTIONAL_OVERLAYS(...) NOTHING(...)
+#define ZAS_DEBUG_DIRECTIONAL_BLOCKER_OVERLAY(...) NOTHING(...)
+#define ZAS_DEBUG_CLEAR_DIRECTIONAL_OVERLAY_FOR_DIR(...) NOTHING(...)
 #endif

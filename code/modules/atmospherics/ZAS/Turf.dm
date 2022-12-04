@@ -8,7 +8,7 @@
 
 /turf
 	///Does this turf need to be ran through SSzas? (SSzas.mark_for_update(turf) OR turf.zas_update_loc())
-	var/needs_air_update = 0
+	var/zas_enqueued = 0
 	///The local gas mixture of this turf. Use return_air(). This will always exist even if not in use, because GCing air contents would be too expensive.
 	var/datum/gas_mixture/air
 	var/heat_capacity = INFINITY
@@ -123,6 +123,8 @@
 	. = !.
 
 /turf/open/update_air_properties()
+	ZAS_DEBUG_CLEAR_DIRECTIONAL_OVERLAYS(src)
+
 	if(!simulated)
 		return ..()
 
@@ -133,11 +135,9 @@
 	var/self_block
 	ATMOS_CANPASS_TURF(self_block, src, src)
 	if(self_block & AIR_BLOCKED)
-		#ifdef ZASDBG
-		if(verbose)
-			zas_log("Self-blocked.")
-		src.dbg(zasdbgovl_blocked)
-		#endif
+		ZASDBG_LOG("Self-blocked.")
+		ZAS_DEBUG_OVERLAY(src, zasdbgovl_blocked)
+
 		if(zone)
 			zone.remove_turf(src)
 		return 1
@@ -163,22 +163,17 @@
 		var/us_to_target
 		ATMOS_CANPASS_TURF(us_to_target, target, src)
 		if(us_to_target & AIR_BLOCKED)
-			#ifdef ZASDBG
-			if(verbose)
-				zas_log("[dir2text(d)] is blocked.")
-			//src.dbg(ZAS_DIRECTIONAL_BLOCKER(d))
-			#endif
+			ZASDBG_LOG("[dir2text(d)] is blocked.")
+			ZAS_DEBUG_DIRECTIONAL_BLOCKER_OVERLAY(src, d, FALSE)
 			continue
 
 		///The air mobility of target >> src
 		var/target_to_us
 		ATMOS_CANPASS_TURF(target_to_us, src, target)
 		if(target_to_us & AIR_BLOCKED)
-			#ifdef ZASDBG
-			if(verbose)
-				zas_log("[dir2text(d)] is blocked.")
-			//target.dbg(ZAS_DIRECTIONAL_BLOCKER(turn(d, 180)))
-			#endif
+			ZASDBG_LOG("[dir2text(d)] is blocked.")
+			ZAS_DEBUG_DIRECTIONAL_BLOCKER_OVERLAY(target, (turn(d, 180)), FALSE)
+
 			//Check that our zone hasn't been cut off recently.
 			//This happens when windows move or are constructed. We need to rebuild.
 			if((previously_open & d) && target.simulated)
@@ -198,11 +193,8 @@
 					//    they are blocking us and we are not blocking them, or if
 					//    we are blocking them and not blocking ourselves - this prevents tiny zones from forming on doorways.
 					if(((us_to_target & ZONE_BLOCKED) && !(target_to_us & ZONE_BLOCKED)) || ((target_to_us & ZONE_BLOCKED) && !(self_block & ZONE_BLOCKED)))
-						#ifdef ZASDBG
-						if(verbose)
-							zas_log("[dir2text(d)] is zone blocked.")
-						//dbg(ZAS_ZONE_BLOCKER(d))
-						#endif
+						ZASDBG_LOG("[dir2text(d)] is zone blocked.")
+						ZAS_DEBUG_DIRECTIONAL_BLOCKER_OVERLAY(src, d, TRUE)
 
 						//Postpone this tile rather than exit, since a connection can still be made.
 						LAZYADD(postponed, target)
@@ -210,17 +202,11 @@
 					else
 						target.zone.add_turf(src)
 
-						#ifdef ZASDBG
-						dbg(zasdbgovl_assigned)
-						if(verbose)
-							zas_log("Added to [zone]")
-						#endif
+						ZAS_DEBUG_OVERLAY(src, zasdbgovl_assigned)
+						ZASDBG_LOG("Added to [zone]")
 
 				else if(target.zone != zone)
-					#ifdef ZASDBG
-					if(verbose)
-						zas_log("Connecting to [target.zone]")
-					#endif
+					ZASDBG_LOG("Connecting to [target.zone]")
 
 					SSzas.connect(src, target)
 
@@ -238,14 +224,11 @@
 	if(!TURF_HAS_VALID_ZONE(src)) //Still no zone, make a new one.
 		var/zone/newzone = new
 		newzone.add_turf(src)
+		ZAS_DEBUG_OVERLAY(src, zasdbgovl_created)
+		ZASDBG_LOG("New zone created for src.")
 
-	#ifdef ZASDBG
-		dbg(zasdbgovl_created)
-		if(verbose)
-			zas_log("New zone created for src.")
+	ZAS_ASSERT(zone)
 
-	ASSERT(zone)
-	#endif
 
 	//At this point, a zone should have happened. If it hasn't, don't add more checks, fix the bug.
 
