@@ -973,8 +973,8 @@ generate/load female uniform sprites matching all previously decided variables
 		return
 
 	HD.update_limb(is_creating = update_limb_data)
+	HD.render()
 
-	add_overlay(HD.get_limb_icon())
 	update_damage_overlays()
 
 	if(HD && !(HAS_TRAIT(src, TRAIT_HUSK)))

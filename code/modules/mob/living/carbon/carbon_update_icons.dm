@@ -73,12 +73,14 @@
 
 //used when putting/removing clothes that hide certain mutant body parts to just update those and not update the whole body.
 /mob/living/carbon/human/proc/update_mutant_bodyparts()
-	dna.species.handle_mutant_bodyparts(src)
-	update_body_parts()
+	//dna.species.handle_mutant_bodyparts(src)
+	//update_body_parts()
+	#warn update_mutant_bodyparts
 
 /mob/living/carbon/update_body(is_creating = FALSE)
-	dna.species.handle_body(src) //This calls `handle_mutant_bodyparts` which calls `update_mutant_bodyparts()`. Don't double call!
-	update_body_parts(is_creating)
+	//dna.species.handle_body(src) //This calls `handle_mutant_bodyparts` which calls `update_mutant_bodyparts()`. Don't double call!
+	//update_body_parts(is_creating)
+	#warn update_body
 
 /mob/living/carbon/regenerate_icons()
 	if(notransform)
@@ -265,7 +267,6 @@
 	update_damage_overlays()
 	update_wound_overlays()
 	var/list/needs_update = list()
-	var/limb_count_update = FALSE
 	var/obj/item/bodypart/l_leg/left_leg
 	var/obj/item/bodypart/r_leg/right_leg
 	var/old_left_leg_key
@@ -289,34 +290,13 @@
 
 
 	// Here we handle legs differently, because legs are a mess due to layering code. So we got to process the left leg first. Thanks BYOND.
-	var/legs_need_redrawn = update_legs(right_leg, left_leg, old_left_leg_key)
-
-	var/list/missing_bodyparts = get_missing_limbs()
-	if(((dna ? dna.species.max_bodypart_count : BODYPARTS_DEFAULT_MAXIMUM) - icon_render_keys.len) != missing_bodyparts.len) //Checks to see if the target gained or lost any limbs.
-		limb_count_update = TRUE
-		for(var/missing_limb in missing_bodyparts)
-			icon_render_keys -= missing_limb //Removes dismembered limbs from the key list
-
-	if(!needs_update.len && !limb_count_update && !legs_need_redrawn)
-		return
-
+	//update_legs(right_leg, left_leg, old_left_leg_key)
+	#warn update_legs
 
 	//GENERATE NEW LIMBS
-	var/list/new_limbs = list()
-	for(var/obj/item/bodypart/limb as anything in bodyparts)
-		if(limb in needs_update) //Checks to see if the limb needs to be redrawn
-			var/bodypart_icon = limb.get_limb_icon()
-			new_limbs += bodypart_icon
-			limb_icon_cache[icon_render_keys[limb.body_zone]] = bodypart_icon //Caches the icon with the bodypart key, as it is new
-		else
-			new_limbs += limb_icon_cache[icon_render_keys[limb.body_zone]] //Pulls existing sprites from the cache
-
-	remove_overlay(BODYPARTS_LAYER)
-
-	if(new_limbs.len)
-		overlays_standing[BODYPARTS_LAYER] = new_limbs
-
-	apply_overlay(BODYPARTS_LAYER)
+	for(var/obj/item/bodypart/limb as anything in needs_update)
+		var/mutable_appearance/bodypart_icon = limb.render()
+		limb_icon_cache[icon_render_keys[limb.body_zone]] = bodypart_icon
 
 
 /**
@@ -336,7 +316,7 @@
 	if(left_leg)
 		// We regenerate the look of the left leg if it isn't already cached, we don't if not.
 		if(icon_render_keys[left_leg.body_zone] != old_left_leg_key)
-			limb_icon_cache[icon_render_keys[left_leg.body_zone]] = left_leg.get_limb_icon()
+			limb_icon_cache[icon_render_keys[left_leg.body_zone]] = left_leg.render()
 			legs_need_redrawn = TRUE
 
 		left_leg_icons = limb_icon_cache[icon_render_keys[left_leg.body_zone]]
@@ -351,7 +331,7 @@
 		icon_render_keys[right_leg.body_zone] = right_leg.is_husked ? right_leg.generate_husk_key().Join("-") : right_leg.generate_icon_key().Join()
 
 		if(icon_render_keys[right_leg.body_zone] != old_right_leg_key)
-			limb_icon_cache[icon_render_keys[right_leg.body_zone]] = right_leg.get_limb_icon()
+			limb_icon_cache[icon_render_keys[right_leg.body_zone]] = right_leg.render()
 			legs_need_redrawn = TRUE
 
 	return legs_need_redrawn

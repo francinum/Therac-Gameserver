@@ -91,6 +91,7 @@
 	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
 	update_limb(1)
 	owner.remove_bodypart(src)
+	set_mob_appearance(FALSE)
 
 	if(held_index)
 		if(owner.hand_bodyparts[held_index] == src)
@@ -136,11 +137,10 @@
 				continue
 			organ.transfer_to_limb(src, phantom_owner)
 
-	update_icon_dropped()
+	render()
 	synchronize_bodytypes(phantom_owner)
 	phantom_owner.update_health_hud() //update the healthdoll
 	phantom_owner.update_body()
-	phantom_owner.update_body_parts()
 
 	if(!drop_loc) // drop_loc = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
 		qdel(src)
@@ -379,8 +379,10 @@
 	new_limb_owner.bodyparts = sort_list(new_limb_owner.bodyparts, /proc/cmp_bodypart_by_body_part_asc)
 	synchronize_bodytypes(new_limb_owner)
 	new_limb_owner.updatehealth()
-	new_limb_owner.update_body()
 	new_limb_owner.update_damage_overlays()
+
+	set_mob_appearance(TRUE)
+	render()
 	return TRUE
 
 /obj/item/bodypart/head/attach_limb(mob/living/carbon/new_head_owner, special = FALSE, abort = FALSE)

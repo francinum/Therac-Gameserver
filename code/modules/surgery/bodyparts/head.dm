@@ -87,7 +87,7 @@
 /obj/item/bodypart/head/handle_atom_del(atom/head_atom)
 	if(head_atom == brain)
 		brain = null
-		update_icon_dropped()
+		render()
 		if(!QDELETED(brainmob)) //this shouldn't happen without badminnery.
 			message_admins("Brainmob: ([ADMIN_LOOKUPFLW(brainmob)]) was left stranded in [src] at [ADMIN_VERBOSEJMP(src)] without a brain!")
 			log_game("Brainmob: ([key_name(brainmob)]) was left stranded in [src] at [AREACOORD(src)] without a brain!")
@@ -95,7 +95,7 @@
 		brainmob = null
 	if(head_atom == eyes)
 		eyes = null
-		update_icon_dropped()
+		render()
 	if(head_atom == ears)
 		ears = null
 	if(head_atom == tongue)
@@ -152,7 +152,7 @@
 				brain.setOrganDamage(brain.maxHealth)
 			brain.forceMove(head_turf)
 			brain = null
-			update_icon_dropped()
+			render()
 		else
 			if(istype(head_item, /obj/item/reagent_containers/pill))
 				for(var/datum/action/item_action/hands_free/activate_pill/pill_action in head_item.actions)
@@ -185,24 +185,24 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/obj/item/bodypart/head/get_limb_icon(dropped, draw_external_organs)
-	cut_overlays()
+/obj/item/bodypart/head/render(dropped)
 	. = ..()
-	if(dropped) //certain overlays only appear when the limb is being detached from its owner.
+	var/mutable_appearance/new_appearance = new(src)
 
+	if(dropped) //certain overlays only appear when the limb is being detached from its owner.
 		if(IS_ORGANIC_LIMB(src)) //having a robotic head hides certain features.
 			//facial hair
 			if(facial_hairstyle && (FACEHAIR in species_flags_list))
 				var/datum/sprite_accessory/sprite = GLOB.facial_hairstyles_list[facial_hairstyle]
 				if(sprite)
-					var/image/facial_overlay = image(sprite.icon, "[sprite.icon_state]", -HAIR_LAYER, SOUTH)
+					var/mutable_appearance/facial_overlay = mutable_appearance(sprite.icon, "[sprite.icon_state]", -HAIR_LAYER)
 					facial_overlay.color = facial_hair_color
 					facial_overlay.alpha = hair_alpha
-					. += facial_overlay
+					new_appearance.overlays += facial_overlay
 
 			//Applies the debrained overlay if there is no brain
 			if(!brain)
-				var/image/debrain_overlay = image(layer = -HAIR_LAYER, dir = SOUTH)
+				var/mutable_appearance/debrain_overlay = mutable_appearance(layer = -HAIR_LAYER)
 				if(animal_origin == ALIEN_BODYPART)
 					debrain_overlay.icon = 'icons/mob/animal_parts.dmi'
 					debrain_overlay.icon_state = "debrained_alien"
@@ -212,49 +212,52 @@
 				else if(!(NOBLOOD in species_flags_list))
 					debrain_overlay.icon = 'icons/mob/human_face.dmi'
 					debrain_overlay.icon_state = "debrained"
-				. += debrain_overlay
+				new_appearance.overlays += debrain_overlay
 			else
 				var/datum/sprite_accessory/sprite2 = GLOB.hairstyles_list[hair_style]
 				if(sprite2 && (HAIR in species_flags_list))
-					var/image/hair_overlay = image(sprite2.icon, "[sprite2.icon_state]", -HAIR_LAYER, SOUTH)
+					var/image/hair_overlay = image(sprite2.icon, "[sprite2.icon_state]", -HAIR_LAYER)
 					hair_overlay.color = hair_color
 					hair_overlay.alpha = hair_alpha
-					. += hair_overlay
+					new_appearance.overlays += hair_overlay
 
 
 		// lipstick
 		if(lip_style)
-			var/image/lips_overlay = image('icons/mob/human_face.dmi', "lips_[lip_style]", -BODY_LAYER, SOUTH)
+			var/mutable_appearance/lips_overlay = mutable_appearance('icons/mob/human_face.dmi', "lips_[lip_style]", -BODY_LAYER)
 			lips_overlay.color = lip_color
-			. += lips_overlay
+			new_appearance.overlays += lips_overlay
 
 		// eyes
 		if(eyes) // This is a bit of copy/paste code from eyes.dm:generate_body_overlay
-			var/image/eye_left = image(eyes_icon_file, "[eyes.eye_icon_state]_l", -BODY_LAYER, SOUTH)
-			var/image/eye_right = image(eyes_icon_file, "[eyes.eye_icon_state]_r", -BODY_LAYER, SOUTH)
+			var/mutable_appearance/eye_left = mutable_appearance(eyes_icon_file, "[eyes.eye_icon_state]_l", -BODY_LAYER)
+			var/mutable_appearance/eye_right = mutable_appearance(eyes_icon_file, "[eyes.eye_icon_state]_r", -BODY_LAYER)
 			if(eyes.eye_color_left)
 				eye_left.color = eyes.eye_color_left
 			if(eyes.eye_color_right)
 				eye_right.color = eyes.eye_color_right
-			. += eye_left
-			. += eye_right
+			new_appearance.overlays += eye_left
+			new_appearance.overlays += eye_right
 		else
-			. += image(eyes_icon_file, "eyes_missing", -BODY_LAYER, SOUTH)
+			new_appearance.overlays += mutable_appearance(eyes_icon_file, "eyes_missing", -BODY_LAYER)
 	else
 		if(!facial_hair_hidden && facial_overlay && (FACEHAIR in species_flags_list))
 			facial_overlay.alpha = hair_alpha
-			. += facial_overlay
+			new_appearance.overlays += facial_overlay
 			if(facial_gradient_overlay)
-				. += facial_gradient_overlay
+				new_appearance.overlays += facial_gradient_overlay
 
 		if(show_debrained)
-			. += mutable_appearance('icons/mob/human_face.dmi', "debrained", HAIR_LAYER)
+			new_appearance.overlays += mutable_appearance('icons/mob/human_face.dmi', "debrained", HAIR_LAYER)
 
 		else if(!hair_hidden && hair_overlay && (HAIR in species_flags_list))
 			hair_overlay.alpha = hair_alpha
-			. += hair_overlay
+			new_appearance.overlays += hair_overlay
 			if(hair_gradient_overlay)
-				. += hair_gradient_overlay
+				new_appearance.overlays += hair_gradient_overlay
+
+	src.appearance = new_appearance
+	return new_appearance
 
 /mob/living/proc/set_haircolor(hex_string, override)
 	return

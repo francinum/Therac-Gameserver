@@ -217,7 +217,7 @@
 	limb.name = "\improper synthetic [selected_category] [limb.plaintext_zone]"
 	limb.limb_id = selected_category
 	limb.mutation_color = "#62A262"
-	limb.update_icon_dropped()
+	limb.render()
 
 ///Returns a valid limb typepath based on the selected option
 /obj/machinery/limbgrower/proc/create_buildpath()
