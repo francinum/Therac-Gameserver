@@ -903,7 +903,8 @@ generate/load female uniform sprites matching all previously decided variables
 	else if(femaleuniform)
 		standing = wear_female_version(t_state, file2use, layer2use, femaleuniform, greyscale_colors) //should layer2use be in sync with the adjusted value below? needs testing - shiz
 	if(!standing)
-		standing = mutable_appearance(file2use, t_state, -layer2use)
+		standing = mutable_appearance(file2use, t_state, layer2use)
+		#warn DEFLOATED
 
 	//Get the overlays for this item when it's being worn
 	//eg: ammo counters, primed grenade flashes, etc.

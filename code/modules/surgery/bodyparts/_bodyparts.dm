@@ -8,7 +8,7 @@
 	icon_state = "" //Leave this blank! Bodyparts are built using overlays
 
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
-	vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_ID|VIS_INHERIT_DIR|VIS_INHERIT_LAYER
+	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_DIR
 
 	/// The icon for Organic limbs using greyscale
 	VAR_PROTECTED/icon_greyscale = DEFAULT_BODYPART_ICON_ORGANIC
@@ -698,10 +698,17 @@
 	RETURN_TYPE(/list)
 
 	var/mutable_appearance/new_appearance = new(src)
-	new_appearance.layer = -BODYPARTS_LAYER
+	new_appearance.plane = GAME_PLANE
+	new_appearance.layer = BODYPARTS_LAYER
 	new_appearance.overlays.Cut()
 
-	var/mutable_appearance/hand_overlay = mutable_appearance(layer = -BODYPARTS_LAYER)
+	var/mutable_appearance/hand_overlay = new()
+	hand_overlay.overlays.Cut()
+	hand_overlay.appearance_flags = KEEP_APART|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
+	hand_overlay.plane = GAME_PLANE
+	hand_overlay.layer = aux_layer
+	if(aux_zone)
+		new_appearance.overlays += hand_overlay
 
 	var/image_dir = 0
 	if(dropped)
@@ -734,8 +741,8 @@
 		new_appearance.icon_state = "[husk_type]_husk_[body_zone]"
 		icon_exists(new_appearance.icon, new_appearance.icon_state, scream = TRUE) //Prints a stack trace on the first failure of a given iconstate.
 		if(aux_zone) //Hand shit
-			hand_overlay = mutable_appearance(new_appearance.icon, "[husk_type]_husk_[aux_zone]", -aux_layer)
-			new_appearance.overlays += hand_overlay
+			hand_overlay.icon = new_appearance.icon
+			hand_overlay.icon_state = "[husk_type]_husk_[aux_zone]"
 		src.appearance = new_appearance
 		return new_appearance
 	//END HUSK SHIIIIT
@@ -763,8 +770,8 @@
 	#warn leg masking
 
 	if(aux_zone) //Hand shit
-		hand_overlay = mutable_appearance(new_appearance.icon, "[limb_id]_[aux_zone]", -aux_layer)
-		new_appearance.overlays += hand_overlay
+		hand_overlay.icon = new_appearance.icon
+		hand_overlay.icon_state = "[limb_id]_[aux_zone]"
 
 	draw_color = mutation_color
 	if(should_draw_greyscale) //Should the limb be colored outside of a forced color?
@@ -783,7 +790,6 @@
 		if(aux_zone)
 			var/mutable_appearance/aux_em_block = emissive_blocker(hand_overlay.icon, hand_overlay.icon_state, alpha = hand_overlay.alpha)
 			hand_overlay.overlays += aux_em_block
-	#warn emissive blockers
 
 	//EMISSIVE CODE END
 	//Draw external organs like horns and frills
@@ -1001,15 +1007,14 @@
 		var/mutable_appearance/mut = new(src)
 		mut.pixel_x = 0
 		mut.pixel_y = 0
-		mut.layer = -BODYPARTS_LAYER
 		src.appearance = mut
 		onmob = TRUE
 	else
 		var/mutable_appearance/mut = new(src)
 		mut.pixel_x = px_x
 		mut.pixel_y = px_y
-		mut.layer = initial(layer)
 		mut.plane = initial(plane)
+		mut.layer = initial(layer)
 		mut.appearance_flags = initial(appearance_flags)
 		src.appearance = mut
 		onmob = FALSE
