@@ -73,15 +73,6 @@
 	for(var/gas_to_filter in filter_or_filters)
 		filter_types |= gas_to_filter
 
-	var/turf/our_turf = get_turf(src)
-
-	if(!our_turf.simulated)
-		return FALSE
-
-	var/datum/gas_mixture/turf_gas = our_turf.air
-	if(!turf_gas)
-		return FALSE
-
 	COOLDOWN_RESET(src, hibernating)
 	return TRUE
 

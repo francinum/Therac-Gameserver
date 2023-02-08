@@ -14,7 +14,9 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-	simulated = TRUE //Kilostation
+	simulated = SIMULATED_ZONE //Kilostation
+	initial_gas = list()
+	temperature = T0C
 
 	/// Base turf type to be created by the tunnel
 	var/turf_type = /turf/open/misc/asteroid
@@ -109,7 +111,8 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	broken_state = "basalt_dug"
 
 	initial_gas = LAVALAND_DEFAULT_ATMOS
-	simulated = FALSE //OH *FUCK* NO.
+	temperature = T20C
+	simulated = UNSIMULATED //OH *FUCK* NO.
 
 /turf/open/misc/asteroid/basalt/getDug()
 	set_light(0)
@@ -172,7 +175,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	slowdown = 2
 	flags_1 = NONE
 
-	simulated = FALSE
+	simulated = UNSIMULATED
 	initial_gas = ICEMOON_DEFAULT_ATMOS
 
 	bullet_sizzle = TRUE

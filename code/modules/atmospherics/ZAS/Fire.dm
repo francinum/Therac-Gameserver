@@ -22,7 +22,7 @@ If it gains pressure too slowly, it may leak or just rupture instead of explodin
 	return
 
 /turf/open/hotspot_expose(exposed_temperature, exposed_volume, soh)
-	if(!simulated)
+	if(!(simulated & SIMULATED_ZONE))
 		return 0
 	if(fire_protection > world.time-300)
 		return 0
@@ -94,7 +94,7 @@ If it gains pressure too slowly, it may leak or just rupture instead of explodin
 	return 0
 
 /turf/open/create_fire(fl, create_own_fuel)
-	if(!simulated)
+	if(!(simulated & SIMULATED_ZONE))
 		return
 
 	if(fire)

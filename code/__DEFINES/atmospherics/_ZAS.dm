@@ -17,6 +17,10 @@
 ///Air can never pass
 #define CANPASS_NEVER 4
 
+#define UNSIMULATED 0
+#define SIMULATED_PLANETARY (1<<0)
+#define SIMULATED_ZONE (1<<0)
+
 #define NORTHUP (NORTH|UP)
 #define EASTUP (EAST|UP)
 #define SOUTHUP (SOUTH|UP)

@@ -39,7 +39,7 @@
 	to_chat(usr, "\[3/5\] - All ZAS Zones removed.")
 
 	for(var/turf/T in world)
-		if(!T.simulated)
+		if(!(T.simulated & SIMULATED_ZONE))
 			continue
 		T.air = null
 		for(var/obj/effect/gas_overlay/effect in T.vis_contents)

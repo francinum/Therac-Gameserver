@@ -141,7 +141,7 @@ Class Procs:
 	invalidate()
 
 	for(var/turf/T as anything in contents)
-		if(!T.simulated)
+		if(!(T.simulated & SIMULATED_ZONE))
 			continue
 		into.add_turf(T)
 		T.update_graphic(graphic_remove = air.graphic)
@@ -178,7 +178,7 @@ Class Procs:
 	invalidate()
 
 	for(var/turf/T as anything in contents)
-		if(!T.simulated)
+		if(!(T.simulated & SIMULATED_ZONE))
 			continue
 		T.update_graphic(graphic_remove = air.graphic) //we need to remove the overlays so they're not doubled when the zone is rebuilt
 		#ifdef ZASDBG

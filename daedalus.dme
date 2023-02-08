@@ -2453,6 +2453,7 @@
 #include "code\modules\atmospherics\ZAS\_docs.dm"
 #include "code\modules\atmospherics\ZAS\Airflow.dm"
 #include "code\modules\atmospherics\ZAS\atmos_primitives.dm"
+#include "code\modules\atmospherics\ZAS\Atmosphere.dm"
 #include "code\modules\atmospherics\ZAS\Atom.dm"
 #include "code\modules\atmospherics\ZAS\Connection.dm"
 #include "code\modules\atmospherics\ZAS\ConnectionGroup.dm"

@@ -72,7 +72,7 @@ Class Procs:
 	src.A = A
 	src.B = B
 	zoneA = A.zone
-	if(!B.simulated)
+	if(!(B.simulated & SIMULATED_ZONE))
 		mark_unsimulated()
 		edge = SSzas.get_edge(A.zone,B)
 		edge.add_connection(src)
@@ -132,7 +132,7 @@ Class Procs:
 		zas_log("Updated, \...")
 	#endif
 
-	if(!A.simulated) //If turf A isn't simulated, erase this connection.
+	if(!(A.simulated & SIMULATED_ZONE)) //If turf A isn't simulated, erase this connection.
 		#ifdef ZASDBG
 		if(verbose)
 			zas_log("Invalid A. Erasing...")
@@ -156,7 +156,7 @@ Class Procs:
 	else
 		mark_direct()
 
-	var/b_is_space = !B.simulated
+	var/b_is_space = !(B.simulated & SIMULATED_ZONE)
 
 	if(state & CONNECTION_UNSIMULATED)
 		if(!b_is_space) //If this is an unsimulated connection and B isn't unsimulated, erase.

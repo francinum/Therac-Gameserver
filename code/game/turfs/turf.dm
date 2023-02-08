@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(connections)
 		connections.erase_all()
 
-	if(simulated && zone)
+	if(zone)
 		zone.remove_turf(src)
 	///NO MORE ZAS THINGS
 

@@ -39,5 +39,5 @@
 	simulated = FALSE
 
 /turf/open/misc/ice/icemoon/no_planet_atmos
-	simulated = TRUE
+	simulated = SIMULATED_ZONE
 

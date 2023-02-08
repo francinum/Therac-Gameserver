@@ -1,7 +1,7 @@
 /client/proc/Zone_Info(turf/T as null|turf)
 	set category = "Debug"
 	if(T)
-		if(T.simulated && T.zone)
+		if(T.zone)
 			T.zone.dbg_data(src)
 		else
 			to_chat(mob, span_admin("ZASDBG: No zone here."))

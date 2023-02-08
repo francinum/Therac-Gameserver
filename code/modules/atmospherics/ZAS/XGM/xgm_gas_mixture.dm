@@ -568,7 +568,7 @@
 	if(isnull(target_turf.air))
 		target_turf.make_air()
 
-	if(simulated)
+	if(simulated & SIMULATED_ZONE)
 		if(isnull(air))
 			make_air()
 		air.copyFrom(target_turf.unsafe_return_air())

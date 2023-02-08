@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		if(copy_air)
 			if(TURF_HAS_VALID_ZONE(T))
 				T.zone.remove_turf(T)
-			if(T.simulated)
+			if(T.simulated & SIMULATED_ZONE)
 				if(isnull(T.air))
 					T.make_air()
 				T.air.copyFrom(unsafe_return_air())

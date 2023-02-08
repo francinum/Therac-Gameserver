@@ -12,7 +12,7 @@
 	light_color = LIGHT_COLOR_LAVA
 	bullet_bounce_sound = 'sound/items/welder2.ogg'
 
-	simulated = FALSE
+	simulated = UNSIMULATED
 
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA

@@ -47,8 +47,11 @@
 
 		var/turf/target = get_step(src, d)
 
-		if(!target)
+		if(isnull(target))
 			continue
+		if(!(target.simulated & SIMULATED_ZONE) || !TURF_HAS_VALID_ZONE(target))
+			continue
+
 		var/us_blocks_target
 		ATMOS_CANPASS_TURF(us_blocks_target, src, target)
 
@@ -64,10 +67,7 @@
 			continue
 
 		open_directions |= d
-
-		if(target.simulated)
-			if(TURF_HAS_VALID_ZONE(target))
-				SSzas.connect(target, src)
+		SSzas.connect(target, src)
 
 // Helper for can_safely_remove_from_zone().
 #define GET_ZONE_NEIGHBOURS(T, ret) \
@@ -109,7 +109,7 @@
 		if(((check_dirs & dir) == dir))
 			//check that they are connected by the corner turf
 			var/turf/T = get_step(src, dir)
-			if (!T?.simulated)
+			if (!(T?.simulated & SIMULATED_ZONE))
 				. &= ~dir
 				continue
 
@@ -122,7 +122,7 @@
 	. = !.
 
 /turf/open/update_air_properties()
-	if(!simulated)
+	if(!(simulated & SIMULATED_ZONE))
 		return ..()
 
 	if(!isnull(zone) && zone.invalid) //this turf's zone is in the process of being rebuilt
@@ -180,15 +180,15 @@
 			#endif
 			//Check that our zone hasn't been cut off recently.
 			//This happens when windows move or are constructed. We need to rebuild.
-			if((previously_open & d) && target.simulated)
-				if(zone && target.zone == zone)
+			if((previously_open & d) && (target.simulated & SIMULATED_ZONE))
+				if(!isnull(zone) && target.zone == zone)
 					zone.remove_turf(src)
 			continue
 
 		open_directions |= d
 		target.open_directions |= reverse_dir[d]
 
-		if(target.simulated)
+		if((target.simulated & SIMULATED_ZONE))
 
 			if(TURF_HAS_VALID_ZONE(target))
 				//Might have assigned a zone, since this happens for each direction.
@@ -272,7 +272,7 @@
 
 ///Merges a given gas mixture with the turf's current air source.
 /turf/assume_air(datum/gas_mixture/giver)
-	if(!simulated)
+	if(!(simulated & SIMULATED_ZONE))
 		return
 	var/datum/gas_mixture/my_air = return_air()
 	my_air.merge(giver)
@@ -281,7 +281,7 @@
 
 ///Basically adjustGasWithTemp() but a turf proc.
 /turf/proc/assume_gas(gasid, moles, temp = null)
-	if(!simulated)
+	if(!(simulated & SIMULATED_ZONE))
 		return
 
 	var/datum/gas_mixture/my_air = return_air()
@@ -341,7 +341,7 @@
 
 ///Initializes the turf's "air" datum to it's initial values.
 /turf/proc/make_air()
-	if(simulated)
+	if(simulated & SIMULATED_ZONE)
 		air = new/datum/gas_mixture
 		air.temperature = temperature
 		if(initial_gas)

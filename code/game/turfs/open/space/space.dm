@@ -6,7 +6,7 @@
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	z_flags = Z_ATMOS_IN_DOWN|Z_ATMOS_IN_UP|Z_ATMOS_OUT_DOWN|Z_ATMOS_OUT_UP
 	temperature = TCMB
-	simulated = FALSE
+	simulated = UNSIMULATED
 
 	var/destination_z
 	var/destination_x
@@ -223,7 +223,7 @@
 /turf/open/space/openspace
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "invisible"
-	simulated = TRUE
+	simulated = SIMULATED_ZONE
 
 /turf/open/space/openspace/Initialize(mapload) // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
 	. = ..()
