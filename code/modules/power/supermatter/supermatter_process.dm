@@ -307,7 +307,6 @@
 	if(produces_gas)
 		AIR_UPDATE_VALUES(removed) //This might be a waste
 		env.merge(removed)
-		//air_update_turf(FALSE, FALSE)
 
 /obj/machinery/power/supermatter_crystal/proc/psychological_examination()
 	// Defaults to a value less than 1. Over time the psyCoeff goes to 0 if

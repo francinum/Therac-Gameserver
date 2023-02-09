@@ -75,6 +75,8 @@ Class Procs:
 	if(!(B.simulated & SIMULATED_ZONE))
 		mark_unsimulated()
 		edge = SSzas.get_edge(A.zone,B)
+		if(B.simulated) //Planetary
+			edge.planetary = TRUE
 		edge.add_connection(src)
 	else
 		zoneB = B.zone

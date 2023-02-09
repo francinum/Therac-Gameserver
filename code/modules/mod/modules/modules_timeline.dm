@@ -415,6 +415,7 @@
 	fresh_air.gas[GAS_OXYGEN] = MOLES_O2STANDARD
 	fresh_air.gas[GAS_NITROGEN] = MOLES_N2STANDARD
 	fresh_air.temperature = T20C
+	AIR_UPDATE_VALUES(fresh_air)
 	return fresh_air
 
 /obj/structure/chrono_field/singularity_act()

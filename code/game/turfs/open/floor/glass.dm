@@ -47,6 +47,7 @@
 	base_icon_state = "reinf_glass"
 	floor_tile = /obj/item/stack/tile/rglass
 	initial_gas = ICEMOON_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 
 /turf/open/floor/glass/reinforced/setup_broken_states()
 	return list("reinf_glass-damaged1", "reinf_glass-damaged2", "reinf_glass-damaged3")

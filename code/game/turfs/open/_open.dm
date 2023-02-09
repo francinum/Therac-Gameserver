@@ -36,10 +36,6 @@
 /turf/open/zAirOut(direction, turf/source)
 	return (direction == UP)
 
-/turf/open/update_icon()
-	. = ..()
-	//update_visuals()
-
 /turf/open/indestructible
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
@@ -102,6 +98,7 @@
 	icon_state = "necro1"
 	baseturfs = /turf/open/indestructible/necropolis
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
@@ -122,6 +119,7 @@
 	icon_state = "boss"
 	baseturfs = /turf/open/indestructible/boss
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 
 /turf/open/indestructible/boss/air
 	initial_gas = OPENTURF_DEFAULT_ATMOS
@@ -129,6 +127,7 @@
 /turf/open/indestructible/hierophant
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	baseturfs = /turf/open/indestructible/hierophant
 	smoothing_flags = SMOOTH_CORNERS
 	tiled_dirt = FALSE
@@ -170,7 +169,7 @@
 	. = unsafe_return_air().temperature
 
 /turf/open/TakeTemperature(temp)
-	return_air().temperature += temp
+	return_air().adjustTemperature(temp)
 
 /turf/open/proc/freeze_turf()
 	for(var/obj/I in contents)

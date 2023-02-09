@@ -38,6 +38,7 @@
 	baseturfs = /turf/open/misc/asteroid/basalt/wasteland
 	digResult = /obj/item/stack/ore/glass/basalt
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	slowdown = 0.5
 	floor_variance = 30
 
@@ -50,6 +51,7 @@
 		icon_state = "[base_icon_state][rand(0,6)]"
 
 /turf/open/misc/asteroid/basalt/wasteland/safe_air //Used on Centcom
+	simulated = SIMULATED_ZONE
 	initial_gas = OPENTURF_DEFAULT_ATMOS
 	temperature = T20C
 

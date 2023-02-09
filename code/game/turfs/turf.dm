@@ -101,9 +101,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	if(mapload && permit_ao)
 		queue_ao()
-	// if(!blocks_air || !simulated)
-		// air = new
-		// air.copyFrom(src.return_air())
 
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()
@@ -169,10 +166,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	return INITIALIZE_HINT_NORMAL
 
-/*
-/turf/proc/Initalize_Atmos(times_fired)
-	CALCULATE_ADJACENT_TURFS(src, NORMAL_TURF)
-*/
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
 	if(!changing_turf)
@@ -196,14 +189,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	QDEL_LIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
-
-	///ZAS THINGS
-	if(connections)
-		connections.erase_all()
-
-	if(zone)
-		zone.remove_turf(src)
-	///NO MORE ZAS THINGS
 
 	..()
 

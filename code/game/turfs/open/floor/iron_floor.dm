@@ -35,6 +35,7 @@
 
 /turf/open/floor/iron/icemoon
 	initial_gas = ICEMOON_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	temperature = 80
 
 /turf/open/floor/iron/textured

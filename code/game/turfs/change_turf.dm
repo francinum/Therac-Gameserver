@@ -35,22 +35,29 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 /turf/open/copyTurf(turf/T, copy_air = FALSE)
 	. = ..()
-	if (isopenturf(T))
-		var/datum/component/wet_floor/slip = GetComponent(/datum/component/wet_floor)
-		if(slip)
-			var/datum/component/wet_floor/WF = T.AddComponent(/datum/component/wet_floor)
-			WF.InheritComponent(slip)
-		if(copy_air)
-			if(TURF_HAS_VALID_ZONE(T))
-				T.zone.remove_turf(T)
-			if(T.simulated & SIMULATED_ZONE)
-				if(isnull(T.air))
-					T.make_air()
-				T.air.copyFrom(unsafe_return_air())
-			else
-				T.initial_gas = initial_gas
+	if (!isopenturf(T))
+		return
+	var/datum/component/wet_floor/slip = GetComponent(/datum/component/wet_floor)
+	if(slip)
+		var/datum/component/wet_floor/WF = T.AddComponent(/datum/component/wet_floor)
+		WF.InheritComponent(slip)
+	if(copy_air)
+		if(TURF_HAS_VALID_ZONE(T))
+			T.zone.remove_turf(T)
+
+		T.simulated = src.simulated
+		if(src.simulated & SIMULATED_PLANETARY)
+			T.air = src.air
+			#warn atmosphere stuff
+			return
+		if(T.simulated & SIMULATED_ZONE)
+			if(isnull(T.air))
 				T.make_air()
-			SSzas.mark_for_update(T)
+			T.air.copyFrom(unsafe_return_air())
+		else
+			T.initial_gas = initial_gas
+			T.make_air()
+		SSzas.mark_for_update(T)
 
 //wrapper for ChangeTurf()s that you want to prevent/affect without overriding ChangeTurf() itself
 /turf/proc/TerraformTurf(path, new_baseturf, flags)
@@ -166,22 +173,36 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 	return W
 
-/*
+
 /turf/open/ChangeTurf(path, list/new_baseturfs, flags) //Resist the temptation to make this default to keeping air.
-	if ((flags & CHANGETURF_INHERIT_AIR) && ispath(path, /turf/open))
-		var/datum/gas_mixture/stashed_air = new()
-		stashed_air.copyFrom(air)
-		. = ..() //If path == type this will return us, don't bank on making a new type
-		if (!.) // changeturf failed or didn't do anything
-			return
-		var/turf/open/newTurf = .
-		newTurf.air.copyFrom(stashed_air)
-		SSzas.mark_for_update(newTurf)
-	else
-		if(ispath(path,/turf/closed) || ispath(path,/turf/cordon))
-			flags |= CHANGETURF_RECALC_ADJACENT
+	if(!(flags & CHANGETURF_INHERIT_AIR) || !ispath(path, /turf/open))
 		return ..()
-*/
+
+	if(TURF_HAS_VALID_ZONE(src))
+		zone.remove_turf(src)
+
+	if(isnull(air))
+		make_air()
+
+	var/datum/gas_mixture/stashed_air = air.copy()
+
+	if(simulated & SIMULATED_PLANETARY)
+		air.group_multiplier--
+
+	air = null
+
+	. = ..() //If path == type this will return us, don't bank on making a new type
+	if (!.) // changeturf failed or didn't do anything
+		return
+
+	var/turf/open/newTurf = .
+	switch(newTurf.simulated)
+		if(SIMULATED_PLANETARY)
+			newTurf.make_air()
+			newTurf.air.merge(stashed_air)
+		if(SIMULATED_ZONE)
+			newTurf.air = stashed_air
+
 /// Take off the top layer turf and replace it with the next baseturf down
 /turf/proc/ScrapeAway(amount=1, flags)
 	if(!amount)

@@ -14,6 +14,7 @@
 	baseturfs = /turf/open/water/cursed_spring
 
 	initial_gas = ICEMOON_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 
 /turf/open/water/cursed_spring/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

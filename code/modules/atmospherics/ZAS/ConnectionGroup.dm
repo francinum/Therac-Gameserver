@@ -69,6 +69,9 @@ Class Procs:
 	///The last time the "woosh" airflow sound played, world.time
 	var/last_woosh
 
+	///UNSIMULATED ONLY: Is this connection planetary?
+	var/planetary = FALSE
+
 	#ifdef ZASDBG
 	///Set this to TRUE during testing to get verbose debug information.
 	var/tmp/verbose = FALSE
@@ -277,7 +280,7 @@ Class Procs:
 		erase()
 		return
 
-	var/equiv = A.air.shareSpace(air)
+	var/equiv = planetary ? A.air.shareRatio(air, coefficient): A.air.shareSpace(air)
 
 	queue_spacewind()
 

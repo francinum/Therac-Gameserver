@@ -162,22 +162,20 @@
 /datum/effect_system/smoke_spread/freezing
 	effect_type = /obj/effect/particle_effect/smoke/freezing
 	var/blast = 0
-	var/temperature = 2
+	var/temperature = -200
 	var/weldvents = TRUE
 	var/distcheck = TRUE
 
 /datum/effect_system/smoke_spread/freezing/proc/Chilled(atom/A)
-	if(isopenturf(A))
+	if(isopenturf(A) && A.simulated)
 		var/turf/open/T = A
-		if(T.air)
-			var/datum/gas_mixture/G = T.air
-			if(!distcheck || get_dist(T, location) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-				G.temperature = temperature
-			//T.air_update_turf(FALSE, FALSE)
-			QDEL_NULL(T.fire)
-			if(G.getGroupGas(GAS_PLASMA))
-				G.adjustGas(GAS_NITROGEN, G.gas[GAS_PLASMA])
-				G.adjustGas(GAS_PLASMA, -G.gas[GAS_PLASMA])
+		var/datum/gas_mixture/turf_air = T.return_air()
+		if(!distcheck || get_dist(T, location) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
+			turf_air.adjustTemperature(temperature)
+		QDEL_NULL(T.fire)
+		if(turf_air.getGroupGas(GAS_PLASMA))
+			turf_air.adjustGas(GAS_NITROGEN, turf_air.gas[GAS_PLASMA])
+			turf_air.adjustGas(GAS_PLASMA, -turf_air.gas[GAS_PLASMA])
 		if (weldvents)
 			for(var/obj/machinery/atmospherics/components/unary/U in T)
 				if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.
@@ -201,6 +199,7 @@
 
 /datum/effect_system/smoke_spread/freezing/decon
 	temperature = 293.15
+	#warn fixme
 	distcheck = FALSE
 	weldvents = FALSE
 

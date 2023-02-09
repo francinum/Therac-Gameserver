@@ -562,7 +562,8 @@
 /turf/open/proc/copy_air_with_tile(turf/open/target_turf)
 	if(!istype(target_turf))
 		return
-	if(TURF_HAS_VALID_ZONE(src))
+
+	if(!isnull(zone))
 		zone.remove_turf(src)
 
 	if(isnull(target_turf.air))
@@ -598,3 +599,6 @@
 ///inverse
 /datum/gas_mixture/proc/getTrueBreathPressure(partial_pressure)
 	return (partial_pressure * BREATH_VOLUME) / (R_IDEAL_GAS_EQUATION * temperature)
+
+/datum/gas_mixture/proc/adjustTemperature(adjust)
+	temperature = max(QUANTIZE(temperature + (adjust/group_multiplier)), TCMB)

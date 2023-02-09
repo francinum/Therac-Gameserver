@@ -212,7 +212,7 @@
 	var/turf/local_turf = get_turf(loc)
 	var/current_temperature
 	if(istype(local_turf))
-		var/datum/gas_mixture/enviroment = local_turf.return_air()
+		var/datum/gas_mixture/enviroment = local_turf.unsafe_return_air()
 		current_temperature = enviroment.temperature
 	else if(isturf(local_turf))
 		current_temperature = local_turf.temperature

@@ -63,7 +63,9 @@
 
 	var/turf/open/to_fill = run_loc_floor_bottom_left
 	//Prep the floor
-	to_fill.initial_gas = SSzas.lavaland_atmos.gas
+	if(!SSzas.atmospheres[/datum/atmosphere/planetary/lavaland])
+		SSzas.atmospheres[/datum/atmosphere/planetary/lavaland] = new /datum/atmosphere/planetary/lavaland
+	to_fill.initial_gas = SSzas.atmospheres[/datum/atmosphere/planetary/lavaland].air_singleton.gas.Copy()
 	to_fill.make_air()
 
 	lab_rat.breathe()

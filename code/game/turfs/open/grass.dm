@@ -29,4 +29,5 @@
 		icon = smooth_icon
 
 /turf/open/misc/grass/lavaland
+	simulated = SIMULATED_PLANETARY
 	initial_gas = LAVALAND_DEFAULT_ATMOS

@@ -467,7 +467,7 @@
 /obj/item/organ/internal/lungs/ashwalker/Initialize(mapload)
 	. = ..()
 
-	var/datum/gas_mixture/mix = SSzas.lavaland_atmos
+	var/datum/gas_mixture/mix = SSzas.atmospheres[/datum/atmosphere/planetary/lavaland].air_singleton
 
 	if(!mix?.total_moles) // this typically means we didn't load lavaland, like if we're using #define LOWMEMORYMODE
 		return

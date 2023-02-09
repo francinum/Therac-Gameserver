@@ -236,6 +236,7 @@
 
 /turf/open/lava/smooth/lava_land_surface
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 
 	baseturfs = /turf/open/lava/smooth/lava_land_surface
 

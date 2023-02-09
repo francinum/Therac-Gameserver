@@ -223,6 +223,7 @@
 	turf_type = /turf/open/misc/asteroid/basalt/lava_land_surface
 	baseturfs = /turf/open/misc/asteroid/basalt/lava_land_surface
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	defer_change = TRUE
 	mineralSpawnChanceList = list(
 		/obj/item/stack/ore/uranium = 35, /obj/item/stack/ore/diamond = 30, /obj/item/stack/ore/gold = 45, /obj/item/stack/ore/titanium = 45,
@@ -248,6 +249,7 @@
 	turf_type = /turf/open/misc/asteroid/basalt/lava_land_surface
 	baseturfs = /turf/open/misc/asteroid/basalt/lava_land_surface
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	defer_change = TRUE
 
 	mineralChance = 10
@@ -268,6 +270,7 @@
 	turf_type = /turf/open/misc/asteroid/snow/icemoon
 	baseturfs = /turf/open/misc/asteroid/snow/icemoon
 	initial_gas = ICEMOON_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	weak_turf = TRUE
 
 /turf/closed/mineral/random/snow/Change_Ore(ore_type, random = 0)
@@ -310,6 +313,7 @@
 	turf_type = /turf/open/misc/asteroid/basalt/lava_land_surface
 	baseturfs = /turf/open/misc/asteroid/basalt/lava_land_surface
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	defer_change = TRUE
 	mineralSpawnChanceList = list(
 		/obj/item/stack/ore/uranium = 3, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 8, /obj/item/stack/ore/titanium = 8,
@@ -329,6 +333,7 @@
 	turf_type = /turf/open/misc/asteroid/snow/icemoon
 	baseturfs = /turf/open/misc/asteroid/snow/icemoon
 	initial_gas = ICEMOON_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	defer_change = TRUE
 	mineralSpawnChanceList = list(
 		/obj/item/stack/ore/uranium = 3, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 8, /obj/item/stack/ore/titanium = 8,
@@ -384,6 +389,7 @@
 	turf_type = /turf/open/misc/asteroid/basalt/lava_land_surface
 	baseturfs = /turf/open/misc/asteroid/basalt/lava_land_surface
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	defer_change = TRUE
 
 /turf/closed/mineral/silver
@@ -394,6 +400,7 @@
 	turf_type = /turf/open/misc/asteroid/snow/ice/icemoon
 	baseturfs = /turf/open/misc/asteroid/snow/ice/icemoon
 	initial_gas = ICEMOON_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 
 /turf/closed/mineral/titanium
 	mineralType = /obj/item/stack/ore/titanium
@@ -427,12 +434,14 @@
 	turf_type = /turf/open/misc/asteroid/basalt/lava_land_surface
 	baseturfs = /turf/open/misc/asteroid/basalt/lava_land_surface
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	defer_change = TRUE
 
 /turf/closed/mineral/volcanic
 	turf_type = /turf/open/misc/asteroid/basalt
 	baseturfs = /turf/open/misc/asteroid/basalt
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 
 /turf/closed/mineral/volcanic/lava_land_surface
 	turf_type = /turf/open/misc/asteroid/basalt/lava_land_surface
@@ -469,6 +478,7 @@
 	turf_type = /turf/open/misc/asteroid/snow/icemoon
 	baseturfs = /turf/open/misc/asteroid/snow/icemoon
 	initial_gas = ICEMOON_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 
 /turf/closed/mineral/snowmountain/cavern
 	name = "ice cavern rock"
@@ -484,6 +494,8 @@
 	baseturfs = /turf/open/misc/asteroid/snow/ice/icemoon
 	turf_type = /turf/open/misc/asteroid/snow/ice/icemoon
 	initial_gas = ICEMOON_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
+
 
 //yoo RED ROCK RED ROCK
 
@@ -606,6 +618,7 @@
 	turf_type = /turf/open/misc/asteroid/basalt/lava_land_surface
 	baseturfs = /turf/open/misc/asteroid/basalt/lava_land_surface
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	defer_change = TRUE
 
 /turf/closed/mineral/gibtonite/ice
@@ -622,6 +635,7 @@
 	turf_type = /turf/open/misc/asteroid/snow/ice/icemoon
 	baseturfs = /turf/open/misc/asteroid/snow/ice/icemoon
 	initial_gas = ICEMOON_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 
 /turf/closed/mineral/strong
 	name = "Very strong rock"
@@ -629,6 +643,7 @@
 	turf_type = /turf/open/misc/asteroid/basalt/lava_land_surface
 	baseturfs = /turf/open/misc/asteroid/basalt/lava_land_surface
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	defer_change = 1
 	smooth_icon = 'icons/turf/walls/legacy/rock_wall.dmi'
 	base_icon_state = "rock_wall"

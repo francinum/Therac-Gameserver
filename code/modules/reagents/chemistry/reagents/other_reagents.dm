@@ -183,10 +183,10 @@
 	qdel(exposed_turf.fire)
 	if(exposed_turf.simulated)
 		var/datum/gas_mixture/air = exposed_turf.return_air()
-		var/adjust_temp = abs(air.temperature - exposed_temperature) / air.group_multiplier
+		var/adjust_temp = abs(air.temperature - exposed_temperature)
 		if(air.temperature > exposed_temperature)
 			adjust_temp *= -1
-		air.temperature = max(air.temperature + adjust_temp, TCMB)
+		air.adjustTemperature(adjust_temp)
 
 /*
  * Water reaction to an object

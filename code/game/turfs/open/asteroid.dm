@@ -110,7 +110,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	digResult = /obj/item/stack/ore/glass/basalt
 	broken_state = "basalt_dug"
 
-	initial_gas = LAVALAND_DEFAULT_ATMOS
 	temperature = T20C
 	simulated = UNSIMULATED //OH *FUCK* NO.
 
@@ -148,6 +147,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 
 /turf/open/misc/asteroid/basalt/lava_land_surface
 	initial_gas = LAVALAND_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	baseturfs = /turf/open/lava/smooth/lava_land_surface
 
 /turf/open/misc/asteroid/lowpressure

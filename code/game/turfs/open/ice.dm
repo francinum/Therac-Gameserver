@@ -4,8 +4,10 @@
 	icon = 'icons/turf/floors/ice_turf.dmi'
 	icon_state = "ice_turf-0"
 	base_icon_state = "ice_turf-0"
+
 	temperature = 180
-	temperature = 180
+	simulated = SIMULATED_PLANETARY
+	initial_gas = ICEMOON_DEFAULT_ATMOS
 
 	baseturfs = /turf/open/misc/ice
 	slowdown = 1
@@ -35,6 +37,7 @@
 /turf/open/misc/ice/icemoon
 	baseturfs = /turf/open/openspace/icemoon
 	initial_gas = ICEMOON_DEFAULT_ATMOS
+	simulated = SIMULATED_PLANETARY
 	slowdown = 0
 	simulated = FALSE
 

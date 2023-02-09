@@ -47,9 +47,7 @@
 
 		var/turf/target = get_step(src, d)
 
-		if(isnull(target))
-			continue
-		if(!(target.simulated & SIMULATED_ZONE) || !TURF_HAS_VALID_ZONE(target))
+		if(isnull(target) || !(target.simulated & SIMULATED_ZONE))
 			continue
 
 		var/us_blocks_target
@@ -67,7 +65,8 @@
 			continue
 
 		open_directions |= d
-		SSzas.connect(target, src)
+		if(TURF_HAS_VALID_ZONE(target))
+			SSzas.connect(target, src)
 
 // Helper for can_safely_remove_from_zone().
 #define GET_ZONE_NEIGHBOURS(T, ret) \
@@ -300,20 +299,25 @@
 /turf/return_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	if(!simulated)
-		if(air)
+		if(!isnull(air))
 			return air.copy()
 		else
 			make_air()
 			return air.copy()
 
-	else if(zone)
-		if(!zone.invalid)
-			SSzas.mark_zone_update(zone)
-			return zone.air
+	else if(simulated & SIMULATED_ZONE)
+		if(!isnull(zone))
+			if(!zone.invalid)
+				SSzas.mark_zone_update(zone)
+				return zone.air
+			else
+				copy_zone_air()
+				return air
 		else
-			copy_zone_air()
+			if(isnull(air))
+				make_air()
 			return air
-	else
+	else //planetary
 		if(isnull(air))
 			make_air()
 		return air
@@ -328,13 +332,18 @@
 			make_air()
 			return air.copy()
 
-	else if(zone)
-		if(!zone.invalid)
-			return zone.air
+	else if(simulated & SIMULATED_ZONE)
+		if(!isnull(zone))
+			if(!zone.invalid)
+				return zone.air
+			else
+				copy_zone_air()
+				return air
 		else
-			copy_zone_air()
+			if(isnull(air))
+				make_air()
 			return air
-	else
+	else //planetary
 		if(isnull(air))
 			make_air()
 		return air
@@ -344,36 +353,51 @@
 	if(simulated & SIMULATED_ZONE)
 		air = new/datum/gas_mixture
 		air.temperature = temperature
-		if(initial_gas)
+		if(!isnull(initial_gas))
 			air.gas = initial_gas.Copy()
 		AIR_UPDATE_VALUES(air)
 
-	else
-		if(!initial_gas)
+	else if(!simulated)
+		if(isnull(initial_gas))
 			air = new
 			return
 
 		// Grab an existing mixture from the cache
 		var/gas_key = parse_gas()
 		var/datum/gas_mixture/GM = SSzas.unsimulated_gas_cache[gas_key]
-		if(GM)
+		if(!isnull(GM))
 			air = GM
 			return
 
 		// No cache? no problem. make one.
 		GM = new
 		air = GM
-		if(initial_gas)
+		if(!isnull(initial_gas))
 			GM.gas = initial_gas.Copy()
 		GM.temperature = temperature
 		AIR_UPDATE_VALUES(GM)
 		SSzas.unsimulated_gas_cache[gas_key] = air
 
+	else //planetary
+		var/datum/atmosphere/atmosphere = SSzas.atmospheres[initial_gas]
+		if(!isnull(atmosphere))
+			air = atmosphere.air_singleton
+			air.group_multiplier++
+			return
+
+		SSzas.atmospheres[initial_gas] = new initial_gas
+		atmosphere = SSzas.atmospheres[initial_gas]
+		air = atmosphere.air_singleton
+		air.group_multiplier++
+		return
+
+
 ///Parse an unsimulated turf's initial gas mixture into a string
 /turf/proc/parse_gas()
-	. = "[temperature]"
+	. = list("[temperature]")
 	for(var/gas in initial_gas)
 		. += "[gas]-[initial_gas[gas]]"
+	return jointext(., "-")
 
 ///Copies this turf's group share from the zone. Usually used before removing it from the zone.
 /turf/proc/copy_zone_air()
