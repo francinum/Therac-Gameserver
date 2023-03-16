@@ -16,6 +16,8 @@
 	var/scan_data = ""
 	/// Dump the scan_data to the chat?
 	var/output_results = FALSE
+	/// Send the scan error message?
+	var/scan_invalid_errors = FALSE
 
 	//Scan display window default size
 	var/window_width = 450
@@ -27,6 +29,7 @@
 	var/scan_sound
 	/// Color the paper so people can tell them apart easier
 	var/printout_color = "" //This is fine to be null as set_atom_color returns by default, and this code is hardly super hot.
+
 
 	COOLDOWN_DECLARE(report_print_cooldown)
 
@@ -43,7 +46,8 @@
 /obj/item/scanner/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!can_scan(target))
-		to_chat(user, span_warning("You can't get any results from [target] with [src]."))
+		if(scan_invalid_errors) // For scanners with super obvious targets (Like health analyzers)
+			to_chat(user, span_warning("You can't get any results from [target] with [src]."))
 		return
 
 	user.visible_message(
@@ -60,6 +64,7 @@
 		return
 
 	scan(user, target)
+	updateUsrDialog() //Update our dialog.
 	// Give it a default name if they didn't set one.
 	if(!scan_title)
 		scan_title = "[capitalize(name)] scan - [target]"
@@ -104,13 +109,22 @@
 		return FALSE
 	if(href_list["print"])
 		print_report(user)
+		return TRUE
 	if(href_list["clear"])
 		to_chat(user, span_notice("You clear [src]'s data buffer."))
 		scan_data = null
 		scan_title = null
+		updateUsrDialog() //Cleared the report, need to refresh the dialog.
 		return TRUE
 
-
+/obj/item/scanner/suicide_act(mob/living/carbon/user)
+	user.visible_message(span_suicide("[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"))
+	scan_title = "Suicide Confirmation Receipt - [user]"
+	scan_data = {"
+	This receipt confirms the intended self-termination of [user] effective [stationdate2text()] [gameTimestamp()].</br>
+	Please dispose of the body via the nearest available trash receptacle.
+	"}
+	return BRUTELOSS
 
 // evil action garbage
 
