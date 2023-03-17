@@ -185,6 +185,8 @@
 	if(istype(O))
 		O.obj_flags |= IN_USE
 
+/// Update legacy dialogs for in-hand/on-person items.
+/// If this is a proper machine, consider [/proc/UpdateUsrDialog]
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
 	if(istype(M) && M.client && M.machine == src)

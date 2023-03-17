@@ -1618,7 +1618,6 @@
 #include "code\game\objects\items\devices\radio\radio.dm"
 #include "code\game\objects\items\devices\scanners\_scanner.dm"
 #include "code\game\objects\items\devices\scanners\gas_analyzer.dm"
-#include "code\game\objects\items\devices\scanners\legacy\gas_analyzer.dm"
 #include "code\game\objects\items\devices\scanners\legacy\health_analyzer.dm"
 #include "code\game\objects\items\devices\scanners\legacy\scanner_wand.dm"
 #include "code\game\objects\items\devices\scanners\legacy\sequence_scanner.dm"

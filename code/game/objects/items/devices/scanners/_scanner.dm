@@ -16,8 +16,8 @@
 	var/scan_data = ""
 	/// Dump the scan_data to the chat?
 	var/output_results = FALSE
-	/// Send the scan error message?
-	var/scan_invalid_errors = FALSE
+	/// Allow distant scans?
+	var/allow_nonadjacent_scans = FALSE
 
 	//Scan display window default size
 	var/window_width = 450
@@ -45,9 +45,9 @@
 
 /obj/item/scanner/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!can_scan(target))
-		if(scan_invalid_errors) // For scanners with super obvious targets (Like health analyzers)
-			to_chat(user, span_warning("You can't get any results from [target] with [src]."))
+	if(!(proximity_flag || allow_nonadjacent_scans))
+		return //Not adjacent and distant scans illegal.
+	if(!can_scan(target)) //Just don't have notices, that fixes the problem.
 		return
 
 	user.visible_message(
@@ -59,12 +59,14 @@
 	if(scan_sound)
 		playsound(src, scan_sound, 30)
 
-	if(!do_after(user, src, scan_delay))
+	//If we have a scan delay and fail a do_after...
+	//(Used to not check scan_delay first resulting in a flashed progress bar for instant actions.)
+	if(scan_delay && !do_after(user, src, scan_delay))
 		to_chat(user, span_warning("You stop scanning [target] with [src]"))
 		return
 
 	scan(user, target)
-	updateUsrDialog() //Update our dialog.
+	updateSelfDialog() //Update our dialog.
 	// Give it a default name if they didn't set one.
 	if(!scan_title)
 		scan_title = "[capitalize(name)] scan - [target]"
@@ -114,7 +116,7 @@
 		to_chat(user, span_notice("You clear [src]'s data buffer."))
 		scan_data = null
 		scan_title = null
-		updateUsrDialog() //Cleared the report, need to refresh the dialog.
+		updateSelfDialog() //Cleared the report, need to refresh the dialog.
 		return TRUE
 
 /obj/item/scanner/suicide_act(mob/living/carbon/user)
