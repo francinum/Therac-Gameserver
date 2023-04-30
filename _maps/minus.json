@@ -1,0 +1,29 @@
+{
+	"version": 1,
+	"map_name": "Minus-Pattern Outpost",
+	"map_path": "map_files/minus",
+	"map_file": "minus.dmm",
+	"traits": [
+		{
+			"Up": 1,
+			"Linkage": "Cross"
+		},
+		{
+			"Up": 1,
+			"Down": -1,
+			"Baseturf": "/turf/open/openspace",
+			"Linkage": "Cross"
+		},
+		{
+			"Up": 1,
+			"Down": -1,
+			"Baseturf": "/turf/open/openspace",
+			"Linkage": "Cross"
+		},
+		{
+			"Down": -1,
+			"Baseturf": "/turf/open/openspace",
+			"Linkage": "Cross"
+		}
+	]
+}

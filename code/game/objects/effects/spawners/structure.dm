@@ -399,16 +399,24 @@ again.
 	name = "dummy"
 
 /obj/effect/spawner/structure/window/prepainted/daedalus
-	name = "reinforced window spawner (daedaelus paint)"
+	name = "window spawner (daedaelus paint)"
 	spawn_list = list(/obj/structure/low_wall/prepainted/daedalus, /obj/structure/window/fulltile)
 
 /obj/effect/spawner/structure/window/reinforced/prepainted/daedalus
-	name = "window spawner (daedalus paint)"
+	name = "reinforced window spawner (daedalus paint)"
 	spawn_list = list(/obj/structure/low_wall/prepainted/daedalus, /obj/structure/window/reinforced/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/grille/prepainted/daedalus
+	name = "reinforced window spawner w/grille (daedalus paint)"
+	spawn_list = list(/obj/structure/low_wall/prepainted/daedalus, /obj/structure/grille, /obj/structure/window/reinforced/fulltile)
 
 /obj/effect/spawner/structure/window/reinforced/tinted/prepainted/daedalus
 	name = "tinted reinforced window spawner (daedalus paint)"
 	spawn_list = list(/obj/structure/low_wall/prepainted/daedalus, /obj/structure/window/reinforced/tinted/fulltile)
+
+/obj/effect/spawner/structure/window/reinforced/tinted/grille/prepainted/daedalus
+	name = "tinted reinforced window spawner w/grille (daedalus paint)"
+	spawn_list = list(/obj/structure/low_wall/prepainted/daedalus, /obj/structure/grille, /obj/structure/window/reinforced/tinted/fulltile)
 
 /obj/effect/spawner/structure/window/reinforced/plasma/prepainted/daedalus
 	name = "reinforced plasma window spawner (daedalus paint)"
