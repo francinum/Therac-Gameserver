@@ -41,6 +41,9 @@
 	frequency = FREQ_ATMOS_CONTROL
 	power_channel = AREA_USAGE_ENVIRON
 
+	ui_handler = UI_HANDLER_TGUI
+
+	base_icon_state = "airlock_control"
 	// Setup parameters only
 	var/airpump_tag
 
@@ -60,11 +63,19 @@
 
 
 /obj/machinery/embedded_controller/radio/simple_vent_controller/return_text()
-	var/state_options = null
-	state_options = {"<A href='?src=[REF(src)];command=vent_inactive'>Deactivate Vent</A><BR>
-<A href='?src=[REF(src)];command=vent_pump'>Activate Vent / Pump</A><BR>
-<A href='?src=[REF(src)];command=vent_clear'>Activate Vent / Clear</A><BR>"}
-	var/output = {"<B>Vent Control Console</B><HR>
-[state_options]<HR>"}
+// Legacy version
+// 	var/state_options = null
+// 	state_options = {"<A href='?src=[REF(src)];command=vent_inactive'>Deactivate Vent</A><BR>
+// <A href='?src=[REF(src)];command=vent_pump'>Activate Vent / Pump</A><BR>
+// <A href='?src=[REF(src)];command=vent_clear'>Activate Vent / Clear</A><BR>"}
+// 	var/output = {"<B>Vent Control Console</B><HR>
+// [state_options]<HR>"}
 
-	return output
+// 	return output
+
+	return jointext(list(
+		"SIMPLE VENT CONTROLLER",
+		"------------------------------",
+		"\[A] - ON/PUMP \[B] - ON/PURGE",
+		"\[C] - OFF"
+	), "\n")

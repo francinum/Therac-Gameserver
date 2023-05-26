@@ -21,13 +21,17 @@
 /datum/computer/file/embedded_program/process()
 	return 0
 
+#define UI_HANDLER_CLASSIC 0 //Standard legacy browse() based behaviour
+#define UI_HANDLER_TGUI 1 //TGUI custom popup based generic shared interface
 /obj/machinery/embedded_controller
-	var/datum/computer/file/embedded_program/program
-
 	name = "embedded controller"
 	density = FALSE
 
+	var/datum/computer/file/embedded_program/program
 	var/on = TRUE
+
+	var/ui_handler = UI_HANDLER_CLASSIC
+	var/list/datum/tgui_window/tgui_windows
 
 /obj/machinery/embedded_controller/Destroy()
 	if(program)
@@ -36,10 +40,24 @@
 
 /obj/machinery/embedded_controller/ui_interact(mob/user)
 	. = ..()
-	user.set_machine(src)
-	var/datum/browser/popup = new(user, "computer", name) // Set up the popup browser window
-	popup.set_content(return_text())
-	popup.open()
+	switch(ui_handler)
+		if(UI_HANDLER_CLASSIC)
+			user.set_machine(src)
+			var/datum/browser/popup = new(user, "computer", name) // Set up the popup browser window
+			popup.set_content(return_text())
+			popup.open()
+		if(UI_HANDLER_TGUI)
+			var/datum/tgui_window/window = new(usr.client, "embedded_controller")
+			window.initialize(
+				inline_html = file2text('html/embedded_controller.html'),
+				inline_css = file2text('html/browser/common.css'),
+				inline_js = file2text('html/embedded_controller.js')
+			)
+			window.subscribe(src, PROC_REF(on_message))
+			LAZYADD(tgui_windows, window)
+
+/obj/machinery/embedded_controller/proc/on_message(type, payload, href_list)
+	message_admins("KP_DOWN [list2params(href_list)]")
 
 /obj/machinery/embedded_controller/proc/return_text()
 
@@ -72,7 +90,18 @@
 		program.process(delta_time)
 
 	update_appearance()
-	src.updateDialog()
+	switch(ui_handler)
+		if(UI_HANDLER_CLASSIC)
+			src.updateDialog()
+		if(UI_HANDLER_TGUI)
+			for(var/datum/tgui_window/check_window as anything in tgui_windows)
+				if(check_window.status == TGUI_WINDOW_CLOSED)
+					tgui_windows -= check_window //We got closed. Remove from the list
+					continue
+				check_window.send_message("update_lcd", list(
+					lcdtext = return_text()
+				))
+
 
 /obj/machinery/embedded_controller/radio
 	var/frequency

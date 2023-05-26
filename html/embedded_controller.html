@@ -1,0 +1,49 @@
+<style>
+	.numpad {
+		width: 30em;
+		height: 29em;
+
+		display: flex;
+		flex-flow: row wrap;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.kp_button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex: 1 0 20%;
+		font-size:4em;
+		margin:2px;
+		border:3px inset black !important;
+		background-color: #3f475e;
+	}
+	.kp_control {
+		background-color: #5e443f;
+	}
+</style>
+<fieldset class='computerPane'>
+	<legend style='margin-left: auto;margin-right: auto;' class='computerLegend'>
+	<pre style='text-align:left;width:40ch;height:5.5em;margin-top:0;' id='lcd_text'>
+	</pre>
+	</legend>
+		<div class="numpad">
+			<a onclick="send_keypress('1')" class="kp_button">1</a>
+			<a onclick="send_keypress('2')" class="kp_button">2</a>
+			<a onclick="send_keypress('3')" class="kp_button">3</a>
+			<a onclick="send_keypress('A')" class="kp_button kp_control">A</a>
+			<a onclick="send_keypress('4')" class="kp_button">4</a>
+			<a onclick="send_keypress('5')" class="kp_button">5</a>
+			<a onclick="send_keypress('6')" class="kp_button">6</a>
+			<a onclick="send_keypress('B')" class="kp_button kp_control">B</a>
+			<a onclick="send_keypress('7')" class="kp_button">7</a>
+			<a onclick="send_keypress('8')" class="kp_button">8</a>
+			<a onclick="send_keypress('9')" class="kp_button">9</a>
+			<a onclick="send_keypress('C')" class="kp_button kp_control">C</a>
+			<a onclick="send_keypress('*')" class="kp_button kp_control">*</a>
+			<a onclick="send_keypress('0')" class="kp_button">0</a>
+			<a onclick="send_keypress('#')" class="kp_button kp_control">#</a>
+			<a onclick="send_keypress('D')" class="kp_button kp_control">D</a>
+		</div>
+
+	</fieldset>
