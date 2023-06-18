@@ -38,11 +38,9 @@
 	var/static/regex/regex = regex(@"[\n\t]", "g")
 	return html_encode(regex.Replace(text, "#"))
 
-
 /// Runs STRIP_HTML_SIMPLE and sanitize.
 /proc/strip_html(text, limit = MAX_MESSAGE_LEN)
 	return sanitize(STRIP_HTML_SIMPLE(text, limit))
-
 
 /// Runs STRIP_HTML_SIMPLE and byond's sanitization proc.
 /proc/adminscrub(text, limit = MAX_MESSAGE_LEN)

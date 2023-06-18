@@ -2,6 +2,7 @@
 #define ISNAN(a) (!(a==a))
 #define ISINF(a) (!ISNAN(a) && ISNAN(a-a))
 #define IS_INF_OR_NAN(a) (ISNAN(a-a))
+#define IS_NUM_SAFE(number) (!(isnull(number) || IS_INF_OR_NAN(number)))
 // Aight dont remove the rest
 
 // Credits to Nickr5 for the useful procs I've taken from his library resource.

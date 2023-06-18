@@ -12,7 +12,6 @@
 #define ARITH_COMPARE_NEQUAL "comparison: not equal"
 #define ARITH_ROUND "round"
 
-#define IS_SAFE(number) (!(isnull(number) || IS_INF_OR_NAN(number)))
 /obj/item/mcobject/messaging/arithmetic
 	name = "arithmetic component"
 	base_icon_state = "comp_arith"
@@ -48,25 +47,25 @@
 
 /obj/item/mcobject/messaging/arithmetic/proc/set_a(datum/mcmessage/input)
 	var/buffer = text2num(input.cmd)
-	if(!IS_SAFE(buffer))
+	if(!IS_NUM_SAFE(buffer))
 		return
 	A = buffer
 
 /obj/item/mcobject/messaging/arithmetic/proc/set_a_config(mob/user, obj/item/tool)
 	var/num = text2num(input(user, "Set \"A\" Number", "Configure Component"))
-	if(IS_SAFE(num))
+	if(IS_NUM_SAFE(num))
 		return
 	A = num
 
 /obj/item/mcobject/messaging/arithmetic/proc/set_b(datum/mcmessage/input)
 	var/buffer = text2num(input.cmd)
-	if(!IS_SAFE(buffer))
+	if(!IS_NUM_SAFE(buffer))
 		return
 	B = buffer
 
 /obj/item/mcobject/messaging/arithmetic/proc/set_b_config(mob/user, obj/item/tool)
 	var/num = text2num(input(user, "Set \"B\" Number", "Configure Component"))
-	if(IS_SAFE(num))
+	if(IS_NUM_SAFE(num))
 		return
 	B = num
 
@@ -114,12 +113,11 @@
 		if(ARITH_RAND)
 			. = rand(A, B)
 
-	if(!IS_SAFE(.))
+	if(!IS_NUM_SAFE(.))
 		. = num2text((~0)**(~0))
 
 	fire("[.]")
 
-#undef IS_SAFE
 #undef ARITH_ADD
 #undef ARITH_SUB
 #undef ARITH_MULT

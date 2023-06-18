@@ -3315,6 +3315,7 @@
 #include "code\modules\mechcomp\mcobjects\messaging\microphone.dm"
 #include "code\modules\mechcomp\mcobjects\messaging\or.dm"
 #include "code\modules\mechcomp\mcobjects\messaging\pressure_sensor.dm"
+#include "code\modules\mechcomp\mcobjects\messaging\radio.dm"
 #include "code\modules\mechcomp\mcobjects\messaging\radio_scanner.dm"
 #include "code\modules\mechcomp\mcobjects\messaging\regex_find.dm"
 #include "code\modules\mechcomp\mcobjects\messaging\regex_replace.dm"
