@@ -13,7 +13,7 @@
 	telecrystal_reward = 0
 
 	var/list/limited_to = list(
-		JOB_CHIEF_MEDICAL_OFFICER,
+		JOB_MEDICAL_DIRECTOR,
 		JOB_MEDICAL_DOCTOR,
 		JOB_PARAMEDIC,
 		JOB_VIROLOGIST,

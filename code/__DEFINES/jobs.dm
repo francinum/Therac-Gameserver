@@ -36,7 +36,7 @@
 #define JOB_HEAD_OF_SECURITY "Head of Security"
 #define JOB_RESEARCH_DIRECTOR "Research Director"
 #define JOB_CHIEF_ENGINEER "Chief Engineer"
-#define JOB_CHIEF_MEDICAL_OFFICER "Medical Director"
+#define JOB_MEDICAL_DIRECTOR "Medical Director"
 //Silicon
 #define JOB_AI "AI"
 #define JOB_CYBORG "Cyborg"

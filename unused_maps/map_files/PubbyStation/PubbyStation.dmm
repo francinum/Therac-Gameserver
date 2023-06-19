@@ -254,7 +254,7 @@
 /turf/open/floor/plating,
 /area/cargo/warehouse/upper)
 "aaR" = (
-/obj/effect/landmark/start/chief_medical_officer,
+/obj/effect/landmark/start/medical_director,
 /obj/structure/chair/office/light{
 	dir = 1
 	},

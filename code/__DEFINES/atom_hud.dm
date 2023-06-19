@@ -87,7 +87,7 @@
 #define SECHUD_CHAPLAIN "hudchaplain"
 #define SECHUD_CHEMIST "hudchemist"
 #define SECHUD_CHIEF_ENGINEER "hudchiefengineer"
-#define SECHUD_CHIEF_MEDICAL_OFFICER "hudchiefmedicalofficer"
+#define SECHUD_MEDICAL_DIRECTOR "hudchiefmedicalofficer"
 #define SECHUD_CLOWN "hudclown"
 #define SECHUD_COOK "hudcook"
 #define SECHUD_CURATOR "hudcurator"

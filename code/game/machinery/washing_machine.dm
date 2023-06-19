@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_HOS = /obj/item/clothing/under/rank/security/head_of_security,
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director,
-		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer,
+		DYE_CMO = /obj/item/clothing/under/rank/medical/medical_director,
 		DYE_REDCOAT = /obj/item/clothing/under/costume/redcoat,
 		DYE_PRISONER = /obj/item/clothing/under/rank/prisoner,
 		DYE_SYNDICATE = /obj/item/clothing/under/syndicate,
@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_HOS = /obj/item/clothing/under/rank/security/head_of_security/skirt,
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director/skirt,
-		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt,
+		DYE_CMO = /obj/item/clothing/under/rank/medical/medical_director/skirt,
 		DYE_PRISONER = /obj/item/clothing/under/rank/prisoner/skirt,
 	),
 	DYE_REGISTRY_GLOVES = list(

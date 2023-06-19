@@ -1,5 +1,5 @@
-/datum/job/chief_medical_officer
-	title = JOB_CHIEF_MEDICAL_OFFICER
+/datum/job/medical_director
+	title = JOB_MEDICAL_DIRECTOR
 	description = "Coordinate doctors and other medbay employees, ensure they \
 		know how to save lives, check for injuries on the crew monitor."
 	department_head = list(JOB_CAPTAIN)
@@ -53,17 +53,17 @@
 	voice_of_god_power = 1.4 //Command staff has authority
 
 
-/datum/job/chief_medical_officer/get_captaincy_announcement(mob/living/captain)
+/datum/job/medical_director/get_captaincy_announcement(mob/living/captain)
 	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
 
 
 /datum/outfit/job/cmo
 	name = "Medical Director"
-	jobtype = /datum/job/chief_medical_officer
+	jobtype = /datum/job/medical_director
 
 	id = /obj/item/card/id/advanced/silver
-	id_trim = /datum/id_trim/job/chief_medical_officer
-	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
+	id_trim = /datum/id_trim/job/medical_director
+	uniform = /obj/item/clothing/under/rank/medical/medical_director
 	backpack_contents = list(
 		/obj/item/assembly/flash/handheld
 	)
@@ -89,9 +89,9 @@
 /datum/outfit/job/cmo/plasmaman
 	name = "Medical Director (Plasmaman)"
 
-	uniform = /obj/item/clothing/under/plasmaman/chief_medical_officer
+	uniform = /obj/item/clothing/under/plasmaman/medical_director
 	gloves = /obj/item/clothing/gloves/color/plasmaman/white
-	head = /obj/item/clothing/head/helmet/space/plasmaman/chief_medical_officer
+	head = /obj/item/clothing/head/helmet/space/plasmaman/medical_director
 	mask = /obj/item/clothing/mask/breath
 	r_hand = /obj/item/tank/internals/plasmaman/belt/full
 

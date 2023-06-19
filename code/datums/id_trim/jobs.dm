@@ -192,20 +192,20 @@
 	template_access = list(ACCESS_CAPTAIN, ACCESS_CHANGE_IDS)
 	job = /datum/job/chief_engineer
 
-/datum/id_trim/job/chief_medical_officer
+/datum/id_trim/job/medical_director
 	assignment = "Medical Director"
 	intern_alt_name = "Medical Director-in-Training"
 	trim_state = "trim_chiefmedicalofficer"
-	sechud_icon_state = SECHUD_CHIEF_MEDICAL_OFFICER
+	sechud_icon_state = SECHUD_MEDICAL_DIRECTOR
 	extra_access = list(ACCESS_TELEPORTER)
 	extra_wildcard_access = list()
 	minimal_access = list(ACCESS_CHEMISTRY, ACCESS_EVA, ACCESS_HEADS, ACCESS_KEYCARD_AUTH, ACCESS_MAINT_TUNNELS, ACCESS_MECH_MEDICAL,
 					ACCESS_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MORGUE, ACCESS_PHARMACY, ACCESS_PSYCHOLOGY, ACCESS_RC_ANNOUNCE,
 					ACCESS_BRIG_ENTRANCE, ACCESS_SURGERY, ACCESS_VIROLOGY)
 	minimal_wildcard_access = list(ACCESS_CMO)
-	config_job = "chief_medical_officer"
+	config_job = "medical_director"
 	template_access = list(ACCESS_CAPTAIN, ACCESS_CHANGE_IDS)
-	job = /datum/job/chief_medical_officer
+	job = /datum/job/medical_director
 
 /datum/id_trim/job/clown
 	assignment = "Clown"

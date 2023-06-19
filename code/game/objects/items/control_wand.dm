@@ -96,7 +96,7 @@
 	icon_state = "gangtool-green"
 	region_access = REGION_SUPPLY
 
-/obj/item/door_remote/chief_medical_officer
+/obj/item/door_remote/medical_director
 	name = "medical door remote"
 	icon_state = "gangtool-blue"
 	region_access = REGION_MEDBAY

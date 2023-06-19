@@ -205,12 +205,12 @@
 	gloves = /obj/item/clothing/gloves/color/plasmaman/chief_engineer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/chief_engineer
 
-/datum/outfit/plasmaman/chief_medical_officer
+/datum/outfit/plasmaman/medical_director
 	name = "Medical Director Plasmaman"
 
-	uniform = /obj/item/clothing/under/plasmaman/chief_medical_officer
+	uniform = /obj/item/clothing/under/plasmaman/medical_director
 	gloves = /obj/item/clothing/gloves/color/plasmaman/white
-	head = /obj/item/clothing/head/helmet/space/plasmaman/chief_medical_officer
+	head = /obj/item/clothing/head/helmet/space/plasmaman/medical_director
 
 /datum/outfit/plasmaman/research_director
 	name = "Research Director Plasmaman"

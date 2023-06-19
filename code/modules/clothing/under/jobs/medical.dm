@@ -21,13 +21,13 @@
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON | CLOTHING_TESHARI_VARIATION | CLOTHING_VOX_VARIATION
 
-/obj/item/clothing/under/rank/medical/chief_medical_officer
+/obj/item/clothing/under/rank/medical/medical_director
 	desc = "It's a jumpsuit worn by those with the experience to be \"Medical Director\". It provides minor biological protection."
 	name = "medical director's jumpsuit"
 	icon_state = "cmo"
 	inhand_icon_state = "w_suit"
 
-/obj/item/clothing/under/rank/medical/chief_medical_officer/skirt
+/obj/item/clothing/under/rank/medical/medical_director/skirt
 	name = "medical director's jumpskirt"
 	desc = "It's a jumpskirt worn by those with the experience to be \"Medical Director\". It provides minor biological protection."
 	icon_state = "cmo_skirt"
@@ -37,7 +37,7 @@
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON | CLOTHING_TESHARI_VARIATION | CLOTHING_VOX_VARIATION
 
-/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck
+/obj/item/clothing/under/rank/medical/medical_director/turtleneck
 	name = "medical director's turtleneck"
 	desc = "A light blue turtleneck and tan khakis, for a medical director with a superior sense of style."
 	icon_state = "cmoturtle"
@@ -46,7 +46,7 @@
 	alt_covers_chest = TRUE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 
-/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck/skirt
+/obj/item/clothing/under/rank/medical/medical_director/turtleneck/skirt
 	name = "medical director's turtleneck skirt"
 	desc = "A light blue turtleneck and tan khaki skirt, for a medical director with a superior sense of style."
 	icon_state = "cmoturtle_skirt"

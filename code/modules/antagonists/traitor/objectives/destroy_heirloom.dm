@@ -86,7 +86,7 @@
 		/datum/job/detective,
 		// Heads of staff
 		/datum/job/head_of_personnel,
-		/datum/job/chief_medical_officer,
+		/datum/job/medical_director,
 		/datum/job/research_director,
 	)
 

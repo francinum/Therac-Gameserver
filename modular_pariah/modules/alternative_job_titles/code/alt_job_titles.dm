@@ -17,8 +17,8 @@
 /datum/job/chief_engineer
 	alt_titles = list(JOB_CHIEF_ENGINEER, "Engineering Foreman", "Head of Engineering")
 
-/datum/job/chief_medical_officer
-	alt_titles = list(JOB_CHIEF_MEDICAL_OFFICER, "Head of Medical", "Senior Physician")
+/datum/job/medical_director
+	alt_titles = list(JOB_MEDICAL_DIRECTOR, "Head of Medical", "Senior Physician")
 
 /datum/job/head_of_personnel
 	alt_titles = list(JOB_HEAD_OF_PERSONNEL, "Personnel Manager", "Crew Overseer")

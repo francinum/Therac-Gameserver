@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(job_display_order, list(
 	/datum/job/station_engineer,
 	/datum/job/atmospheric_technician,
 	// Medical
-	/datum/job/chief_medical_officer,
+	/datum/job/medical_director,
 	/datum/job/doctor,
 	/datum/job/paramedic,
 	/datum/job/chemist,

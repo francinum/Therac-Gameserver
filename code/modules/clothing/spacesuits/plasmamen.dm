@@ -223,7 +223,7 @@
 	icon_state = "chemist_envirohelm"
 	inhand_icon_state = "chemist_envirohelm"
 
-/obj/item/clothing/head/helmet/space/plasmaman/chief_medical_officer
+/obj/item/clothing/head/helmet/space/plasmaman/medical_director
 	name = "medical director's plasma envirosuit helmet"
 	desc = "A special containment helmet designed for the Medical Director. A gold stripe applied to differentiate them from other medical staff."
 	icon_state = "cmo_envirohelm"
