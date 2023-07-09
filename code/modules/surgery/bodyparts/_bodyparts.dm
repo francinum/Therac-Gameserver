@@ -104,6 +104,7 @@
 
 	///Bodypart flags, keeps track of blood, bones, arteries, tendons, and the like.
 	var/bodypart_flags = NONE
+
 	/// The name of the artery this limb has
 	var/artery_name = "artery"
 	/// The name of the tendon this limb has
@@ -112,7 +113,6 @@
 	var/amputation_point
 	/// The name of the cavity of the limb
 	var/cavity_name
-
 
 	///Gradually increases while burning when at full damage, destroys the limb when at 100
 	var/cremation_progress = 0
@@ -932,9 +932,8 @@
 #define BLEED_OVERLAY_GUSH 3.25
 
 /obj/item/bodypart/proc/update_part_wound_overlay()
-	if(!owner || is_stump)
+	if(!owner)
 		return FALSE
-
 	if(HAS_TRAIT(owner, TRAIT_NOBLEED) || !IS_ORGANIC_LIMB(src) || (NOBLOOD in species_flags_list))
 		if(bleed_overlay_icon)
 			bleed_overlay_icon = null
