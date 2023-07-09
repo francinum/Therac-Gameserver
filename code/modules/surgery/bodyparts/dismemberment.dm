@@ -122,21 +122,18 @@
 			owner.hand_bodyparts[held_index] = null
 
 	var/mob/living/carbon/phantom_owner = set_owner(null) // so we can still refer to the guy who lost their limb after said limb forgets 'em
-	/*
-	for(var/datum/surgery/surgery as anything in phantom_owner.surgeries) //if we had an ongoing surgery on that limb, we stop it.
-		if(surgery.operated_bodypart == src)
-			phantom_owner.surgeries -= surgery
-			qdel(surgery)
-			break
-	*/
 
+	// * Remove surgeries on this limb * //
+	remove_surgeries_from_mob(phantom_owner)
+
+	// * Remove embedded objects * //
 	for(var/obj/item/embedded in embedded_objects)
 		embedded.forceMove(src) // It'll self remove via signal reaction, just need to move it
 	if(!phantom_owner.has_embedded_objects())
 		phantom_owner.clear_alert(ALERT_EMBEDDED_OBJECT)
 		SEND_SIGNAL(phantom_owner, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 
-
+	// * Unregister wounds from parent * //
 	for(var/datum/wound/W as anything in wounds)
 		W.unregister_from_mob(phantom_owner)
 
@@ -353,16 +350,10 @@
 			if(hand)
 				hand.update_appearance()
 		new_limb_owner.update_worn_gloves()
-	/*
-	if(special) //non conventional limb attachment
 
-		for(var/datum/surgery/attach_surgery as anything in new_limb_owner.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.
-			var/surgery_zone = check_zone(attach_surgery.location)
-			if(surgery_zone == body_zone)
-				new_limb_owner.surgeries -= attach_surgery
-				qdel(attach_surgery)
-				break
-		*/
+	if(special) //non conventional limb attachment
+		remove_surgeries_from_mob(new_limb_owner)
+
 
 	for(var/obj/item/organ/limb_organ as anything in contained_organs)
 		limb_organ.Insert(new_limb_owner, special)
@@ -452,6 +443,16 @@
 	//Redraw bodytype dependant clothing
 	if(all_limb_flags != old_limb_flags)
 		carbon_owner.update_clothing(ALL)
+
+/obj/item/bodypart/proc/remove_surgeries_from_mob(mob/living/carbon/human/H)
+	LAZYREMOVE(H.surgeries_in_progress, body_zone)
+	switch(body_zone)
+		if(BODY_ZONE_HEAD)
+			LAZYREMOVE(H.surgeries_in_progress, BODY_ZONE_PRECISE_EYES)
+			LAZYREMOVE(H.surgeries_in_progress, BODY_ZONE_PRECISE_MOUTH)
+
+		if(BODY_ZONE_CHEST)
+			LAZYREMOVE(H.surgeries_in_progress, BODY_ZONE_PRECISE_GROIN)
 
 //Regenerates all limbs. Returns amount of limbs regenerated
 /mob/living/proc/regenerate_limbs(list/excluded_zones = list())
