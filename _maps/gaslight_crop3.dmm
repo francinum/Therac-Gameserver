@@ -1,0 +1,824 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/open/chasm,
+/area/template_noop)
+"ab" = (
+/turf,
+/area/station/service/bar)
+"ac" = (
+/turf/closed/wall,
+/area/station/service/bar)
+"ad" = (
+/turf/open/floor/bronze,
+/area/station/service/bar)
+"ae" = (
+/obj/machinery/door/poddoor/shutters/indestructible,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"af" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/light/directional/north,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"ag" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"ah" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/vending/cigarette,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"ai" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/modular_computer/console,
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"ak" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/machinery/firealarm/directional/east,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"al" = (
+/obj/machinery/door/airlock/glass{
+	stripe_paint = "#b7f27d"
+	},
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"am" = (
+/obj/machinery/door/airlock/maintenance,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"an" = (
+/obj/machinery/light/directional/east,
+/turf/open/floor/bronze,
+/area/station/service/bar)
+"ao" = (
+/obj/structure/low_wall,
+/obj/structure/grille,
+/obj/structure/window/fulltile,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"ap" = (
+/obj/machinery/status_display,
+/turf/closed/wall,
+/area/station/service/bar)
+"aq" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/jukebox,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"ar" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/ported/misc/delivery{
+	color = "#b9b93f"
+	},
+/obj/machinery/disposal/bin,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"as" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"at" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/machinery/camera/directional/north,
+/obj/machinery/power/apc/sm_apc/directional/north,
+/obj/machinery/airalarm/directional/east,
+/obj/item/paper_bin,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"au" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/light/directional/west,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"av" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/radio/intercom/directional/east,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aw" = (
+/turf/open/floor/iron/ported/lino,
+/area/station/service/bar)
+"ax" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/chair/stool/bar,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"ay" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/table,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"az" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/chair{
+	dir = 8;
+	name = "Defense"
+	},
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aA" = (
+/obj/machinery/door/airlock/command,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aB" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/soda_cans/cola,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aC" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/chair{
+	dir = 8;
+	name = "Defense"
+	},
+/obj/effect/landmark/observer_start,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aD" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/chair,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aE" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/chair,
+/obj/machinery/light/directional/east,
+/obj/machinery/newscaster/directional/east,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aF" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/holopad,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aG" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
+/obj/structure/chair/stool/bar,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aH" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aI" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aJ" = (
+/obj/machinery/light/small/directional/north,
+/turf/open/floor/bronze,
+/area/station/service/bar)
+"aK" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/binary/pump/off/brown,
+/obj/structure/chair/stool/bar,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aL" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/binary/pump/off/brown,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aM" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/door/window/brigdoor/right/directional/east,
+/turf/open/floor/iron/ported/lino,
+/area/station/service/bar)
+"aN" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/machinery/recharger,
+/obj/machinery/light/directional/south,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aO" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/vending/coffee,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aP" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/spawner/random/entertainment/arcade,
+/obj/machinery/camera/directional/south,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aQ" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/bookcase/manuals/engineering,
+/obj/machinery/firealarm/directional/south,
+/turf/open/floor/iron/white,
+/area/station/service/bar)
+"aR" = (
+/obj/structure/sign/barsign,
+/turf/closed/wall,
+/area/station/service/bar)
+"aS" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/service/bar)
+"aT" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/station/service/bar)
+"aU" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/station/service/bar)
+"aV" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/machinery/camera/directional/north,
+/obj/machinery/light/directional/north,
+/turf/open/floor/iron,
+/area/station/service/bar)
+"aW" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/obj/structure/noticeboard/directional/north,
+/turf/open/floor/iron,
+/area/station/service/bar)
+"aX" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/service/bar)
+"aY" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/binary/pump/off/brown{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/station/service/bar)
+"aZ" = (
+/obj/machinery/airalarm/directional/north,
+/turf/open/floor/bronze,
+/area/station/service/bar)
+"ba" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable,
+/obj/effect/turf_decal/ported/steeldecals,
+/turf/open/floor/iron,
+/area/station/service/bar)
+"bb" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/station/service/bar)
+"bc" = (
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/station/service/bar)
+"bd" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/station/service/bar)
+"be" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/station/service/bar)
+"bf" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor/iron_dark,
+/area/station/service/bar)
+"bg" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable,
+/turf/open/floor/bronze,
+/area/station/service/bar)
+"bh" = (
+/obj/machinery/light/directional/south,
+/turf/open/floor/bronze,
+/area/station/service/bar)
+"bi" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/turf/open/floor/bronze,
+/area/station/service/bar)
+"bj" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
+/turf/open/floor/bronze,
+/area/station/service/bar)
+
+(1,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ab
+ab
+ab
+ab
+"}
+(2,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ad
+ad
+bh
+ab
+"}
+(3,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ad
+ad
+ad
+ab
+"}
+(4,1,1) = {"
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ad
+ad
+ad
+ab
+"}
+(5,1,1) = {"
+ab
+ad
+ad
+ad
+ad
+ad
+ac
+aw
+aw
+aw
+aw
+aw
+aw
+aR
+aS
+ba
+ad
+ab
+"}
+(6,1,1) = {"
+ab
+ad
+ad
+ad
+ad
+ac
+ac
+ae
+ae
+ae
+ae
+ae
+aM
+ac
+aT
+bb
+ad
+ab
+"}
+(7,1,1) = {"
+ab
+ad
+ad
+ad
+ad
+ae
+au
+ax
+ax
+ax
+aG
+aK
+ag
+al
+aS
+bc
+ad
+ab
+"}
+(8,1,1) = {"
+ab
+ad
+ad
+ad
+ad
+ae
+ag
+ag
+ag
+aF
+ag
+ag
+ag
+ao
+aU
+bd
+bi
+ab
+"}
+(9,1,1) = {"
+ab
+ad
+ad
+ad
+ad
+ae
+ag
+as
+as
+as
+as
+ag
+ag
+al
+aS
+bb
+ad
+ab
+"}
+(10,1,1) = {"
+ac
+ae
+ae
+al
+ac
+ap
+ag
+ay
+aB
+ay
+ay
+ag
+ag
+ac
+aV
+bb
+ad
+ab
+"}
+(11,1,1) = {"
+ac
+af
+ag
+ag
+ao
+aq
+ag
+ay
+ay
+ay
+ay
+ag
+aN
+ac
+aW
+be
+ad
+ab
+"}
+(12,1,1) = {"
+ac
+ag
+ag
+ag
+ao
+ar
+ag
+az
+aC
+az
+az
+ag
+aO
+ao
+aX
+bf
+bj
+ab
+"}
+(13,1,1) = {"
+ac
+ah
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+ag
+aH
+aL
+ag
+ao
+aY
+bb
+ad
+ab
+"}
+(14,1,1) = {"
+ac
+ai
+ak
+ag
+ag
+as
+as
+ag
+aD
+ay
+aI
+ag
+aP
+ac
+aS
+bb
+bh
+ab
+"}
+(15,1,1) = {"
+ac
+ac
+ac
+am
+ac
+at
+av
+ag
+aE
+av
+aI
+ag
+aQ
+ac
+ad
+bb
+ad
+ab
+"}
+(16,1,1) = {"
+ab
+ad
+ad
+ad
+ac
+ac
+ac
+aA
+ac
+ac
+ac
+ac
+ac
+ac
+aZ
+bg
+ad
+ab
+"}
+(17,1,1) = {"
+ab
+ad
+ad
+ad
+ad
+ad
+ac
+ad
+ac
+ad
+ad
+ad
+ad
+ac
+ad
+ad
+ad
+ab
+"}
+(18,1,1) = {"
+ab
+ad
+ad
+an
+ad
+ad
+ac
+ad
+ac
+ad
+ad
+ad
+ad
+ac
+ad
+ad
+bh
+ab
+"}
+(19,1,1) = {"
+ab
+ad
+ac
+ac
+ad
+ad
+ac
+ac
+ac
+ac
+aJ
+ad
+ad
+ac
+ad
+ad
+ad
+ab
+"}
+(20,1,1) = {"
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+"}
