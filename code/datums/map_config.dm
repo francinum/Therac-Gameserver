@@ -19,6 +19,9 @@
 	var/map_file = "MetaStation.dmm"
 	var/webmap_id = "DaedalusMeta"
 
+	/// Does this map result in the running of map validation unit tests?
+	var/validate_map = FALSE
+
 	var/traits = null
 	var/space_ruin_levels = 7
 	var/space_empty_levels = 1
@@ -137,6 +140,10 @@
 	webmap_id = json["webmap_id"]
 	if(!webmap_id)
 		log_mapping("Map is missing a webmap ID.")
+
+	validate_map = json["validate_map"]
+	if(!validate_map)
+		validate_map = FALSE //Just to make sure it's not null.
 
 	if (islist(json["shuttles"]))
 		var/list/L = json["shuttles"]

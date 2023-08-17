@@ -18,6 +18,7 @@ GLOBAL_VAR(test_log)
 GLOBAL_LIST_EMPTY(unit_test_mapping_logs)
 
 /datum/unit_test
+	abstract_type = /datum/unit_test
 	//Bit of metadata for the future maybe
 	var/list/procs_tested
 
@@ -159,6 +160,8 @@ GLOBAL_LIST_EMPTY(unit_test_mapping_logs)
 	var/list/focused_tests = list()
 	for (var/_test_to_run in tests_to_run)
 		var/datum/unit_test/test_to_run = _test_to_run
+		if(isabstract(test_to_run))
+			tests_to_run.Remove(test_to_run) //Don't run abstract tests.
 		if (initial(test_to_run.focus))
 			focused_tests += test_to_run
 	if(length(focused_tests))

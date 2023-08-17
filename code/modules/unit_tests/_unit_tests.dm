@@ -46,8 +46,13 @@
 #define UNIT_TEST_FAILED 1
 #define UNIT_TEST_SKIPPED 2
 
+/// Pre-start tests that usually deal with logging-related cleanup, or otherwise
 #define TEST_PRE 0
-#define TEST_DEFAULT 1
+/// Tests related to specifically to playable maps. Non-Playable maps are skipped.
+#define TEST_MAP 1
+/// Most unit tests should have this priority
+#define TEST_DEFAULT 2
+/// ONLY CreateAndDestroy should have this priority. It runs last as it utterly thrashes everything else in the world.
 #define TEST_DEL_WORLD INFINITY
 
 #ifdef ANSICOLORS

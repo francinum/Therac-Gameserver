@@ -1,0 +1,1 @@
+/datum/unit_test/map_tests/networked_disposals_shall_deliver_tagged_packages
