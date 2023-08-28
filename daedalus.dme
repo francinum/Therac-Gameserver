@@ -4610,6 +4610,7 @@
 #include "code\modules\zmimic\mimic_turf.dm"
 #include "code\modules\zombie\items.dm"
 #include "code\modules\zombie\organs.dm"
+#include "code\WorkInProgress\francinum\serial_console\sconsole.dm"
 #include "interface\interface.dm"
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
