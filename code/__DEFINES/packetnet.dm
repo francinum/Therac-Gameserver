@@ -22,6 +22,8 @@
 #define NETCLASS_P2P_PHONE "PNET_VCSTATION"
 #define NETCLASS_APC "PNET_AREAPOWER"
 #define NETCLASS_TERMINAL "PNET_STERM"
+#define NETCLASS_TEL_EXCHANGE "PNET_EXCHANGE"
+#define NETCLASS_TEL_STATION "PNET_PHONE"
 
 // Packet fields
 // not honestly thrilled with having these be defines but kapu wants it that way

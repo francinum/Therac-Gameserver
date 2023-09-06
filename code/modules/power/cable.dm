@@ -3,7 +3,8 @@
 GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/grille)))
 
 #define UNDER_SMES -1
-#define UNDER_TERMINAL 1
+#define UNDER_EXCHANGE -2
+#define UNDER_NODE_SPLIT_CHILD 1
 
 ///////////////////////////////
 //CABLE STRUCTURE
@@ -75,10 +76,12 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 	var/obj/machinery/power/search_parent
 
 	if((search_parent = locate(/obj/machinery/power/terminal) in loc))
-		under_thing = UNDER_TERMINAL
+		under_thing = UNDER_NODE_SPLIT_CHILD
 
 	else if((search_parent = locate(/obj/machinery/power/smes) in loc))
 		under_thing = UNDER_SMES
+	else if((search_parent = locate(/obj/machinery/telephone_exchange) in loc))
+		under_thing = UNDER_EXCHANGE
 
 	for(var/check_dir in GLOB.cardinals)
 		var/TB = get_step(src, check_dir)
@@ -95,7 +98,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 					//This might break.
 					if(term && (!term.master || term.master == search_parent))
 						continue
-				if(UNDER_TERMINAL)
+				if(UNDER_NODE_SPLIT_CHILD)
 					var/obj/machinery/power/smes/S = locate(/obj/machinery/power/smes) in TB
 					if(S && (!S.terminal || S.terminal == search_parent))
 						continue
@@ -640,7 +643,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 
 #undef CABLE_RESTRAINTS_COST
 #undef UNDER_SMES
-#undef UNDER_TERMINAL
+#undef UNDER_NODE_SPLIT_CHILD
 
 ///multilayer cable to connect different layers
 /obj/structure/cable/multilayer

@@ -32,14 +32,29 @@
 		return
 	var/sigdat = signal.data //cache for sanic speed this joke is getting old.
 	if(sigdat[PACKET_DESTINATION_ADDRESS] != src.net_id)//This packet doesn't belong to us directly
-		if(sigdat[PACKET_DESTINATION_ADDRESS] == NET_ADDRESS_PING)// But it could be a ping, if so, reply
-			var/tmp_filter = sigdat["filter"]
-			if(!isnull(tmp_filter) && tmp_filter != net_class)
-				return RECEIVE_SIGNAL_FINISHED
-			//Blame kapu for how stupid this looks :3
-			post_signal(create_signal(sigdat[PACKET_SOURCE_ADDRESS], list("command"=NET_COMMAND_PING_REPLY,"netclass"=src.net_class,"netaddr"=src.net_id)+src.ping_addition))
+		handle_ping(signal) //Will automatically be flushed out the main interface.
 		return RECEIVE_SIGNAL_FINISHED//regardless, return 1 so that machines don't process packets not intended for them.
 	return RECEIVE_SIGNAL_CONTINUE // We are the designated recipient of this packet, we need to handle it.
+
+/// 'Auxilliary' channel receive signal, Used for signals received from terminals.
+/obj/machinery/proc/receive_signal_aux(datum/signal/signal)
+	CRASH("Machine of type [src.type] received aux channel signal without defining a proc to receive it on.")
+
+/obj/machinery/proc/handle_ping(datum/signal/signal, auto_post = TRUE)
+	var/sigdat = signal.data
+	if(sigdat[PACKET_DESTINATION_ADDRESS] == NET_ADDRESS_PING)// If it's a ping, reply, otherwise return continue
+		var/tmp_filter = sigdat["filter"]
+		if(!isnull(tmp_filter) && tmp_filter != net_class)
+			return RECEIVE_SIGNAL_FINISHED
+		//Blame kapu for how stupid this looks :3
+		var/datum/signal/outgoing = create_signal(sigdat[PACKET_SOURCE_ADDRESS], list("command"=NET_COMMAND_PING_REPLY,"netclass"=src.net_class,"netaddr"=src.net_id)+src.ping_addition)
+		if(auto_post) // Do we need to handle it specially?
+			post_signal(outgoing)
+		else
+			return outgoing //Return it so we can shove it out the right interface.
+		return RECEIVE_SIGNAL_FINISHED
+	else
+		return RECEIVE_SIGNAL_CONTINUE
 
 //Handle the network jack
 

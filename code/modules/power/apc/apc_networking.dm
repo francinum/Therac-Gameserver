@@ -7,12 +7,12 @@
 	if(isnull(terminal) || isnull(sending_signal)) //nullcheck for sanic speed
 		return //You need a pipe and something to send down it, though.
 	if(!preserve_s_addr)
-		sending_signal.data["s_addr"] = src.net_id
+		sending_signal.data[PACKET_SOURCE_ADDRESS] = src.net_id
 	sending_signal.transmission_method = TRANSMISSION_WIRE
 	sending_signal.author = WEAKREF(src) // Override the sending signal author.
 	src.terminal.post_signal(sending_signal)
 
-/obj/machinery/power/apc/receive_signal(datum/signal/signal)
-	. = ..()
+/obj/machinery/power/apc/receive_signal_aux(datum/signal/signal)
+	. = receive_signal(signal)
 	if(. == RECEIVE_SIGNAL_FINISHED)
-		return //Ping packet handled.
+		return //Ping packet handled. I swear I'll finish more of this later.
