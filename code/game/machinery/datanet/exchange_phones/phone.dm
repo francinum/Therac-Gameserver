@@ -21,3 +21,5 @@
 	/// Name 'placard', such as 'Special Hotline', gets appended to the end.
 	var/placard_name
 
+	/// Network ID of our exchange,
+	var/exchange_netid
