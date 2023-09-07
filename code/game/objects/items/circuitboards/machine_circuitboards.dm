@@ -2,7 +2,7 @@
 
 /obj/item/circuitboard/machine/bsa/back
 	name = "Bluespace Artillery Generator (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_COMMAND
+	color = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/bsa/back //No freebies!
 	req_components = list(
 		/obj/item/stock_parts/capacitor/quadratic = 5,
@@ -10,7 +10,7 @@
 
 /obj/item/circuitboard/machine/bsa/front
 	name = "Bluespace Artillery Bore (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_COMMAND
+	color = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/bsa/front
 	req_components = list(
 		/obj/item/stock_parts/manipulator/femto = 5,
@@ -18,7 +18,7 @@
 
 /obj/item/circuitboard/machine/bsa/middle
 	name = "Bluespace Artillery Fusor (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_COMMAND
+	color = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/bsa/middle
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 20,
@@ -26,7 +26,7 @@
 
 /obj/item/circuitboard/machine/dna_vault
 	name = "DNA Vault (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_COMMAND
+	color = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/dna_vault //No freebies!
 	req_components = list(
 		/obj/item/stock_parts/capacitor/super = 5,
@@ -37,7 +37,7 @@
 
 /obj/item/circuitboard/machine/announcement_system
 	name = "Announcement System (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/announcement_system
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
@@ -45,7 +45,7 @@
 
 /obj/item/circuitboard/machine/autolathe
 	name = "Autolathe (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/autolathe
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 3,
@@ -59,7 +59,7 @@
 
 /obj/item/circuitboard/machine/grounding_rod
 	name = "Grounding Rod (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/power/energy_accumulator/grounding_rod
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 	needs_anchored = FALSE
@@ -67,7 +67,7 @@
 
 /obj/item/circuitboard/machine/telecomms/broadcaster
 	name = "Subspace Broadcaster (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/telecomms/broadcaster
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
@@ -78,7 +78,7 @@
 
 /obj/item/circuitboard/machine/telecomms/bus
 	name = "Bus Mainframe (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/telecomms/bus
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
@@ -87,7 +87,7 @@
 
 /obj/item/circuitboard/machine/telecomms/hub
 	name = "Hub Mainframe (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/telecomms/hub
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
@@ -96,7 +96,7 @@
 
 /obj/item/circuitboard/machine/telecomms/message_server
 	name = "Messaging Server (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/telecomms/message_server
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
@@ -105,7 +105,7 @@
 
 /obj/item/circuitboard/machine/telecomms/processor
 	name = "Processor Unit (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/telecomms/processor
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 3,
@@ -117,7 +117,7 @@
 
 /obj/item/circuitboard/machine/telecomms/receiver
 	name = "Subspace Receiver (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/telecomms/receiver
 	req_components = list(
 		/obj/item/stock_parts/subspace/ansible = 1,
@@ -127,7 +127,7 @@
 
 /obj/item/circuitboard/machine/telecomms/relay
 	name = "Relay Mainframe (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/telecomms/relay
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
@@ -136,7 +136,7 @@
 
 /obj/item/circuitboard/machine/telecomms/server
 	name = "Telecommunication Server (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/telecomms/server
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
@@ -145,7 +145,7 @@
 
 /obj/item/circuitboard/machine/tesla_coil
 	name = "Tesla Controller (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	desc = "Does not let you shoot lightning from your hands."
 	build_path = /obj/machinery/power/energy_accumulator/tesla_coil
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
@@ -153,14 +153,14 @@
 
 /obj/item/circuitboard/machine/cell_charger
 	name = "Cell Charger (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/cell_charger
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/emitter
 	name = "Emitter (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/power/emitter
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
@@ -169,7 +169,7 @@
 
 /obj/item/circuitboard/machine/ntnet_relay
 	name = "NTNet Relay (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/ntnet_relay
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
@@ -177,7 +177,7 @@
 
 /obj/item/circuitboard/machine/pacman
 	name = "PACMAN-type Generator (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/power/port_gen/pacman
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -188,12 +188,12 @@
 
 /obj/item/circuitboard/machine/pacman/super
 	name = "SUPERPACMAN-type Generator (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/power/port_gen/pacman/super
 
 /obj/item/circuitboard/machine/fabricator/department/engineering
 	name = "Departmental Fabricator - Engineering (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/rnd/production/fabricator/department/engineering
 	def_components = list(
 		/obj/item/disk/data = /obj/item/disk/data/hyper/preloaded/fabricator/engineering
@@ -201,7 +201,7 @@
 
 /obj/item/circuitboard/machine/fabricator/department/civvie
 	name = "Departmental Fabricator - Civilian (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/rnd/production/fabricator/department/civvie
 	def_components = list(
 		/obj/item/disk/data = /obj/item/disk/data/hyper/preloaded/fabricator/civ
@@ -209,7 +209,7 @@
 
 /obj/item/circuitboard/machine/rtg
 	name = "RTG (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/power/rtg
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
@@ -228,14 +228,14 @@
 
 /obj/item/circuitboard/machine/scanner_gate
 	name = "Scanner Gate (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/scanner_gate
 	req_components = list(
 		/obj/item/stock_parts/scanning_module = 3)
 
 /obj/item/circuitboard/machine/smes
 	name = "SMES (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/power/smes
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
@@ -248,7 +248,7 @@
 
 /obj/item/circuitboard/machine/thermomachine
 	name = "Thermomachine (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/atmospherics/components/unary/thermomachine/freezer
 	var/pipe_layer = PIPING_LAYER_DEFAULT
 	req_components = list(
@@ -270,28 +270,28 @@
 //FIXME: HYPERGARBAGE DONUT CREATION CODE
 // /obj/item/circuitboard/machine/HFR_fuel_input
 // 	name = "HFR Fuel Input (Machine Board)"
-// 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+// 	color = CIRCUIT_COLOR_ENGINEERING
 // 	build_path = /obj/machinery/atmospherics/components/unary/hypertorus/fuel_input
 // 	req_components = list(
 // 		/obj/item/stack/sheet/plasteel = 5)
 
 // /obj/item/circuitboard/machine/HFR_waste_output
 // 	name = "HFR Waste Output (Machine Board)"
-// 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+// 	color = CIRCUIT_COLOR_ENGINEERING
 // 	build_path = /obj/machinery/atmospherics/components/unary/hypertorus/waste_output
 // 	req_components = list(
 // 		/obj/item/stack/sheet/plasteel = 5)
 
 // /obj/item/circuitboard/machine/HFR_moderator_input
 // 	name = "HFR Moderator Input (Machine Board)"
-// 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+// 	color = CIRCUIT_COLOR_ENGINEERING
 // 	build_path = /obj/machinery/atmospherics/components/unary/hypertorus/moderator_input
 // 	req_components = list(
 // 		/obj/item/stack/sheet/plasteel = 5)
 
 // /obj/item/circuitboard/machine/HFR_core
 // 	name = "HFR core (Machine Board)"
-// 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+// 	color = CIRCUIT_COLOR_ENGINEERING
 // 	build_path = /obj/machinery/atmospherics/components/unary/hypertorus/core
 // 	req_components = list(
 // 		/obj/item/stack/cable_coil = 10,
@@ -300,14 +300,14 @@
 
 // /obj/item/circuitboard/machine/HFR_corner
 // 	name = "HFR Corner (Machine Board)"
-// 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+// 	color = CIRCUIT_COLOR_ENGINEERING
 // 	build_path = /obj/machinery/hypertorus/corner
 // 	req_components = list(
 // 		/obj/item/stack/sheet/plasteel = 5)
 
 // /obj/item/circuitboard/machine/HFR_interface
 // 	name = "HFR Interface (Machine Board)"
-// 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+// 	color = CIRCUIT_COLOR_ENGINEERING
 // 	build_path = /obj/machinery/hypertorus/interface
 // 	req_components = list(
 // 		/obj/item/stack/cable_coil = 10,
@@ -316,7 +316,7 @@
 
 // /obj/item/circuitboard/machine/crystallizer
 // 	name = "Crystallizer (Machine Board)"
-// 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+// 	color = CIRCUIT_COLOR_ENGINEERING
 // 	build_path = /obj/machinery/atmospherics/components/binary/crystallizer
 // 	req_components = list(
 // 		/obj/item/stack/cable_coil = 10,
@@ -325,7 +325,7 @@
 
 /obj/item/circuitboard/machine/bluespace_sender
 	name = "Bluespace Sender (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	color = CIRCUIT_COLOR_ENGINEERING
 	//build_path = /obj/machinery/atmospherics/components/unary/bluespace_sender
 	req_components = list(
 		/obj/item/stack/cable_coil = 10,
@@ -336,7 +336,7 @@
 
 /obj/item/circuitboard/machine/circuit_imprinter
 	name = "Circuit Imprinter (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/rnd/production/circuit_imprinter
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -364,7 +364,7 @@
 
 /obj/item/circuitboard/machine/holopad
 	name = "AI Holopad (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/holopad
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 	needs_anchored = FALSE //wew lad
@@ -388,7 +388,7 @@
 
 /obj/item/circuitboard/machine/launchpad
 	name = "Bluespace Launchpad (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/launchpad
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 1,
@@ -397,7 +397,7 @@
 
 /obj/item/circuitboard/machine/fabricator
 	name = "Fabricator (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/rnd/production/fabricator
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
@@ -423,12 +423,12 @@
 	)
 /obj/item/circuitboard/machine/fabricator/department
 	name = "Departmental Fabricator (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/rnd/production/fabricator/department
 
 /obj/item/circuitboard/machine/reagentgrinder
 	name = "All-In-One Grinder (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/reagentgrinder/constructed
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 1)
@@ -474,7 +474,7 @@
 
 /obj/item/circuitboard/machine/space_heater
 	name = "Space Heater (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/space_heater/constructed
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
@@ -484,7 +484,7 @@
 
 /obj/item/circuitboard/machine/electrolyzer
 	name = "Electrolyzer (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 	//build_path = /obj/machinery/electrolyzer
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
@@ -588,7 +588,7 @@
 
 /obj/item/circuitboard/machine/bountypad
 	name = "Civilian Bounty Pad (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/piratepad/civilian
 	req_components = list(
 		/obj/item/stock_parts/card_reader = 1,
@@ -600,7 +600,7 @@
 
 /obj/item/circuitboard/machine/chem_dispenser
 	name = "Chem Dispenser (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/chem_dispenser
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
@@ -646,7 +646,7 @@
 
 /obj/item/circuitboard/machine/chem_heater
 	name = "Chemical Heater (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/chem_heater
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
@@ -654,7 +654,7 @@
 
 /obj/item/circuitboard/machine/chem_master
 	name = "ChemMaster 3000 (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/chem_master
 	desc = "You can turn the \"mode selection\" dial using a screwdriver."
 	req_components = list(
@@ -678,7 +678,7 @@
 
 /obj/item/circuitboard/machine/cryo_tube
 	name = "Cryotube (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/atmospherics/components/unary/cryo_cell
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -687,20 +687,20 @@
 
 /obj/item/circuitboard/machine/fat_sucker
 	name = "Lipid Extractor (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/fat_sucker
 	req_components = list(/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/kitchen/fork = 1)
 
 /obj/item/circuitboard/machine/harvester
 	name = "Harvester (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/harvester
 	req_components = list(/obj/item/stock_parts/micro_laser = 4)
 
 /obj/item/circuitboard/machine/limbgrower
 	name = "Limb Grower (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/limbgrower
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 1,
@@ -714,7 +714,7 @@
 
 /obj/item/circuitboard/machine/limbgrower/fullupgrade
 	name = "Limb Grower (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/limbgrower
 	req_components = list(
 		/obj/item/stock_parts/manipulator/femto  = 1,
@@ -728,7 +728,7 @@
 
 /obj/item/circuitboard/machine/fabricator/department/medical
 	name = "Departmental Fabricator - Medical (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/rnd/production/fabricator/department/medical
 	def_components = list(
 		/obj/item/disk/data = /obj/item/disk/data/hyper/preloaded/fabricator/medical
@@ -736,7 +736,7 @@
 
 /obj/item/circuitboard/machine/sleeper
 	name = "Sleeper (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/sleeper
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -760,7 +760,7 @@
 
 /obj/item/circuitboard/machine/smoke_machine
 	name = "Smoke Machine (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/smoke_machine
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
@@ -772,7 +772,7 @@
 
 /obj/item/circuitboard/machine/stasis
 	name = "\improper Lifeform Stasis Unit (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/stasis
 	req_components = list(
 		/obj/item/stack/cable_coil = 3,
@@ -781,14 +781,14 @@
 
 /obj/item/circuitboard/machine/medipen_refiller
 	name = "Medipen Refiller (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/medipen_refiller
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1)
 
 /obj/item/circuitboard/machine/bodyscanner
 	name = "Body Scanner (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/bodyscanner
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -798,7 +798,7 @@
 
 /obj/item/circuitboard/machine/bodyscanner_console
 	name = "Body Scanner Console (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	color = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/bodyscanner_console
 	req_components = list(
 		/obj/item/stack/cable_coil = 1,
@@ -807,7 +807,7 @@
 
 /obj/item/circuitboard/machine/cyborgrecharger
 	name = "Cyborg Recharger (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/recharge_station
 	req_components = list(
 		/obj/item/stock_parts/capacitor = 2,
@@ -817,7 +817,7 @@
 
 /obj/item/circuitboard/machine/destructive_analyzer
 	name = "Destructive Analyzer (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/rnd/destructive_analyzer
 	req_components = list(
 		/obj/item/stock_parts/scanning_module = 1,
@@ -827,7 +827,7 @@
 
 /obj/item/circuitboard/machine/mech_recharger
 	name = "Mechbay Recharger (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/mech_bay_recharge_port
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
@@ -835,7 +835,7 @@
 
 /obj/item/circuitboard/machine/monkey_recycler
 	name = "Monkey Recycler (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/monkey_recycler
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -844,12 +844,12 @@
 
 /obj/item/circuitboard/machine/processor/slime
 	name = "Slime Processor (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/processor/slime
 
 /obj/item/circuitboard/machine/quantumpad
 	name = "Quantum Pad (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/quantumpad
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 1,
@@ -860,7 +860,7 @@
 
 /obj/item/circuitboard/machine/teleporter_hub
 	name = "Teleporter Hub (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/teleport/hub
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 3,
@@ -869,7 +869,7 @@
 
 /obj/item/circuitboard/machine/teleporter_station
 	name = "Teleporter Station (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/teleport/station
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 2,
@@ -879,7 +879,7 @@
 
 /obj/item/circuitboard/machine/dnascanner
 	name = "DNA Scanner (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/dna_scannernew
 	req_components = list(
 		/obj/item/stock_parts/scanning_module = 1,
@@ -890,13 +890,13 @@
 
 /obj/item/circuitboard/machine/mechpad
 	name = "Mecha Orbital Pad (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/mechpad
 	req_components = list()
 
 /obj/item/circuitboard/machine/fabricator/department/robotics
 	name = "Departmental Fabricator - Robotics (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_ROBOTICS
+	color = CIRCUIT_COLOR_ROBOTICS
 	build_path = /obj/machinery/rnd/production/fabricator/department/robotics
 	def_components = list(
 		/obj/item/disk/data = /obj/item/disk/data/hyper/preloaded/fabricator/robotics
@@ -906,7 +906,7 @@
 
 /obj/item/circuitboard/machine/fabricator/department/security
 	name = "Departmental Fabricator - Security (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SECURITY
+	color = CIRCUIT_COLOR_SECURITY
 	build_path = /obj/machinery/rnd/production/fabricator/department/security
 	def_components = list(
 		/obj/item/disk/data = /obj/item/disk/data/hyper/preloaded/fabricator/security
@@ -914,7 +914,7 @@
 
 /obj/item/circuitboard/machine/recharger
 	name = "Weapon Recharger (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SECURITY
+	color = CIRCUIT_COLOR_SECURITY
 	build_path = /obj/machinery/recharger
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 	needs_anchored = FALSE
@@ -923,7 +923,7 @@
 
 /obj/item/circuitboard/machine/biogenerator
 	name = "Biogenerator (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/biogenerator
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -933,7 +933,7 @@
 
 /obj/item/circuitboard/machine/chem_dispenser/drinks
 	name = "Soda Dispenser (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_dispenser/drinks
 
 /obj/item/circuitboard/machine/chem_dispenser/drinks/fullupgrade
@@ -948,7 +948,7 @@
 
 /obj/item/circuitboard/machine/chem_dispenser/drinks/beer
 	name = "Booze Dispenser (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_dispenser/drinks/beer
 
 /obj/item/circuitboard/machine/chem_dispenser/drinks/beer/fullupgrade
@@ -963,33 +963,33 @@
 
 /obj/item/circuitboard/machine/chem_master/condi
 	name = "CondiMaster 3000 (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_master/condimaster
 
 /obj/item/circuitboard/machine/deep_fryer
 	name = "circuit board (Deep Fryer)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/deepfryer
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/griddle
 	name = "circuit board (Griddle)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/griddle
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/oven
 	name = "circuit board (Oven)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/oven
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/dish_drive
 	name = "Dish Drive (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/dish_drive
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
@@ -1016,7 +1016,7 @@
 
 /obj/item/circuitboard/machine/gibber
 	name = "Gibber (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/gibber
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -1025,7 +1025,7 @@
 
 /obj/item/circuitboard/machine/hydroponics
 	name = "Hydroponics Tray (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/hydroponics/constructable
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
@@ -1035,7 +1035,7 @@
 
 /obj/item/circuitboard/machine/microwave
 	name = "Microwave (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/microwave
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
@@ -1046,7 +1046,7 @@
 
 /obj/item/circuitboard/machine/processor
 	name = "Food Processor (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/processor
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -1066,7 +1066,7 @@
 
 /obj/item/circuitboard/machine/fabricator/department/service
 	name = "Departmental Fabricator - Service (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/rnd/production/fabricator/department/service
 	def_components = list(
 		/obj/item/disk/data = /obj/item/disk/data/hyper/preloaded/fabricator/service
@@ -1074,7 +1074,7 @@
 
 /obj/item/circuitboard/machine/recycler
 	name = "Recycler (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/recycler
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -1083,7 +1083,7 @@
 
 /obj/item/circuitboard/machine/seed_extractor
 	name = "Seed Extractor (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/seed_extractor
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
@@ -1092,7 +1092,7 @@
 
 /obj/item/circuitboard/machine/vendatray
 	name = "Vend-A-Tray (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/structure/displaycase/forsale
 	req_components = list(
 		/obj/item/stock_parts/card_reader = 1)
@@ -1101,7 +1101,7 @@
 
 /obj/item/circuitboard/machine/mining_equipment_vendor
 	name = "Mining Equipment Vendor (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	color = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/mineral/equipment_vendor
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
@@ -1113,7 +1113,7 @@
 
 /obj/item/circuitboard/machine/ore_redemption
 	name = "Ore Redemption (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	color = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/mineral/ore_redemption
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
@@ -1130,13 +1130,13 @@
 
 /obj/item/circuitboard/machine/ore_silo
 	name = "Ore Silo (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	color = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/ore_silo
 	req_components = list()
 
 /obj/item/circuitboard/machine/fabricator/department/cargo
 	name = "Departmental Fabricator - Cargo (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	color = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/rnd/production/fabricator/department/cargo
 	def_components = list(
 		/obj/item/disk/data = /obj/item/disk/data/hyper/preloaded/fabricator/supply
@@ -1144,7 +1144,7 @@
 
 /obj/item/circuitboard/machine/stacking_machine
 	name = "Stacking Machine (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	color = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/mineral/stacking_machine
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
@@ -1152,7 +1152,7 @@
 
 /obj/item/circuitboard/machine/stacking_unit_console
 	name = "Stacking Machine Console (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	color = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/mineral/stacking_unit_console
 	req_components = list(
 		/obj/item/stack/sheet/glass = 2,
@@ -1161,7 +1161,7 @@
 //Misc
 /obj/item/circuitboard/machine/sheetifier
 	name = "Sheet-meister 2000 (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	color = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/sheetifier
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
@@ -1170,7 +1170,7 @@
 
 /obj/item/circuitboard/machine/restaurant_portal
 	name = "Restaurant Portal"
-	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	color = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/restaurant_portal
 	needs_anchored = TRUE
 
@@ -1191,7 +1191,7 @@
 
 /obj/item/circuitboard/machine/hypnochair
 	name = "Enhanced Interrogation Chamber (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SECURITY
+	color = CIRCUIT_COLOR_SECURITY
 	build_path = /obj/machinery/hypnochair
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 2,
@@ -1209,7 +1209,7 @@
 
 /obj/item/circuitboard/machine/doppler_array
 	name = "Tachyon-Doppler Research Array (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/doppler_array
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 2,
@@ -1217,7 +1217,7 @@
 
 /obj/item/circuitboard/machine/exoscanner
 	name = "Exoscanner (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/exoscanner
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 4,
@@ -1225,7 +1225,7 @@
 
 /obj/item/circuitboard/machine/exodrone_launcher
 	name = "Exploration Drone Launcher (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/exodrone_launcher
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 4,
@@ -1233,14 +1233,14 @@
 
 /obj/item/circuitboard/machine/ecto_sniffer
 	name = "Ectoscopic Sniffer (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/ecto_sniffer
 	req_components = list(
 		/obj/item/stock_parts/scanning_module = 1)
 
 /obj/item/circuitboard/machine/anomaly_refinery
 	name = "Anomaly Refinery (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/research/anomaly_refinery
 	req_components = list(
 		/obj/item/stack/sheet/plasteel = 15,
@@ -1250,7 +1250,7 @@
 
 /obj/item/circuitboard/machine/tank_compressor
 	name = "Tank Compressor (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	color = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/atmospherics/components/binary/tank_compressor
 	req_components = list(
 		/obj/item/stack/sheet/plasteel = 5,

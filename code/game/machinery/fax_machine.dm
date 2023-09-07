@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(fax_machines)
 /// Fax machine circuit.
 /obj/item/circuitboard/machine/fax_machine
 	name = "Fax Machine (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_COMMAND
+	color = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/fax_machine
 	req_components = list(
 		/obj/item/stack/sheet/mineral/silver = 1,

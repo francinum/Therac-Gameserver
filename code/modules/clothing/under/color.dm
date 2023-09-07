@@ -1,13 +1,6 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dying_key = DYE_REGISTRY_UNDER
-	greyscale_colors = "#3f3f3f"
-	greyscale_config = /datum/greyscale_config/jumpsuit
-	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
-	greyscale_config_inhand_right = /datum/greyscale_config/jumpsuit_inhand_right
-	greyscale_config_worn = /datum/greyscale_config/jumpsuit_worn
-	greyscale_config_worn_digitigrade = /datum/greyscale_config/jumpsuit_worn/digitigrade
-	greyscale_config_worn_vox = /datum/greyscale_config/jumpsuit_worn/vox
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION | CLOTHING_TESHARI_VARIATION | CLOTHING_VOX_VARIATION
 	icon = 'icons/obj/clothing/under/color.dmi'
 	icon_state = "jumpsuit"
@@ -22,7 +15,22 @@
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	icon_state = "jumpskirt"
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON | CLOTHING_TESHARI_VARIATION | CLOTHING_VOX_VARIATION
-	greyscale_config_worn_digitigrade = null //PARIAH EDIT ADDITION
+
+/obj/item/clothing/under/color/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_OVERLAYS)
+
+/obj/item/clothing/under/color/worn_overlays(mob/living/carbon/human/wearer, mutable_appearance/standing, isinhands, icon_file)
+	. = ..()
+	var/image/I = image(icon_file, "[icon_state]_accessories")
+	I.appearance_flags = RESET_COLOR
+	. += I
+
+/obj/item/clothing/under/color/update_overlays()
+	. = ..()
+	var/image/I = image(icon, "[icon_state]_accessories")
+	I.appearance_flags = RESET_COLOR
+	. += I
 
 /// Returns a random, acceptable jumpsuit typepath
 /proc/get_random_jumpsuit()
@@ -86,12 +94,12 @@
 /obj/item/clothing/under/color/grey
 	name = "grey jumpsuit"
 	desc = "A tasteful grey jumpsuit that reminds you of the good old days."
-	greyscale_colors = "#b3b3b3"
+	color = "#b3b3b3"
 
 /obj/item/clothing/under/color/jumpskirt/grey
 	name = "grey jumpskirt"
 	desc = "A tasteful grey jumpskirt that reminds you of the good old days."
-	greyscale_colors = "#b3b3b3"
+	color = "#b3b3b3"
 
 /obj/item/clothing/under/color/grey/ancient
 	name = "ancient jumpsuit"
@@ -106,117 +114,117 @@
 
 /obj/item/clothing/under/color/blue
 	name = "blue jumpsuit"
-	greyscale_colors = "#52aecc"
+	color = "#52aecc"
 
 /obj/item/clothing/under/color/jumpskirt/blue
 	name = "blue jumpskirt"
-	greyscale_colors = "#52aecc"
+	color = "#52aecc"
 
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
-	greyscale_colors = "#9ed63a"
+	color = "#9ed63a"
 
 /obj/item/clothing/under/color/jumpskirt/green
 	name = "green jumpskirt"
-	greyscale_colors = "#9ed63a"
+	color = "#9ed63a"
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
 	desc = "Don't wear this near paranoid security officers."
-	greyscale_colors = "#ff8c19"
+	color = "#ff8c19"
 
 /obj/item/clothing/under/color/jumpskirt/orange
 	name = "orange jumpskirt"
-	greyscale_colors = "#ff8c19"
+	color = "#ff8c19"
 
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"
 	desc = "Just looking at this makes you feel <i>fabulous</i>."
-	greyscale_colors = "#ffa69b"
+	color = "#ffa69b"
 
 /obj/item/clothing/under/color/jumpskirt/pink
 	name = "pink jumpskirt"
-	greyscale_colors = "#ffa69b"
+	color = "#ffa69b"
 
 /obj/item/clothing/under/color/red
 	name = "red jumpsuit"
-	greyscale_colors = "#eb0c07"
+	color = "#eb0c07"
 
 /obj/item/clothing/under/color/jumpskirt/red
 	name = "red jumpskirt"
-	greyscale_colors = "#eb0c07"
+	color = "#eb0c07"
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"
-	greyscale_colors = "#ffffff"
+	color = "#ffffff"
 
 /obj/item/clothing/under/color/jumpskirt/white
 	name = "white jumpskirt"
-	greyscale_colors = "#ffffff"
+	color = "#ffffff"
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"
-	greyscale_colors = "#ffe14d"
+	color = "#ffe14d"
 
 /obj/item/clothing/under/color/jumpskirt/yellow
 	name = "yellow jumpskirt"
-	greyscale_colors = "#ffe14d"
+	color = "#ffe14d"
 
 /obj/item/clothing/under/color/darkblue
 	name = "dark blue jumpsuit"
-	greyscale_colors = "#3285ba"
+	color = "#3285ba"
 
 /obj/item/clothing/under/color/jumpskirt/darkblue
 	name = "dark blue jumpskirt"
-	greyscale_colors = "#3285ba"
+	color = "#3285ba"
 
 /obj/item/clothing/under/color/teal
 	name = "teal jumpsuit"
-	greyscale_colors = "#77f3b7"
+	color = "#77f3b7"
 
 /obj/item/clothing/under/color/jumpskirt/teal
 	name = "teal jumpskirt"
-	greyscale_colors = "#77f3b7"
+	color = "#77f3b7"
 
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"
-	greyscale_colors = "#9f70cc"
+	color = "#9f70cc"
 
 /obj/item/clothing/under/color/jumpskirt/lightpurple
 	name = "light purple jumpskirt"
-	greyscale_colors = "#9f70cc"
+	color = "#9f70cc"
 
 /obj/item/clothing/under/color/darkgreen
 	name = "dark green jumpsuit"
-	greyscale_colors = "#6fbc22"
+	color = "#6fbc22"
 
 /obj/item/clothing/under/color/jumpskirt/darkgreen
 	name = "dark green jumpskirt"
-	greyscale_colors = "#6fbc22"
+	color = "#6fbc22"
 
 /obj/item/clothing/under/color/lightbrown
 	name = "light brown jumpsuit"
-	greyscale_colors = "#c59431"
+	color = "#c59431"
 
 /obj/item/clothing/under/color/jumpskirt/lightbrown
 	name = "light brown jumpskirt"
-	greyscale_colors = "#c59431"
+	color = "#c59431"
 
 /obj/item/clothing/under/color/brown
 	name = "brown jumpsuit"
-	greyscale_colors = "#a17229"
+	color = "#a17229"
 
 /obj/item/clothing/under/color/jumpskirt/brown
 	name = "brown jumpskirt"
-	greyscale_colors = "#a17229"
+	color = "#a17229"
 
 /obj/item/clothing/under/color/maroon
 	name = "maroon jumpsuit"
-	greyscale_colors = "#cc295f"
+	color = "#cc295f"
 
 /obj/item/clothing/under/color/jumpskirt/maroon
 	name = "maroon jumpskirt"
-	greyscale_colors = "#cc295f"
+	color = "#cc295f"
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"

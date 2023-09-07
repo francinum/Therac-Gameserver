@@ -6,14 +6,14 @@
 /obj/item/circuitboard
 	name = "circuit board"
 	icon = 'icons/obj/module.dmi'
-	icon_state = "circuit_map"
+	icon_state = "circuit_board"
 	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	custom_materials = list(/datum/material/glass = 1000)
 	w_class = WEIGHT_CLASS_SMALL
 	grind_results = list(/datum/reagent/silicon = 20)
-	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	color = CIRCUIT_COLOR_GENERIC
 
 	var/build_path = null
 	///determines if the circuit board originated from a vendor off station or not.
@@ -26,8 +26,12 @@
 							// Example: list(/obj/item/stock_parts/matter_bin = /obj/item/stock_parts/matter_bin/super)
 
 /obj/item/circuitboard/Initialize(mapload)
-	set_greyscale(new_config = /datum/greyscale_config/circuit)
-	return ..()
+	. = ..()
+	update_appearance(UPDATE_OVERLAYS)
+
+/obj/item/circuitboard/update_overlays()
+	. = ..()
+	. += new /image{icon = 'icons/obj/module.dmi'; icon_state = "circuit_chip"; appearance_flags = RESET_COLOR}
 
 /obj/item/circuitboard/examine(mob/user)
 	. = ..()
