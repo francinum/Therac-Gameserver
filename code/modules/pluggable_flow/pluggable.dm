@@ -16,3 +16,11 @@
 /// Ex: Starting at jobstart waypoints. If the behaviour would make sense for latejoining players,
 /// make it a [/datum/roundflow_module/latejoin]
 /datum/round_flow_module/join/start
+	var/stage = RFM_EVAC_WAITING
+
+
+/// Abort the evacuation, State Preparing,
+/datum/round_flow_module/join/start/proc/abort()
+	if(stage != RFM_EVAC_PREPARING)
+		return FALSE //Invalid operation
+	stage = RFM_EVAC_COOLDOWN

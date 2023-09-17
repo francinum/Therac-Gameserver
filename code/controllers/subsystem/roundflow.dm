@@ -7,13 +7,12 @@
  *
  */
 
-SUBSYSTEM_DEF(roundflow)
+PROCESSING_SUBSYSTEM_DEF(roundflow)
 	name = "Round Flow"
 	// Default Init Order
 	// Default Priority
 	// Default Wait
-	flags = SS_NO_FIRE
-
+	// Default flags
 
 	/// Active RFM for Roundstart Joins
 	var/datum/round_flow_module/join/roundstart_join
@@ -21,4 +20,3 @@ SUBSYSTEM_DEF(roundflow)
 	var/datum/round_flow_module/join/late_join
 	/// Active RFM for Evacuation
 	var/datum/round_flow_module/evacuation/evac
-
