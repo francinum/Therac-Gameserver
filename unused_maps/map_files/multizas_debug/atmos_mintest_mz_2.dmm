@@ -94,12 +94,12 @@
 /turf/open/floor/iron,
 /area/hallway/primary/upper)
 "w" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/iron,
 /area/hallway/primary/upper)
 "x" = (
 /obj/machinery/door/airlock/public/glass,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/iron,
 /area/hallway/primary/upper)
 "y" = (

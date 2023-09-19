@@ -87,10 +87,7 @@
 
 						// Otherwise, make a pipe/device
 						var/p_dir = params["pipe_dir"]
-						var/obj/item/pipe/pipe_out = new (loc, p_type, p_dir)
-						pipe_out.p_init_dir = p_init_dir
-						pipe_out.pipe_color = GLOB.pipe_paint_colors[paint_color]
-						pipe_out.add_atom_colour(GLOB.pipe_paint_colors[paint_color], FIXED_COLOUR_PRIORITY)
+						var/obj/item/pipe/pipe_out = new (loc, p_type, p_dir, null, GLOB.pipe_paint_colors[paint_color])
 						pipe_out.set_piping_layer(piping_layer)
 						pipe_out.add_fingerprint(usr)
 						wait = world.time + 1 SECONDS

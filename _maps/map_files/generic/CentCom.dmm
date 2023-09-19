@@ -17,8 +17,8 @@
 /turf/open/floor/plating/icemoon,
 /area/centcom/syndicate_mothership/control)
 "ai" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -239,7 +239,7 @@
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/evacuation)
 "aQ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
+/obj/effect/mapping_helpers/smart_pipe/simple/general/hidden{
 	dir = 4
 	},
 /turf/closed/indestructible/syndicate,
@@ -267,9 +267,9 @@
 	},
 /obj/structure/bed/dogbed/cayenne,
 /mob/living/simple_animal/hostile/carp/cayenne,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/iron/smooth,
 /area/centcom/syndicate_mothership/control)
 "aU" = (
@@ -1024,9 +1024,9 @@
 /area/centcom/tdome/observation)
 "da" = (
 /obj/structure/railing,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/centcom/syndicate_mothership/control)
 "db" = (
@@ -1195,7 +1195,7 @@
 /obj/item/clipboard,
 /obj/structure/table/reinforced,
 /obj/item/detective_scanner,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -1574,7 +1574,7 @@
 	name = "Administrative Office";
 	req_access_txt = "109"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/admin)
@@ -1958,7 +1958,7 @@
 /obj/machinery/door/airlock/silver{
 	name = "Bathroom"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /turf/open/floor/iron/white,
 /area/centcom/central_command_areas/admin)
 "fH" = (
@@ -2002,7 +2002,7 @@
 	pixel_x = 11
 	},
 /obj/structure/mirror/directional/east,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 9
 	},
 /turf/open/floor/iron/white,
@@ -2460,9 +2460,9 @@
 /turf/open/floor/iron/cafeteria,
 /area/centcom/central_command_areas/holding)
 "hk" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/iron/smooth,
 /area/centcom/syndicate_mothership/control)
 "hl" = (
@@ -2973,8 +2973,8 @@
 	},
 /area/centcom/central_command_areas/prison/cells)
 "iC" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/centcom/syndicate_mothership/control)
 "iD" = (
@@ -3555,9 +3555,9 @@
 /obj/machinery/light/cold/directional/east,
 /obj/machinery/vending/snack/teal,
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/titanium,
 /area/centcom/syndicate_mothership/control)
 "kf" = (
@@ -4179,7 +4179,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/purple/visible{
 	dir = 10
 	},
 /obj/machinery/light/cold/directional/east,
@@ -4366,8 +4366,8 @@
 /area/centcom/syndicate_mothership/control)
 "mA" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/centcom/syndicate_mothership/control)
 "mB" = (
@@ -4731,16 +4731,16 @@
 /area/centcom/syndicate_mothership/control)
 "ny" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/centcom/syndicate_mothership/control)
 "nz" = (
 /turf/closed/indestructible/opsglass,
 /area/centcom/syndicate_mothership/control)
 "nA" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/admin)
@@ -4759,7 +4759,7 @@
 /turf/open/floor/iron,
 /area/centcom/tdome/observation)
 "nE" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/closed/indestructible/opsglass,
 /area/centcom/syndicate_mothership/expansion_bombthreat)
 "nG" = (
@@ -6088,7 +6088,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible{
 	dir = 10
 	},
 /turf/open/floor/mineral/titanium/tiled/yellow,
@@ -6256,7 +6256,7 @@
 /area/centcom/central_command_areas/ferry)
 "sh" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold/purple/visible{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/tiled/yellow,
@@ -6709,7 +6709,7 @@
 /turf/open/floor/iron/textured_large,
 /area/centcom/syndicate_mothership/control)
 "tC" = (
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/purple/visible{
 	dir = 6
 	},
 /turf/open/floor/mineral/titanium/tiled/yellow,
@@ -6891,9 +6891,9 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/titanium,
 /area/centcom/syndicate_mothership/control)
 "um" = (
@@ -7672,8 +7672,8 @@
 /obj/machinery/door/airlock/maintenance/external{
 	name = "Bunk Room 2"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/iron,
 /area/centcom/syndicate_mothership/control)
 "wG" = (
@@ -8044,9 +8044,9 @@
 /turf/open/floor/carpet/black,
 /area/centcom/central_command_areas/holding)
 "xI" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/closed/indestructible/syndicate,
 /area/centcom/syndicate_mothership/control)
 "xN" = (
@@ -8456,9 +8456,9 @@
 	name = "Experiments Wing Decontamination"
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
@@ -8598,8 +8598,8 @@
 /area/centcom/syndicate_mothership)
 "zv" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/centcom/syndicate_mothership/control)
 "zw" = (
@@ -8932,8 +8932,8 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/iron,
 /area/centcom/syndicate_mothership/control)
 "Am" = (
@@ -8976,9 +8976,9 @@
 /area/centcom/central_command_areas/control)
 "Ar" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/closed/indestructible/syndicate,
 /area/centcom/syndicate_mothership/control)
 "As" = (
@@ -9314,7 +9314,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/grimy,
@@ -9405,9 +9405,9 @@
 /obj/structure/sign/poster/contraband/donut_corp{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/stone,
 /area/centcom/syndicate_mothership/control)
 "BD" = (
@@ -9677,8 +9677,8 @@
 /obj/machinery/door/airlock/maintenance/external{
 	name = "Bunk Room 1"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/iron,
 /area/centcom/syndicate_mothership/control)
 "Cm" = (
@@ -9933,13 +9933,13 @@
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/control)
 "CU" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/admin)
 "CV" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /turf/open/floor/iron/grimy,
 /area/centcom/central_command_areas/admin)
 "CW" = (
@@ -10422,8 +10422,8 @@
 /area/centcom/syndicate_mothership)
 "Ey" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/mineral/titanium,
 /area/centcom/syndicate_mothership/control)
 "Ez" = (
@@ -10566,9 +10566,9 @@
 	network = list("nukie")
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/centcom/syndicate_mothership/control)
 "ES" = (
@@ -10584,8 +10584,8 @@
 	name = "Restroom"
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/titanium,
 /area/centcom/syndicate_mothership/control)
 "EU" = (
@@ -10950,8 +10950,8 @@
 /turf/open/floor/catwalk_floor,
 /area/centcom/central_command_areas/holding)
 "FT" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/iron,
 /area/centcom/syndicate_mothership/control)
 "FU" = (
@@ -11063,9 +11063,9 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /obj/structure/chair/sofa/bench,
 /obj/machinery/light/cold/directional/north,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/stone,
 /area/centcom/syndicate_mothership/control)
 "Gm" = (
@@ -11150,7 +11150,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/dark/visible{
 	dir = 5
 	},
 /turf/open/floor/mineral/titanium/tiled/yellow,
@@ -11235,8 +11235,8 @@
 	dir = 1
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/iron,
 /area/centcom/syndicate_mothership/control)
 "GH" = (
@@ -11431,9 +11431,9 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/titanium,
 /area/centcom/syndicate_mothership/control)
 "Ho" = (
@@ -11504,9 +11504,9 @@
 /area/centcom/tdome/observation)
 "HF" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/titanium,
 /area/centcom/syndicate_mothership/control)
 "HG" = (
@@ -11575,8 +11575,8 @@
 	name = "Armoury"
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
 /turf/open/floor/iron/smooth_half{
 	dir = 4
 	},
@@ -11950,9 +11950,9 @@
 /obj/structure/sign/poster/contraband/bountyhunters{
 	pixel_x = -32
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/iron/smooth,
 /area/centcom/syndicate_mothership/control)
 "IQ" = (
@@ -12085,8 +12085,8 @@
 	},
 /obj/machinery/light/small/directional/south,
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/iron,
 /area/centcom/syndicate_mothership/control)
 "Jp" = (
@@ -12251,8 +12251,8 @@
 /area/centcom/syndicate_mothership/expansion_bioterrorism)
 "JR" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
 /turf/open/floor/mineral/titanium,
 /area/centcom/syndicate_mothership/control)
 "JT" = (
@@ -12338,7 +12338,7 @@
 	name = "Administrative Storage";
 	req_access_txt = "106"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -13006,7 +13006,7 @@
 /turf/open/floor/iron,
 /area/centcom/tdome/observation)
 "Mt" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -13190,7 +13190,7 @@
 /turf/open/misc/asteroid/snow/icemoon,
 /area/centcom/syndicate_mothership/control)
 "MU" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/admin)
 "MV" = (
@@ -13351,7 +13351,7 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /obj/structure/cable,
@@ -13571,7 +13571,7 @@
 	name = "Administrative Office";
 	req_access_txt = "109"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -13716,7 +13716,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/visible{
 	dir = 1
 	},
 /obj/machinery/meter,
@@ -13766,7 +13766,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/visible{
 	dir = 1
 	},
 /obj/structure/cable,
@@ -13785,8 +13785,8 @@
 	name = "General Quarters"
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/iron/dark/textured_half,
 /area/centcom/syndicate_mothership/control)
 "Oz" = (
@@ -13857,9 +13857,9 @@
 	req_access_txt = "150"
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
@@ -13950,9 +13950,9 @@
 	},
 /obj/machinery/light/cold/directional/west,
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/titanium,
 /area/centcom/syndicate_mothership/control)
 "OX" = (
@@ -13966,7 +13966,7 @@
 "OY" = (
 /obj/item/storage/fancy/donut_box,
 /obj/structure/table/reinforced,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/admin)
@@ -14103,7 +14103,7 @@
 /turf/open/floor/iron/grimy,
 /area/centcom/tdome/administration)
 "Ps" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -14293,7 +14293,7 @@
 /obj/item/clothing/mask/cigarette/cigar{
 	pixel_x = 4.5
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 10
 	},
 /turf/open/floor/iron/grimy,
@@ -14763,7 +14763,7 @@
 /turf/open/floor/iron,
 /area/centcom/syndicate_mothership/control)
 "Rj" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -15374,9 +15374,9 @@
 /area/centcom/central_command_areas/holding)
 "Tb" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/closed/indestructible/opsglass,
 /area/centcom/syndicate_mothership/control)
 "Tc" = (
@@ -15522,7 +15522,7 @@
 /turf/open/floor/iron,
 /area/centcom/tdome/observation)
 "To" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/grimy,
@@ -15780,7 +15780,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/tdome/observation)
 "TW" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron/white,
@@ -15807,7 +15807,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/visible{
 	dir = 1
 	},
 /obj/machinery/meter,
@@ -15833,7 +15833,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/evacuation)
 "Uh" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 8
 	},
 /turf/open/floor/wood,
@@ -16237,9 +16237,9 @@
 "Ve" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
 /obj/structure/chair/sofa/bench/left,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/stone,
 /area/centcom/syndicate_mothership/control)
 "Vf" = (
@@ -16326,7 +16326,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /obj/structure/cable,
 /turf/open/floor/iron/grimy,
 /area/centcom/central_command_areas/admin)
@@ -16387,7 +16387,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/supply)
 "Vz" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /obj/structure/cable,
@@ -16972,7 +16972,7 @@
 	name = "Administrative Office";
 	req_access_txt = "109"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -17067,8 +17067,8 @@
 /obj/structure/sign/poster/contraband/lusty_xenomorph{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -17119,7 +17119,7 @@
 /turf/open/floor/iron/dark,
 /area/centcom/tdome/administration)
 "Xo" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /obj/structure/cable,
 /turf/open/floor/wood,
 /area/centcom/central_command_areas/admin)
@@ -17306,7 +17306,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 6
 	},
 /turf/open/floor/iron/grimy,
@@ -17417,7 +17417,7 @@
 /area/centcom/syndicate_mothership/expansion_bombthreat)
 "Yj" = (
 /obj/structure/chair/comfy/black,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /obj/structure/cable,
 /turf/open/floor/iron/grimy,
 /area/centcom/central_command_areas/admin)
@@ -17454,7 +17454,7 @@
 /turf/closed/indestructible/reinforced/centcom,
 /area/centcom/central_command_areas/supplypod)
 "Yq" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
 /obj/structure/cable,
@@ -17463,7 +17463,7 @@
 "Yr" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden,
 /turf/open/floor/iron/grimy,
 /area/centcom/central_command_areas/admin)
 "Ys" = (
@@ -17720,9 +17720,9 @@
 /turf/open/misc/asteroid/basalt/airless,
 /area/centcom/central_command_areas/holding)
 "Zd" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden/layer5,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/centcom/syndicate_mothership/control)
 "Ze" = (

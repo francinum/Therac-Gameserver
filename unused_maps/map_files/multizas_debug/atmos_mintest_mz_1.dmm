@@ -305,7 +305,7 @@
 /area/hallway/primary/central)
 "bj" = (
 /obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bk" = (
@@ -364,7 +364,7 @@
 	dir = 6;
 	icon_state = "warningline_red"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bs" = (
@@ -372,7 +372,7 @@
 	dir = 1;
 	icon_state = "warningline_red"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /obj/machinery/meter,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
@@ -381,7 +381,7 @@
 	dir = 10;
 	icon_state = "warningline_red"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bu" = (
@@ -389,7 +389,7 @@
 	dir = 8;
 	icon_state = "warningline_red"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bv" = (
@@ -397,7 +397,7 @@
 	dir = 4;
 	icon_state = "warningline_red"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bw" = (
@@ -405,12 +405,12 @@
 	dir = 5;
 	icon_state = "warningline_red"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bx" = (
 /obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /obj/machinery/meter,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
@@ -419,7 +419,7 @@
 	dir = 9;
 	icon_state = "warningline_red"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bz" = (
@@ -491,22 +491,22 @@
 /area/hallway/primary/central)
 "bN" = (
 /obj/effect/spawner/structure/window/plasma,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/visible,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bO" = (
 /obj/effect/spawner/structure/window/plasma,
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/dark/visible,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bP" = (
 /obj/effect/spawner/structure/window/plasma,
-/obj/machinery/atmospherics/pipe/smart/simple/pink/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/pink/visible,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bQ" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/visible,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bR" = (
@@ -515,7 +515,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bS" = (
-/obj/machinery/atmospherics/pipe/smart/simple/dark/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/dark/visible,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bT" = (
@@ -524,7 +524,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bU" = (
-/obj/machinery/atmospherics/pipe/smart/simple/pink/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/pink/visible,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bV" = (
@@ -533,7 +533,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bW" = (
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/visible,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bX" = (
@@ -585,7 +585,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "ce" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold/general/visible{
 	dir = 4;
 	icon_state = "manifold-3"
 	},
@@ -789,12 +789,12 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "cJ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "cK" = (
 /obj/machinery/door/airlock/public/glass,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/general/visible,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "cL" = (

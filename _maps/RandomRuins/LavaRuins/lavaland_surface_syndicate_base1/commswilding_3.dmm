@@ -17,7 +17,7 @@
 /turf/open/floor/plating/lavaland_atmos,
 /area/template_noop)
 "d" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/hidden,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/syndicate_lava_base/telecomms)
 "e" = (
@@ -71,7 +71,7 @@
 /turf/open/floor/iron/grimy,
 /area/ruin/syndicate_lava_base/telecomms)
 "s" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -162,10 +162,10 @@
 /turf/open/floor/plating/lavaland_atmos,
 /area/template_noop)
 "E" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/structure/cable,
@@ -207,10 +207,10 @@
 /turf/open/floor/plating/lavaland_atmos,
 /area/template_noop)
 "P" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer4{
 	dir = 5
 	},
 /obj/structure/cable,
@@ -227,7 +227,7 @@
 "W" = (
 /obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer4{
 	dir = 10
 	},
 /obj/structure/noticeboard/directional/east,

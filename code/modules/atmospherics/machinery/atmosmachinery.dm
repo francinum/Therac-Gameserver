@@ -77,7 +77,7 @@
 			. += span_notice("Alt-click to crawl through it.")
 
 GLOBAL_REAL_VAR(atmos_machinery_default_armor) = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 100, ACID = 70)
-/obj/machinery/atmospherics/New(loc, process = TRUE, setdir, init_dir = ALL_CARDINALS)
+/obj/machinery/atmospherics/New(loc, process = TRUE, setdir)
 	if(!isnull(setdir))
 		setDir(setdir)
 	if(pipe_flags & PIPING_CARDINAL_AUTONORMALIZE)
@@ -88,7 +88,7 @@ GLOBAL_REAL_VAR(atmos_machinery_default_armor) = list(MELEE = 25, BULLET = 10, L
 	..()
 	if(process)
 		SSairmachines.start_processing_machine(src)
-	set_init_directions(init_dir)
+	set_init_directions()
 
 /obj/machinery/atmospherics/Initialize(mapload)
 	if(mapload && name != initial(name))
@@ -275,7 +275,7 @@ GLOBAL_REAL_VAR(atmos_machinery_default_armor) = list(MELEE = 25, BULLET = 10, L
 /obj/machinery/atmospherics/proc/is_connectable(obj/machinery/atmospherics/target, given_layer)
 	if(isnull(given_layer))
 		given_layer = piping_layer
-	if(check_connectable_layer(target, given_layer) && target.loc != loc && check_connectable_color(target))
+	if(check_connectable_layer(target, given_layer) && target.loc != loc)
 		return TRUE
 	return FALSE
 
@@ -293,17 +293,6 @@ GLOBAL_REAL_VAR(atmos_machinery_default_armor) = list(MELEE = 25, BULLET = 10, L
 	return FALSE
 
 /**
- * check if the color are the same on both sides or if one of the pipes are grey or have the PIPING_ALL_COLORS flag
- * returns TRUE if one of the parameters is TRUE
- * Arguments:
- * * obj/machinery/atmospherics/target - the machinery we want to connect to
- */
-/obj/machinery/atmospherics/proc/check_connectable_color(obj/machinery/atmospherics/target)
-	if(lowertext(target.pipe_color) == lowertext(pipe_color) || ((target.pipe_flags | pipe_flags) & PIPING_ALL_COLORS) || lowertext(target.pipe_color) == lowertext(COLOR_VERY_LIGHT_GRAY) || lowertext(pipe_color) == lowertext(COLOR_VERY_LIGHT_GRAY))
-		return TRUE
-	return FALSE
-
-/**
  * Called on construction and when expanding the datum_pipeline, returns the nodes of the device
  */
 /obj/machinery/atmospherics/proc/pipeline_expansion()
@@ -312,7 +301,7 @@ GLOBAL_REAL_VAR(atmos_machinery_default_armor) = list(MELEE = 25, BULLET = 10, L
 /**
  * Set the initial directions of the device (NORTH || SOUTH || EAST || WEST), called on New()
  */
-/obj/machinery/atmospherics/proc/set_init_directions(init_dir)
+/obj/machinery/atmospherics/proc/set_init_directions()
 	return
 
 /**

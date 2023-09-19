@@ -124,14 +124,14 @@
 /turf/open/floor/engine/n2,
 /area/ruin/planetengi)
 "aH" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "aI" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/visible,
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "aJ" = (
@@ -185,11 +185,11 @@
 "ba" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/heavy,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/cyan/visible,
 /turf/open/floor/plating,
 /area/ruin/planetengi)
 "bc" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/visible{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -226,7 +226,7 @@
 "bo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/heavy,
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/visible,
 /turf/open/floor/plating,
 /area/ruin/planetengi)
 "bq" = (
@@ -238,20 +238,20 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "br" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/cyan/visible,
 /obj/structure/sign/poster/official/build{
 	pixel_x = -32
 	},
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "bs" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 6
 	},
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "bv" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
@@ -329,13 +329,13 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "bM" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/visible{
 	dir = 6
 	},
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "bQ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold/yellow/visible{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -367,20 +367,20 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "bW" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/cyan/visible{
 	dir = 6
 	},
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "bY" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/cyan/visible{
 	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "bZ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/cyan/visible{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -393,11 +393,11 @@
 /turf/open/floor/plating,
 /area/ruin/planetengi)
 "cb" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible,
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "cc" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold/yellow/visible{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -407,7 +407,7 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "ce" = (
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/visible{
 	dir = 6
 	},
 /turf/open/floor/iron,
@@ -419,7 +419,7 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "cg" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/cyan/visible{
 	dir = 5
 	},
 /turf/open/floor/iron,
@@ -432,7 +432,7 @@
 /area/icemoon/surface/outdoors/nospawn)
 "ci" = (
 /obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /obj/structure/cable,
@@ -440,7 +440,7 @@
 /area/ruin/planetengi)
 "cj" = (
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /obj/structure/cable,
@@ -454,7 +454,7 @@
 /area/ruin/planetengi)
 "cl" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -465,7 +465,7 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "cn" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/cyan/visible,
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "cp" = (
@@ -475,7 +475,7 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "cs" = (
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/visible{
 	dir = 5
 	},
 /turf/open/floor/iron,
@@ -486,7 +486,7 @@
 /turf/open/floor/engine,
 /area/ruin/planetengi)
 "cu" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/cyan/visible{
 	dir = 10
 	},
 /obj/machinery/light/directional/east,
@@ -505,7 +505,7 @@
 "cD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/heavy,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible/layer4,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/visible/layer4,
 /turf/open/floor/plating,
 /area/ruin/planetengi)
 "cE" = (
@@ -557,10 +557,10 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "cQ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/cyan/visible{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible/layer4{
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/visible/layer4{
 	dir = 6
 	},
 /turf/open/floor/iron,
@@ -607,13 +607,13 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "cZ" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 5
 	},
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "db" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
@@ -623,7 +623,7 @@
 /turf/template_noop,
 /area/template_noop)
 "df" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /obj/structure/sign/poster/official/pda_ad{
@@ -632,20 +632,20 @@
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "dg" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible/layer4,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/visible/layer4,
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "dh" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/planetengi)
 "di" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible{
 	dir = 10
 	},
 /turf/open/floor/iron,
@@ -667,7 +667,7 @@
 "dn" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/heavy,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/visible,
 /turf/open/floor/plating,
 /area/ruin/planetengi)
 "do" = (

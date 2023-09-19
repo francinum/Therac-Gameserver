@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(pipe_paint_colors, list(
 	"pink" = COLOR_LIGHT_PINK,
 	"purple" = COLOR_PURPLE,
 	"violet" = COLOR_STRONG_VIOLET,
-	"omni" = COLOR_VERY_LIGHT_GRAY
+	"gray" = COLOR_VERY_LIGHT_GRAY
 ))
 
 ///List that sorts the colors and is used for setting up the pipes layer so that they overlap correctly
@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(pipe_colors_ordered, sort_list(list(
 
 ///Names shown in the examine for every colored atmos component
 GLOBAL_LIST_INIT(pipe_color_name, sort_list(list(
-	COLOR_VERY_LIGHT_GRAY = "omni",
+	COLOR_VERY_LIGHT_GRAY = "gray",
 	COLOR_BLUE = "blue",
 	COLOR_RED = "red",
 	COLOR_VIBRANT_LIME = "green",

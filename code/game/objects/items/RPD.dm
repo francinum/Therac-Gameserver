@@ -10,11 +10,11 @@ RPD
 #define BUILD_MODE (1<<0)
 #define WRENCH_MODE (1<<1)
 #define DESTROY_MODE (1<<2)
-#define REPROGRAM_MODE (1<<3)
+#define PAINT_MODE (1<<3)
 
 GLOBAL_LIST_INIT(atmos_pipe_recipes, list(
 	"Pipes" = list(
-		new /datum/pipe_info/pipe("Pipe", /obj/machinery/atmospherics/pipe/smart, TRUE),
+		new /datum/pipe_info/pipe("Pipe", /obj/machinery/atmospherics/pipe, TRUE),
 		new /datum/pipe_info/pipe("Layer Adapter", /obj/machinery/atmospherics/pipe/layer_manifold, TRUE),
 		new /datum/pipe_info/pipe("Color Adapter", /obj/machinery/atmospherics/pipe/color_adapter, TRUE),
 		new /datum/pipe_info/pipe("Bridge Pipe", /obj/machinery/atmospherics/pipe/bridge_pipe, TRUE),
@@ -195,7 +195,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	///Is the device of the flipped type?
 	var/p_flipped = FALSE
 	///Color of the device we are going to spawn
-	var/paint_color = "green"
+	var/paint_color = "gray"
 	///Speed of building atmos devices
 	var/atmos_build_speed = 0.5 SECONDS
 	///Speed of building disposal devices
@@ -204,8 +204,8 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	var/transit_build_speed = 0.5 SECONDS
 	///Speed of removal of unwrenched devices
 	var/destroy_speed = 0.5 SECONDS
-	///Speed of reprogramming connectable directions of smart pipes
-	var/reprogram_speed = 0.5 SECONDS
+	///Speed of painting pipes or devices
+	var/paint_speed = 0.5 SECONDS
 	///Category currently active (Atmos, disposal, transit)
 	var/category = ATMOS_CATEGORY
 	///Piping layer we are going to spawn the atmos device in
@@ -219,7 +219,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	///Stores the first transit device
 	var/static/datum/pipe_info/first_transit
 	///The modes that are allowed for the RPD
-	var/mode = BUILD_MODE | DESTROY_MODE | WRENCH_MODE | REPROGRAM_MODE
+	var/mode = BUILD_MODE | DESTROY_MODE | WRENCH_MODE
 	/// Bitflags for upgrades
 	var/upgrade_flags
 
@@ -396,13 +396,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 			var/n = text2num(params["mode"])
 			mode ^= n
 		if("init_dir_setting")
-			var/target_dir = p_init_dir ^ text2dir(params["dir_flag"])
-			// Refuse to create a smart pipe that can only connect in one direction (it would act weirdly and lack an icon)
-			if (ISNOTSTUB(target_dir))
-				p_init_dir = target_dir
-			else
-				to_chat(usr, span_warning("\The [src]'s screen flashes a warning: Can't configure a pipe to only connect in one direction."))
-				playeffect = FALSE
+			p_init_dir ^= text2dir(params["dir_flag"])
 		if("init_reset")
 			p_init_dir = ALL_CARDINALS
 	if(playeffect)
@@ -431,11 +425,30 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	var/static/list/make_pipe_whitelist
 	if(!make_pipe_whitelist)
 		make_pipe_whitelist = typecacheof(list(/obj/structure/lattice, /obj/structure/girder, /obj/item/pipe, /obj/structure/window, /obj/structure/grille))
-	if(istype(attack_target, /obj/machinery/atmospherics) && mode & BUILD_MODE)
+	if(istype(attack_target, /obj/machinery/atmospherics) && (mode & BUILD_MODE && !(mode & PAINT_MODE))) //Reduces pixelhunt when coloring is off.
 		attack_target = get_turf(attack_target)
 	var/can_make_pipe = (isturf(attack_target) || is_type_in_typecache(attack_target, make_pipe_whitelist))
 
 	. = TRUE
+
+	if(mode & PAINT_MODE)
+		var/obj/machinery/atmospherics/atmos_machinery = attack_target
+		var/current_color = GLOB.pipe_paint_colors[paint_color]
+		if(istype(atmos_machinery) && atmos_machinery.paintable)
+			to_chat(user, "<span class='notice'>You start painting \the [atmos_machinery] [paint_color]...</span>")
+			playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE)
+			if(do_after(user, paint_speed, target = atmos_machinery))
+				atmos_machinery.paint(current_color) //paint the pipe
+				user.visible_message("<span class='notice'>[user] paints \the [atmos_machinery] [paint_color].</span>","<span class='notice'>You paint \the [atmos_machinery] [paint_color].</span>")
+			return
+		var/obj/item/pipe/pipe_item = attack_target
+		if(istype(pipe_item) && pipe_item.paintable)
+			to_chat(user, "<span class='notice'>You start painting \the [pipe_item] [paint_color]...</span>")
+			playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE)
+			if(do_after(user, paint_speed, target = pipe_item))
+				pipe_item.paint(current_color)
+				user.visible_message("<span class='notice'>[user] paints \the [pipe_item] [paint_color].</span>","<span class='notice'>You paint \the [pipe_item] [paint_color].</span>")
+			return
 
 	if((mode & DESTROY_MODE) && istype(attack_target, /obj/item/pipe) || istype(attack_target, /obj/structure/disposalconstruct) || istype(attack_target, /obj/structure/c_transit_tube) || istype(attack_target, /obj/structure/c_transit_tube_pod) || istype(attack_target, /obj/item/pipe_meter) || istype(attack_target, /obj/structure/disposalpipe/broken))
 		to_chat(user, span_notice("You start destroying a pipe..."))
@@ -444,77 +457,6 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 			activate()
 			qdel(attack_target)
 		return
-
-	if(mode & REPROGRAM_MODE)
-		// If this is a placed smart pipe, try to reprogram it
-		var/obj/machinery/atmospherics/pipe/smart/S = attack_target
-		if(istype(S))
-			if (S.dir == ALL_CARDINALS)
-				to_chat(user, span_warning("\The [S] has no unconnected directions!"))
-				return
-			var/old_init_dir = S.get_init_directions()
-			if (old_init_dir == p_init_dir)
-				to_chat(user, span_warning("\The [S] is already in this configuration!"))
-				return
-			// Check for differences in unconnected directions
-			var/target_differences = (p_init_dir ^ old_init_dir) & ~S.connections
-			if (!target_differences)
-				to_chat(user, span_warning("\The [S] is already in this configuration for its unconnected directions!"))
-				return
-
-			to_chat(user, span_notice("You start reprogramming \the [S]..."))
-			playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE)
-			if(!do_after(user, S, reprogram_speed))
-				return
-
-			// Something else could have changed the target's state while we were waiting in do_after
-			// Most of the edge cases don't matter, but atmos components being able to have live connections not described by initializable directions sounds like a headache at best and an exploit at worst
-
-			// Double check to make sure that nothing has changed. If anything we were about to change was connected during do_after, abort
-			if (target_differences & S.connections)
-				to_chat(user, span_warning("\The [src]'s screen flashes a warning: Can't configure a pipe in a currently connected direction."))
-				return
-			// Grab the current initializable directions, which may differ from old_init_dir if someone else was working on the same pipe at the same time
-			var/current_init_dir = S.get_init_directions()
-			// Access p_init_dir directly. The RPD can change target layer and initializable directions (though not pipe type or dir) while working to dispense and connect a component,
-			// and have it reflected in the final result. Reprogramming should be similarly consistent.
-			var/new_init_dir = (current_init_dir & ~target_differences) | (p_init_dir & target_differences)
-			// Don't make a smart pipe with only one connection
-			if (ISSTUB(new_init_dir))
-				to_chat(user, span_warning("\The [src]'s screen flashes a warning: Can't configure a pipe to only connect in one direction."))
-				return
-			S.set_init_directions(new_init_dir)
-			// We're now reconfigured.
-			// We can never disconnect from existing connections, but we can connect to previously unconnected directions, and should immediately do so
-			var/newly_permitted_connections = new_init_dir & ~current_init_dir
-			if(newly_permitted_connections)
-				// We're allowed to connect in new directions. Recompute our nodes
-				// Disconnect from everything that is currently connected
-				for (var/i in 1 to S.device_type)
-					// This is basically pipe.nullifyNode, but using it here would create a pitfall for others attempting to
-					// copy and paste disconnection code for other components. Welcome to the atmospherics subsystem
-					var/obj/machinery/atmospherics/node = S.nodes[i]
-					if (!node)
-						continue
-					node.disconnect(S)
-					S.nodes[i] = null
-				// Get our new connections
-				S.atmos_init()
-				// Connect to our new connections
-				for (var/obj/machinery/atmospherics/O in S.nodes)
-					O.atmos_init()
-					O.add_member(src)
-				SSairmachines.add_to_rebuild_queue(S)
-			// Finally, update our internal state - update_pipe_icon also updates dir and connections
-			S.update_pipe_icon()
-			user.visible_message(span_notice("[user] reprograms the \the [S]."),span_notice("You reprogram \the [S]."))
-			return
-		// If this is an unplaced smart pipe, try to reprogram it
-		var/obj/item/pipe/quaternary/I = attack_target
-		if(istype(I) && ispath(I.pipe_type, /obj/machinery/atmospherics/pipe/smart))
-			// An unplaced pipe never has any existing connections, so just directly assign the new configuration
-			I.p_init_dir = p_init_dir
-			I.update()
 
 	if(mode & BUILD_MODE)
 		switch(category) //if we've gotten this var, the target is valid
@@ -541,14 +483,49 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 							return ..()
 						activate()
 						var/obj/machinery/atmospherics/path = queued_p_type
+						var/dir_to_pass = queued_p_dir
+						//If we've chosen a pipe, determine what type and what direction
+						if(path == /obj/machinery/atmospherics/pipe) //Specifically THIS path, no subtypes
+							var/pipe_dir = p_init_dir
+							var/counted_dirs = 0
+							if(!pipe_dir)
+								pipe_dir = NORTH
+							if(pipe_dir & NORTH)
+								counted_dirs++
+							if(pipe_dir & SOUTH)
+								counted_dirs++
+							if(pipe_dir & WEST)
+								counted_dirs++
+							if(pipe_dir & EAST)
+								counted_dirs++
+							switch(counted_dirs)
+								if(1) //Simple pipe
+									path = /obj/machinery/atmospherics/pipe/simple
+								if(2) //Simple pipe, maybe diagonal
+									//Prune non diagonal directions
+									if(pipe_dir & NORTH && pipe_dir & SOUTH)
+										pipe_dir = NORTH
+									if(pipe_dir & EAST && pipe_dir & WEST)
+										pipe_dir = EAST
+									path = /obj/machinery/atmospherics/pipe/simple
+								if(3) //Manifold
+									for(var/cardinal in GLOB.cardinals)
+										if(!(pipe_dir & cardinal))
+											path = /obj/machinery/atmospherics/pipe/manifold
+											pipe_dir = cardinal
+											break
+								if(4) //4 way manifold
+									path = /obj/machinery/atmospherics/pipe/manifold4w
+									pipe_dir = NORTH
+							dir_to_pass = pipe_dir
+
 						var/pipe_item_type = initial(path.construction_type) || /obj/item/pipe
 						var/obj/item/pipe/pipe_type = new pipe_item_type(
 							get_turf(attack_target),
-							queued_p_type,
-							queued_p_dir,
+							path,
+							dir_to_pass,
 							null,
 							GLOB.pipe_paint_colors[paint_color],
-							ispath(queued_p_type, /obj/machinery/atmospherics/pipe/smart) ? p_init_dir : null,
 						)
 						if(queued_p_flipped && istype(pipe_type, /obj/item/pipe/trinary/flippable))
 							var/obj/item/pipe/trinary/flippable/F = pipe_type
@@ -557,8 +534,8 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 						pipe_type.update()
 						pipe_type.add_fingerprint(usr)
 						pipe_type.set_piping_layer(piping_layer)
-						if(ispath(queued_p_type, /obj/machinery/atmospherics) && !ispath(queued_p_type, /obj/machinery/atmospherics/pipe/color_adapter))
-							pipe_type.add_atom_colour(GLOB.pipe_paint_colors[paint_color], FIXED_COLOUR_PRIORITY)
+						if(pipe_type.paintable)
+							pipe_type.paint(GLOB.pipe_paint_colors[paint_color])
 						if(mode & WRENCH_MODE)
 							pipe_type.wrench_act(user, src)
 
@@ -649,7 +626,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 #undef BUILD_MODE
 #undef DESTROY_MODE
 #undef WRENCH_MODE
-#undef REPROGRAM_MODE
+#undef PAINT_MODE
 
 /obj/item/rpd_upgrade
 	name = "RPD advanced design disk"

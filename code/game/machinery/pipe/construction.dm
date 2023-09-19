@@ -23,11 +23,9 @@ Buildable meters
 	///Type of pipe-object made, selected from the RPD
 	var/RPD_type
 	///Whether it can be painted
-	var/paintable = FALSE
+	var/paintable = TRUE
 	///Color of the pipe is going to be made from this pipe-object
-	var/pipe_color
-	///Initial direction of the created pipe (either made from the RPD or after unwrenching the pipe)
-	var/p_init_dir = SOUTH
+	var/pipe_color = COLOR_VERY_LIGHT_GRAY
 
 /obj/item/pipe/directional
 	RPD_type = PIPE_UNARY
@@ -43,14 +41,49 @@ Buildable meters
 /obj/item/pipe/quaternary
 	RPD_type = PIPE_ONEDIR
 
-/obj/item/pipe/Initialize(mapload, _pipe_type, _dir, obj/machinery/atmospherics/make_from, device_color, device_init_dir = SOUTH)
+/obj/item/pipe/binary/pipe_simple
+	pipe_type = /obj/machinery/atmospherics/pipe/simple
+
+/obj/item/pipe/binary/bendable/pipe_bent
+	pipe_type = /obj/machinery/atmospherics/pipe/simple
+	dir = SOUTH|EAST
+
+/obj/item/pipe/trinary/pipe_manifold
+	pipe_type = /obj/machinery/atmospherics/pipe/manifold
+
+/obj/item/pipe/quaternary/pipe_manifold4w
+	pipe_type = /obj/machinery/atmospherics/pipe/manifold4w
+
+/obj/item/pipe/directional/connector
+	pipe_type = /obj/machinery/atmospherics/components/unary/portables_connector
+
+/obj/item/pipe/binary/layer_manifold
+	pipe_type = /obj/machinery/atmospherics/pipe/layer_manifold
+
+/obj/item/pipe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It's aligned on layer [piping_layer].</span>"
+	. += "<span class='notice'>Ctrl+Shift+Click to align on the next layer.</span>"
+
+/obj/item/pipe/CtrlShiftClick(mob/user)
+	. = ..()
+	if(. || !in_range(user, src))
+		return
+	piping_layer++
+	if(piping_layer > PIPING_LAYER_MAX)
+		piping_layer = PIPING_LAYER_MIN
+	to_chat(user, "<span class='notice'>You align \the [src] onto layer [piping_layer].</span>")
+
+/obj/item/pipe/Initialize(mapload, _pipe_type, _dir, obj/machinery/atmospherics/make_from, device_color)
 	if(make_from)
 		make_from_existing(make_from)
 	else
-		p_init_dir = device_init_dir
-		pipe_type = _pipe_type
-		pipe_color = device_color
-		setDir(_dir)
+		if(!isnull(_pipe_type))
+			pipe_type = _pipe_type
+		if(!isnull(device_color))
+			paint(device_color)
+		if(!isnull(_dir))
+			setDir(_dir)
 
 	update()
 	pixel_x += rand(-5, 5)
@@ -61,13 +94,19 @@ Buildable meters
 	return ..()
 
 /obj/item/pipe/proc/make_from_existing(obj/machinery/atmospherics/make_from)
-	p_init_dir = make_from.initialize_directions
 	setDir(make_from.dir)
 	pipename = make_from.name
-	add_atom_colour(make_from.color, FIXED_COLOUR_PRIORITY)
 	pipe_type = make_from.type
 	paintable = make_from.paintable
-	pipe_color = make_from.pipe_color
+	paint(make_from.pipe_color)
+
+/obj/item/pipe/proc/paint(paint_color)
+	if(paintable && paint_color != pipe_color)
+		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
+		pipe_color = paint_color
+		pipename = null
+		update()
+	return paintable
 
 /obj/item/pipe/trinary/flippable/make_from_existing(obj/machinery/atmospherics/components/trinary/make_from)
 	..()
@@ -91,7 +130,9 @@ Buildable meters
 
 /obj/item/pipe/proc/update()
 	var/obj/machinery/atmospherics/fakeA = pipe_type
-	name = "[initial(fakeA.name)] fitting"
+	if(!pipename)
+		pipename = "[GLOB.pipe_color_name[pipe_color]] [initial(fakeA.name)]"
+	name = "[pipename] fitting"
 	icon_state = initial(fakeA.pipe_state)
 	if(ispath(pipe_type,/obj/machinery/atmospherics/pipe/heat_exchanging))
 		resistance_flags |= FIRE_PROOF | LAVA_PROOF
@@ -171,16 +212,16 @@ Buildable meters
 	// See if we would conflict with any of the potentially interacting machines
 	for(var/obj/machinery/atmospherics/machine as anything in potentially_conflicting_machines)
 		// if the pipes have any directions in common, we can't place it that way.
-		var/our_init_dirs = SSairmachines.get_init_dirs(pipe_type, fixed_dir(), p_init_dir)
+		var/our_init_dirs = SSairmachines.get_init_dirs(pipe_type, fixed_dir())
 		if(machine.get_init_directions() & our_init_dirs)
 			// We have a conflict!
-			if (length(potentially_conflicting_machines) != 1 || !try_smart_reconfiguration(machine, our_init_dirs, user))
+			if (length(potentially_conflicting_machines) > 0)
 				// No solutions found
 				to_chat(user, span_warning("There is already a pipe at that location!"))
 				return TRUE
 	// no conflicts found
 
-	var/obj/machinery/atmospherics/built_machine = new pipe_type(loc, , , p_init_dir)
+	var/obj/machinery/atmospherics/built_machine = new pipe_type(loc)
 	build_pipe(built_machine)
 	built_machine.on_construction(pipe_color, piping_layer)
 	transfer_fingerprints_to(built_machine)
@@ -193,86 +234,9 @@ Buildable meters
 
 	qdel(src)
 
-/**
- * Attempt to automatically resolve a pipe conflict by reconfiguring any smart pipes involved.
- *
- * Constraints:
- *  - A smart pipe cannot have current connections reconfigured.
- *  - A smart pipe cannot have fewer than two directions in which it will connect.
- *  - A smart pipe, existing or new, will not automatically reconfigure itself to permit directions it was not previously permitting.
- */
-/obj/item/pipe/proc/try_smart_reconfiguration(obj/machinery/atmospherics/machine, our_init_dirs, mob/living/user)
-	// If we're a smart pipe, we might be able to solve this by placing down a more constrained version of ourselves.
-	var/obj/machinery/atmospherics/pipe/smart/other_smart_pipe = machine
-	if(ispath(pipe_type, /obj/machinery/atmospherics/pipe/smart/))
-		// If we're conflicting with another smart pipe, see if we can negotiate.
-		if(istype(other_smart_pipe))
-			// Two smart pipes. This is going to get complicated.
-			// Check to see whether the already placed pipe is bent or not.
-			if (ISDIAGONALDIR(other_smart_pipe.dir))
-				// The other pipe is bent, with at least two current connections. See if we can bounce off it as a bent pipe in the other direction.
-				var/opposing_dir = our_init_dirs & ~other_smart_pipe.connections
-				if (ISNOTSTUB(opposing_dir))
-					// We only get here if both smart pipes have two directions.
-					p_init_dir = opposing_dir
-					other_smart_pipe.set_init_directions(other_smart_pipe.connections)
-					other_smart_pipe.update_pipe_icon()
-					return TRUE
-				// We're left with one or no available directions if we look at the complement of the other smart pipe's live connections.
-				// There's nothing further we can do.
-				return FALSE
-			else
-				// The other pipe is straight. See if we can go over it in a perpindicular direction.
-				// Note that the other pipe cannot be unconnected, since we have a conflict.
-				if(EWCOMPONENT(other_smart_pipe.dir))
-					if ((NORTH|SOUTH) & ~p_init_dir)
-						// Not allowed to connect this way
-						return FALSE
-					if (~other_smart_pipe.get_init_directions() & (EAST|WEST))
-						// Not allowed to reconfigure the other pipe this way
-						return FALSE
-					p_init_dir = NORTH|SOUTH
-					other_smart_pipe.set_init_directions(EAST|WEST)
-					other_smart_pipe.update_pipe_icon()
-					return TRUE
-				if (NSCOMPONENT(other_smart_pipe.dir))
-					if ((EAST|WEST) & ~p_init_dir)
-						// Not allowed to connect this way
-						return FALSE
-					if (~other_smart_pipe.get_init_directions() & (NORTH|SOUTH))
-						// Not allowed to reconfigure the other pipe this way
-						return FALSE
-					p_init_dir = EAST|WEST
-					other_smart_pipe.set_init_directions(NORTH|SOUTH)
-					other_smart_pipe.update_pipe_icon()
-					return TRUE
-			return FALSE
-		// We're not dealing with another smart pipe. See if we can become the complement of the conflicting machine.
-		var/opposing_dir = our_init_dirs & ~machine.get_init_directions()
-		if (ISNOTSTUB(opposing_dir))
-			// We have at least two permitted directions in the complement. Use them.
-			p_init_dir = opposing_dir
-			return TRUE
-		return FALSE
-
-	else if(istype(other_smart_pipe))
-		// We're not a smart pipe ourselves, but we are conflicting with a smart pipe. We might be able to solve this by constraining the smart pipe.
-		if (our_init_dirs & other_smart_pipe.connections)
-			// We needed to go where a smart pipe already had connections, nothing further we can do
-			return FALSE
-		var/opposing_dir = other_smart_pipe.get_init_directions() & ~our_init_dirs
-		if (ISNOTSTUB(opposing_dir))
-			// At least two directions remain for that smart pipe, reconfigure it
-			other_smart_pipe.set_init_directions(opposing_dir)
-			other_smart_pipe.update_pipe_icon()
-			return TRUE
-		return FALSE
-	// No smart pipes involved, the conflict can't be solved this way.
-	return FALSE
-
 /obj/item/pipe/proc/build_pipe(obj/machinery/atmospherics/A)
 	A.setDir(fixed_dir())
-	A.set_init_directions(p_init_dir)
+	A.set_init_directions()
 
 	if(pipename)
 		A.name = pipename

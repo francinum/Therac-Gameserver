@@ -48,7 +48,7 @@
 ///Check if the pipe used for atmospheric device crafting is the proper one
 /datum/crafting_recipe/proc/atmos_pipe_check(mob/user, list/collected_requirements)
 	var/obj/item/pipe/required_pipe = collected_requirements[/obj/item/pipe][1]
-	if(ispath(required_pipe.pipe_type, /obj/machinery/atmospherics/pipe/smart))
+	if(ispath(required_pipe.pipe_type, /obj/machinery/atmospherics/pipe/simple))
 		return TRUE
 	return FALSE
 
@@ -1360,21 +1360,37 @@
 	time = 40 SECONDS
 	category = CAT_MISC
 
-/datum/crafting_recipe/pipe
-	name = "Smart pipe fitting"
+/datum/crafting_recipe/straight_pipe
+	name = "Straight pipe fitting"
 	tool_behaviors = list(TOOL_WRENCH)
-	result = /obj/item/pipe/quaternary
+	result = /obj/item/pipe/binary/pipe_simple
 	reqs = list(/obj/item/stack/sheet/iron = 1)
 	time = 0.5 SECONDS
 	category = CAT_ATMOSPHERIC
 
-/datum/crafting_recipe/pipe/on_craft_completion(mob/user, atom/result)
-	var/obj/item/pipe/crafted_pipe = result
-	crafted_pipe.pipe_type = /obj/machinery/atmospherics/pipe/smart
-	crafted_pipe.pipe_color = COLOR_VERY_LIGHT_GRAY
-	crafted_pipe.p_init_dir = ALL_CARDINALS
-	crafted_pipe.setDir(SOUTH)
-	crafted_pipe.update()
+/datum/crafting_recipe/bent_pipe
+	name = "Bent pipe fitting"
+	tool_behaviors = list(TOOL_WRENCH)
+	result = /obj/item/pipe/binary/bendable/pipe_bent
+	reqs = list(/obj/item/stack/sheet/iron = 1)
+	time = 0.5 SECONDS
+	category = CAT_ATMOSPHERIC
+
+/datum/crafting_recipe/pipe_manifold
+	name = "Pipe manifold fitting"
+	tool_behaviors = list(TOOL_WRENCH)
+	result = /obj/item/pipe/trinary/pipe_manifold
+	reqs = list(/obj/item/stack/sheet/iron = 1)
+	time = 0.5 SECONDS
+	category = CAT_ATMOSPHERIC
+
+/datum/crafting_recipe/pipe_manifold4w
+	name = "4-way pipe manifold fitting"
+	tool_behaviors = list(TOOL_WRENCH)
+	result = /obj/item/pipe/quaternary/pipe_manifold4w
+	reqs = list(/obj/item/stack/sheet/iron = 1)
+	time = 0.5 SECONDS
+	category = CAT_ATMOSPHERIC
 
 /datum/crafting_recipe/layer_adapter
 	name = "Layer manifold fitting"

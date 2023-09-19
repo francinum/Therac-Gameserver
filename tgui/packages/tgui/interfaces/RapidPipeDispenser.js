@@ -35,7 +35,7 @@ const TOOLS = [
     bitmask: 4,
   },
   {
-    name: 'Reprogram',
+    name: 'Paint',
     bitmask: 8,
   },
 ];
@@ -262,10 +262,10 @@ export const SmartPipeBlockSection = (props, context) => {
                 icon="info"
                 tooltipPosition="right"
                 tooltip={multiline`
-                This is a panel for blocking certain connection
-                directions for the smart pipes.
+                This is a panel for choosing connection
+                directions for pipes.
                 The button in the center resets to
-                default (all directions can connect)`} />
+                default (all directions)`} />
             </Stack.Item>
             <Stack.Item>
               <Button icon="arrow-up"

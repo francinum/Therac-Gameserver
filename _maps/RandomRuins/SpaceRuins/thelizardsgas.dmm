@@ -46,8 +46,8 @@
 /area/ruin/space/has_grav/thelizardsgas)
 "cm" = (
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -66,8 +66,8 @@
 /turf/template_noop,
 /area/ruin/space/has_grav/thelizardsgas)
 "gL" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/thelizardsgas)
 "gS" = (
@@ -91,7 +91,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/thelizardsgas)
 "iO" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/hidden,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/hidden,
 /obj/effect/turf_decal/tile/dark{
 	dir = 8
 	},
@@ -130,13 +130,13 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/thelizardsgas)
 "na" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/hidden,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/hidden,
 /obj/structure/cable,
 /turf/open/floor/iron/white/side,
 /area/ruin/space/has_grav/thelizardsgas)
 "nL" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
@@ -166,7 +166,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/thelizardsgas)
 "ss" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/hidden,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/hidden,
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -174,7 +174,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/thelizardsgas)
 "sN" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/hidden,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/hidden,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/thelizardsgas)
 "ua" = (
@@ -206,8 +206,8 @@
 /turf/open/floor/iron/white/side,
 /area/ruin/space/has_grav/thelizardsgas)
 "xy" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -262,7 +262,7 @@
 /turf/open/misc/asteroid/airless,
 /area/ruin/space/has_grav/thelizardsgas)
 "Bu" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/visible,
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/ruin/space/has_grav/thelizardsgas)
@@ -275,8 +275,8 @@
 /area/ruin/space/has_grav/thelizardsgas)
 "Cv" = (
 /obj/machinery/door/airlock/hatch,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable,
 /turf/open/floor/plating,
@@ -314,7 +314,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/thelizardsgas)
 "GM" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/hidden,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/hidden,
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -359,7 +359,7 @@
 /turf/open/misc/asteroid/airless,
 /area/ruin/space/has_grav/thelizardsgas)
 "JP" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/thelizardsgas)
@@ -388,8 +388,8 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/thelizardsgas)
 "Mw" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable,
 /obj/structure/sign/poster/fluff/lizards_gas_power{
@@ -399,7 +399,7 @@
 /area/ruin/space/has_grav/thelizardsgas)
 "MB" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/hidden{
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/hidden{
 	dir = 8
 	},
 /turf/template_noop,
@@ -415,7 +415,7 @@
 	},
 /area/ruin/space/has_grav/thelizardsgas)
 "Pb" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/hidden,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/hidden,
 /obj/structure/sign/warning/vacuum{
 	pixel_x = 32
 	},
@@ -452,7 +452,7 @@
 /turf/open/misc/asteroid/airless,
 /area/ruin/space/has_grav/thelizardsgas)
 "Ss" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/hidden,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/hidden,
 /obj/structure/sign/poster/fluff/lizards_gas_payment{
 	pixel_x = -32
 	},
@@ -461,7 +461,7 @@
 	},
 /area/ruin/space/has_grav/thelizardsgas)
 "Tj" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/obj/effect/mapping_helpers/smart_pipe/simple/yellow/visible,
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/thelizardsgas)
@@ -475,7 +475,7 @@
 	},
 /area/ruin/space/has_grav/thelizardsgas)
 "Ud" = (
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+/obj/effect/mapping_helpers/smart_pipe/simple/green/visible{
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
@@ -499,7 +499,7 @@
 	},
 /area/ruin/space/has_grav/thelizardsgas)
 "Ve" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
@@ -526,7 +526,7 @@
 /area/ruin/space/has_grav/thelizardsgas)
 "WP" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/yellow/hidden,
 /turf/template_noop,
 /area/ruin/space/has_grav/thelizardsgas)
 "WY" = (
@@ -558,7 +558,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/thelizardsgas)
 "Zs" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/thelizardsgas)
 

@@ -1400,7 +1400,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "ei" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/visible{
 	dir = 10
 	},
 /obj/structure/alien/weeds,
@@ -1481,7 +1481,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "ex" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w{
 	dir = 4
 	},
 /obj/structure/cable,
@@ -1562,7 +1562,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "eN" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/visible,
 /obj/structure/chair/office/light{
 	dir = 4
 	},
@@ -1772,7 +1772,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/moonoutpost19/research)
 "fl" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/visible,
 /obj/structure/cable,
 /turf/open/floor/iron/white,
 /area/awaymission/moonoutpost19/research)
@@ -1851,14 +1851,14 @@
 /turf/open/floor/iron/white,
 /area/awaymission/moonoutpost19/research)
 "fC" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/visible{
 	dir = 5
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/white,
 /area/awaymission/moonoutpost19/research)
 "fD" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/visible{
 	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
 	dir = 4;
 	name = "Acid-Proof Pipe"
@@ -1883,7 +1883,7 @@
 	id = "Awaylab";
 	name = "Acid-Proof containment chamber blast door"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/visible{
 	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
 	dir = 4;
 	name = "Acid-Proof Pipe"
@@ -1899,7 +1899,7 @@
 /turf/open/floor/engine,
 /area/awaymission/moonoutpost19/research)
 "fF" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/visible{
 	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
 	dir = 4;
 	name = "Acid-Proof Pipe"
@@ -1908,7 +1908,7 @@
 /turf/open/floor/engine,
 /area/awaymission/moonoutpost19/research)
 "fG" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/visible{
 	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
 	dir = 4;
 	name = "Acid-Proof Pipe"
@@ -1918,7 +1918,7 @@
 /turf/open/floor/engine,
 /area/awaymission/moonoutpost19/research)
 "fH" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/general/visible{
 	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
 	dir = 4;
 	name = "Acid-Proof Pipe"
@@ -5708,7 +5708,7 @@
 	density = 0;
 	icon_state = "open";
 	name = "Dormitories";
-	
+
 	},
 /obj/effect/mapping_helpers/atom_injector/obj_flag{
 	inject_flags = 1;
@@ -5791,7 +5791,7 @@
 	name = "Xenobiology Lab";
 	opacity = 0;
 	req_access_txt = "201";
-	
+
 	},
 /obj/effect/mapping_helpers/atom_injector/obj_flag{
 	inject_flags = 1;
@@ -6076,7 +6076,7 @@
 	icon_state = "open";
 	opacity = 0;
 	req_access_txt = "150";
-	
+
 	},
 /obj/effect/mapping_helpers/atom_injector/obj_flag{
 	inject_flags = 1;
@@ -6253,7 +6253,7 @@
 	name = "Research Director's Office";
 	opacity = 0;
 	req_access_txt = "201";
-	
+
 	},
 /obj/effect/mapping_helpers/atom_injector/obj_flag{
 	inject_flags = 1;
@@ -6270,7 +6270,7 @@
 	icon_state = "open";
 	opacity = 0;
 	req_access_txt = "150";
-	
+
 	},
 /obj/effect/mapping_helpers/atom_injector/obj_flag{
 	inject_flags = 1;
@@ -6388,7 +6388,7 @@
 	id_tag = "awaydorm4";
 	name = "Dorm 1";
 	opacity = 0;
-	
+
 	},
 /obj/effect/mapping_helpers/atom_injector/obj_flag{
 	inject_flags = 1;

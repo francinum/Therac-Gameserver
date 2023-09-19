@@ -1,6 +1,6 @@
 /datum/codex_entry/atmos_pipe
 	name = "Pipes"
-	associated_paths = list(/obj/machinery/atmospherics/pipe/smart/simple, /obj/machinery/atmospherics/pipe/smart/manifold, /obj/machinery/atmospherics/pipe/smart/manifold4w)
+	associated_paths = list(/obj/machinery/atmospherics/pipe/simple, /obj/machinery/atmospherics/pipe/manifold, /obj/machinery/atmospherics/pipe/manifold4w)
 	use_typesof = TRUE
 	mechanics_text = "All pipes can be connected or disconnected with a wrench. More pipes can be obtained from a pipe dispenser. \
 	<br>Some pipes, like scrubbers and supply pipes, do not connect to 'normal' pipes. If you want to connect them, use a universal adapter pipe. \

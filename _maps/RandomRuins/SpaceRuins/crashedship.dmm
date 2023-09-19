@@ -82,7 +82,7 @@
 /obj/machinery/porta_turret{
 	dir = 8;
 	installation = /obj/item/gun/energy/lasercannon;
-	
+
 	},
 /obj/effect/mapping_helpers/atom_injector/obj_flag{
 	inject_flags = 1;
@@ -126,7 +126,7 @@
 /obj/machinery/porta_turret{
 	dir = 8;
 	installation = /obj/item/gun/energy/lasercannon;
-	
+
 	},
 /obj/effect/mapping_helpers/atom_injector/obj_flag{
 	inject_flags = 1;
@@ -140,7 +140,7 @@
 /area/template_noop)
 "fm" = (
 /obj/structure/door_assembly/door_assembly_mhatch,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /turf/open/floor/plating/airless,
 /area/awaymission/bmpship/aft)
 "fp" = (
@@ -282,8 +282,8 @@
 /turf/template_noop,
 /area/template_noop)
 "mu" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/visible/layer2,
 /obj/item/gps/spaceruin,
 /turf/open/floor/catwalk_floor,
 /area/awaymission/bmpship/aft)
@@ -416,8 +416,8 @@
 	},
 /area/awaymission/bmpship/midship)
 "qm" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/visible/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -545,7 +545,7 @@
 /turf/open/floor/iron/airless,
 /area/awaymission/bmpship/fore)
 "vk" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /turf/open/floor/plating/airless,
 /area/awaymission/bmpship/aft)
 "vu" = (
@@ -649,7 +649,7 @@
 /turf/open/floor/iron/airless,
 /area/awaymission/bmpship/midship)
 "ys" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /obj/effect/mapping_helpers/burnt_floor,
 /turf/open/floor/plating/airless,
 /area/awaymission/bmpship/aft)
@@ -678,8 +678,8 @@
 /turf/template_noop,
 /area/template_noop)
 "zA" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/visible/layer2,
 /turf/open/floor/catwalk_floor,
 /area/awaymission/bmpship/aft)
 "zC" = (
@@ -823,8 +823,8 @@
 /turf/open/misc/asteroid/airless,
 /area/awaymission/bmpship/fore)
 "CU" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/visible/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -867,8 +867,8 @@
 /turf/open/floor/engine,
 /area/awaymission/bmpship/midship)
 "EW" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/visible/layer2,
 /obj/machinery/door/airlock/grunge{
 	name = "Emergency Supplies"
 	},
@@ -918,10 +918,10 @@
 	},
 /area/awaymission/bmpship/aft)
 "Gb" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/visible/layer2,
 /obj/structure/cable,
 /obj/machinery/light/broken/directional/east,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /obj/effect/mapping_helpers/broken_floor,
 /turf/open/floor/plating/airless,
 /area/awaymission/bmpship/aft)
@@ -942,8 +942,8 @@
 /turf/open/floor/plating/airless,
 /area/awaymission/bmpship/midship)
 "Gv" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/visible/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -1077,7 +1077,7 @@
 /area/awaymission/bmpship/midship)
 "LX" = (
 /obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /turf/template_noop,
 /area/template_noop)
 "Me" = (
@@ -1109,8 +1109,8 @@
 /turf/template_noop,
 /area/template_noop)
 "Nc" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/visible/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -1353,8 +1353,8 @@
 /turf/open/floor/bamboo,
 /area/awaymission/bmpship/fore)
 "Yw" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/visible/layer2,
 /turf/open/floor/pod/dark,
 /area/awaymission/bmpship/aft)
 "YU" = (
@@ -1369,7 +1369,7 @@
 /obj/machinery/porta_turret{
 	dir = 8;
 	installation = /obj/item/gun/energy/lasercannon;
-	
+
 	},
 /obj/effect/mapping_helpers/atom_injector/obj_flag{
 	inject_flags = 1;
