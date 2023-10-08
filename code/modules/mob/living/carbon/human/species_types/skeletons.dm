@@ -61,11 +61,6 @@
 	. = ..()
 	C.set_safe_hunger_level()
 
-/datum/species/skeleton/check_roundstart_eligible()
-	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
-	return ..()
-
 /datum/species/skeleton/get_species_description()
 	return "A rattling skeleton! They descend upon Space Station 13 \
 		Every year to spook the crew! \"I've got a BONE to pick with you!\""

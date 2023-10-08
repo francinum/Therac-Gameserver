@@ -48,11 +48,6 @@
 		ORGAN_SLOT_KIDNEYS = /obj/item/organ/kidneys,
 	)
 
-/datum/species/vampire/check_roundstart_eligible()
-	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
-	return ..()
-
 /datum/species/vampire/on_species_gain(mob/living/carbon/human/new_vampire, datum/species/old_species)
 	. = ..()
 	to_chat(new_vampire, "[info_text]")

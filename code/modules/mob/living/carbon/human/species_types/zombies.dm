@@ -67,11 +67,6 @@
 /datum/species/zombie/body_temperature_core(mob/living/carbon/human/humi, delta_time, times_fired)
 	return
 
-/datum/species/zombie/check_roundstart_eligible()
-	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
-		return TRUE
-	return ..()
-
 /datum/species/zombie/get_species_description()
 	return "A rotting zombie! They descend upon Space Station Thirteen Every year to spook the crew! \"Sincerely, the Zombies!\""
 
