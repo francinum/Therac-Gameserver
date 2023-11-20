@@ -189,7 +189,7 @@
 		for(var/path_as_text in json["library_areas"])
 			var/path = text2path(path_as_text)
 			if(!ispath(path, /area))
-				stack_trace("Invalid path in mapping config for additional library areas: \[[path_as_text]\]")
+				log_world("Invalid path in mapping config for additional library areas: \[[path_as_text]\]")
 				continue
 			library_areas += path
 
