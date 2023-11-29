@@ -91,10 +91,7 @@
 				. = A / B
 			catch
 				. = num2text((~0)**(~0)) //Incase this ever changes
-				spawn(0)
-					say("ERROR, CANNOT INTERPRET VALUE")
-					set_anchored(FALSE)
-					throw_at(get_edge_target_turf(pick(GLOB.cardinals), 3, 1))
+				addtimer(CALLBACK(src, PROC_REF(divide_by_zero)), 0)
 		if(ARITH_MOD)
 			. = A % B
 		if(ARITH_COMPARE_EQUAL)
@@ -118,6 +115,12 @@
 		. = num2text((~0)**(~0))
 
 	fire("[.]")
+
+/obj/item/mcobject/messaging/arithmetic/proc/divide_by_zero()
+	SHOULD_NOT_SLEEP(TRUE)
+	say("ERROR, CANNOT INTERPRET VALUE")
+	set_anchored(FALSE)
+	throw_at(get_edge_target_turf(pick(GLOB.cardinals), 3, 1))
 
 #undef IS_SAFE
 #undef ARITH_ADD

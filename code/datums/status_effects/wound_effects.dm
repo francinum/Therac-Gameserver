@@ -223,8 +223,7 @@
 
 /datum/status_effect/arm_slowdown/proc/on_hand_swap()
 	SIGNAL_HANDLER
-	spawn(0) // The SWAP_HANDS comsig fires before we actually change our active hand.
-		apply_to_mob()
+	addtimer(CALLBACK(src, PROC_REF(apply_to_mob)), 0)
 
 /datum/status_effect/arm_slowdown/nextmove_modifier()
 	var/mob/living/carbon/C = owner

@@ -165,8 +165,7 @@
 	if(!can_see(user, target, 7))
 		cancel()
 	else
-		spawn(0)
-			user.face_atom(target)
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, face_atom)), 0)
 
 /obj/effect/abstract/aim_overlay/proc/trigger()
 	set waitfor = FALSE
