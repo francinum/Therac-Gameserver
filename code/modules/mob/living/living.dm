@@ -1540,10 +1540,17 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 /mob/living/proc/mob_pickup_checks(mob/living/user, display_messages = TRUE)
 	if(QDELETED(src) || !istype(user))
 		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_NO_MOB_PICKUP))
+		if(display_messages)
+			to_chat(user, span_warning("You cannot pick [src] up."))
+		return FALSE
+
 	if(!user.get_empty_held_indexes())
 		if(display_messages)
 			to_chat(user, span_warning("Your hands are full!"))
 		return FALSE
+
 	if(buckled)
 		if(display_messages)
 			to_chat(user, span_warning("[src] is buckled to [buckled] and cannot be picked up!"))

@@ -435,6 +435,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 */
 #define TRAIT_DONUT_LOVER "donut_lover"
 
+/// This MOB cannot be picked up by other mobs. NOT AN ITEM TRAIT.
+#define TRAIT_NO_MOB_PICKUP "cannot_be_picked_up(MOB)"
+
 /// `do_teleport` will not allow this atom to teleport
 #define TRAIT_NO_TELEPORT "no-teleport"
 
