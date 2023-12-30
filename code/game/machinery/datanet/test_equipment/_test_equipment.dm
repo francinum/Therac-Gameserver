@@ -4,7 +4,7 @@
 	name = "Generic Test Equipment"
 
 
-/obj/machinery/test_equipment/receive_signal(datum/signal/signal)
+/obj/machinery/test_equipment/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(FALSE) //This is a dev tool go fuck yourself
 	var/signal_data = signal.data
 	say("[json_encode(signal_data)]")

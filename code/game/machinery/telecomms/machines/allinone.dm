@@ -21,7 +21,7 @@
 	if (intercept)
 		freq_listening = list(FREQ_SYNDICATE)
 
-/obj/machinery/telecomms/allinone/receive_signal(datum/signal/subspace/signal)
+/obj/machinery/telecomms/allinone/receive_signal(datum/signal/subspace/signal, origin)
 	set waitfor = FALSE //heehoo TELECOMMS IS HOT GARBAGE
 	if(!istype(signal) || signal.transmission_method != TRANSMISSION_SUBSPACE)  // receives on subspace only
 		return

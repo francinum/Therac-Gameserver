@@ -38,11 +38,14 @@
  *       filter - described above.
  *       range - radius of regular byond's square circle on that z-level. null means everywhere, on all z-levels.
  *
- * obj/proc/receive_signal(datum/signal/signal)
+ * obj/proc/receive_signal(datum/signal/signal, origin)
  *   Handler from received signals. By default does nothing. Define your own for your object.
- *   Avoid of sending signals directly from this proc, use spawn(0). Do not use sleep() here please.
+ *   The discriminator is unique per 'kind' of interface, such as data-enabled (APC style) terminals, or otherwise.
+ *   It's intended to be used by devices with multiple interfaces, like network bridges.
+ *   Do not use sleep() here.
  *     parameters:
  *       signal - see description below. Extract all needed data from the signal before doing sleep(), spawn() or return!
+ *       origin - A magic string identified for what type of interface the packet came in on.
  *
  * datum/signal
  *   vars:
@@ -176,7 +179,18 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 			devices -= devices_filter
 	SSpackets.remove_radio_sensitive(device, frequency)
 
-/datum/proc/receive_signal(datum/signal/signal)
+/**
+ * Handler from received signals. By default does nothing. Define your own for your object.
+ *
+ * The discriminator is unique per 'kind' of interface, such as data-enabled (APC style) terminals, or otherwise.
+ * It's intended to be used by devices with multiple interfaces, like network bridges.
+ *
+ * Do not use sleep() here.
+ * parameters:
+ * - signal - see description below. Extract all needed data from the signal before doing sleep(), spawn() or return!
+ * - origin - A magic string identified for what type of interface the packet came in on.
+ */
+/datum/proc/receive_signal(datum/signal/signal, origin)
 	//SHOULD_CALL_PARENT(TRUE)
 	. = TRUE
 
@@ -212,3 +226,9 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	src.data = data || list()
 	src.transmission_method = transmission_method
 	src.logging_data = logging_data
+
+/// Clone a signal packet, providing a new author.
+/datum/signal/proc/Copy(new_author)
+	var/datum/signal/newsig = new(new_author, data.Copy(), transmission_method, logging_data)
+	return newsig
+#warn it is 1 am this function is probably insufficient.

@@ -43,14 +43,14 @@
 	qdel(src)
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
-/obj/machinery/power/data_terminal/receive_signal(datum/signal/signal)
+/obj/machinery/power/data_terminal/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(FALSE) //We *ARE* the signal poster.
 	if(!powernet) //Did we somehow receive a signal without a powernet?
 		return //*shrug*
 	if(signal.transmission_method != TRANSMISSION_WIRE)
 		CRASH("Data terminal received a non-wire data packet")
 	if(connected_machine)
-		connected_machine.receive_signal(signal)
+		connected_machine.receive_signal(signal, ORIGIN_DEVICE_TERMINAL)
 
 /obj/machinery/power/data_terminal/post_signal(datum/signal/signal)
 	SHOULD_CALL_PARENT(FALSE) //We *ARE* the signal poster.

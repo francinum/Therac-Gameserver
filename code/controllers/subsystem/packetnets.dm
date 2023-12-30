@@ -154,7 +154,7 @@ SUBSYSTEM_DEF(packets)
 
 				for(var/obj/machinery/power/client_machine as anything in net.data_nodes - poster)
 					///This might need [set waitfor = FALSE] alongside a [CHECK_TICK]
-					client_machine.receive_signal(signal)
+					client_machine.receive_signal(signal, ORIGIN_POWERLINE)
 
 				///Remove this signal from the queue and see if we're strangling the server
 				net.current_packet_queue -= signal
@@ -254,12 +254,12 @@ SUBSYSTEM_DEF(packets)
 
 
 ///Immediately send a packet to it's target(s). Used for high-importance packets.
-/datum/controller/subsystem/packets/proc/ImmediatePacketSend(datum/signal/packet, datum/target)
+/datum/controller/subsystem/packets/proc/ImmediatePacketSend(datum/signal/packet, datum/target, origin)
 	if(islist(target))
 		for(var/datum/receiver as anything in target)
-			receiver.receive_signal(packet)
+			receiver.receive_signal(packet, origin)
 	else
-		target.receive_signal(packet)
+		target.receive_signal(packet, origin)
 
 /datum/controller/subsystem/packets/proc/ImmediateRadioPacketSend(datum/signal/packet)
 	//If checking range, find the source turf
@@ -290,7 +290,7 @@ SUBSYSTEM_DEF(packets)
 					continue
 				if(start_point.z != end_point.z || (packet.range > 0 && get_dist(start_point, end_point) > packet.range))
 					continue
-			device.receive_signal(packet)
+			device.receive_signal(packet, ORIGIN_RADIOLINE)
 
 /// Do Spatial Grid handling for IRPS, Atmos Radio group.
 /// These are separate to save just that little bit more overhead.
@@ -313,7 +313,7 @@ SUBSYSTEM_DEF(packets)
 			continue
 		if((get_dist(start_point, listener) > packet.range))
 			continue
-		listener.receive_signal(packet)
+		listener.receive_signal(packet, ORIGIN_RADIOLINE)
 
 /// Do Spatial Grid handling for IRPS, Non-Atmos Radio group.
 /// These are separate to save just that little bit more overhead.
@@ -336,7 +336,7 @@ SUBSYSTEM_DEF(packets)
 			continue
 		if((get_dist(start_point, listener) > packet.range))
 			continue
-		listener.receive_signal(packet)
+		listener.receive_signal(packet, ORIGIN_RADIOLINE)
 
 
 /datum/controller/subsystem/packets/proc/ImmediateSubspaceVocalSend(datum/signal/subspace/vocal/packet)

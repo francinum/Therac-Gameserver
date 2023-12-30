@@ -161,7 +161,7 @@
 				investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", INVESTIGATE_ATMOS)
 	update_appearance()
 
-/obj/machinery/atmospherics/components/binary/volume_pump/receive_signal(datum/signal/signal)
+/obj/machinery/atmospherics/components/binary/volume_pump/receive_signal(datum/signal/signal, origin)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return
 

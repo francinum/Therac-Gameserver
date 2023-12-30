@@ -221,7 +221,7 @@
 	sleep(2 SECONDS)
 	updateUsrDialog()
 
-/obj/machinery/telephone/receive_signal(datum/signal/signal)
+/obj/machinery/telephone/receive_signal(datum/signal/signal, origin)
 	. = ..()
 	if(. == RECEIVE_SIGNAL_FINISHED)//Handled by default.
 		return

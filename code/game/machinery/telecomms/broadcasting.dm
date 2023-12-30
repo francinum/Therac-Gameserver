@@ -84,9 +84,9 @@
 
 /datum/signal/subspace/proc/send_to_receivers()
 	for(var/obj/machinery/telecomms/receiver/R in GLOB.telecomms_list)
-		R.receive_signal(src)
+		R.receive_signal(src, ORIGIN_SUBSPACE)
 	for(var/obj/machinery/telecomms/allinone/R in GLOB.telecomms_list)
-		R.receive_signal(src)
+		R.receive_signal(src, ORIGIN_SUBSPACE)
 
 /datum/signal/subspace/proc/broadcast()
 	set waitfor = FALSE

@@ -3834,6 +3834,7 @@
 #include "code\modules\photography\photos\photo.dm"
 #include "code\modules\power\cable.dm"
 #include "code\modules\power\cell.dm"
+#include "code\modules\power\data_bridge.dm"
 #include "code\modules\power\data_terminal.dm"
 #include "code\modules\power\energy_accumulator.dm"
 #include "code\modules\power\floodlight.dm"

@@ -61,7 +61,7 @@
 		var/datum/signal/signal = new(src, list("code" = round(code.value) || 0, "key" = parent?.owner_id))
 		radio_connection.post_signal(signal)
 
-/obj/item/circuit_component/radio/receive_signal(datum/signal/signal)
+/obj/item/circuit_component/radio/receive_signal(datum/signal/signal, origin)
 	. = FALSE
 	if(!signal)
 		return

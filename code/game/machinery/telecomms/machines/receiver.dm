@@ -15,7 +15,7 @@
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
 	circuit = /obj/item/circuitboard/machine/telecomms/receiver
 
-/obj/machinery/telecomms/receiver/receive_signal(datum/signal/subspace/signal)
+/obj/machinery/telecomms/receiver/receive_signal(datum/signal/subspace/signal, origin)
 	if(!on || !istype(signal) || !check_receive_level(signal) || signal.transmission_method != TRANSMISSION_SUBSPACE)
 		return
 	if(!is_freq_listening(signal))

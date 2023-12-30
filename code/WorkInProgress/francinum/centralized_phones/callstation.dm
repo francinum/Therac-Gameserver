@@ -37,7 +37,7 @@ Phone registration flow (Post-Roundstart):
 	"data":list2params(directory)
 }
 */
-/obj/machinery/callstation/receive_signal(datum/signal/signal)
+/obj/machinery/callstation/receive_signal(datum/signal/signal, origin)
 	. = ..()
 	if(.)
 		if(!master_id || signal.data["d_addr"] != "MC_[master_id]") //Hacky ugly terrible nasty multicast

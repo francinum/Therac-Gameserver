@@ -18,7 +18,7 @@
 	//Okay we're going to cheat a little bit here because it's worldstart and that's okay.
 
 
-/obj/machinery/phone_director/receive_signal(datum/signal/signal)
+/obj/machinery/phone_director/receive_signal(datum/signal/signal, origin)
 	. = ..()
 	if(.)
 		return

@@ -9,7 +9,7 @@
 	resistance_flags = FIRE_PROOF
 	var/anomaly_type = /obj/effect/anomaly
 
-/obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
+/obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal, origin)
 	if(!signal)
 		return FALSE
 	if(signal.data["code"] != code)

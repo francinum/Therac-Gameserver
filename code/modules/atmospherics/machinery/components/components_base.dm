@@ -241,7 +241,7 @@
 		update_node_icon()
 	return paintable
 
-/obj/machinery/atmospherics/components/receive_signal(datum/signal/signal)
+/obj/machinery/atmospherics/components/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(FALSE) //This entire tree currently sucks. It can handle itself.
 	//TODO: MAKE IT NOT SUCK. MAYBE.
 	. = ..()

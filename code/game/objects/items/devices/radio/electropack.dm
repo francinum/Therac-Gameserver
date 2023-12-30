@@ -57,7 +57,7 @@
 	else
 		return ..()
 
-/obj/item/electropack/receive_signal(datum/signal/signal)
+/obj/item/electropack/receive_signal(datum/signal/signal, origin)
 	if(!signal || signal.data["code"] != code)
 		return
 	if(isliving(loc) && on)

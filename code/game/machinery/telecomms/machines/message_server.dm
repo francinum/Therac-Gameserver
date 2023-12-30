@@ -150,7 +150,7 @@
 	if(!relay_information(signal, /obj/machinery/telecomms/hub))
 		relay_information(signal, /obj/machinery/telecomms/broadcaster)
 
-/obj/machinery/telecomms/message_server/receive_signal(datum/signal/signal)
+/obj/machinery/telecomms/message_server/receive_signal(datum/signal/signal, origin)
 	. = ..()
 	//Let upstream deal with the pings. But ignore the return value for now, we're here to sniff every packet we can.
 	if(calibrating) // If we're calibrating, just return, the fancy part of us isn't ready yet.

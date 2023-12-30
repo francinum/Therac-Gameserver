@@ -15,7 +15,7 @@
 
 /datum/computer/file/embedded_program/proc/receive_user_command(command)
 
-/datum/computer/file/embedded_program/receive_signal(datum/signal/signal)
+/datum/computer/file/embedded_program/receive_signal(datum/signal/signal, origin)
 	return null
 
 /datum/computer/file/embedded_program/process()
@@ -47,10 +47,10 @@
 	SHOULD_CALL_PARENT(FALSE) //This... Probably has a reason... I guess??????
 	return
 
-/obj/machinery/embedded_controller/receive_signal(datum/signal/signal)
+/obj/machinery/embedded_controller/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(FALSE) // This is technically a relay so this is okay.
 	if(istype(signal) && program)
-		program.receive_signal(signal)
+		program.receive_signal(signal, origin) //This is normally not okay, but this entire type tree makes me cry.
 
 /obj/machinery/embedded_controller/Topic(href, href_list)
 	. = ..()

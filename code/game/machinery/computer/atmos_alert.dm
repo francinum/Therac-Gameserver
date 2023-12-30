@@ -61,7 +61,7 @@
 	receive_frequency = new_frequency
 	radio_connection = SSpackets.add_object(src, receive_frequency, RADIO_ATMOSIA)
 
-/obj/machinery/computer/atmos_alert/receive_signal(datum/signal/signal)
+/obj/machinery/computer/atmos_alert/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(FALSE) //TODO: RECONCILE TAGS AND NETIDS
 	if(!signal)
 		return

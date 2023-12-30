@@ -55,7 +55,7 @@
 	. += "\t[span_info("GPRS FREQ: [span_robot(format_frequency(gprs_frequency))]")]"
 	. += "\t[span_info("GPRS ADDR: [span_robot(hardware_id)]")]"
 
-/obj/item/computer_hardware/network_card/packetnet/receive_signal(datum/signal/signal)
+/obj/item/computer_hardware/network_card/packetnet/receive_signal(datum/signal/signal, origin)
 	if(!holder || !signal.data) //Basic checks
 		return
 	if(signal.transmission_method != TRANSMISSION_RADIO)

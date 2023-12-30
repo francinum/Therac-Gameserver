@@ -19,7 +19,7 @@
 		FREQ_CTF_BLUE,
 	)
 
-/obj/machinery/telecomms/receive_signal(datum/signal/signal)
+/obj/machinery/telecomms/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(FALSE) //Fuck
 	. = ..()
 

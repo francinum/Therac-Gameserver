@@ -26,7 +26,7 @@
 	air_connection = SSpackets.add_object(src, air_frequency, RADIO_TO_AIRALARM)
 	INVOKE_ASYNC(src, PROC_REF(open))
 
-/obj/machinery/door/airlock/alarmlock/receive_signal(datum/signal/signal)
+/obj/machinery/door/airlock/alarmlock/receive_signal(datum/signal/signal, origin)
 	..()
 	if(machine_stat & (NOPOWER|BROKEN))
 		return

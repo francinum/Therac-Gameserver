@@ -40,7 +40,7 @@
 	var/datum/signal/pretransmission_signal = new(src, datablob) //This is split out for debugging reasons.
 	transmission_terminal.post_signal(pretransmission_signal)
 
-/obj/machinery/test_equipment/wired/receive_signal(datum/signal/signal)
+/obj/machinery/test_equipment/wired/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(FALSE) //This is a dev tool go fuck yourself
 	var/signal_data = signal.data
 	say("[json_encode(signal_data)]")

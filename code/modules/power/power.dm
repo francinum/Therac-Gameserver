@@ -32,7 +32,6 @@
 
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(update_cable_icons_on_turf), get_turf(src)), 3) //lol redstone wires
 	return ..()
 
 ///////////////////////////////
@@ -333,7 +332,7 @@
 		if(!Node.connect_to_network())
 			Node.disconnect_from_network() //if somehow we can't connect the machine to the new powernet, disconnect it from the old nonetheless
 
-	///Save any queued packets
+	//Save any queued packets
 	net1.next_packet_queue |= net2.next_packet_queue
 	net1.current_packet_queue |= net2.current_packet_queue
 

@@ -150,7 +150,7 @@
 		set_frequency(frequency)
 	broadcast_status()
 
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/receive_signal(datum/signal/signal)
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/receive_signal(datum/signal/signal, origin)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return
 

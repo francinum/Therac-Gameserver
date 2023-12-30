@@ -218,7 +218,7 @@
 	broadcast_status()
 	..()
 
-/obj/machinery/atmospherics/components/unary/vent_pump/receive_signal(datum/signal/signal)
+/obj/machinery/atmospherics/components/unary/vent_pump/receive_signal(datum/signal/signal, origin)
 	if(!is_operational || !signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 		return
 

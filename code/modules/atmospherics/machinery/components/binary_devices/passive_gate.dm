@@ -140,7 +140,7 @@ Passive gate is similar to the regular pump except:
 	if(frequency)
 		set_frequency(frequency)
 
-/obj/machinery/atmospherics/components/binary/passive_gate/receive_signal(datum/signal/signal)
+/obj/machinery/atmospherics/components/binary/passive_gate/receive_signal(datum/signal/signal, origin)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return
 

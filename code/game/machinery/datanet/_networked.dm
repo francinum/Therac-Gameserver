@@ -25,7 +25,7 @@
 	sending_signal.author = WEAKREF(src) // Override the sending signal author.
 	src.netjack.post_signal(sending_signal)
 
-/obj/machinery/receive_signal(datum/signal/signal)
+/obj/machinery/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(TRUE)
 	. = ..() //Should the subtype *probably* stop caring about this packet?
 	if(isnull(signal))

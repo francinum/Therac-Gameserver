@@ -18,6 +18,7 @@
 /// Standard set of network flags, for use by most network-connected equipment.
 #define NETWORK_FLAGS_STANDARD_CONNECTION (NETWORK_FLAG_GEN_ID | NETWORK_FLAG_USE_DATATERMINAL)
 
+// -----
 // Net Classes
 #define NETCLASS_P2P_PHONE "PNET_VCSTATION"
 #define NETCLASS_APC "PNET_AREAPOWER"
@@ -25,10 +26,32 @@
 #define NETCLASS_GRPS_CARD "NET_GPRS"
 #define NETCLASS_MESSAGE_SERVER "NET_MSGSRV"
 
+// -----
+// Signal Origins
+
+// 'Raw' origins, either fresh from SSPackets or some other raw transport medium.
+/// Originates directly from SSPackets 'SSPACKETS_POWERNET' phase.
+#define ORIGIN_POWERLINE "powerline"
+/// Originates directly from SSPackets ImmediateRadioPacketSend()
+#define ORIGIN_RADIOLINE "radioline"
+/// I hate telecomms I hate telecomms
+#define ORIGIN_SUBSPACE "subspace_magic"
+/// Originates directly from the bull's ass. Usually circuits.
+#define ORIGIN_MAGIC "bullshit"
+
+// 'Interface' origins, such as the various forms of terminal.
+/// Originates from a device (goon style) terminal
+#define ORIGIN_DEVICE_TERMINAL "device_terminal"
+/// Originates from a data-enabled (APC/SMES style) terminal
+#define ORIGIN_DATA_ENABLED_TERMINAL "data_enabled_terminal"
+
+// -----
 // Packet fields
 // not honestly thrilled with having these be defines but kapu wants it that way
 // I believe every coder is empowered with a right to footgun by our lord Dennis Ritchie
 
+
+//Generic fields
 /// Source (sender) address of a packet
 #define PACKET_SOURCE_ADDRESS "s_addr"
 /// Destination (receiver) address of a packet
@@ -38,8 +61,18 @@
 /// Network Class of a device, used as part of ping replies.
 #define PACKET_NETCLASS "netclass"
 
+// -----
 // Special addresses
-#define NET_ADDRESS_PING "ping"
+
+/// Ping all devices. Traverses bridges.
+#define NET_ADDRESS_PING "ping" // This is kinda expensive, can we do better with routing?
+
+/// Bridge Communication
+// Functionally just an evil version of "Rapid" Spanning Tree Protocol
+#define NET_ADDRESS_BRIDGE_CONTROL "bridge_control"
+
+// -----
+//'Command' values
 
 // Standard Commands
 #define NET_COMMAND_PING_REPLY "ping_reply"
@@ -47,6 +80,7 @@
 // PDA Text Message
 #define NETCMD_PDAMESSAGE "pda_message"
 
+// -----
 // Dataterminal connection/disconnect return values
 
 /// Successfully connected.
@@ -82,5 +116,8 @@
 
 /// All protection flags at once.
 #define MAGIC_DATA_INVIOLABLE ALL
+
+// -----
+// Other
 
 #define PACKET_STRING_FILE "packetnet.json"

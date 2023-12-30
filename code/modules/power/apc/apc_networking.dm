@@ -12,7 +12,7 @@
 	sending_signal.author = WEAKREF(src) // Override the sending signal author.
 	src.terminal.post_signal(sending_signal)
 
-/obj/machinery/power/apc/receive_signal(datum/signal/signal)
+/obj/machinery/power/apc/receive_signal(datum/signal/signal, origin)
 	. = ..()
 	if(. == RECEIVE_SIGNAL_FINISHED)
 		return //Ping packet handled.

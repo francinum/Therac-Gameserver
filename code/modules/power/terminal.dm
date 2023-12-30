@@ -91,11 +91,11 @@
 	signal.author = WEAKREF(src)
 	powernet.queue_signal(signal)
 
-/obj/machinery/power/terminal/datanet/receive_signal(datum/signal/signal)
+/obj/machinery/power/terminal/datanet/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(FALSE) //We *ARE* the signal poster.
 	if(!powernet) //Did we somehow receive a signal without a powernet?
 		return //*shrug*
 	if(signal.transmission_method != TRANSMISSION_WIRE)
 		CRASH("Data-enabled terminal received a non-wire data packet")
 	if(master)
-		master.receive_signal(signal)
+		master.receive_signal(signal, ORIGIN_DATA_ENABLED_TERMINAL)

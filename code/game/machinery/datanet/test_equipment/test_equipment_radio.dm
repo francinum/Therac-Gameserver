@@ -84,7 +84,7 @@
 		radio_connection.post_signal(packsig, range=send_range)
 		return
 
-/obj/machinery/test_equipment/radio/receive_signal(datum/signal/signal)
+/obj/machinery/test_equipment/radio/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(FALSE) //This is a dev tool go fuck yourself
 	var/signal_data = signal.data //If you are looking at this code do not ever fuck with signal.range directly or I will kill you.
 	say("F:[signal.frequency]|R:[signal.range]|D:[json_encode(signal_data)]")
