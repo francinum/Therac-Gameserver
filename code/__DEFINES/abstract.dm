@@ -9,6 +9,17 @@
 
 //This helper is underutilized, but that's a problem for me later. -Francinum
 
+
+//514/OpenDream does not allow initial(foo.static_var) on types, so we have to work around it.
+
+/// TRUE if the current path is abstract. See __DEFINES\abstract.dm for more information.
+/// Instantiating abstract paths is illegal.
+#if DM_VERSION > 514
 /// TRUE if the current path is abstract. See __DEFINES\abstract.dm for more information.
 /// Instantiating abstract paths is illegal.
 #define isabstract(foo) (initial(foo.type) == initial(foo.abstract_type))
+#else
+/// TRUE if the current path is abstract. See __DEFINES\abstract.dm for more information.
+/// Instantiating abstract paths is illegal.
+#define isabstract(foo) (ispath(foo) ? foo == initial(foo.abstract_type) : foo.type == foo.abstract_type)
+#endif
