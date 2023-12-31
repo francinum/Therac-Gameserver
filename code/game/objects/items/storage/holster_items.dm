@@ -30,7 +30,7 @@
 /// Detective's shoulder holster.
 /obj/item/storage/belt/holster/shoulder
 	name = "revolver shoulder holster"
-	desc = "A strap of leather designed to hold a " + /obj/item/gun/ballistic/revolver/detective::name + " and some small objects."
+//	desc = "A strap of leather designed to hold a " + /obj/item/gun/ballistic/revolver/detective::name + " and some small objects."
 	icon_state = "holster"
 	inhand_icon_state = "holster"
 	worn_icon_state = "holster"
@@ -74,7 +74,7 @@
 
 /obj/item/storage/belt/holster/shoulder/ert
 	name = "marine's holster"
-	desc = "A rather plain but still cool looking holster that can hold an " + /obj/item/gun/ballistic/automatic/pistol/m1911::name + "and some small objects."
+//	desc = "A rather plain but still cool looking holster that can hold an " + /obj/item/gun/ballistic/automatic/pistol/m1911::name + "and some small objects."
 	icon_state = "syndicate_holster"
 	inhand_icon_state = "syndicate_holster"
 	worn_icon_state = "syndicate_holster"
@@ -198,7 +198,7 @@
 	var/datum/storage/holster/storage = atom_storage
 	storage.max_slots = 2
 	storage.holster_slots = 1
-	storage.max_specific_storage = /obj/item/gun/energy/laser/thermal::w_class
+//	storage.max_specific_storage = /obj/item/gun/energy/laser/thermal::w_class
 	storage.set_holdable(list(
 		/obj/item/gun/energy/e_gun/mini,
 		/obj/item/gun/energy/disabler,

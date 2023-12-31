@@ -207,3 +207,6 @@ libprof.so
 
 # Screenshot tests
 /artifacts
+
+#OpenDream Compiled Product
+daedalus.json

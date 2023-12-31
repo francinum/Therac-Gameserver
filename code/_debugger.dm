@@ -18,5 +18,6 @@
 #endif
 	if (dll)
 		log_world("Loading Debug DLL at: [dll]")
-		call_ext(dll, "auxtools_init")()
+		call(dll, "auxtools_init")()
+		#warn monkeypatched call_ext
 		enable_debugging()

@@ -91,8 +91,9 @@
 				. = user.transferItemToLoc(I, parent)
 
 			// Using stacks
-			else if(istype(I, /obj/item/stack))
-				. = I.use_tool(parent, user, 0, volume=50, amount=current_step["amount"])
+			else
+				if(istype(I, /obj/item/stack))
+					. = I.use_tool(parent, user, 0, volume=50, amount=current_step["amount"])
 
 
 	// Going backwards? Undo the last action. Drop/respawn the items used in last action, if any.

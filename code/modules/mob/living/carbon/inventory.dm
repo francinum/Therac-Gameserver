@@ -323,4 +323,5 @@
 
 ///Returns an item that is covering a body_zone (BODY_ZONE_CHEST, etc)
 /mob/living/carbon/proc/get_item_covering_zone(zone)
-	for(var/obj/item in get_all_worn_items())
+	// for(var/obj/item in get_all_worn_items())
+	return null
