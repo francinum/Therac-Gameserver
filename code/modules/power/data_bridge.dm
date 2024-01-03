@@ -1,4 +1,4 @@
-/// Address communicates on the 'Outside' interface.
+/// Address communicates on the 'Outside' interface,
 #define DESTINATION_OUT "out"
 /// Address communicates on the 'Inside' interface.
 #define DESTINATION_IN "in"
@@ -7,13 +7,22 @@
 
 /// Bridge itself is looped, both interfaces are on the same powernet.
 #define SWITCHING_STATE_LOOPED -2
-/// Bridge is discarding packets, and not learning. Bridges start in this mode. Redundant bridges will stay in this mode.
+/// Bridge is discarding packets, and not learning. Redundant bridges will be put in this mode.
 #define SWITCHING_STATE_DISCARDING -1
-/// Bridge is not transferring packets, but is learning addresses.
+/// Bridge is not transferring packets, but is learning addresses. Bridges start in this mode.
 #define SWITCHING_STATE_LEARNING 1
 /// Bridge is forwarding packets and learning addresses. 'Healthy'
 #define SWITCHING_STATE_FORWARDING 2
 
+/**
+ *
+ * These bridges impliment a slightly brain-damaged version of ("rapid") spanning tree protocol.
+ *
+ * This uses a concept of a "Bridge (Data) Protocol Unit", which communicates topology information to the various bridges in a larger network
+ *
+ * BPUs contain the following information
+ *
+ */
 /obj/machinery/power/data_bridge
 	name = "network bridge" //todo come up with some flavorful bullshit
 	desc = "A device that sits between two data networks, relaying packets between them."
@@ -41,10 +50,19 @@
 	// I curse my desire to make this stuff somewhat realistic every time I remember I have to code it.
 
 	/// Current switching state
-	var/switching_state
+	var/switching_state = SWITCHING_STATE_LEARNING
 	/// Are we currently keeping track of device addresses?
-	var/learning_addresses = FALSE
+	var/learning_addresses = TRUE
+	/// Are we in a state that forwards packets?
+	var/forwarding_packets = FALSE
 
+	/**
+	 * Timeout for sending a fabric update data unit.
+	 *
+	 */
+	COOLDOWN_DECLARE(hello_time)
+
+	/// Antispam timer for the self-loop alarm.
 	COOLDOWN_DECLARE(loop_alarm)
 
 /obj/machinery/power/data_bridge/Initialize(mapload)
@@ -188,6 +206,8 @@
 /obj/machinery/power/data_bridge/on_set_is_operational(old_value)
 	if(old_value)
 		end_processing()
+		// Reset the hello time to
+		COOLDOWN_START(src, hello_time, 2 SECONDS + rand(1 SECOND, 2 SECONDS))
 	else
 		begin_processing()
 
@@ -248,6 +268,7 @@
 		if(SWITCHING_STATE_FORWARDING)
 			// Passing packets normally. Learn addresses and all that.
 			learning_addresses = TRUE
+			forwarding_packets = TRUE
 
 	switching_state = new_state
 	update_icon(UPDATE_OVERLAYS)
@@ -274,9 +295,15 @@
 /obj/machinery/power/data_bridge/proc/record_address(incoming_address, origin)
 	if(!learning_addresses)
 		return // You serve zero purpose.
+	var/record
 	switch(origin)
 		if(ORIGIN_POWERLINE)
-			address_table[incoming_address] = DESTINATION_IN
+			record = DESTINATION_IN
+		if(ORIGIN_DATA_ENABLED_TERMINAL)
+			record = DESTINATION_OUT
+		else
+			CRASH("Invalid origin provided to record_address, [origin]")
+	address_table[incoming_address] = record
 
 /obj/machinery/power/data_bridge/receive_signal(datum/signal/signal, origin)
 	SHOULD_CALL_PARENT(FALSE) //We are a specialized level 2 device, not a client.
@@ -284,34 +311,47 @@
 		return
 	var/incoming_address = signal.data[PACKET_SOURCE_ADDRESS]
 	var/outgoing_address = signal.data[PACKET_DESTINATION_ADDRESS]
-	if(!address_table[incoming_address])
-		record_address(incoming_address, origin)
+	record_address(incoming_address, origin)
 	switch(origin)
 		//'Inside' network
 		if(ORIGIN_POWERLINE)
 			switch(address_table[outgoing_address])
+				if(DESTINATION_IN)
+					return // Packet is link-local. No need to care.
+
 				if(DESTINATION_CONTROL) // Bridge Protocol Data Unit. Not user data.
 					noop()
 
-				if(DESTINATION_IN)
-					return // Packet is link-local. No need to care.
+
+				if(DESTINATION_OUT)
+					if(!forwarding_packets)
+						return
+					var/datum/signal/cloned_signal = signal.Copy(src)
 
 		//'Outside' network
 		if(ORIGIN_DATA_ENABLED_TERMINAL)
 			switch(address_table[outgoing_address])
-				if(DESTINATION_CONTROL) // Bridge Protocol Data Unit. Not user data.
-					noop()
-
 				if(DESTINATION_OUT)
 					return // Packet is link-local. No need to care.
 
+				if(DESTINATION_CONTROL) // Bridge Protocol Data Unit. Not user data.
+					noop()
+
 				if(DESTINATION_IN)
+					if(!forwarding_packets)
+						return
 					var/datum/signal/cloned_signal = signal.Copy(src)
 
 
 		else //Weird Origin.
 			CRASH("Packet with martian origin [origin] from author [signal.author.resolve() || "!NULL or qdeleted!"]")
 
+
+/**
+ * Handle Bridge Protocol Data Units.
+ *
+ */
+/obj/machinery/power/data_bridge/proc/handle_control_plane(/datum/signal/signal, origin)
 
 #undef DESTINATION_IN
 #undef DESTINATION_OUT
