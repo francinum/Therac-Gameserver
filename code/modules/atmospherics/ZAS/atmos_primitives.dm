@@ -117,8 +117,8 @@
 	///Just transfer it, who really cares at a scale this small.
 	if (total_filterable_moles < MINIMUM_MOLES_TO_FILTER)
 		for(var/g in filtering)
-			source.setGasMoles(g, 0)
 			sink.adjustGasWithTemp(g, source.gas[g] * source.group_multiplier, source.temperature)
+			source.setGasMoles(g, 0)
 		return -1
 
 	//now that we know the total amount of filterable gas, we can calculate the amount of power needed to scrub one mole of gas
