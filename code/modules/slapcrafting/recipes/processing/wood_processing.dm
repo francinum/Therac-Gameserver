@@ -8,11 +8,11 @@
 	)
 	result_type = /obj/item/stack/sheet/mineral/wood
 
-/datum/slapcraft_recipe/chop_log/create_item(item_path, obj/item/slapcraft_assembly/assembly)
+/datum/slapcraft_recipe/chop_log/create_product(product_path, obj/item/slapcraft_assembly/assembly)
 	var/obj/item/grown/log/log = locate() in assembly
 	var/plank_amount = log.get_plank_amount()
 	var/plank_type = log.plank_type
-	return new plank_type(assembly.loc, plank_amount)
+	return new plank_type(null, plank_amount)
 
 /datum/slapcraft_step/chop_log
 	desc = "Start with a log."

@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	/// The actual direction to move stuff in.
 	var/movedir
 	/// The time between movements of the conveyor belts, base 0.2 seconds
-	var/speed = 0.2
+	var/speed = 1
 	/// The control ID - must match at least one conveyor switch's ID to be useful.
 	var/id = ""
 	/// Inverts the direction the conveyor belt moves when true.

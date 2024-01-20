@@ -153,8 +153,9 @@
 /datum/slapcraft_step/proc/can_perform(mob/living/user, obj/item/item, obj/item/slapcraft_assembly/assembly, list/error_list = list())
 	SHOULD_CALL_PARENT(TRUE)
 	. = TRUE
+
 	// Check if the mob can actually remove the item from their inventory
-	if(check_if_mob_can_drop_item && (item.item_flags & IN_INVENTORY) && !user.canUnequipItem(item))
+	if(user && check_if_mob_can_drop_item && (item.item_flags & IN_INVENTORY) && !user.canUnequipItem(item))
 		error_list += "I cannot drop [item]."
 		. = FALSE
 

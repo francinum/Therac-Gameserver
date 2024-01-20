@@ -1,5 +1,5 @@
 /datum/slapcraft_recipe/improvised_pickaxe
-	name = "improvised_pickaxe"
+	name = "improvised pickaxe"
 	examine_hint = "You could attach a knife and use it as a makeshift pickaxe..."
 	category = SLAP_CAT_TOOLS
 	steps = list(

@@ -24,8 +24,8 @@
 	desc = "Start with a spear."
 	item_types = list(/obj/item/spear)
 
-/datum/slapcraft_recipe/explosive_lance/create_item(item_path, obj/item/slapcraft_assembly/assembly)
-	var/obj/item/spear/explosive/spear = new item_path(assembly.drop_location())
+/datum/slapcraft_recipe/explosive_lance/create_product(product_path, obj/item/slapcraft_assembly/assembly)
+	var/obj/item/spear/explosive/spear = ..()
 	var/obj/item/grenade/G = locate() in assembly
 	spear.set_explosive(G)
 	return spear

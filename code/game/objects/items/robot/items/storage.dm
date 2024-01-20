@@ -173,7 +173,6 @@
 	desc = "A container for holding body parts."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "evidenceobj"
-	item_flags = SURGICAL_TOOL
 	storable = list(/obj/item/organ,
 					/obj/item/bodypart)
 

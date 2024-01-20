@@ -560,6 +560,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 // item traits
 #define TRAIT_NODROP "nodrop"
+#define TRAIT_NOPICKUP "nopickup"
 /// cannot be inserted in a storage.
 #define TRAIT_NO_STORAGE_INSERT "no_storage_insert"
 /// Visible on t-ray scanners if the atom/var/level == 1

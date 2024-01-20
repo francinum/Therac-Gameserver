@@ -1,6 +1,8 @@
 /obj/item/slapcraft_assembly
 	name = "slapcraft assembly"
 	w_class = WEIGHT_CLASS_NORMAL
+	item_flags = parent_type::item_flags | NO_MAT_REDEMPTION
+
 	/// Recipe this assembly is trying to make
 	var/datum/slapcraft_recipe/recipe
 	/// Associative list of whether the steps are finished or not
@@ -12,8 +14,11 @@
 	/// All items that want to place itself in the resulting item after the recipe is finished.
 	var/list/items_to_place_in_result = list()
 
-	///A list of weakrefs to finished items (not including items-in-items), used to move items around after they're complete and this object is qdeling.
-	var/list/datum/weakref/finished_items = list()
+	///A list of finished items (not including items-in-items), used to move items around after they're complete and this object is qdeling.
+	var/list/atom/movable/finished_items = list()
+
+	///If this recipe is going to produce an /obj/machine.
+	var/is_machine_recipe = FALSE
 
 /obj/item/slapcraft_assembly/examine(mob/user)
 	. = ..()
@@ -23,7 +28,7 @@
 			var/datum/slapcraft_step/done_step = SLAPCRAFT_STEP(step_path)
 			. += span_notice(done_step.finished_desc)
 	// Describe how the next steps could be performed
-	var/list/next_steps = recipe.get_possible_next_steps(step_states)
+	var/list/next_steps = get_possible_next_steps()
 	for(var/step_type in next_steps)
 		var/datum/slapcraft_step/next_step = SLAPCRAFT_STEP(step_type)
 		. += span_boldnotice(next_step.todo_desc)
@@ -42,13 +47,16 @@
 
 /obj/item/slapcraft_assembly/update_overlays()
 	. = ..()
-	/// Add the appearance of all the components that the assembly is being made with.
-	for(var/obj/item/component as anything in contents)
-		var/mutable_appearance/component_overlay = mutable_appearance(component.icon, component.icon_state)
-		component_overlay.pixel_x = component.pixel_x
-		component_overlay.pixel_y = component.pixel_y
-		component_overlay.overlays = component.overlays
-		. += component_overlay
+	if(is_machine_recipe)
+		. += image('icons/obj/stock_parts.dmi', "vbox_2", layer = LOW_ITEM_LAYER)
+	else
+		/// Add the appearance of all the components that the assembly is being made with.
+		for(var/obj/item/component as anything in contents)
+			var/mutable_appearance/component_overlay = image(component.icon, component.icon_state)
+			component_overlay.pixel_x = component.pixel_x
+			component_overlay.pixel_y = component.pixel_y
+			component_overlay.overlays = component.overlays
+			. += component_overlay
 
 /obj/item/slapcraft_assembly/attack_self(mob/user)
 	if(recipe.can_disassemble)
@@ -78,6 +86,9 @@
 			continue
 		qdel(component)
 	return ..()
+
+/obj/item/slapcraft_assembly/proc/get_possible_next_steps()
+	return recipe.get_possible_next_steps(step_states)
 
 /// Disassembles the assembly, either qdeling it if its in nullspace, or dumping all of its components on the ground and then qdeling it.
 /obj/item/slapcraft_assembly/proc/disassemble(force = FALSE)
@@ -136,4 +147,10 @@
 	step_states = list()
 	for(var/step_path in set_recipe.steps)
 		step_states[step_path] = FALSE
+
+	// If we're producing a machine, we have to be a bit special
+	if(istype(set_recipe, /datum/slapcraft_recipe/machine))
+		is_machine_recipe = TRUE
+		ADD_TRAIT(src, TRAIT_NOPICKUP, ABSTRACT_ITEM_TRAIT)
+		w_class = WEIGHT_CLASS_GIGANTIC
 

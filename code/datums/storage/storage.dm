@@ -120,7 +120,8 @@
 
 	RegisterSignal(resolve_parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(mass_empty))
 
-	RegisterSignal(resolve_parent, list(COMSIG_CLICK_ALT, COMSIG_ATOM_ATTACK_GHOST, COMSIG_ATOM_ATTACK_HAND_SECONDARY), PROC_REF(open_storage_on_signal))
+	RegisterSignal(resolve_parent, list(COMSIG_CLICK_ALT, COMSIG_ATOM_ATTACK_GHOST), PROC_REF(open_storage_on_signal))
+	RegisterSignal(resolve_parent, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(on_attack_secondary))
 	RegisterSignal(resolve_parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(open_storage_attackby_secondary))
 
 	RegisterSignal(resolve_location, COMSIG_ATOM_ENTERED, PROC_REF(handle_enter))
@@ -932,6 +933,14 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 /// Signal handler for when we get attacked with secondary click by an item.
 /datum/storage/proc/open_storage_attackby_secondary(datum/source, atom/weapon, mob/user)
 	SIGNAL_HANDLER
+
+	return open_storage_on_signal(source, user)
+
+/// Signal handler for when we get attacked with an empty hand with right click
+/datum/storage/proc/on_attack_secondary(datum/source, mob/user)
+	SIGNAL_HANDLLER
+	if(!attack_hand_interact)
+		return
 
 	return open_storage_on_signal(source, user)
 

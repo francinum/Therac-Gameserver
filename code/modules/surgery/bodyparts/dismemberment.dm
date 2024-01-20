@@ -23,7 +23,7 @@
 				span_userdanger("[messages[2]]"),
 				span_hear("[messages[3]]")
 			)
-		if(!(bodypart_flags & BP_NO_PAIN) && !HAS_TRAIT(limb_owner, TRAIT_NO_PAINSHOCK) && prob(50))
+		if(!(bodypart_flags & BP_NO_PAIN) && !HAS_TRAIT(limb_owner, TRAIT_NO_PAINSHOCK))
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon, pain_emote), PAIN_AMT_AGONIZING, TRUE)
 
 	// We need to create a stump *now* incase the limb being dropped destroys it or otherwise changes it.
@@ -94,7 +94,6 @@
 		else
 			gore = new /obj/effect/decal/cleanable/robot_debris(get_turf(limb_owner))
 
-		gore.throw_at(get_edge_target_turf(src, direction), rand(1,3), 5)
 		drop_contents()
 		qdel(src)
 
