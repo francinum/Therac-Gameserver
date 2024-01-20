@@ -11,6 +11,9 @@
 	/// The state of the machine
 	var/state = M_IDLE
 
+	/// Timer ID for active work
+	var/work_timer
+
 /obj/machinery/manufacturing/Initialize(mapload)
 	. = ..()
 	create_storage(5, WEIGHT_CLASS_GIGANTIC, WEIGHT_CLASS_BULKY * 5)
@@ -61,6 +64,8 @@
 
 	if(new_state == M_WORKING)
 		atom_storage.close_all()
+	else if(work_timer)
+		deltimer(work_timer)
 
 	state = new_state
 	update_appearance(UPDATE_OVERLAYS|UPDATE_ICON)
@@ -178,7 +183,7 @@
 
 	set_state(M_WORKING)
 
-	addtimer(CALLBACK(src, PROC_REF(complete_step), item, step_to_perform), time_to_perform)
+	work_timer = addtimer(CALLBACK(src, PROC_REF(complete_step), item, step_to_perform), time_to_perform, TIMER_STOPPABLE|TIMER_DELETE_ME)
 
 /obj/machinery/manufacturing/perform_abstract_step/proc/complete_step(obj/item/slapcraft_assembly/assembly, datum/slapcraft_step/step_to_perform)
 	assembly.finished_step(null, SLAPCRAFT_STEP(step_to_perform))

@@ -938,7 +938,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 /// Signal handler for when we get attacked with an empty hand with right click
 /datum/storage/proc/on_attack_secondary(datum/source, mob/user)
-	SIGNAL_HANDLLER
+	SIGNAL_HANDLER
+
 	if(!attack_hand_interact)
 		return
 
