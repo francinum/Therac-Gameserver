@@ -78,7 +78,7 @@
 	var/obj/item/item_to_work = contained[1].resolve()
 
 	if(isnull(item_to_work))
-		contained -= null
+		contained.Cut(1, 2)
 		return .()
 
 	if(!isitem(item_to_work))
@@ -128,13 +128,14 @@
 
 	jam()
 	user.Stun(5 SECONDS, TRUE)
-	user.Shake(5, 5, 5 SECONDS)
+	user.do_jitter_animation()
 	ADD_TRAIT(user, TRAIT_FORCED_STANDING, REF(src))
 
 	sleep(5 SECONDS)
 
 	REMOVE_TRAIT(user, TRAIT_FORCED_STANDING, REF(src))
 	BP.dismember(DROPLIMB_BLUNT)
+	user.Paralyze(3 SECONDS)
 
 /// Machinery for performing steps without actually using a resource
 /obj/machinery/manufacturing/perform_abstract_step
