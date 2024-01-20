@@ -69,7 +69,6 @@
 		spray_blood(pick(GLOB.alldirs))
 		visible_message(
 			span_danger("Blood sprays out from \the [src]'s [spray_part.plaintext_zone]!"),
-			span_userdanger("Blood sprays out from your [spray_part.plaintext_zone]!"),
 		)
 		COOLDOWN_START(src, blood_spray_cd, 8 SECONDS)
 
