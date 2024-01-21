@@ -3226,6 +3226,7 @@
 #include "code\modules\mafia\outfits.dm"
 #include "code\modules\mafia\roles.dm"
 #include "code\modules\manufacturing\manufacturing_machine.dm"
+#include "code\modules\manufacturing\perform_abstract.dm"
 #include "code\modules\mapfluff\centcom\nuke_ops.dm"
 #include "code\modules\mapfluff\ruins\objects_and_mobs\necropolis_gate.dm"
 #include "code\modules\mapfluff\ruins\objects_and_mobs\sin_ruins.dm"

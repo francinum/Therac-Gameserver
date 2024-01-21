@@ -108,7 +108,7 @@
 	if(!perform_check(user, item, assembly, error_list = error_list) || !assembly.recipe.check_correct_step(type, assembly.step_states))
 		return FALSE
 
-	if(perform_time && !instant)
+	if(perform_time && !instant && user)
 		if(!silent)
 			user.visible_message(
 				span_notice(step_replace_text(start_msg, user, item, assembly)),
@@ -121,7 +121,7 @@
 		if(QDELETED(assembly) || QDELETED(item) || !perform_check(user, item, assembly) || !assembly.recipe.check_correct_step(type, assembly.step_states))
 			return FALSE
 
-	if(!silent)
+	if(!silent && user)
 		user.visible_message(
 			span_notice(step_replace_text(finish_msg, user, item, assembly)),
 			span_notice(step_replace_text(finish_msg_self, user, item, assembly))

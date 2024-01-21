@@ -7,6 +7,9 @@
 	var/in_directions = ALL_CARDINALS
 	var/out_direction = SOUTH
 
+	/// Sound to play on work, can be a list or single sound.
+	var/list/work_sound
+
 	var/list/datum/weakref/contained = list()
 	/// The state of the machine
 	var/state = M_IDLE
@@ -92,7 +95,7 @@
 	process_item(item_to_work)
 
 /obj/machinery/manufacturing/proc/check_item_type(obj/item/item)
-	return FALSE
+	return TRUE
 
 /// Perform our shit on this item.
 /obj/machinery/manufacturing/proc/process_item(obj/item/item)
@@ -111,6 +114,13 @@
 	if(!QDELETED(item))
 		item.forceMove(drop_location())
 		return
+
+/obj/machinery/manufacturing/proc/play_work_sound()
+	return
+
+/obj/machinery/manufacturing/proc/attempt_create_assembly(obj/item/item)
+	RETURN_TYPE(/obj/item/slapcraft_assembly)
+	return
 
 /obj/machinery/manufacturing/proc/jam()
 	set_state(M_JAMMED)
@@ -136,78 +146,3 @@
 	REMOVE_TRAIT(user, TRAIT_FORCED_STANDING, REF(src))
 	BP.dismember(DROPLIMB_BLUNT)
 	user.Paralyze(3 SECONDS)
-
-/// Machinery for performing steps without actually using a resource
-/obj/machinery/manufacturing/perform_abstract_step
-	/// A k:v list of step_path : time to complete. step_path becomes a typecache during init.
-	var/list/steps
-
-	/// The current item being worked on, incase this machine performs multiple steps.
-	var/datum/weakref/working_on
-
-	/// The typecache of steps to perform next.
-	var/list/next_step
-
-/obj/machinery/manufacturing/perform_abstract_step/Initialize(mapload)
-	. = ..()
-	var/idx
-	for(var/path in steps)
-		idx++
-		var/old_value = steps[path]
-		steps[idx] = typecacheof(path)
-		steps[steps[idx]] = old_value
-
-/obj/machinery/manufacturing/perform_abstract_step/check_item_type(obj/item/item)
-	if(istype(item, /obj/item/slapcraft_assembly))
-		return TRUE
-	return FALSE
-
-/obj/machinery/manufacturing/perform_abstract_step/process_item(obj/item/item)
-	var/obj/item/slapcraft_assembly/assembly = item
-	var/list/possible_steps = assembly.get_possible_next_steps()
-
-	next_step ||= steps[1]
-
-	var/time_to_perform = null
-	var/step_to_perform = null
-
-	for(var/step_type in possible_steps)
-		if(next_step[step_type])
-			time_to_perform = steps[next_step]
-			step_to_perform = step_type
-			break
-
-	if(isnull(time_to_perform))
-		next_step = null
-		jam()
-		return
-
-	set_state(M_WORKING)
-
-	work_timer = addtimer(CALLBACK(src, PROC_REF(complete_step), item, step_to_perform), time_to_perform, TIMER_STOPPABLE|TIMER_DELETE_ME)
-
-/obj/machinery/manufacturing/perform_abstract_step/proc/complete_step(obj/item/slapcraft_assembly/assembly, datum/slapcraft_step/step_to_perform)
-	assembly.finished_step(null, SLAPCRAFT_STEP(step_to_perform))
-
-	var/step_index = steps.Find(next_step)
-	// If this is the last step, spit it out and be done with it
-	if(step_index == length(steps))
-		next_step = null
-		eject_item(assembly)
-		set_state(M_IDLE)
-		run_queue()
-		return
-
-	// TOO SOON, EXECUTUS! YOU HAVE COMPLETED ME TOO SOON!
-	if(assembly.being_finished)
-		eject_item(assembly)
-		jam()
-		return
-
-	next_step = steps[step_index + 1]
-	working_on = WEAKREF(assembly)
-	process_item(assembly)
-
-/obj/machinery/manufacturing/perform_abstract_step/test
-	out_direction = EAST
-	steps = list(/datum/slapcraft_step/tool/welder = 10 SECONDS)

@@ -91,13 +91,13 @@
 	return recipe.get_possible_next_steps(step_states)
 
 /// Disassembles the assembly, either qdeling it if its in nullspace, or dumping all of its components on the ground and then qdeling it.
-/obj/item/slapcraft_assembly/proc/disassemble(force = FALSE)
+/obj/item/slapcraft_assembly/proc/disassemble(force = FALSE, dump_loc_override)
 	if((disassembling || being_finished) && !force)
 		return
 
 	disassembling = TRUE
 
-	var/atom/dump_loc = drop_location()
+	var/atom/dump_loc = dump_loc_override || drop_location()
 
 	if(!dump_loc)
 		qdel(src)
