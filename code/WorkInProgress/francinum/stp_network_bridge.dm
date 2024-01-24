@@ -6,11 +6,13 @@
 #define DESTINATION_CONTROL "control"
 
 /// Bridge itself is looped, both interfaces are on the same powernet.
-#define SWITCHING_STATE_LOOPED -1
-/// Bridge is not fully up
-#define SWITCHING_STATE_INIT 0
-/// Bridge is forwarding packets
-#define SWITCHING_STATE_FORWARDING 1
+#define SWITCHING_STATE_LOOPED -2
+/// Bridge is discarding packets, and not learning. Redundant bridges will be put in this mode.
+#define SWITCHING_STATE_DISCARDING -1
+/// Bridge is not transferring packets, but is learning addresses. Bridges start in this mode.
+#define SWITCHING_STATE_LEARNING 1
+/// Bridge is forwarding packets and learning addresses. 'Healthy'
+#define SWITCHING_STATE_FORWARDING 2
 
 /**
  *
@@ -36,8 +38,29 @@
 	/// 'Outside' network access terminal, usually connected to the main distribution grid.
 	var/obj/machinery/power/terminal/datanet/input_terminal
 
-	/// What state are we in?
-	var/switching_state = SWITCHING_STATE_INIT
+	/**
+	 * Client Address Table.
+	 *
+	 * List of lists containing a network address, and it's direction. Used to learn which devices to relay, and which to not.
+	 *
+	 * Stored as list($netaddr=$direction), eg "50032a4"="out" (Device is in the 'outside' direction)
+	 */
+	var/list/address_table
+
+	// I curse my desire to make this stuff somewhat realistic every time I remember I have to code it.
+
+	/// Current switching state
+	var/switching_state = SWITCHING_STATE_LEARNING
+	/// Are we currently keeping track of device addresses?
+	var/learning_addresses = TRUE
+	/// Are we in a state that forwards packets?
+	var/forwarding_packets = FALSE
+
+	/**
+	 * Timeout for sending a fabric update data unit.
+	 *
+	 */
+	COOLDOWN_DECLARE(hello_time)
 
 	/// Antispam timer for the self-loop alarm.
 	COOLDOWN_DECLARE(loop_alarm)
@@ -57,6 +80,7 @@
 		return
 	input_terminal.master = src
 	update_appearance()
+	dump_address_table()
 	if(is_operational)
 		begin_processing()
 
@@ -191,11 +215,11 @@
 
 // We need to process so we can reconcile network state.
 /obj/machinery/power/data_bridge/process()
+	if(!is_operational)
+		return PROCESS_KILL
 	if(!input_terminal)
 		stack_trace("Network Bridge Somehow processing without a terminal? Not okay.")
 		atom_break()
-		return PROCESS_KILL
-	if(!is_operational || !COOLDOWN_FINISHED(src,loop_alarm))
 		return PROCESS_KILL
 	// 'Continuity check', make sure we aren't dead shorting a network, if so we can just deadlock.
 	if(powernet.number == input_terminal.powernet.number)
@@ -203,7 +227,7 @@
 		if(COOLDOWN_FINISHED(src,loop_alarm))
 			playsound(src, 'sound/machines/defib_saftyOff.ogg', 50, FALSE)
 			COOLDOWN_START(src, loop_alarm, 10 SECONDS)
-		change_switching_state(SWITCHING_STATE_LOOPED)
+		switching_state = SWITCHING_STATE_LOOPED
 		return
 
 
@@ -213,6 +237,12 @@
 	if(!input_terminal)
 		. += span_warning("This unit is missing a terminal!")
 
+/// Completely dump the current address table, in case we've looped for example.
+/obj/machinery/power/data_bridge/proc/dump_address_table()
+	address_table = list()
+	//Consider some sort of feedback here? We can't send packets but we can like, blink a light?
+	// We can cheat and add the "address" for control signals here to slip them into the switch statements
+	address_table[NET_ADDRESS_BRIDGE_CONTROL] = DESTINATION_CONTROL
 
 /// Transition between switching states.
 /obj/machinery/power/data_bridge/proc/change_switching_state(new_state)
@@ -226,17 +256,19 @@
 			learning_addresses = FALSE
 			dump_address_table()
 
-		if(SWITCHING_STATE_INIT)
-			// We've clearly lost the plot.
-			noop()
+		if(SWITCHING_STATE_LEARNING)
+			// We aren't switching packets, but we *are* learning our directly connected network clients.
+			learning_addresses = TRUE
 
 		if(SWITCHING_STATE_LOOPED)
 			// Routing loop between our own interfaces.
-			noop()
+			learning_addresses = FALSE
+			dump_address_table() //Bail. Whoever set us up is an idiot. Idiots aren't supported.
 
 		if(SWITCHING_STATE_FORWARDING)
-			// Passing packets normally.
-			noop()
+			// Passing packets normally. Learn addresses and all that.
+			learning_addresses = TRUE
+			forwarding_packets = TRUE
 
 	switching_state = new_state
 	update_icon(UPDATE_OVERLAYS)
@@ -279,19 +311,36 @@
 		return
 	var/incoming_address = signal.data[PACKET_SOURCE_ADDRESS]
 	var/outgoing_address = signal.data[PACKET_DESTINATION_ADDRESS]
+	record_address(incoming_address, origin)
 	switch(origin)
 		//'Inside' network
 		if(ORIGIN_POWERLINE)
-			if(!(switching_state == SWITCHING_STATE_FORWARDING))
-				return
-			var/datum/signal/cloned_signal = signal.Copy(src)
-			cloned_signal.data[]
+			switch(address_table[outgoing_address])
+				if(DESTINATION_IN)
+					return // Packet is link-local. No need to care.
+
+				if(DESTINATION_CONTROL) // Bridge Protocol Data Unit. Not user data.
+					noop()
+
+
+				if(DESTINATION_OUT)
+					if(!forwarding_packets)
+						return
+					var/datum/signal/cloned_signal = signal.Copy(src)
 
 		//'Outside' network
 		if(ORIGIN_DATA_ENABLED_TERMINAL)
-			if(!(switching_state == SWITCHING_STATE_FORWARDING))
-				return
-			var/datum/signal/cloned_signal = signal.Copy(src)
+			switch(address_table[outgoing_address])
+				if(DESTINATION_OUT)
+					return // Packet is link-local. No need to care.
+
+				if(DESTINATION_CONTROL) // Bridge Protocol Data Unit. Not user data.
+					noop()
+
+				if(DESTINATION_IN)
+					if(!forwarding_packets)
+						return
+					var/datum/signal/cloned_signal = signal.Copy(src)
 
 
 		else //Weird Origin.
