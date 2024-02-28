@@ -384,7 +384,7 @@
 						SSticker.mode.make_antag_chance(humanc)
 
 	if((job.job_flags & JOB_ASSIGN_QUIRKS) && humanc && CONFIG_GET(flag/roundstart_traits))
-		SSquirks.AssignQuirks(humanc, humanc.client)
+		SSquirks.AssignQuirks(humanc, GET_CLIENT(humanc))
 
 	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
 
@@ -452,15 +452,29 @@
 	close_spawn_windows()
 
 	mind.active = FALSE //we wish to transfer the key manually
-	var/mob/living/spawning_mob = mind.assigned_role.get_spawn_mob(client, destination)
-	if(QDELETED(src) || !client)
+	var/datum/client_interface/mock_client
+	if(isnull(client))
+		mock_client = new
+		mock_client.mob = src
+		mock_client.ckey = ckey("crasher")
+		mock_client.key = "crasher"
+		mock_client.prefs = global.model_prefs
+		src.mock_client = mock_client
+
+	var/mob/living/spawning_mob = mind.assigned_role.get_spawn_mob(GET_CLIENT(src), destination)
+	if(QDELETED(src))
 		return // Disconnected while checking for the appearance ban.
+
+	mock_client?.transfer_to(spawning_mob)
+
 	if(!isAI(spawning_mob)) // Unfortunately there's still snowflake AI code out there.
 		// transfer_to sets mind to null
 		var/datum/mind/preserved_mind = mind
 		preserved_mind.transfer_to(spawning_mob) //won't transfer key since the mind is not active
 		preserved_mind.set_original_character(spawning_mob)
-	client.init_verbs()
+
+	client?.init_verbs()
+
 	. = spawning_mob
 	new_character = .
 

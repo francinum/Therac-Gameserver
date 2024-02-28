@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	selected_category = locate(/datum/preference_group/category/general) in GLOB.all_pref_groups
 
-	if(istype(C))
+	if(istype(C) || istype(C, /datum/client_interface))
 		if(!is_guest_key(C.key))
 			load_path(C.ckey)
 			unlock_content = !!C.IsByondMember()
@@ -111,6 +111,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(loaded_preferences_successfully)
 		if(load_character())
 			return
+		else
+			to_chat(world, "Failed to load character")
+	else
+		to_chat(world, "Failed to load prefs")
+
 	//we couldn't load character data so just randomize the character appearance + name
 	randomise_appearance_prefs() //let's create a random character then - rather than a fat, bald and naked man.
 	if(C)
@@ -375,7 +380,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			continue
 
 		value_cache -= preference.type
-		preference.apply_to_client(parent, read_preference(preference.type))
+		if(parent)
+			preference.apply_to_client(parent, read_preference(preference.type))
 
 // This is necessary because you can open the set preferences menu before
 // the atoms SS is done loading.
