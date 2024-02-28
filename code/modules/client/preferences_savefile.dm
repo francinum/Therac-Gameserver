@@ -111,12 +111,15 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 /datum/preferences/proc/load_preferences()
 	if(!path)
+		to_chat(world, "No path?")
 		return FALSE
 	if(!fexists(path))
+		to_chat(world, "File not found for path: [path]")
 		return FALSE
 
 	var/savefile/S = new /savefile(path)
 	if(!S)
+		to_chat(world, "Failed to create savefile for path: [path]")
 		return FALSE
 	S.cd = "/"
 

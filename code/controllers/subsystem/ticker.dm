@@ -330,10 +330,26 @@ SUBSYSTEM_DEF(ticker)
 	if(bomb) //BOOM
 		qdel(bomb)
 
+GLOBAL_REAL_VAR(datum/preferences/model_prefs)
+
 /datum/controller/subsystem/ticker/proc/create_characters()
 	var/list/spawn_spots = SSjob.latejoin_trackers.Copy()
 	var/list/spawn_spots_reload = spawn_spots.Copy() //In case we run out, we need something to reload from.
-	for(var/mob/dead/new_player/player as anything in GLOB.new_player_list)
+
+	var/datum/client_interface/temp = new()
+	temp.ckey = "crasher"
+	temp.key = "crasher"
+	global.model_prefs = new(temp)
+
+	var/list/dummies = list()
+	for(var/i in 1 to 15)
+		// Create our new_player for this job and set up its mind.
+		var/mob/dead/new_player/new_guy = new()
+		new_guy.mind_initialize()
+		new_guy.ready = PLAYER_READY_TO_PLAY
+		dummies += new_guy
+
+	for(var/mob/dead/new_player/player as anything in GLOB.new_player_list + dummies)
 		if(!player.mind)
 			//New player has logged out.
 			continue
@@ -390,6 +406,7 @@ SUBSYSTEM_DEF(ticker)
 		var/mob/living/carbon/human/new_player_human = new_player_mob.new_character
 		if(!new_player_human.mind || is_unassigned_job(new_player_human.mind.assigned_role))
 			continue
+
 		// Keep a rolling tally of who'll get the cap's spare ID vault code.
 		// Check assigned_role's priority and curate the candidate list appropriately.
 		var/player_assigned_role = new_player_human.mind.assigned_role.title
@@ -410,21 +427,25 @@ SUBSYSTEM_DEF(ticker)
 		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character))
 			CHECK_TICK
 			continue
+
 		var/mob/living/new_player_living = new_player_mob.new_character
 		if(!new_player_living.mind)
 			CHECK_TICK
 			continue
+
 		var/datum/job/player_assigned_role = new_player_living.mind.assigned_role
+
 		if(player_assigned_role.job_flags & JOB_EQUIP_RANK)
-			SSjob.EquipRank(new_player_living, player_assigned_role, new_player_mob.client)
-		player_assigned_role.after_roundstart_spawn(new_player_living, new_player_mob.client)
+			SSjob.EquipRank(new_player_living, player_assigned_role, GET_CLIENT(new_player_mob))
+		player_assigned_role.after_roundstart_spawn(new_player_living, GET_CLIENT(new_player_mob))
+
 		if(picked_spare_id_candidate == new_player_mob)
 			captainless = FALSE
 			var/acting_captain = !is_captain_job(player_assigned_role)
 			SSjob.promote_to_captain(new_player_living, acting_captain)
 			OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), player_assigned_role.get_captaincy_announcement(new_player_living), ""))
 		if((player_assigned_role.job_flags & JOB_ASSIGN_QUIRKS) && ishuman(new_player_living) && CONFIG_GET(flag/roundstart_traits))
-			SSquirks.AssignQuirks(new_player_living, new_player_mob.client)
+			SSquirks.AssignQuirks(new_player_living, GET_CLIENT(new_player_living))
 		CHECK_TICK
 
 	if(captainless)
