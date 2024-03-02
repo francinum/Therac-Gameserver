@@ -781,8 +781,11 @@
 		. |= update_icon(updates)
 
 	// This is not an override for performance.
-	if (ismovable(src))
-		UPDATE_OO_IF_PRESENT
+	if (!isturf(src))
+		if(!isarea(src))
+			UPDATE_OO_IF_PRESENT
+	else
+		update_above()
 
 /// Updates the name of the atom
 /atom/proc/update_name(updates=ALL)

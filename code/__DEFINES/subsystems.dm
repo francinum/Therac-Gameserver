@@ -274,7 +274,8 @@
 				AA.copy_overlays(changed_on, TRUE);\
 			}\
 		} \
-	}
+	} \
+	update_above()
 
 /**
 	Create a new timer and add it to the queue.

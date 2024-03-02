@@ -7,8 +7,3 @@
 	while (T && (T.z_flags & Z_MIMIC_BELOW))
 		T = GetBelow(T)
 	return isspaceturf(T)
-
-/turf/update_appearance(updates)
-	. = ..()
-	if(above)
-		update_above()
