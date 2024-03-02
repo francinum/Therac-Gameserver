@@ -64,5 +64,5 @@
 		T.RemoveElement(/datum/element/decal, icon, icon_state, dir, null, decal_layer, alpha, color, null, FALSE, null)
 	return ..()
 #endif
-	loc = null
+	moveToNullspace()
 	return QDEL_HINT_QUEUE
