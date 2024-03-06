@@ -921,10 +921,10 @@
 		return mind.grab_ghost(force = force)
 
 ///Notify a ghost that it's body is being cloned
-/mob/proc/notify_ghost_cloning(message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", sound = 'sound/effects/genetics.ogg', atom/source = null, flashwindow)
+/mob/proc/notify_ghost_revival(message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", sound = 'sound/effects/genetics.ogg', atom/source = null, flashwindow)
 	var/mob/dead/observer/ghost = get_ghost()
 	if(ghost)
-		ghost.notify_cloning(message, sound, source, flashwindow)
+		ghost.notify_revival(message, sound, source, flashwindow)
 		return ghost
 
 /**
@@ -1053,6 +1053,21 @@
 	return FALSE
 
 
+/mob/update_name(updates)
+	name = get_visible_name()
+	return ..()
+
+/mob/proc/get_visible_name()
+	return name
+
+/// Sets the mob's real name, and normal name if desired.
+/mob/proc/set_real_name(new_name, change_name = TRUE, update_name = TRUE)
+	real_name = new_name
+	if(change_name)
+		name = real_name
+	if(update_name)
+		update_name()
+
 /**
  * Fully update the name of a mob
  *
@@ -1075,8 +1090,8 @@
 
 	log_played_names(ckey, newname)
 
-	real_name = newname
-	name = newname
+	set_real_name(newname)
+
 	if(mind)
 		mind.name = newname
 		if(mind.key)

@@ -53,7 +53,7 @@
 		user.update_sight()
 		if(iscarbon(user))
 			var/mob/living/carbon/carbon_user = user
-			carbon_user.head_update(src, forced = TRUE)
+			carbon_user.update_slots_for_item(src, force_obscurity_update = TRUE)
 
 //called when thermal glasses are emped.
 /obj/item/clothing/glasses/proc/thermal_overload()
@@ -120,7 +120,7 @@
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
-	throw_speed = 4
+	throw_speed = 1.5
 	attack_verb_continuous = list("slices")
 	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -205,7 +205,7 @@
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 20
-	throw_speed = 4
+	throw_speed = 1.5
 	attack_verb_continuous = list("slices")
 	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -241,7 +241,7 @@
 	if(isliving(movable))
 		var/mob/living/crusher = movable
 		if(crusher.m_intent != MOVE_INTENT_WALK && (!(crusher.movement_type & (FLYING|FLOATING)) || crusher.buckled))
-			playsound(src, 'sound/effects/glass_step.ogg', 30, TRUE)
+			playsound(src, 'sound/effects/small_glass_break.ogg', 30, TRUE)
 			visible_message(span_warning("[crusher] steps on [src], damaging it!"))
 			take_damage(100, sound_effect = FALSE)
 
@@ -326,7 +326,7 @@
 	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
-	throw_speed = 4
+	throw_speed = 1.5
 	attack_verb_continuous = list("slices")
 	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'

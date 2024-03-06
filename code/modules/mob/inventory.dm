@@ -314,26 +314,34 @@
  * * Will pass FALSE if the item can not be dropped due to TRAIT_NODROP via tryUnequipItem()
  * If the item can be dropped, it will be forceMove()'d to the ground and the turf's Entered() will be called.
 */
-/mob/proc/dropItemToGround(obj/item/I, force = FALSE, silent = FALSE, invdrop = TRUE)
+/mob/proc/dropItemToGround(obj/item/I, force = FALSE, silent = FALSE, invdrop = TRUE, animate = TRUE)
 	. = tryUnequipItem(I, force, drop_location(), FALSE, invdrop = invdrop, silent = silent)
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
+
 	if(!(I.item_flags & NO_PIXEL_RANDOM_DROP))
 		I.pixel_x = I.base_pixel_x + rand(-6, 6)
 		I.pixel_y = I.base_pixel_y + rand(-6, 6)
-	I.do_drop_animation(src)
+
+	if(animate)
+		I.do_drop_animation(src)
 
 //for when the item will be immediately placed in a loc other than the ground. Supports shifting the item's x and y from click modifiers.
-/mob/proc/transferItemToLoc(obj/item/I, newloc = null, force = FALSE, silent = TRUE, list/user_click_modifiers)
+/mob/proc/transferItemToLoc(obj/item/I, newloc = null, force = FALSE, silent = TRUE, list/user_click_modifiers, animate = TRUE)
 	. = tryUnequipItem(I, force, newloc, FALSE, silent = silent)
-	if(. && user_click_modifiers)
+	if(!.)
+		return
+
+	if(user_click_modifiers)
 		//Center the icon where the user clicked.
 		if(!LAZYACCESS(user_click_modifiers, ICON_X) || !LAZYACCESS(user_click_modifiers, ICON_Y))
 			return
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the location)
 		I.pixel_x = clamp(text2num(LAZYACCESS(user_click_modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
 		I.pixel_y = clamp(text2num(LAZYACCESS(user_click_modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
-	I.do_drop_animation(src)
+
+	if(animate)
+		I.do_drop_animation(src)
 
 //visibly unequips I but it is NOT MOVED AND REMAINS IN SRC
 //item MUST BE FORCEMOVE'D OR QDEL'D
@@ -362,18 +370,23 @@
 	if(hand_index)
 		held_items[hand_index] = null
 		update_held_items()
+
 	if(I)
 		if(client)
 			client.screen -= I
+
 		I.layer = initial(I.layer)
 		I.plane = initial(I.plane)
 		I.appearance_flags &= ~NO_CLIENT_COLOR
+
 		if(!no_move && !(I.item_flags & DROPDEL)) //item may be moved/qdel'd immedietely, don't bother moving it
 			if (isnull(newloc))
 				I.moveToNullspace()
 			else
 				I.forceMove(newloc)
+
 		I.dropped(src, silent)
+
 	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
 	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
 	return TRUE
@@ -434,14 +447,21 @@
 		dropItemToGround(I)
 	drop_all_held_items()
 
-///Returns a bitfield of covered item slots.
-/mob/living/carbon/proc/check_obscured_slots(transparent_protection)
-	var/obscured = NONE
-	var/hidden_slots = NONE
+/// Compiles all flags_inv vars of worn items.
+/mob/living/carbon/proc/update_obscurity()
+	PROTECTED_PROC(TRUE)
 
-	for(var/obj/item/I in get_all_worn_items()) //This contains nulls
-		hidden_slots |= I.flags_inv
-		if(transparent_protection)
+	obscured_slots = NONE
+	for(var/obj/item/I in get_all_worn_items())
+		obscured_slots |= I.flags_inv
+
+///Returns a bitfield of covered item slots.
+/mob/living/carbon/proc/check_obscured_slots(transparent_protection, input_slots)
+	var/obscured = NONE
+	var/hidden_slots = !isnull(input_slots) ? input_slots : src.obscured_slots
+
+	if(transparent_protection)
+		for(var/obj/item/I in get_all_worn_items())
 			hidden_slots |= I.transparent_protection
 
 	if(hidden_slots & HIDENECK)

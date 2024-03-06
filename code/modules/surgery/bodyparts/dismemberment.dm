@@ -180,13 +180,13 @@
 		O.Remove(phantom_owner, special)
 		add_organ(O) //Remove() removes it from the limb as well.
 
-	for(var/trait in bodypart_traits)
-		REMOVE_TRAIT(phantom_owner, trait, bodypart_trait_source)
+	remove_traits_from(phantom_owner)
 
 	remove_splint()
 
 	update_icon_dropped()
 	synchronize_bodytypes(phantom_owner)
+
 	phantom_owner.update_health_hud() //update the healthdoll
 	phantom_owner.update_body()
 
@@ -322,7 +322,10 @@
 
 	name = "[owner.real_name]'s head"
 
+	var/mob/living/carbon/human/old_owner = owner
 	. = ..()
+
+	old_owner.update_name()
 
 	if(!special)
 		if(brain?.brainmob)
@@ -406,8 +409,7 @@
 
 	update_disabled()
 
-	for(var/trait in bodypart_traits)
-		ADD_TRAIT(owner, trait, bodypart_trait_source)
+	apply_traits()
 
 	// Bodyparts need to be sorted for leg masking to be done properly. It also will allow for some predictable
 	// behavior within said bodyparts list. We sort it here, as it's the only place we make changes to bodyparts.
@@ -427,7 +429,8 @@
 		return .
 
 	if(real_name)
-		new_head_owner.real_name = real_name
+		new_head_owner.set_real_name(real_name)
+
 	real_name = ""
 
 	//Handle dental implants

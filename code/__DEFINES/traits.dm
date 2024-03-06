@@ -153,6 +153,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_SPRINT "no_sprint"
 /// In softcrit.
 #define TRAIT_SOFT_CRITICAL_CONDITION "soft-critical-condition"
+/// Has blurry vision until removed
+#define TRAIT_BLURRY_VISION "blurry_vision"
 /// Whitelist for mobs that can read or write
 #define TRAIT_LITERATE "literate"
 /// Blacklist for mobs that can't read or write
@@ -248,6 +250,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOCRITDAMAGE "no_crit"
 /// Cannot experience Shock (pain version, not electrical)
 #define TRAIT_NO_PAINSHOCK "no_painshock"
+/// Does not get addicted
+#define TRAIT_NO_ADDICTION "no_addiction"
 
 // Stops the mob from slipping on water, or banana peels, or pretty much anything that doesn't have [GALOSHES_DONT_HELP] set
 #define TRAIT_NO_SLIP_WATER "NO_SLIP_WATER"

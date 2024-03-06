@@ -156,19 +156,15 @@ GLOBAL_LIST_INIT(bodyzone_gurps_mods, list(
  * This proc is dangerously laggy, avoid it or die
  */
 /proc/stars(phrase, probability = 25)
-	if(probability <= 0)
-		return phrase
-	phrase = html_decode(phrase)
-	var/leng = length(phrase)
-	. = ""
-	var/char = ""
-	for(var/i = 1, i <= leng, i += length(char))
-		char = phrase[i]
-		if(char == " " || !prob(probability))
-			. += char
-		else
-			. += "*"
-	return sanitize(.)
+	if(length(phrase) == 0)
+		return
+
+	var/list/chars = splittext_char(html_decode(phrase), "")
+	for(var/i in 1 to length(chars))
+		if(!prob(probability) || chars[i] == " ")
+			continue
+		chars[i] = "*"
+	return sanitize(jointext(chars, ""))
 
 /**
  * Turn text into complete gibberish!
@@ -521,7 +517,7 @@ GLOBAL_LIST_INIT(bodyzone_gurps_mods, list(
 	return initial(lighting_alpha)
 
 /// Can this mob SMELL THE SMELLY SMELLS?
-/mob/proc/can_smell(intensity)
+/mob/proc/can_smell()
 	return FALSE
 
 //returns the number of size categories between two mob_sizes, rounded. Positive means A is larger than B

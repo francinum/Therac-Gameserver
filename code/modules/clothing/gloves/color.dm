@@ -69,7 +69,7 @@
 		location.visible_message(span_warning("[src] crumble[p_s()] away into nothing.")) // just like my dreams after working with .dm
 		qdel(src)
 
-/obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
+/obj/item/clothing/gloves/color/fyellow //Cheap Chinese Crap
 	desc = "These gloves are cheap knockoffs of the coveted ones - no way this can end badly."
 	name = "budget insulated gloves"
 	icon_state = "yellow"
@@ -225,8 +225,9 @@
 	inhand_icon_state = "latex"
 	siemens_coefficient = 0.3
 	permeability_coefficient = 0.01
-	clothing_traits = list(TRAIT_QUICK_CARRY, TRAIT_FINGERPRINT_PASSTHROUGH)
+	clothing_traits = list(TRAIT_QUICK_CARRY)
 	resistance_flags = NONE
+	clothing_flags = parent_type::clothing_flags | FIBERLESS
 	// Just as the doctor ordered
 	germ_level = 0
 
