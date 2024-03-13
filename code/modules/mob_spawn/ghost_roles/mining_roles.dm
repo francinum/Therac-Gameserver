@@ -38,7 +38,7 @@
 /datum/outfit/beachbum/lifeguard
 	name = "Beach Lifeguard"
 	uniform = /obj/item/clothing/under/shorts/red
-	id_trim = /datum/id_trim/lifeguard
+	id_trim = /datum/access_template/lifeguard
 
 /obj/effect/mob_spawn/ghost_role/human/bartender
 	name = "bartender sleeper"
@@ -58,7 +58,7 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id/advanced
-	id_trim = /datum/id_trim/space_bartender
+	id_trim = /datum/access_template/space_bartender
 
 /datum/outfit/spacebartender/post_equip(mob/living/carbon/human/bartender, visualsOnly = FALSE)
 	. = ..()

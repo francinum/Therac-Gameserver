@@ -219,10 +219,7 @@ GLOBAL_LIST_INIT(job_display_order, list(
 	if(!config) //Needed for robots.
 		roundstart_experience = minimal_skills
 
-	if(CONFIG_GET(flag/jobs_have_minimal_access))
-		roundstart_experience = minimal_skills
-	else
-		roundstart_experience = skills
+	roundstart_experience = skills
 
 	if(roundstart_experience)
 		var/mob/living/carbon/human/experiencer = spawned

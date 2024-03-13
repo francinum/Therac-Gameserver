@@ -192,47 +192,6 @@
 /// Bitflag for Special accesses that ordinaryily shouldn't be on ID cards. See CULT_ACCESS.
 #define ACCESS_FLAG_SPECIAL (1 << 7)
 
-/// This wildcraft flag accepts any access level.
-#define WILDCARD_FLAG_ALL ALL
-/// Name associated with the all wildcard bitflag.
-#define WILDCARD_NAME_ALL "All"
-/// Access flags that can be applied to common wildcard slots.
-#define WILDCARD_FLAG_COMMON ACCESS_FLAG_COMMON
-/// Name associated with the common wildcard bitflag.
-#define WILDCARD_NAME_COMMON ACCESS_FLAG_COMMON_NAME
-/// Access flags that can be applied to command wildcard slots.
-#define WILDCARD_FLAG_COMMAND ACCESS_FLAG_COMMON | ACCESS_FLAG_COMMAND
-/// Name associated with the command wildcard bitflag.
-#define WILDCARD_NAME_COMMAND ACCESS_FLAG_COMMAND_NAME
-/// Access flags that can be applied to private command wildcard slots.
-#define WILDCARD_FLAG_PRV_COMMAND ACCESS_FLAG_COMMON | ACCESS_FLAG_COMMAND | ACCESS_FLAG_PRV_COMMAND
-/// Name associated with the private command wildcard bitflag.
-#define WILDCARD_NAME_PRV_COMMAND ACCESS_FLAG_PRV_COMMAND_NAME
-/// Access flags that can be applied to captain wildcard slots.
-#define WILDCARD_FLAG_CAPTAIN ACCESS_FLAG_COMMON | ACCESS_FLAG_COMMAND | ACCESS_FLAG_PRV_COMMAND | ACCESS_FLAG_CAPTAIN
-/// Name associated with the captain wildcard bitflag.
-#define WILDCARD_NAME_CAPTAIN ACCESS_FLAG_CAPTAIN_NAME
-/// Access flags that can be applied to centcom wildcard slots.
-#define WILDCARD_FLAG_CENTCOM ACCESS_FLAG_COMMON | ACCESS_FLAG_COMMAND | ACCESS_FLAG_PRV_COMMAND | ACCESS_FLAG_CAPTAIN | ACCESS_FLAG_CENTCOM
-/// Name associated with the centcom wildcard bitflag.
-#define WILDCARD_NAME_CENTCOM ACCESS_FLAG_CENTCOM_NAME
-/// Access flags that can be applied to syndicate wildcard slots.
-#define WILDCARD_FLAG_SYNDICATE ACCESS_FLAG_COMMON | ACCESS_FLAG_COMMAND | ACCESS_FLAG_PRV_COMMAND | ACCESS_FLAG_CAPTAIN | ACCESS_FLAG_SYNDICATE
-/// Name associated with the syndicate wildcard bitflag.
-#define WILDCARD_NAME_SYNDICATE ACCESS_FLAG_SYNDICATE_NAME
-/// Access flags that can be applied to offstation wildcard slots.
-#define WILDCARD_FLAG_AWAY ACCESS_FLAG_AWAY
-/// Name associated with the offstation wildcard bitflag.
-#define WILDCARD_NAME_AWAY ACCESS_FLAG_AWAY_NAME
-/// Access flags that can be applied to super special weird wildcard slots.
-#define WILDCARD_FLAG_SPECIAL ACCESS_FLAG_SPECIAL
-/// Name associated with the super special weird wildcard bitflag.
-#define WILDCARD_NAME_SPECIAL ACCESS_FLAG_SPECIAL_NAME
-/// Access flag that indicates a wildcard was forced onto an ID card.
-#define WILDCARD_FLAG_FORCED ALL
-/// Name associated with the wildcard bitflag that covers wildcards that have been forced onto an ID card that could not accept them.
-#define WILDCARD_NAME_FORCED "Hacked"
-
 /// Departmental/general/common area accesses. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMON)
 #define COMMON_ACCESS list( \
 	ACCESS_MECH_MINING, \
@@ -526,11 +485,9 @@ Comment here because it really doesn't like them anywhere else here
 	REGION_COMMAND, \
 )
 
-/// Used in ID card access adding procs. Will try to add all accesses and utilises free wildcards, skipping over any accesses it can't add.
+/// Used in ID card access adding procs. Will try to add all accesses, skipping over any accesses it can't add.
 #define TRY_ADD_ALL 0
-/// Used in ID card access adding procs. Will try to add all accesses and does not utilise wildcards, skipping anything requiring a wildcard.
-#define TRY_ADD_ALL_NO_WILDCARD 1
 /// Used in ID card access adding procs. Will forcefully add all accesses.
-#define FORCE_ADD_ALL 2
+#define FORCE_ADD_ALL 1
 /// Used in ID card access adding procs. Will stack trace on fail.
-#define ERROR_ON_FAIL 3
+#define ERROR_ON_FAIL 2

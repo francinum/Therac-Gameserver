@@ -47,7 +47,7 @@
 	name = "Lawyer"
 	jobtype = /datum/job/lawyer
 
-	id_trim = /datum/id_trim/job/lawyer
+	id_trim = /datum/access_template/job/lawyer
 	uniform = /obj/item/clothing/under/rank/civilian/lawyer/black
 	belt = /obj/item/modular_computer/tablet/pda/lawyer
 	ears = /obj/item/radio/headset/headset_srvsec

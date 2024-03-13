@@ -50,7 +50,7 @@
 	name = "Medical Doctor"
 	jobtype = /datum/job/doctor
 
-	id_trim = /datum/id_trim/job/medical_doctor
+	id_trim = /datum/access_template/job/medical_doctor
 	uniform = /obj/item/clothing/under/rank/medical/scrubs/blue
 	suit = /obj/item/clothing/suit/toggle/labcoat/md
 	suit_store = /obj/item/flashlight/pen

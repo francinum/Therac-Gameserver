@@ -34,7 +34,7 @@
 	jobtype = /datum/job/prisoner
 
 	id = /obj/item/card/id/advanced/prisoner
-	id_trim = /datum/id_trim/job/prisoner
+	id_trim = /datum/access_template/job/prisoner
 	uniform = /obj/item/clothing/under/rank/prisoner
 	belt = null
 	ears = null

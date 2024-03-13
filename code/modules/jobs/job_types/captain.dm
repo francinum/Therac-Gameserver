@@ -63,7 +63,7 @@
 	jobtype = /datum/job/captain
 
 	id = /obj/item/card/id/advanced/gold
-	id_trim = /datum/id_trim/job/captain
+	id_trim = /datum/access_template/job/captain
 	uniform = /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
 	backpack_contents = list(

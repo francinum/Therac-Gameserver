@@ -54,7 +54,7 @@
 	name = "Mime"
 	jobtype = /datum/job/mime
 
-	id_trim = /datum/id_trim/job/mime
+	id_trim = /datum/access_template/job/mime
 	uniform = /obj/item/clothing/under/rank/civilian/mime
 	suit = /obj/item/clothing/suit/toggle/suspenders
 	backpack_contents = list(

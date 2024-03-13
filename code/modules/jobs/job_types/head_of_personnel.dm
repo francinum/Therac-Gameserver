@@ -61,7 +61,7 @@
 	jobtype = /datum/job/head_of_personnel
 
 	id = /obj/item/card/id/advanced/silver
-	id_trim = /datum/id_trim/job/head_of_personnel
+	id_trim = /datum/access_template/job/head_of_personnel
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
 	backpack_contents = list(
 		/obj/item/storage/box/ids = 1,

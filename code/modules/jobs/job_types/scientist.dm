@@ -53,7 +53,7 @@
 	name = "Scientist"
 	jobtype = /datum/job/scientist
 
-	id_trim = /datum/id_trim/job/scientist
+	id_trim = /datum/access_template/job/scientist
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	suit = /obj/item/clothing/suit/toggle/labcoat/science
 	belt = /obj/item/modular_computer/tablet/pda/science

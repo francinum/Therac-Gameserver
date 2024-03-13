@@ -45,7 +45,7 @@
 	name = "Quartermaster"
 	jobtype = /datum/job/quartermaster
 
-	id_trim = /datum/id_trim/job/quartermaster
+	id_trim = /datum/access_template/job/quartermaster
 	uniform = /obj/item/clothing/under/rank/cargo/qm
 	belt = /obj/item/modular_computer/tablet/pda/quartermaster
 	ears = /obj/item/radio/headset/headset_cargo

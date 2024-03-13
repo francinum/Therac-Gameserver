@@ -44,7 +44,7 @@
 	name = "Geneticist"
 	jobtype = /datum/job/geneticist
 
-	id_trim = /datum/id_trim/job/geneticist
+	id_trim = /datum/access_template/job/geneticist
 	uniform = /obj/item/clothing/under/rank/rnd/geneticist
 	suit = /obj/item/clothing/suit/toggle/labcoat/genetics
 	suit_store = /obj/item/flashlight/pen

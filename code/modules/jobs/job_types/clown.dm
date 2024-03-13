@@ -54,7 +54,7 @@
 	name = "Clown"
 	jobtype = /datum/job/clown
 
-	id_trim = /datum/id_trim/job/clown
+	id_trim = /datum/access_template/job/clown
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	backpack_contents = list(
 		/obj/item/stamp/clown = 1,

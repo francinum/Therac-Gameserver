@@ -51,7 +51,7 @@
 	name = "Roboticist"
 	jobtype = /datum/job/roboticist
 
-	id_trim = /datum/id_trim/job/roboticist
+	id_trim = /datum/access_template/job/roboticist
 	uniform = /obj/item/clothing/under/rank/rnd/roboticist
 	suit = /obj/item/clothing/suit/toggle/labcoat/roboticist
 	belt = /obj/item/storage/belt/utility/full
