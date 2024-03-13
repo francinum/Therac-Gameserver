@@ -21,10 +21,6 @@
 
 /datum/config_entry/flag/jobs_have_minimal_access //determines whether jobs use minimal access or expanded access.
 
-/datum/config_entry/flag/assistants_have_maint_access
-
-/datum/config_entry/flag/security_has_maint_access
-
 /datum/config_entry/flag/everyone_has_maint_access
 
 /datum/config_entry/flag/sec_start_brig //makes sec start in brig instead of dept sec posts

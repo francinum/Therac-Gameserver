@@ -82,8 +82,7 @@
 #define ACCESS_PSYCHOLOGY 70
 /// Ordnance gas storage room access
 #define ACCESS_ORDNANCE_STORAGE 71
-/// Room and launching.
-#define ACCESS_AUX_BASE 72
+// Im gonna be honest, the auxbase used to be 72 but i really dont want to change every god damn number
 /// Service access, for service hallway and service consoles
 #define ACCESS_SERVICE 73
 
@@ -199,7 +198,6 @@
 	ACCESS_MECH_SECURITY, \
 	ACCESS_MECH_SCIENCE, \
 	ACCESS_MECH_ENGINE, \
-	ACCESS_AUX_BASE, \
 	ACCESS_PSYCHOLOGY, \
 	ACCESS_PHARMACY, \
 	ACCESS_NETWORK, \
@@ -385,7 +383,6 @@
 /// Used to seed the accesses_by_region list in SSid_access. A list of all engineering regional accesses that are overseen by the CE.
 #define REGION_ACCESS_ENGINEERING list( \
 	ACCESS_CONSTRUCTION, \
-	ACCESS_AUX_BASE, \
 	ACCESS_MAINT_TUNNELS, \
 	ACCESS_ENGINE, \
 	ACCESS_ENGINE_EQUIP, \

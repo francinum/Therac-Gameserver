@@ -298,7 +298,6 @@ SUBSYSTEM_DEF(id_access)
 	desc_by_access["[ACCESS_MECH_SECURITY]"] = "Security Mech Access"
 	desc_by_access["[ACCESS_MECH_SCIENCE]"] = "Science Mech Access"
 	desc_by_access["[ACCESS_MECH_ENGINE]"] = "Engineering Mech Access"
-	desc_by_access["[ACCESS_AUX_BASE]"] = "Auxiliary Base"
 	desc_by_access["[ACCESS_SERVICE]"] = "Service Hallway"
 	desc_by_access["[ACCESS_CENT_GENERAL]"] = "Code Grey"
 	desc_by_access["[ACCESS_CENT_THUNDER]"] = "Code Yellow"
@@ -444,8 +443,9 @@ SUBSYSTEM_DEF(id_access)
  *
  * Arguments:
  * * id_card - The ID card to remove the trim from.
+ * * template_path - Typepath of the template to use.
  */
-/datum/controller/subsystem/id_access/proc/add_trim_access_to_card(obj/item/card/id/id_card, trim_path)
+/datum/controller/subsystem/id_access/proc/apply_template_access_to_card(obj/item/card/id/id_card, template_path)
 	var/datum/access_template/trim = trim_singletons_by_path[trim_path]
 
 	id_card.clear_access()
