@@ -2,6 +2,35 @@ import { useBackend, useSharedState } from '../backend';
 import { Box, Button, Dropdown, Input, NoticeBox, NumberInput, Section, Stack, Tabs } from '../components';
 import { NtosWindow } from '../layouts';
 import { AccessList } from './common/AccessList';
+import { BooleanLike } from '../../common/react';
+import { NTOSData } from '../layouts/NtosWindow';
+
+type Data = {
+  access_on_card: Array<string | number>;
+  accessFlagNames: Record<string, string>;
+  accessFlags: Record<string, number>;
+  hasTrim: BooleanLike;
+  id_age: number;
+  id_owner: string;
+  id_rank: string;
+  have_id_slot: BooleanLike;
+  regions: Region[];
+  showBasic: BooleanLike;
+  templates: Record<string, string>;
+  trimAccess: string[];
+  have_printer: BooleanLike;
+
+} & NTOSData;
+
+type Region = {
+  name: string;
+  accesses: Access[];
+};
+
+type Access = {
+  desc: string;
+  ref: string;
+};
 
 export const NtosCard = (props, context) => {
   return (
@@ -16,7 +45,7 @@ export const NtosCard = (props, context) => {
 };
 
 export const NtosCardContent = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data>(context);
   const {
     authenticatedUser,
     regions = [],
@@ -121,7 +150,7 @@ const IDCardTabs = (props, context) => {
 };
 
 export const IDCardLogin = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data>(context);
   const {
     authenticatedUser,
     has_id,
@@ -166,7 +195,7 @@ export const IDCardLogin = (props, context) => {
 };
 
 const IDCardTarget = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data>(context);
   const {
     authenticatedUser,
     id_rank,
@@ -239,7 +268,7 @@ const TemplateDropdown = (props, context) => {
   const templateKeys = Object.keys(templates);
 
   if (!templateKeys.length) {
-    return;
+    return null;
   }
 
   return (

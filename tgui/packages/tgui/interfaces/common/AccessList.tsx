@@ -2,16 +2,25 @@ import { sortBy } from 'common/collections';
 import { useSharedState } from '../../backend';
 import { Button, Flex, Section, Tabs } from '../../components';
 
-export const AccessList = (props, context) => {
+type Props = {
+  accesses: Access[];
+};
+
+type Access = {
+  desc: string;
+  ref: number;
+}
+
+export const AccessList = (props: Props, context) => {
   const {
     accesses = [],
-    wildcardSlots = {},
+   //wildcardSlots = {},
     selectedList = [],
     accessMod,
     trimAccess = [],
     accessFlags = {},
     accessFlagNames = {},
-    wildcardFlags = {},
+    //wildcardFlags = {},
     extraButtons,
     showBasic,
   } = props;
