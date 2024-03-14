@@ -14,8 +14,6 @@ SUBSYSTEM_DEF(id_access)
 	var/list/access_flag_string_by_flag = list()
 	/// Dictionary of trim singletons. Keys are paths. Values are their associated singletons.
 	var/list/trim_singletons_by_path = list()
-	/// Dictionary of wildcard compatibility flags. Keys are strings for the wildcards. Values are their associated flags.
-	var/list/wildcard_flags_by_wildcard = list()
 	/// Dictionary of accesses based on station region. Keys are region strings. Values are lists of accesses.
 	var/list/accesses_by_region = list()
 	/// Specially formatted list for sending access levels to tgui interfaces.
@@ -41,7 +39,6 @@ SUBSYSTEM_DEF(id_access)
 	setup_access_flags()
 	setup_region_lists()
 	setup_trim_singletons()
-	setup_wildcard_dict()
 	setup_access_descriptions()
 	setup_tgui_lists()
 
@@ -368,19 +365,13 @@ SUBSYSTEM_DEF(id_access)
  * * trim_path - A trim path to apply to the card. Grabs the trim's associated singleton and applies it.
  * * copy_access - Boolean value. If true, the trim's access is also copied to the card.
  */
-/datum/controller/subsystem/id_access/proc/apply_trim_to_card(obj/item/card/id/id_card, trim_path, copy_access = TRUE)
+/datum/controller/subsystem/id_access/proc/apply_template_to_card(obj/item/card/id/id_card, trim_path, copy_access = TRUE)
 	var/datum/access_template/trim = trim_singletons_by_path[trim_path]
 
-	if(!id_card.can_add_wildcards(trim.wildcard_access))
-		return FALSE
-
-	id_card.clear_access()
 	id_card.trim = trim
 
 	if(copy_access)
-		id_card.access = trim.access.Copy()
-		id_card.add_wildcards(trim.wildcard_access)
-
+		apply_template_access_to_card(id_card, trim_path)
 
 	if(trim.assignment)
 		id_card.assignment = trim.assignment
@@ -396,7 +387,7 @@ SUBSYSTEM_DEF(id_access)
  * Arguments:
  * * id_card - The ID card to remove the trim from.
  */
-/datum/controller/subsystem/id_access/proc/remove_trim_from_card(obj/item/card/id/id_card)
+/datum/controller/subsystem/id_access/proc/remove_template_from_card(obj/item/card/id/id_card)
 	id_card.trim = null
 	id_card.clear_access()
 	id_card.update_label()
@@ -410,7 +401,7 @@ SUBSYSTEM_DEF(id_access)
 * * trim_path - A trim path to apply to the card. Grabs the trim's associated singleton and applies it.
  * * check_forged - Boolean value. If TRUE, will not overwrite the card's assignment if the card has been forged.
  */
-/datum/controller/subsystem/id_access/proc/apply_trim_to_chameleon_card(obj/item/card/id/advanced/chameleon/id_card, trim_path, check_forged = TRUE)
+/datum/controller/subsystem/id_access/proc/apply_template_to_chameleon_card(obj/item/card/id/advanced/chameleon/id_card, trim_path, check_forged = TRUE)
 	var/datum/access_template/trim = trim_singletons_by_path[trim_path]
 	id_card.trim_icon_override = trim.trim_icon
 	id_card.trim_state_override = trim.trim_state
@@ -428,7 +419,7 @@ SUBSYSTEM_DEF(id_access)
  * Arguments:
  * * id_card - The ID card to remove the trim from.
  */
-/datum/controller/subsystem/id_access/proc/remove_trim_from_chameleon_card(obj/item/card/id/advanced/chameleon/id_card)
+/datum/controller/subsystem/id_access/proc/remove_template_from_chameleon_card(obj/item/card/id/advanced/chameleon/id_card)
 	id_card.trim_icon_override = null
 	id_card.trim_state_override = null
 	id_card.trim_assignment_override = null
@@ -446,12 +437,10 @@ SUBSYSTEM_DEF(id_access)
  * * template_path - Typepath of the template to use.
  */
 /datum/controller/subsystem/id_access/proc/apply_template_access_to_card(obj/item/card/id/id_card, template_path)
-	var/datum/access_template/trim = trim_singletons_by_path[trim_path]
+	var/datum/access_template/trim = trim_singletons_by_path[template_path]
 
 	id_card.clear_access()
-
-	id_card.add_access(trim.access, mode = TRY_ADD_ALL_NO_WILDCARD)
-	id_card.add_wildcards(trim.wildcard_access, mode = TRY_ADD_ALL)
+	id_card.add_access(trim.access)
 
 /**
  * Tallies up all accesses the card has that have flags greater than or equal to the access_flag supplied.

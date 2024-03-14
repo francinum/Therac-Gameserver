@@ -8,8 +8,6 @@ export const ChameleonCard = (props, context) => {
   const {
     accesses,
     selectedList,
-    wildcardFlags,
-    wildcardSlots,
     trimAccess,
     accessFlags,
     accessFlagNames,
@@ -31,7 +29,7 @@ export const ChameleonCard = (props, context) => {
       if (ourTrimAccess.includes(access.ref)) {
         return false;
       }
-      // Add anything not part of our trim that's an access (assumed wildcard)
+      // Add anything not part of our trim that's an access
       // Also add any access on the ID card we're stealing from.
       if (ourAccess.includes(access.ref) || theftAccess.includes(access.ref)) {
         return true;
@@ -52,15 +50,12 @@ export const ChameleonCard = (props, context) => {
         <AccessList
           accesses={parsedAccess}
           selectedList={selectedList}
-          wildcardFlags={wildcardFlags}
-          wildcardSlots={wildcardSlots}
           trimAccess={trimAccess}
           accessFlags={accessFlags}
           accessFlagNames={accessFlagNames}
           showBasic={!!showBasic}
-          accessMod={(ref, wildcard) => act('mod_access', {
+          accessMod={(ref) => act('mod_access', {
             access_target: ref,
-            access_wildcard: wildcard,
           })} />
       </Window.Content>
     </Window>

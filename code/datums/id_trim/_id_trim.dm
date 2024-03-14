@@ -11,5 +11,5 @@
 	/// The icon_state associated with this trim, as it will show on the security HUD.
 	var/sechud_icon_state = SECHUD_UNKNOWN
 
-	/// Accesses that this trim unlocks on a card it is imprinted on. These accesses never take wildcard slots and can be added and removed at will.
+	/// Accesses that this trim unlocks on a card it is imprinted on.
 	var/list/access = list()

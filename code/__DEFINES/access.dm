@@ -481,10 +481,3 @@ Comment here because it really doesn't like them anywhere else here
 	REGION_SUPPLY, \
 	REGION_COMMAND, \
 )
-
-/// Used in ID card access adding procs. Will try to add all accesses, skipping over any accesses it can't add.
-#define TRY_ADD_ALL 0
-/// Used in ID card access adding procs. Will forcefully add all accesses.
-#define FORCE_ADD_ALL 1
-/// Used in ID card access adding procs. Will stack trace on fail.
-#define ERROR_ON_FAIL 2

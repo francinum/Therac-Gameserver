@@ -166,7 +166,7 @@
 
 			// Set the new assignment then remove the trim.
 			target_id_card.assignment = is_centcom ? "Fired" : "Demoted"
-			SSid_access.remove_trim_from_card(target_id_card)
+			SSid_access.remove_template_from_card(target_id_card)
 
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -232,7 +232,6 @@
 				return TRUE
 			playsound(computer, SFX_TERMINAL_TYPE, 50, FALSE)
 			var/access_type = params["access_target"]
-			var/try_wildcard = params["access_wildcard"]
 			if(!(access_type in valid_access))
 				stack_trace("[key_name(usr)] ([usr]) attempted to add invalid access \[[access_type]\] to [target_id_card]")
 				return TRUE
@@ -242,15 +241,16 @@
 				LOG_ID_ACCESS_CHANGE(user, target_id_card, "removed [SSid_access.get_access_desc(access_type)]")
 				return TRUE
 
-			if(!target_id_card.add_access(list(access_type), try_wildcard))
+			if(!target_id_card.add_access(list(access_type)))
 				to_chat(usr, span_notice("ID error: ID card rejected your attempted access modification."))
-				LOG_ID_ACCESS_CHANGE(user, target_id_card, "failed to add [SSid_access.get_access_desc(access_type)][try_wildcard ? " with wildcard [try_wildcard]" : ""]")
+				LOG_ID_ACCESS_CHANGE(user, target_id_card, "failed to add [SSid_access.get_access_desc(access_type)]")
 				return TRUE
 
 			if(access_type in ACCESS_ALERT_ADMINS)
 				message_admins("[ADMIN_LOOKUPFLW(user)] just added [SSid_access.get_access_desc(access_type)] to an ID card [ADMIN_VV(target_id_card)] [(target_id_card.registered_name) ? "belonging to [target_id_card.registered_name]." : "with no registered name."]")
 			LOG_ID_ACCESS_CHANGE(user, target_id_card, "added [SSid_access.get_access_desc(access_type)]")
 			return TRUE
+
 		// Apply template to ID card.
 		if("PRG_template")
 			if(!computer || !authenticated_card || !target_id_card)
@@ -294,7 +294,6 @@
 
 
 	data["accessFlags"] = SSid_access.flags_by_access
-	data["wildcardFlags"] = SSid_access.wildcard_flags_by_wildcard
 	data["accessFlagNames"] = SSid_access.access_flag_string_by_flag
 	data["showBasic"] = TRUE
 	data["templates"] = job_templates
@@ -336,7 +335,6 @@
 		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
 		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
 		data["access_on_card"] = id_card.access
-		data["wildcardSlots"] = id_card.wildcard_slots
 		data["id_age"] = id_card.registered_age
 
 		if(id_card.trim)
