@@ -262,12 +262,12 @@
 			if(!template_name)
 				return TRUE
 
-			for(var/trim_path in job_templates)
-				var/datum/access_template/trim = SSid_access.trim_singletons_by_path[trim_path]
+			for(var/template_path in job_templates)
+				var/datum/access_template/trim = SSid_access.trim_singletons_by_path[template_path]
 				if(trim.assignment != template_name)
 					continue
 
-				SSid_access.apply_template_access_to_card(target_id_card, trim_path)
+				SSid_access.apply_template_access_to_card(target_id_card, template_path)
 				return TRUE
 
 			stack_trace("[key_name(usr)] ([usr]) attempted to apply invalid template \[[template_name]\] to [target_id_card]")

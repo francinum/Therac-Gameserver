@@ -84,7 +84,7 @@
 /// Trim for various various ruins.
 /datum/access_template/job/station_engineer/gunner
 	assignment = "Gunner"
-	//template_access = null
+	template_access = null
 
 /// Trim for pirates.
 /datum/access_template/pirate

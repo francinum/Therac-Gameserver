@@ -19,6 +19,9 @@
 	/// The typepath to the job datum from the id_trim. This is converted to one of the job singletons in New().
 	var/datum/job/job = /datum/job/unassigned
 
+	/// Players need any access in this list to be able to select it using the ID console.
+	var/list/template_access = list(ACCESS_CAPTAIN, ACCESS_CHANGE_IDS)
+
 /datum/access_template/job/New()
 	if(ispath(job))
 		job = SSjob.GetJobType(job)
@@ -448,31 +451,31 @@
 
 /datum/access_template/job/prisoner/one
 	trim_state = "trim_prisoner_1"
-	//template_access = null
+	template_access = null
 
 /datum/access_template/job/prisoner/two
 	trim_state = "trim_prisoner_2"
-	//template_access = null
+	template_access = null
 
 /datum/access_template/job/prisoner/three
 	trim_state = "trim_prisoner_3"
-	//template_access = null
+	template_access = null
 
 /datum/access_template/job/prisoner/four
 	trim_state = "trim_prisoner_4"
-	//template_access = null
+	template_access = null
 
 /datum/access_template/job/prisoner/five
 	trim_state = "trim_prisoner_5"
-	//template_access = null
+	template_access = null
 
 /datum/access_template/job/prisoner/six
 	trim_state = "trim_prisoner_6"
-	//template_access = null
+	template_access = null
 
 /datum/access_template/job/prisoner/seven
 	trim_state = "trim_prisoner_7"
-	//template_access = null
+	template_access = null
 
 /datum/access_template/job/psychologist
 	assignment = "Psychologist"

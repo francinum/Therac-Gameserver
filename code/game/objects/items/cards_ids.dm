@@ -1007,19 +1007,19 @@
 							/obj/item/card/id/advanced/simple_bot,
 						))
 						var/list/trim_list = list()
-						for(var/trim_path in typesof(/datum/access_template))
-							if(blacklist[trim_path])
+						for(var/template_path in typesof(/datum/access_template))
+							if(blacklist[template_path])
 								continue
 
-							var/datum/access_template/trim = SSid_access.trim_singletons_by_path[trim_path]
+							var/datum/access_template/trim = SSid_access.trim_singletons_by_path[template_path]
 
 							if(trim && trim.trim_state && trim.assignment)
 								var/fake_trim_name = "[trim.assignment] ([trim.trim_state])"
-								trim_list[fake_trim_name] = trim_path
+								trim_list[fake_trim_name] = template_path
 
-						var/selected_trim_path = tgui_input_list(user, "Select trim to apply to your card.\nNote: This will not grant any trim accesses.", "Forge Trim", sort_list(trim_list, GLOBAL_PROC_REF(cmp_typepaths_asc)))
-						if(selected_trim_path)
-							SSid_access.apply_template_to_chameleon_card(src, trim_list[selected_trim_path])
+						var/selected_template_path = tgui_input_list(user, "Select trim to apply to your card.\nNote: This will not grant any trim accesses.", "Forge Trim", sort_list(trim_list, GLOBAL_PROC_REF(cmp_typepaths_asc)))
+						if(selected_template_path)
+							SSid_access.apply_template_to_chameleon_card(src, trim_list[selected_template_path])
 
 					var/target_occupation = tgui_input_text(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels.", "Agent card job assignment", assignment ? assignment : "Assistant")
 					if(target_occupation)

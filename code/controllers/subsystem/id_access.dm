@@ -188,25 +188,25 @@ SUBSYSTEM_DEF(id_access)
 	)
 
 	var/list/station_job_trims = subtypesof(/datum/access_template/job)
-	for(var/trim_path in station_job_trims)
-		var/datum/access_template/job/trim = trim_singletons_by_path[trim_path]
+	for(var/template_path in station_job_trims)
+		var/datum/access_template/job/trim = trim_singletons_by_path[template_path]
 		if(!length(trim.template_access))
 			continue
 
-		station_job_templates[trim_path] = trim.assignment
+		station_job_templates[template_path] = trim.assignment
 		for(var/access in trim.template_access)
 			var/list/manager = sub_department_managers_tgui["[access]"]
 			if(!manager)
 				if(access != ACCESS_CHANGE_IDS)
-					WARNING("Invalid template access access \[[access]\] registered with [trim_path]. Template added to global list anyway.")
+					WARNING("Invalid template access access \[[access]\] registered with [template_path]. Template added to global list anyway.")
 				continue
 			var/list/templates = manager["templates"]
-			templates[trim_path] = trim.assignment
+			templates[template_path] = trim.assignment
 
 	var/list/centcom_job_trims = typesof(/datum/access_template/centcom) - typesof(/datum/access_template/centcom/corpse)
-	for(var/trim_path in centcom_job_trims)
-		var/datum/access_template/trim = trim_singletons_by_path[trim_path]
-		centcom_job_templates[trim_path] = trim.assignment
+	for(var/template_path in centcom_job_trims)
+		var/datum/access_template/trim = trim_singletons_by_path[template_path]
+		centcom_job_templates[template_path] = trim.assignment
 
 	var/list/all_pda_paths = typesof(/obj/item/modular_computer/tablet/pda)
 	var/list/pda_regions = PDA_PAINTING_REGIONS
@@ -361,17 +361,17 @@ SUBSYSTEM_DEF(id_access)
  * Incompatibility is defined as a card not being able to hold all the trim's required wildcards.
  * Returns TRUE otherwise.
  * Arguments:
- * * id_card - ID card to apply the trim_path to.
- * * trim_path - A trim path to apply to the card. Grabs the trim's associated singleton and applies it.
+ * * id_card - ID card to apply the template_path to.
+ * * template_path - A trim path to apply to the card. Grabs the trim's associated singleton and applies it.
  * * copy_access - Boolean value. If true, the trim's access is also copied to the card.
  */
-/datum/controller/subsystem/id_access/proc/apply_template_to_card(obj/item/card/id/id_card, trim_path, copy_access = TRUE)
-	var/datum/access_template/trim = trim_singletons_by_path[trim_path]
+/datum/controller/subsystem/id_access/proc/apply_template_to_card(obj/item/card/id/id_card, template_path, copy_access = TRUE)
+	var/datum/access_template/trim = trim_singletons_by_path[template_path]
 
 	id_card.trim = trim
 
 	if(copy_access)
-		apply_template_access_to_card(id_card, trim_path)
+		apply_template_access_to_card(id_card, template_path)
 
 	if(trim.assignment)
 		id_card.assignment = trim.assignment
@@ -398,11 +398,11 @@ SUBSYSTEM_DEF(id_access)
  *
  * Arguments:
  * * id_card - The chameleon card to apply the trim visuals to.
-* * trim_path - A trim path to apply to the card. Grabs the trim's associated singleton and applies it.
+* * template_path - A trim path to apply to the card. Grabs the trim's associated singleton and applies it.
  * * check_forged - Boolean value. If TRUE, will not overwrite the card's assignment if the card has been forged.
  */
-/datum/controller/subsystem/id_access/proc/apply_template_to_chameleon_card(obj/item/card/id/advanced/chameleon/id_card, trim_path, check_forged = TRUE)
-	var/datum/access_template/trim = trim_singletons_by_path[trim_path]
+/datum/controller/subsystem/id_access/proc/apply_template_to_chameleon_card(obj/item/card/id/advanced/chameleon/id_card, template_path, check_forged = TRUE)
+	var/datum/access_template/trim = trim_singletons_by_path[template_path]
 	id_card.trim_icon_override = trim.trim_icon
 	id_card.trim_state_override = trim.trim_state
 	id_card.trim_assignment_override = trim.assignment

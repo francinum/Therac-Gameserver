@@ -87,11 +87,6 @@
 	access_list += ACCESS_CONSTRUCTION
 	return access_list
 
-/obj/effect/mapping_helpers/airlock/access/any/engineering/aux_base/get_access()
-	var/list/access_list = ..()
-	access_list += ACCESS_AUX_BASE
-	return access_list
-
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_MAINT_TUNNELS
@@ -531,11 +526,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction/get_access()
 	var/list/access_list = ..()
 	access_list += ACCESS_CONSTRUCTION
-	return access_list
-
-/obj/effect/mapping_helpers/airlock/access/all/engineering/aux_base/get_access()
-	var/list/access_list = ..()
-	access_list += ACCESS_AUX_BASE
 	return access_list
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance/get_access()

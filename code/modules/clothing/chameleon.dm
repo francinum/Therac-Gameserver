@@ -331,22 +331,22 @@
 	build_all_button_icons()
 
 	chameleon_blacklist |= typecacheof(target.type)
-	for(var/trim_path in typesof(chameleon_type))
-		if(ispath(trim_path) && ispath(trim_path, /datum/access_template))
-			if(chameleon_blacklist[trim_path])
+	for(var/template_path in typesof(chameleon_type))
+		if(ispath(template_path) && ispath(template_path, /datum/access_template))
+			if(chameleon_blacklist[template_path])
 				continue
 
-			var/datum/access_template/trim = SSid_access.trim_singletons_by_path[trim_path]
+			var/datum/access_template/trim = SSid_access.trim_singletons_by_path[template_path]
 
 			if(trim && trim.trim_state && trim.assignment)
 				var/chameleon_item_name = "[trim.assignment] ([trim.trim_state])"
-				chameleon_list[chameleon_item_name] = trim_path
+				chameleon_list[chameleon_item_name] = template_path
 
-/datum/action/item_action/chameleon/change/id_trim/update_item(picked_trim_path)
+/datum/action/item_action/chameleon/change/id_trim/update_item(picked_template_path)
 	var/obj/item/card/id/advanced/chameleon/agent_card = target
 
 	if(istype(agent_card))
-		SSid_access.apply_template_to_chameleon_card(agent_card, picked_trim_path, TRUE)
+		SSid_access.apply_template_to_chameleon_card(agent_card, picked_template_path, TRUE)
 
 	agent_card.update_label()
 	agent_card.update_icon()
