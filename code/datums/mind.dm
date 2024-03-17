@@ -88,6 +88,9 @@
 	///List of objective-specific equipment that couldn't properly be given to the mind
 	var/list/failed_special_equipment
 
+	/// A cache of areas that we have entered that have flavortext, as to not play flavortext multiple times per area.
+	var/list/seen_areas
+
 /datum/mind/New(_key)
 	key = _key
 	martial_art = default_martial_art

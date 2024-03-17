@@ -46,6 +46,8 @@
 	var/beauty = 0
 	/// If a room is too big it doesn't have beauty.
 	var/beauty_threshold = 150
+	/// A string that is played once per mob upon area entry.
+	var/area_flavor
 
 	/// Used by ghosts to grant new powers. See /datum/component/spook_factor
 	var/spook_level
@@ -413,6 +415,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	if(!arrived.important_recursive_contents?[RECURSIVE_CONTENTS_AREA_SENSITIVE])
 		return
+
 	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
 		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
@@ -423,6 +426,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(!L.ckey)
 		return
 
+	// Flavor hints
+	if(L.mind && !LAZYACCESS(L.mind.seen_areas, src))
+		to_chat(L, area_flavor)
+		LAZYSET(L.mind.seen_areas, src, TRUE)
+
+	// Ambience
 	if(old_area)
 		L.UnregisterSignal(old_area, COMSIG_AREA_POWER_CHANGE)
 	L.RegisterSignal(src, COMSIG_AREA_POWER_CHANGE, TYPE_PROC_REF(/mob, refresh_looping_ambience), TRUE)
