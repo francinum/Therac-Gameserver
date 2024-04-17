@@ -189,6 +189,9 @@
 	if(get_item_for_held_index(hand_index))
 		dropItemToGround(get_item_for_held_index(hand_index), force = TRUE)
 
+	if(I.rotation)
+		I.set_rotation(-I.rotation)
+
 	I.forceMove(src)
 	held_items[hand_index] = I
 	I.plane = ABOVE_HUD_PLANE
@@ -204,6 +207,7 @@
 	update_held_items()
 	if(hand_index == active_hand_index)
 		update_mouse_pointer()
+
 	I.pixel_x = I.base_pixel_x
 	I.pixel_y = I.base_pixel_y
 	return hand_index

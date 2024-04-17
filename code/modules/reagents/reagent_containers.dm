@@ -199,6 +199,7 @@
 
 	else if(bartender_check(target) && thrown)
 		visible_message(span_notice("[src] lands onto the [target.name] without spilling a single drop."))
+		set_rotation(-rotation)
 		return
 
 	else

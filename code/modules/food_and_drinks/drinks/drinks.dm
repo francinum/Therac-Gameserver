@@ -146,9 +146,15 @@
 		return
 	if(bartender_check(target) && ranged)
 		return
+
 	SplashReagents(target, ranged, override_spillable = TRUE)
 	var/obj/item/broken_bottle/B = new (loc)
 	B.mimic_broken(src, target)
+	B.set_rotation(rand(-170, 170))
+	if(!(B.item_flags & NO_PIXEL_RANDOM_DROP))
+		B.pixel_x = rand(-8,8)
+		B.pixel_y = rand(-8,8)
+
 	qdel(src)
 	target.BumpedBy(B)
 

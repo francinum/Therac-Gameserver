@@ -38,6 +38,12 @@
 	var/obj/item/broken_bottle/B = new (loc)
 	if(!ranged && thrower)
 		thrower.put_in_hands(B)
+	else
+		B.set_rotation(rand(-170, 170))
+		if(!(B.item_flags & NO_PIXEL_RANDOM_DROP))
+			B.pixel_x = rand(-8,8)
+			B.pixel_y = rand(-8,8)
+
 	B.mimic_broken(src, target)
 
 	qdel(src)
