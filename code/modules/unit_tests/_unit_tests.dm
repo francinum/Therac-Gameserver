@@ -82,6 +82,7 @@
 #include "bloody_footprints.dm"
 #include "bodypart_organ_sanity.dm"
 #include "breath.dm"
+#include "cable_conformance.dm"
 #include "card_mismatch.dm"
 #include "chain_pull_through_space.dm"
 #include "chat_filter.dm"
