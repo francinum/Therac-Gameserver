@@ -209,7 +209,7 @@
 	// Set the default tgui state
 	set_default_state()
 
-/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/inferno/ui)
 	. = ..()
 	// Most of ui_interact is spent setting variables for passing to the tgui
 	//  interface.

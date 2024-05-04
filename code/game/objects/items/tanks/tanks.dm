@@ -174,7 +174,7 @@
 /obj/item/tank/ui_state(mob/user)
 	return GLOB.hands_state
 
-/obj/item/tank/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/item/tank/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Tank", name)

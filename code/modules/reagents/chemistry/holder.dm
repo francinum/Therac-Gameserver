@@ -1285,7 +1285,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 
-/datum/reagents/ui_interact(mob/user, datum/tgui/managed/ui)
+/datum/reagents/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Reagents", "Reaction search")

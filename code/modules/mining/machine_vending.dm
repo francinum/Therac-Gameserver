@@ -65,7 +65,7 @@
 		get_asset_datum(/datum/asset/spritesheet/vending),
 	)
 
-/obj/machinery/mineral/equipment_vendor/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/mineral/equipment_vendor/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MiningVendor", name)

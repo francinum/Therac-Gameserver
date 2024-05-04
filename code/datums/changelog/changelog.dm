@@ -4,13 +4,13 @@
 /datum/changelog/ui_state()
 	return GLOB.always_state
 
-/datum/changelog/ui_interact(mob/user, datum/tgui/managed/ui)
+/datum/changelog/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "Changelog")
 		ui.open()
 
-/datum/changelog/ui_act(action, list/params, datum/tgui/managed/ui, datum/ui_state/state)
+/datum/changelog/ui_act(action, list/params, datum/tgui/inferno/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return

@@ -28,7 +28,7 @@
 		data["have_printer"] = FALSE
 	return data
 
-/datum/computer_file/program/crew_manifest/ui_act(action, params, datum/tgui/managed/ui)
+/datum/computer_file/program/crew_manifest/ui_act(action, params, datum/tgui/inferno/ui)
 	. = ..()
 	if(.)
 		return

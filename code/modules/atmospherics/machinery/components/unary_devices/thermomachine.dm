@@ -258,7 +258,7 @@
 		return ..()
 	return UI_CLOSE
 
-/obj/machinery/atmospherics/components/unary/thermomachine/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/atmospherics/components/unary/thermomachine/ui_interact(mob/user, datum/tgui/inferno/ui)
 	if(panel_open)
 		return
 	ui = SStgui.try_update_ui(user, src, ui)

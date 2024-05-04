@@ -30,7 +30,7 @@
 	var/list/data = newscaster_ui.ui_static_data(user)
 	return data
 
-/datum/computer_file/program/newscaster/ui_act(action, params, datum/tgui/managed/ui)
+/datum/computer_file/program/newscaster/ui_act(action, params, datum/tgui/inferno/ui)
 	. = ..()
 	if(.)
 		return

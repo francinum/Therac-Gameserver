@@ -12,7 +12,7 @@
 		"meth" = /datum/reagent/drug/methamphetamine
 	)
 
-/obj/machinery/chem_dispenser/chem_synthesizer/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/chem_dispenser/chem_synthesizer/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ChemDebugSynthesizer", name)

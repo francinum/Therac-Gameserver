@@ -3,7 +3,7 @@
 	ui_interact(user)
 
 // Operates TGUI
-/obj/item/modular_computer/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/item/modular_computer/ui_interact(mob/user, datum/tgui/inferno/ui)
 	if(!enabled)
 		if(ui)
 			ui.close()

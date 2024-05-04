@@ -43,7 +43,7 @@
 /obj/machinery/computer/turbine_computer/proc/register_machine(machine)
 	turbine_core = WEAKREF(machine)
 
-/obj/machinery/computer/turbine_computer/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/computer/turbine_computer/ui_interact(mob/user, datum/tgui/inferno/ui)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

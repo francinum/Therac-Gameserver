@@ -143,7 +143,7 @@ GLOBAL_LIST_INIT(orion_events, generate_orion_events())
 					insanity_records.fields["m_stat"] = "*Unstable*"
 					return
 
-/obj/machinery/computer/arcade/orion_trail/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/computer/arcade/orion_trail/ui_interact(mob/user, datum/tgui/inferno/ui)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

@@ -145,7 +145,7 @@
 
 	return data
 
-/datum/computer_file/program/budgetorders/ui_act(action, params, datum/tgui/managed/ui)
+/datum/computer_file/program/budgetorders/ui_act(action, params, datum/tgui/inferno/ui)
 	if(..())
 		return
 	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]

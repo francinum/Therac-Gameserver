@@ -1,4 +1,4 @@
-/obj/item/mod/control/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/item/mod/control/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MODsuit", name)

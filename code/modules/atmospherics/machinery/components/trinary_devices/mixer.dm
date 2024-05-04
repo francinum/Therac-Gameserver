@@ -100,7 +100,7 @@
 
 	update_parents()
 
-/obj/machinery/atmospherics/components/trinary/mixer/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/atmospherics/components/trinary/mixer/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosMixer", name)

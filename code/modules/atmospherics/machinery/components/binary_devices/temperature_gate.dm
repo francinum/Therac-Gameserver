@@ -78,7 +78,7 @@
 		return
 	. = ..()
 
-/obj/machinery/atmospherics/components/binary/temperature_gate/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/atmospherics/components/binary/temperature_gate/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosTempGate", name)

@@ -101,7 +101,7 @@ FLOOR SAFES
 /obj/structure/safe/ui_state(mob/user)
 	return GLOB.physical_state
 
-/obj/structure/safe/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/structure/safe/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Safe", name)

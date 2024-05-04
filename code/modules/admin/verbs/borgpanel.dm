@@ -33,7 +33,7 @@
 /datum/borgpanel/ui_state(mob/user)
 	return GLOB.admin_state
 
-/datum/borgpanel/ui_interact(mob/user, datum/tgui/managed/ui)
+/datum/borgpanel/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BorgPanel")

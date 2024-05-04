@@ -433,7 +433,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 ///ANTAGONIST UI STUFF
 
-/datum/antagonist/ui_interact(mob/user, datum/tgui/managed/ui)
+/datum/antagonist/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, ui_name, name)

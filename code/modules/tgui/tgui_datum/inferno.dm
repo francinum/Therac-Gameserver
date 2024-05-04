@@ -6,13 +6,13 @@
 //Note to self, Hire a lawyer and figure out the legality of my changes here -Francinum, 4/11/24
 
 /*
- * TGUI Compiled UI Holder. Impliments the UI Holder Interface, with support for Compiled (Inferno/React/Etc.) TGUI Interfaces.
+ * TGUI Inferno UI Holder. Impliments the UI Holder Interface, with support for Compiled (Inferno/React/Etc.) TGUI Interfaces.
  */
 
 /**
- * Compiled tgui datum (represents a UI).
+ * Inferno tgui datum (represents a UI).
  */
-/datum/tgui/managed
+/datum/tgui/inferno
 
 	allow_suspend = TRUE
 	/// The interface (template) to be used for this UI.
@@ -64,11 +64,12 @@
  *
  * return datum/tgui The requested UI.
  */
-/datum/tgui/managed/New(mob/user, datum/src_object, interface, title, ui_x, ui_y)
+/datum/tgui/inferno/New(mob/user, datum/src_object, interface, title, ui_x, ui_y)
 	log_tgui(user,
-		"new [interface] fancy [user?.client?.prefs.read_preference(/datum/preference/toggle/tgui_fancy)]",
+		"new / type:inferno / interface:[interface] / fancy:[BOOLEAN(user?.client?.prefs.read_preference(/datum/preference/toggle/tgui_fancy))]",
 		src_object = src_object)
 	src.user = user
+
 	src.src_object = src_object
 	src.window_key = "[REF(src_object)]-main"
 	src.interface = interface
@@ -79,11 +80,6 @@
 	if(ui_x && ui_y)
 		src.window_size = list(ui_x, ui_y)
 
-/datum/tgui/managed/Destroy()
-	user = null
-	src_object = null
-	return ..()
-
 /**
  * public
  *
@@ -91,7 +87,7 @@
  *
  * return bool - TRUE if a new pooled window is opened, FALSE in all other situations including if a new pooled window didn't open because one already exists.
  */
-/datum/tgui/managed/open()
+/datum/tgui/inferno/open()
 	if(!user.client)
 		return FALSE
 	if(window)
@@ -130,13 +126,13 @@
 
 	return TRUE
 
-// /datum/tgui/managed/close() uses base implimentation.
-// /datum/tgui/managed/send_asset() uses base implimentation.
-// /datum/tgui/managed/set_autoupdate() uses base implimentation.
-// /datum/tgui/managed/set_state() uses base implimentation.
-// /datum/tgui/managed/send_full_update() uses base implimentation.
-// /datum/tgui/managed/send_update() uses base implimentation.
-// /datum/tgui/managed/process() uses base implimentation.
+// /datum/tgui/inferno/close() uses base implimentation.
+// /datum/tgui/inferno/send_asset() uses base implimentation.
+// /datum/tgui/inferno/set_autoupdate() uses base implimentation.
+// /datum/tgui/inferno/set_state() uses base implimentation.
+// /datum/tgui/inferno/send_full_update() uses base implimentation.
+// /datum/tgui/inferno/send_update() uses base implimentation.
+// /datum/tgui/inferno/process() uses base implimentation.
 
 /**
  * private
@@ -145,7 +141,7 @@
  *
  * return list
  */
-/datum/tgui/managed/get_payload(custom_data, with_data, with_static_data)
+/datum/tgui/inferno/get_payload(custom_data, with_data, with_static_data)
 	var/list/json_data = list()
 	json_data["config"] = list(
 		"title" = title,
@@ -188,7 +184,7 @@
  * ..() == TRUE means that a ui_act message has been passed to the source object.
  *
  */
-/datum/tgui/managed/on_message(type, list/payload, list/href_list)
+/datum/tgui/inferno/on_message(type, list/payload, list/href_list)
 	if(!..())
 		return
 	switch(type)

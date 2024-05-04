@@ -146,7 +146,7 @@
 			updateUsrDialog()
 		return TRUE
 
-/obj/machinery/dna_analyzer/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/dna_analyzer/ui_interact(mob/user, datum/tgui/inferno/ui)
 	var/datum/browser/popup = new(user, "dna_analyzer", name, 460, 270)
 	popup.set_content(jointext(get_content(), ""))
 	popup.open()

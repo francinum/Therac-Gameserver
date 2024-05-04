@@ -70,6 +70,7 @@
 
   // Strict mode flag
   Byond.strictMode = Boolean(Number(parseMetaTag('tgui:strictMode')));
+  Byond.extendedBasic = Boolean(Number(parseMetaTag('tgui:extendedBasic')));
 
   // Callbacks for asynchronous calls
   Byond.__callbacks__ = [];
@@ -366,6 +367,25 @@
 
   Byond.loadCss = function (url, sync) {
     loadAsset({ url: url, sync: sync, type: 'css' });
+  };
+
+  if(Byond.extendedBasic) {
+
+  }
+
+  // Set up the extended API
+
+  var tguiApi = window.tguiApi = {};
+
+    // Helper for sending ui_act messages.
+  tguiApi.sendAct = function (type, payload) {
+    // Validate that payload is an object.
+    var payloadIsObject = typeof payload === 'object' && payload !== null
+      && !Array.isArray(payload);
+    if(!payloadIsObject) {
+      throw new Error('Payload for sendAct() must be an object, got: ' + toString(payload))
+    }
+    Byond.sendMessage('act/' + type, payload);
   };
 })();
 

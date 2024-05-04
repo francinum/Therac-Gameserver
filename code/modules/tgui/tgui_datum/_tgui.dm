@@ -48,6 +48,11 @@
 /datum/tgui/proc/open()
 	CRASH("TGUI Handler of type [type] does not impliment open()")
 
+/datum/tgui/Destroy()
+	user = null
+	src_object = null
+	return ..()
+
 /**
  * public
  *
@@ -81,7 +86,24 @@
  * return list
  */
 /datum/tgui/proc/get_payload(custom_data, with_data, with_static_data)
-	CRASH("TGUI Handler of type [type] does not impliment get_payload()")
+	var/list/json_data = list()
+	json_data["config"] = list(
+		"title" = title,
+		"status" = status,
+		"user" = list(
+			"name" = "[user]",
+			"observer" = isobserver(user),
+		),
+	)
+	var/data = custom_data || with_data && src_object.ui_data(user)
+	if(data)
+		json_data["data"] = data
+	var/static_data = with_static_data && src_object.ui_static_data(user)
+	if(static_data)
+		json_data["static_data"] = static_data
+	if(src_object.tgui_shared_states)
+		json_data["shared"] = src_object.tgui_shared_states
+	return json_data
 
 /**
  * public

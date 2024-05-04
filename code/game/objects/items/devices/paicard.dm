@@ -60,7 +60,7 @@
 	user.set_machine(src)
 	ui_interact(user)
 
-/obj/item/paicard/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/item/paicard/ui_interact(mob/user, datum/tgui/inferno/ui)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

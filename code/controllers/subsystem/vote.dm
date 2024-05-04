@@ -158,7 +158,7 @@ SUBSYSTEM_DEF(vote)
 /datum/controller/subsystem/vote/ui_state()
 	return GLOB.always_state
 
-/datum/controller/subsystem/vote/ui_interact(mob/user, datum/tgui/managed/ui)
+/datum/controller/subsystem/vote/ui_interact(mob/user, datum/tgui/inferno/ui)
 	// Tracks who is voting
 	if(user.client?.ckey)
 		voting |= user.client.ckey

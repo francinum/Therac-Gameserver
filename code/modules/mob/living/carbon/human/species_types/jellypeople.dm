@@ -323,7 +323,7 @@
 /datum/action/innate/swap_body/ui_state(mob/user)
 	return GLOB.always_state
 
-/datum/action/innate/swap_body/ui_interact(mob/user, datum/tgui/managed/ui)
+/datum/action/innate/swap_body/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SlimeBodySwapper", name)

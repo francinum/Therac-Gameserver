@@ -65,7 +65,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return FALSE
 
 
-/datum/computer_file/program/job_management/ui_act(action, params, datum/tgui/managed/ui)
+/datum/computer_file/program/job_management/ui_act(action, params, datum/tgui/inferno/ui)
 	. = ..()
 	if(.)
 		return

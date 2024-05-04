@@ -71,7 +71,7 @@
 /obj/item/book/fish_catalog/on_read(mob/user)
 	ui_interact(user)
 
-/obj/item/book/fish_catalog/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/item/book/fish_catalog/ui_interact(mob/user, datum/tgui/inferno/ui)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

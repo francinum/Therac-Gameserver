@@ -143,7 +143,7 @@
 
 	return TRUE
 
-/obj/machinery/pipedispenser/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/pipedispenser/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PipeDispenser", name)

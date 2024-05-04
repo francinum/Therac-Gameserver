@@ -729,14 +729,14 @@ GLOBAL_DATUM_INIT(admin_help_ui_handler, /datum/admin_help_ui_handler, new)
 	if(webhook_url)
 		.["urgentAhelpEnabled"] = TRUE
 
-/datum/admin_help_ui_handler/ui_interact(mob/user, datum/tgui/managed/ui)
+/datum/admin_help_ui_handler/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Adminhelp")
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-/datum/admin_help_ui_handler/ui_act(action, list/params, datum/tgui/managed/ui, datum/ui_state/state)
+/datum/admin_help_ui_handler/ui_act(action, list/params, datum/tgui/inferno/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return

@@ -25,7 +25,7 @@
 	sect?.existing_contract = null
 	return ..()
 
-/obj/item/sparring_contract/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/item/sparring_contract/ui_interact(mob/user, datum/tgui/inferno/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SparringContract", name)

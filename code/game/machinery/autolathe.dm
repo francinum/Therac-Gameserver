@@ -42,7 +42,7 @@
 	QDEL_NULL(wires)
 	return ..()
 
-/obj/machinery/autolathe/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/autolathe/ui_interact(mob/user, datum/tgui/inferno/ui)
 	if(!is_operational)
 		return
 

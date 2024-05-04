@@ -288,7 +288,7 @@
 
 	messages += list(message_data) //Needs to be wrapped for engine reasons.
 
-/datum/computer_file/program/messenger/ui_act(action, list/params, datum/tgui/managed/ui)
+/datum/computer_file/program/messenger/ui_act(action, list/params, datum/tgui/inferno/ui)
 	. = ..()
 	if(.)
 		return

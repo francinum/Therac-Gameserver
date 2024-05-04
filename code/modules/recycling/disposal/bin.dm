@@ -304,14 +304,14 @@
 /obj/machinery/disposal/bin/ui_state(mob/user)
 	return GLOB.notcontained_state
 
-/obj/machinery/disposal/bin/ui_interact(mob/user, datum/tgui/managed/ui)
+/obj/machinery/disposal/bin/ui_interact(mob/user, datum/tgui/html/ui)
 	if(machine_stat & BROKEN)
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "DisposalUnit", name)
+		ui = new(user, src, "html/ui_templates/disposal_bin.html", name)
 		ui.open()
-
+#error DERAIL - DO NOT RUN ON LIVE
 /obj/machinery/disposal/bin/ui_data(mob/user)
 	var/list/data = list()
 	data["flush"] = flush

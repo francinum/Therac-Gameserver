@@ -71,6 +71,7 @@ export const DmTarget = new Juke.Target({
     'interface/**',
     'modular_pariah/**', //PARIAH EDIT
     `${DME_NAME}.dme`,
+    'tgui/public/tgui.html', // Stored in RSC. Changes require resource rebuild.
   ],
   outputs: [
     `${DME_NAME}.dmb`,
