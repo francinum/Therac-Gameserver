@@ -941,7 +941,8 @@ DEFINE_INTERACTABLE(/obj/item)
 /obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	if(!M)
 		return FALSE
-
+	if((item_flags & HAND_ITEM) && slot != ITEM_SLOT_HANDS)
+		return FALSE
 	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self)
 
 /obj/item/verb/verb_pickup()
@@ -1684,7 +1685,7 @@ DEFINE_INTERACTABLE(/obj/item)
 	transform = animation_matrix
 
 	SEND_SIGNAL(src, COMSIG_ATOM_TEMPORARY_ANIMATION_START, 3)
-	// This is instant on byond's end, but to our clients this looks like a quick drop
+
 	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 
 /atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)

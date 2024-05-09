@@ -29,12 +29,10 @@
 		mytray.adjust_weedlevel(-rand(1,5))
 	if(chems.has_reagent(type, 3))
 		switch(rand(100))
-			if(66  to 100)
+			if(51 to 100)
 				mytray.mutatespecie()
-			if(33 to 65)
+			if(1 to 50)
 				mytray.mutateweed()
-			if(1   to 32)
-				mytray.mutatepest(user)
 			else
 				if(prob(20))
 					mytray.visible_message(span_warning("Nothing happens..."))
@@ -65,7 +63,7 @@
 	C.remove_status_effect(/datum/status_effect/jitter)
 	C.hallucination = 0
 	REMOVE_TRAITS_NOT_IN(C, list(SPECIES_TRAIT, ROUNDSTART_TRAIT, ORGAN_TRAIT))
-	C.reagents.remove_all_type(/datum/reagent/toxin, 2 * removed, FALSE, TRUE)
+	C.reagents.remove_reagent(/datum/reagent/toxin, 2 * removed, include_subtypes = TRUE)
 	if(C.blood_volume < BLOOD_VOLUME_NORMAL)
 		C.setBloodVolume(BLOOD_VOLUME_NORMAL)
 
