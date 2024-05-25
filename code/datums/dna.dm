@@ -420,7 +420,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 /datum/dna/proc/force_lose(datum/mutation/human/HM)
 	if(holder && (HM in mutations))
 		set_se(0, HM)
-		. = HM.on_losing(holder)
+		. = HM.remove_from_owner()
 		update_instability(FALSE)
 		return
 
@@ -565,6 +565,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 			qdel(language_holder)
 			var/species_holder = initial(mrace.species_language_holder)
 			language_holder = new species_holder(src)
+
 		update_atom_languages()
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)

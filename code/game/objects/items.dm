@@ -599,35 +599,19 @@ DEFINE_INTERACTABLE(/obj/item)
 			affecting?.receive_damage( 0, 5 ) // 5 burn damage
 			return
 
-	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP)) //See if we're supposed to auto pickup.
+	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP))
 		return
 
 	//Heavy gravity makes picking up things very slow.
 	var/grav = user.has_gravity()
 	if(grav > STANDARD_GRAVITY)
-		var/grav_power = min(3,grav - STANDARD_GRAVITY)
-		to_chat(user,span_notice("You start picking up [src]..."))
-		if(!do_after(user,src,30*grav_power))
+		var/grav_power = min(3, grav - STANDARD_GRAVITY)
+		to_chat(user, span_notice("You start picking up [src]..."))
+		if(!do_after(user, src, 30*grav_power))
 			return
 
-
-	//If the item is in a storage item, take it out
-	var/was_in_storage = loc.atom_storage?.attempt_remove(src, user.loc, silent = TRUE)
-	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
-		return
-
-	if(throwing)
-		throwing.finalize(FALSE)
-	if(loc == user)
-		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
-			return
-
-	. = FALSE
-	pickup(user)
-
-	if(!user.put_in_active_hand(src, FALSE, was_in_storage))
-		user.dropItemToGround(src)
-		return TRUE
+	// Return FALSE if the item is picked up.
+	return !user.pickup_item(src)
 
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
@@ -750,6 +734,12 @@ DEFINE_INTERACTABLE(/obj/item)
 	playsound(wielder, block_sound, 70, TRUE)
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
+	if(isnull(language))
+		language = M?.get_selected_language()
+
+	if(istype(language, /datum/language/visual))
+		return
+
 	return ITALICS | REDUCE_RANGE
 
 /// Called when a mob drops an item.
@@ -921,9 +911,9 @@ DEFINE_INTERACTABLE(/obj/item)
 			else if(slot)
 				user.update_clothing(slot)
 
-			// if the item requires two handed, drop the item on unwield
-			if(HAS_TRAIT(src, TRAIT_NEEDS_TWO_HANDS))
-				user.dropItemToGround(src, force=TRUE)
+		// if the item requires two handed, drop the item on unwield
+		if(HAS_TRAIT(src, TRAIT_NEEDS_TWO_HANDS))
+			user.dropItemToGround(src, force=TRUE)
 
 		// Show message if requested
 		if(show_message)
@@ -949,7 +939,8 @@ DEFINE_INTERACTABLE(/obj/item)
 /obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	if(!M)
 		return FALSE
-
+	if((item_flags & HAND_ITEM) && slot != ITEM_SLOT_HANDS)
+		return FALSE
 	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self)
 
 /obj/item/verb/verb_pickup()
@@ -1685,7 +1676,7 @@ DEFINE_INTERACTABLE(/obj/item)
 	transform = animation_matrix
 
 	SEND_SIGNAL(src, COMSIG_ATOM_TEMPORARY_ANIMATION_START, 3)
-	// This is instant on byond's end, but to our clients this looks like a quick drop
+
 	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 
 /atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
