@@ -209,14 +209,15 @@
 	if(isnull(new_real_loc))
 		return
 
+	real_location = new_real_loc
+
 	if(real_location != parent)
 		real_location.flags_1 |= HAS_DISASSOCIATED_STORAGE_1
 
-	RegisterSignal(new_real_loc, COMSIG_ATOM_ENTERED, PROC_REF(handle_enter))
-	RegisterSignal(new_real_loc, COMSIG_ATOM_EXITED, PROC_REF(handle_exit))
-	RegisterSignal(new_real_loc, COMSIG_PARENT_QDELETING, PROC_REF(real_location_gone))
+	RegisterSignal(real_location, COMSIG_ATOM_ENTERED, PROC_REF(handle_enter))
+	RegisterSignal(real_location, COMSIG_ATOM_EXITED, PROC_REF(handle_exit))
+	RegisterSignal(real_location, COMSIG_PARENT_QDELETING, PROC_REF(real_location_gone))
 
-	real_location = new_real_loc
 
 /// Getter for [real_location].
 /datum/storage/proc/get_real_location()
