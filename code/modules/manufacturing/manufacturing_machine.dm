@@ -13,34 +13,35 @@
 
 	/// Sound to play on work, can be a list or single sound.
 	var/list/work_sound
-
+	/// A list of items contained within us.
 	var/list/obj/item/contained
+
 	/// The state of the machine
-	var/state = M_IDLE
+	var/operating_state = M_IDLE
 
 	/// Timer ID for active work
 	var/work_timer
 
 /obj/machinery/manufacturing/Initialize(mapload)
 	. = ..()
-	contained = list()
 
 	proxy = new
 	proxy.create_storage(5, WEIGHT_CLASS_GIGANTIC, WEIGHT_CLASS_BULKY * 5)
-	proxy.atom_storage.set_real_location(src)
 	proxy.atom_storage.silent = TRUE
 	proxy.atom_storage.animated = FALSE
 	proxy.atom_storage.attack_hand_interact = FALSE
+	// This one is going to bite me in the ass later, I just know it.
+	// This is done so that you can interact with items inside of the storage stored inside the machine.
+	proxy.atom_storage.flags_1 |= HAS_DISASSOCIATED_STORAGE_1
 
 /obj/machinery/manufacturing/Destroy()
-	contained = null
 	QDEL_NULL(proxy)
 	return ..()
 
 /obj/machinery/manufacturing/on_deconstruction()
 	. = ..()
 	var/atom/drop_loc = drop_location()
-	for(var/obj/item/I as anything in contained)
+	for(var/obj/item/I as anything in proxy)
 		I.forceMove(drop_loc)
 
 /obj/machinery/manufacturing/attack_hand_secondary(mob/user, list/modifiers)
@@ -49,7 +50,7 @@
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
 
-	if(state == M_WORKING && isliving(user))
+	if(operating_state == M_WORKING && isliving(user))
 		liveleak(user)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
@@ -63,21 +64,17 @@
 			return
 
 		if(proxy.atom_storage.attempt_insert(bumped_atom))
-			contained[bumped_atom] = insertion_direction
+			proxy.contained[bumped_atom] = insertion_direction
 			run_queue()
 
-/obj/machinery/manufacturing/Exited(atom/movable/gone, direction)
-	. = ..()
-	contained -= gone
-
 /obj/machinery/manufacturing/drop_location()
-	if(state == M_WORKING)
+	if(operating_state == M_WORKING)
 		return get_step(src, out_direction)
 	return ..()
 
 /// Change the operating state of the machine.
 /obj/machinery/manufacturing/proc/set_state(new_state)
-	if(state == new_state)
+	if(operating_state == new_state)
 		return
 
 	if(new_state == M_WORKING)
@@ -85,32 +82,34 @@
 	else if(work_timer)
 		deltimer(work_timer)
 
-	state = new_state
+	operating_state = new_state
 	update_appearance(UPDATE_OVERLAYS|UPDATE_ICON)
 
+	switch(operating_state)
+		if(M_WORKING)
+			color = "#00FF00"
+		if(M_IDLE)
+			color = null
+		if(M_JAMMED)
+			color = "#FF0000"
+
 /obj/machinery/manufacturing/proc/run_queue()
-	if(state != M_IDLE || !length(contained))
+	if(operating_state != M_IDLE || !length(proxy.contained))
 		update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
 		return
 
-	var/obj/item/item_to_work = contained[1]
+	var/obj/item/item_to_work = proxy.contained[1]
 
-	if(isnull(item_to_work))
-		contained.Cut(1, 2)
-		return .()
-
-	if(!isitem(item_to_work))
-		jam()
-		return
-
+	/// If it's not something we can work on, JAM!
 	if(!check_item_type(item_to_work))
 		jam()
 		return
 
 	process_item(item_to_work)
 
+/// Returns TRUE if this machine can process this item.
 /obj/machinery/manufacturing/proc/check_item_type(obj/item/item)
-	return TRUE
+	return isitem(item)
 
 /// Perform our shit on this item.
 /obj/machinery/manufacturing/proc/process_item(obj/item/item)

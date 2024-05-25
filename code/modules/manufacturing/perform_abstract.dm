@@ -64,7 +64,7 @@
 
 	var/datum/slapcraft_step/step_one = SLAPCRAFT_STEP(target_recipe.steps[1])
 	if(!step_one.perform(null, item, assembly, instant = TRUE, silent = TRUE))
-		assembly.disassemble()
+		assembly.disassemble(dump_loc_override = proxy)
 		return
 
 	return assembly
