@@ -209,7 +209,8 @@
 	if(isnull(new_real_loc))
 		return
 
-	new_real_loc.flags_1 |= HAS_DISASSOCIATED_STORAGE_1
+	if(real_location != parent)
+		real_location.flags_1 |= HAS_DISASSOCIATED_STORAGE_1
 
 	RegisterSignal(new_real_loc, COMSIG_ATOM_ENTERED, PROC_REF(handle_enter))
 	RegisterSignal(new_real_loc, COMSIG_ATOM_EXITED, PROC_REF(handle_exit))
