@@ -348,7 +348,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			to_chat(user, span_warning("\The [to_insert] is stuck on your hand!"))
 		return FALSE
 
-	var/datum/storage/biggerfish = parent.loc.atom_storage // this is valid if the container our parent is being held in is a storage item
+	// this is valid if the container our parent is being held in is a storage item
+	var/datum/storage/biggerfish = parent.loc?.atom_storage
 
 	if(biggerfish && biggerfish.max_specific_storage < max_specific_storage)
 		if(messages && user)

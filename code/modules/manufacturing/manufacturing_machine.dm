@@ -4,13 +4,17 @@
 	icon_state = "mechfab1"
 	density = TRUE
 
+	/// We really only want storage to manage interactions with contained items.
+	/// We can't use straight up storage because machines store things like disks in their contens
+	var/obj/storage_proxy/proxy
+
 	var/in_directions = ALL_CARDINALS
 	var/out_direction = SOUTH
 
 	/// Sound to play on work, can be a list or single sound.
 	var/list/work_sound
 
-	var/list/datum/weakref/contained = list()
+	var/list/obj/item/contained
 	/// The state of the machine
 	var/state = M_IDLE
 
@@ -19,14 +23,25 @@
 
 /obj/machinery/manufacturing/Initialize(mapload)
 	. = ..()
-	create_storage(5, WEIGHT_CLASS_GIGANTIC, WEIGHT_CLASS_BULKY * 5)
-	atom_storage.silent = TRUE
-	atom_storage.animated = FALSE
-	atom_storage.attack_hand_interact = FALSE
+	contained = list()
+
+	proxy = new
+	proxy.create_storage(5, WEIGHT_CLASS_GIGANTIC, WEIGHT_CLASS_BULKY * 5)
+	proxy.atom_storage.set_real_location(src)
+	proxy.atom_storage.silent = TRUE
+	proxy.atom_storage.animated = FALSE
+	proxy.atom_storage.attack_hand_interact = FALSE
 
 /obj/machinery/manufacturing/Destroy()
 	contained = null
+	QDEL_NULL(proxy)
 	return ..()
+
+/obj/machinery/manufacturing/on_deconstruction()
+	. = ..()
+	var/atom/drop_loc = drop_location()
+	for(var/obj/item/I as anything in contained)
+		I.forceMove(drop_loc)
 
 /obj/machinery/manufacturing/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
@@ -38,7 +53,7 @@
 		liveleak(user)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-	atom_storage.show_contents(user)
+	proxy.atom_storage.show_contents(user)
 
 /obj/machinery/manufacturing/BumpedBy(atom/movable/bumped_atom)
 	. = ..()
@@ -47,13 +62,13 @@
 		if(!(insertion_direction & in_directions))
 			return
 
-		if(atom_storage.attempt_insert(bumped_atom))
-			contained[WEAKREF(bumped_atom)] = insertion_direction
+		if(proxy.atom_storage.attempt_insert(bumped_atom))
+			contained[bumped_atom] = insertion_direction
 			run_queue()
 
 /obj/machinery/manufacturing/Exited(atom/movable/gone, direction)
 	. = ..()
-	contained -= gone.weak_reference
+	contained -= gone
 
 /obj/machinery/manufacturing/drop_location()
 	if(state == M_WORKING)
@@ -66,7 +81,7 @@
 		return
 
 	if(new_state == M_WORKING)
-		atom_storage.close_all()
+		proxy.atom_storage.close_all()
 	else if(work_timer)
 		deltimer(work_timer)
 
@@ -78,7 +93,7 @@
 		update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
 		return
 
-	var/obj/item/item_to_work = contained[1].resolve()
+	var/obj/item/item_to_work = contained[1]
 
 	if(isnull(item_to_work))
 		contained.Cut(1, 2)

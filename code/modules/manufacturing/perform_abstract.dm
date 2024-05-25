@@ -20,9 +20,9 @@
 
 /obj/machinery/manufacturing/perform_abstract_step/play_work_sound()
 	if(islist(work_sound))
-		playsound(src, pick(work_sound))
+		playsound(src, pick(work_sound), 100)
 	else
-		playsound(src, work_sound)
+		playsound(src, work_sound, 100)
 
 /obj/machinery/manufacturing/perform_abstract_step/attempt_create_assembly(obj/item/item)
 	var/list/available_recipes = slapcraft_recipes_for_type(item.type)
