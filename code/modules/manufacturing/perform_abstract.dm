@@ -127,6 +127,7 @@
 	process_item(assembly)
 
 /obj/machinery/manufacturing/perform_abstract_step/test
+	ui_name = "Welder"
 	out_direction = EAST
 	steps = list(/datum/slapcraft_step/tool/welder = 10 SECONDS)
 	work_sound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')

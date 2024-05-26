@@ -277,6 +277,7 @@ div.notice
 	margin: 3px 0;
 	color: #ffffff;
 }
+
 .computerLegend
 {
 	background-color: black;
@@ -310,6 +311,7 @@ div.notice
 .computerText{
 	text-shadow: 0 0 0.417em #C8C8C8;
 	color: #ffffff;
+	font-family: monospace;
 }
 
 .statusDisplay
@@ -637,6 +639,12 @@ span.color_holder_box{
 .highlighter:hover {
 	/*background-color: #f0c400 !important;*/
 	background-color: #aa8136 !important;
+	user-select: none;
+}
+
+.highlighterRed:hover {
+	background-color: #eb5b5b !important;
+	user-select: none;
 }
 
 .paragraph {

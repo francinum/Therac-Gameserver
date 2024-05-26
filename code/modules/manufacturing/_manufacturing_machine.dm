@@ -4,6 +4,9 @@
 	icon_state = "mechfab1"
 	density = TRUE
 
+	/// Name to display in the UI
+	var/ui_name = "Manufacturing Machine"
+
 	/// We really only want storage to manage interactions with contained items.
 	/// We can't use straight up storage because machines store things like disks in their contens
 	var/obj/storage_proxy/proxy
@@ -32,7 +35,7 @@
 	proxy.atom_storage.attack_hand_interact = FALSE
 	// This one is going to bite me in the ass later, I just know it.
 	// This is done so that you can interact with items inside of the storage stored inside the machine.
-	proxy.atom_storage.flags_1 |= HAS_DISASSOCIATED_STORAGE_1
+	proxy.flags_1 |= HAS_DISASSOCIATED_STORAGE_1
 
 /obj/machinery/manufacturing/Destroy()
 	QDEL_NULL(proxy)
@@ -84,6 +87,7 @@
 
 	operating_state = new_state
 	update_appearance(UPDATE_OVERLAYS|UPDATE_ICON)
+	updateUsrDialog()
 
 	switch(operating_state)
 		if(M_WORKING)
