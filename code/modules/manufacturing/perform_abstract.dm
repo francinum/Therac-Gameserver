@@ -37,8 +37,8 @@
 			continue
 
 		// Get next suitable step that is available after the first one would be performed.
-		var/list/pretend_list = list()
-		pretend_list[step_one.type] = TRUE
+		var/list/pretend_list = new /list(10) // This is purely magic. If you make a crafting recipe larger than 10 elements, 1. fuck you 2. make this bigger
+		pretend_list[1] = TRUE
 
 		var/list/next_recipe_steps = recipe.get_possible_next_steps(pretend_list)
 
@@ -88,13 +88,11 @@
 
 	for(var/step_type in possible_steps)
 		if(next_step[step_type])
-			//time_to_perform = steps[next_step]
-			#warn testing
-			time_to_perform = 1.2 SECONDS
+			time_to_perform = steps[next_step]
 			step_to_perform = step_type
 			break
 
-	if(isnull(time_to_perform))
+	if(isnull(step_to_perform))
 		next_step = null
 		if(length(assembly.recipe.steps) < 2)
 			assembly.disassemble(dump_loc_override = src)

@@ -7,8 +7,11 @@
 	/// Hint displayed to the user which examines the item required for the first step.
 	var/examine_hint
 
-	/// List of all steps to finish this recipe
+	/// List of all steps to finish this recipe.
 	var/list/steps
+
+	/// A list of overrides for examine text. Indexed the same as steps. Null and null entries are A-okay.
+	var/list/examine_overrides
 
 	/// Type of the item that will be yielded as the result.
 	var/result_type
@@ -64,96 +67,116 @@
 	for(var/step_type in steps)
 		if(!check_correct_step(step_type, step_states))
 			continue
+
 		var/datum/slapcraft_step/iterated_step = SLAPCRAFT_STEP(step_type)
 		if(!iterated_step.perform_check(user, item, null, check_type_only = check_type_only))
 			continue
+
 		chosen_step = iterated_step
 		break
+
 	return chosen_step
 
+/// Check if a recipe is finished. If add_step is supplied, it checks if the recipe *would* be finished, given the additional step.
 /datum/slapcraft_recipe/proc/is_finished(list/step_states, add_step)
 	// Adds step checks if the recipe would be finished with the added step
 	if(add_step)
 		step_states = step_states.Copy()
-		step_states[add_step] = TRUE
+		mark_step_complete(step_states, steps, add_step)
+
 	switch(step_order)
 		if(SLAP_ORDER_STEP_BY_STEP, SLAP_ORDER_FIRST_AND_LAST)
 			//See if the last step was finished.
-			var/last_path = steps[steps.len]
-			if(step_states[last_path])
+			if(step_states[length(step_states)])
 				return TRUE
+
 		if(SLAP_ORDER_FIRST_THEN_FREEFORM)
 			var/any_missing = FALSE
-			for(var/step_path in steps)
-				if(!step_states[step_path])
+			for(var/i in length(step_states) to 1 step -1)
+				if(!i)
 					any_missing = TRUE
-					break
+
 			if(!any_missing)
 				return TRUE
+
 	return FALSE
 
+/// Returns a list of steps that can be completed presently.
 /datum/slapcraft_recipe/proc/get_possible_next_steps(list/step_states)
+	RETURN_TYPE(/list)
+	// Optimize for a very simple operation.
+	if(step_order == SLAP_ORDER_STEP_BY_STEP)
+		for(var/i in 1 to length(step_states))
+			if(!step_states[i]) // Found the next incomplete step
+				return list(steps[i])
+		return list()
+
 	var/list/possible = list()
 	for(var/step_type in steps)
 		if(!check_correct_step(step_type, step_states))
 			continue
 		possible += step_type
+
 	return possible
 
 /// Checks if a step of type `step_type` can be performed with the given `step_states` state.
 /datum/slapcraft_recipe/proc/check_correct_step(step_type, list/step_states)
 	// Already finished this step.
-	if(step_states[step_type])
+	if(!find_uncompleted_step(step_states, steps, step_type))
 		return FALSE
-	var/first_step = steps[1]
+
 	// We are missing the first step being done, only allow it until we allow something else
-	if(!step_states[first_step])
-		if(step_type == first_step)
+	if(!step_states[1])
+		if(step_type == steps[1])
 			return TRUE
 		else
 			return FALSE
+
 	switch(step_order)
 		if(SLAP_ORDER_STEP_BY_STEP)
 			// Just in case any step is optional we need to figure out which is the furthest step performed.
-			var/furthest_step = 0
-			var/step_count = 0
-			for(var/iterated_step in steps)
-				step_count++
-				if(step_states[iterated_step])
-					furthest_step = step_count
+			var/furthest_step_index = 0
+			for(var/state_index in length(step_states) to 1 step -1)
+				if(step_states[state_index])
+					furthest_step_index = state_index
+					break
 
-			step_count = 0
-			for(var/iterated_step in steps)
-				step_count++
+			for(var/state_index in 1 to length(step_states))
 				// Step is done, continue
-				if(step_states[iterated_step])
+				if(step_states[state_index])
 					continue
+
 				// This step is before one we have already completed, continue
 				// (essentially when skipping an optional step, we dont want to allow that step to be performed)
-				if(step_count <= furthest_step)
+				if(state_index <= furthest_step_index)
 					continue
+
 				//We reach a step that isn't done. Check if the checked step is the one
-				if(iterated_step == step_type)
+				if(steps[state_index] == step_type)
 					return TRUE
+
 				// If the step is optional, perhaps the next one will be eligible.
-				var/datum/slapcraft_step/iterated_step_datum = SLAPCRAFT_STEP(iterated_step)
+				var/datum/slapcraft_step/iterated_step_datum = SLAPCRAFT_STEP(steps[state_index])
 				if(iterated_step_datum.optional)
 					continue
+
 				// It wasn't it, return FALSE
 				return FALSE
+
 		if(SLAP_ORDER_FIRST_AND_LAST)
-			var/last_step = steps[steps.len]
+			var/last_step = steps[length(steps)]
+
 			// If we are trying to do the last step, make sure all the rest ones are finished
 			if(step_type == last_step)
-				for(var/iterated_step in steps)
-					if(step_states[iterated_step])
+				for(var/step_index in 1 to length(step_states))
+					if(step_states[step_index])
 						continue
-					if(iterated_step == last_step)
-						return TRUE
+
 					// If the step is optional, we don't mind.
-					var/datum/slapcraft_step/iterated_step_datum = SLAPCRAFT_STEP(iterated_step)
+					var/datum/slapcraft_step/iterated_step_datum = SLAPCRAFT_STEP(steps[step_index])
 					if(iterated_step_datum.optional)
 						continue
+
 					return FALSE
 
 			// Middle step, with the last step not being finished, and the first step being finished

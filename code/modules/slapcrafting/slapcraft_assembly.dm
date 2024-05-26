@@ -5,12 +5,14 @@
 
 	/// Recipe this assembly is trying to make
 	var/datum/slapcraft_recipe/recipe
-	/// Associative list of whether the steps are finished or not
+	/// An array of boolean values that correspond to the indexes of recipe/var/steps. 0 is incomplete, 1 is complete.
 	var/list/step_states
+
 	/// Whether it's in the process of being disassembled.
 	var/disassembling = FALSE
 	/// Whether it's in the process of being finished.
 	var/being_finished = FALSE
+
 	/// All items that want to place itself in the resulting item after the recipe is finished.
 	var/list/items_to_place_in_result = list()
 
@@ -20,18 +22,31 @@
 	///If this recipe is going to produce an /obj/machine.
 	var/is_machine_recipe = FALSE
 
+
 /obj/item/slapcraft_assembly/examine(mob/user)
 	. = ..()
 	// Describe the steps that already have been performed on the assembly
-	for(var/step_path in recipe.steps)
-		if(step_states[step_path])
-			var/datum/slapcraft_step/done_step = SLAPCRAFT_STEP(step_path)
+	for(var/i in 1 to length(recipe.steps))
+		if(step_states[i])
+			var/datum/slapcraft_step/done_step = SLAPCRAFT_STEP(recipe.steps[i])
 			. += span_notice(done_step.finished_desc)
+
 	// Describe how the next steps could be performed
-	var/list/next_steps = get_possible_next_steps()
-	for(var/step_type in next_steps)
+	for(var/i in 1 to length(recipe.steps))
+		if(step_states[i])
+			continue
+
+		var/step_type = recipe.steps[i]
+		if(!recipe.check_correct_step(step_type, step_states))
+			continue
+
+		if(recipe.examine_overrides[i])
+			. += span_boldnotice(recipe.examine_overrides[i])
+			continue
+
 		var/datum/slapcraft_step/next_step = SLAPCRAFT_STEP(step_type)
 		. += span_boldnotice(next_step.todo_desc)
+
 	// And tell them if it can be disassembled back into the components aswell.
 	if(recipe.can_disassemble)
 		. += span_boldnotice("Use in hand to disassemble this back into components.")
@@ -130,8 +145,9 @@
 
 /// Progresses the assembly to the next step and finishes it if made it through the last step.
 /obj/item/slapcraft_assembly/proc/finished_step(mob/living/user, datum/slapcraft_step/step_datum)
-	// Mark the step as finished.
-	step_states[step_datum.type] = TRUE
+
+	if(!mark_step_complete(step_states, recipe.steps, step_datum.type))
+		CRASH("Critical crafting bug: finished_step failed to find a step position in the step states list.")
 
 	if(recipe.is_finished(step_states))
 		recipe.finish_recipe(user, src)
@@ -144,9 +160,7 @@
 	desc = "This seems to be an assembly to craft \the [set_recipe.name]"
 
 	// Set step states for this recipe.
-	step_states = list()
-	for(var/step_path in set_recipe.steps)
-		step_states[step_path] = FALSE
+	step_states = new /list(length(recipe.steps))
 
 	// If we're producing a machine, we have to be a bit special
 	if(istype(set_recipe, /datum/slapcraft_recipe/machine))
@@ -154,3 +168,27 @@
 		ADD_TRAIT(src, TRAIT_NOPICKUP, ABSTRACT_ITEM_TRAIT)
 		w_class = WEIGHT_CLASS_GIGANTIC
 
+
+/// Given a list of crafting recipe steps, finds the first un-completed element containing the step. Returns the step index or zero.
+/proc/find_uncompleted_step(list/step_states, list/steps, step_type)
+	var/position = null
+	var/start = 1
+	while(start)
+		position = steps.Find(step_type, start)
+		// Immediately went out of bounds
+		if(!position)
+			break
+
+		start = position + 1
+		// Position is unfinished.
+		if(!step_states[position])
+			break
+
+	return position
+
+/// Given a list of crafting recipe steps, finds and marks the first un-marked element containing the step. Returns the step index.
+/proc/mark_step_complete(list/step_states, list/steps, step_type)
+	var/position = find_uncompleted_step(step_states, steps, step_type)
+	if(position)
+		step_states[position] = TRUE
+		return position
