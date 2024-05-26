@@ -11,8 +11,8 @@
 	/// We can't use straight up storage because machines store things like disks in their contens
 	var/obj/storage_proxy/proxy
 
-	var/in_direction = NORTH
-	var/out_direction = SOUTH
+	var/in_direction = WEST
+	var/out_direction = EAST
 
 	/// Sound to play on work, can be a list or single sound.
 	var/list/work_sound

@@ -3,9 +3,6 @@
 	/// A k:v list of step_path : time to complete. step_path becomes a typecache during init.
 	var/list/steps
 
-	/// The current item being worked on, incase this machine performs multiple steps.
-	var/datum/weakref/working_on
-
 	/// The typecache of steps to perform next.
 	var/list/next_step
 
@@ -120,16 +117,17 @@
 		return
 
 	next_step = steps[step_index + 1]
-	working_on = WEAKREF(assembly)
 	process_item(assembly)
 
 /obj/machinery/manufacturing/perform_abstract_step/test
 	ui_name = "Welder"
-	in_direction = WEST
-	out_direction = EAST
 	steps = list(/datum/slapcraft_step/tool/welder = 10 SECONDS)
 	work_sound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 
 /obj/machinery/manufacturing/perform_abstract_step/stamp
-	out_direction = EAST
+	ui_name = "Stamper"
 	steps = list(/datum/slapcraft_step/attack/bludgeon = 2 SECONDS)
+
+/obj/machinery/manufacturing/perform_abstract_step/cut
+	ui_name = "Cutter"
+	steps = list(/datum/slapcraft_step/attack/sharp = 2 SECONDS)
