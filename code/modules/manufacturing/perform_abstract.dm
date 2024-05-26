@@ -99,10 +99,7 @@
 		jam()
 		return
 
-	set_state(M_WORKING)
-
-	play_work_sound()
-	work_timer = addtimer(CALLBACK(src, PROC_REF(complete_step), assembly, step_to_perform), time_to_perform, TIMER_STOPPABLE|TIMER_DELETE_ME)
+	do_work(CALLBACK(src, PROC_REF(complete_step), assembly, step_to_perform), time_to_perform)
 
 /obj/machinery/manufacturing/perform_abstract_step/proc/complete_step(obj/item/slapcraft_assembly/assembly, datum/slapcraft_step/step_to_perform)
 	assembly.finished_step(null, SLAPCRAFT_STEP(step_to_perform))

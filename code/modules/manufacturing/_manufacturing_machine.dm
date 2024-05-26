@@ -47,6 +47,14 @@
 	for(var/obj/item/I as anything in proxy)
 		I.forceMove(drop_loc)
 
+/obj/machinery/manufacturing/set_is_operational(new_value)
+	. = ..()
+	if(isnull(.))
+		return
+
+	if(!is_operational)
+		set_state(M_IDLE)
+
 /obj/machinery/manufacturing/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
 
@@ -84,6 +92,7 @@
 		proxy.atom_storage.close_all()
 	else if(work_timer)
 		deltimer(work_timer)
+		work_timer = null
 
 	operating_state = new_state
 	update_appearance(UPDATE_OVERLAYS|UPDATE_ICON)
@@ -97,6 +106,7 @@
 		if(M_JAMMED)
 			color = "#FF0000"
 
+/// The core loop of the machine. Goes through proxy contents and attempts to run process_item() on them.
 /obj/machinery/manufacturing/proc/run_queue()
 	if(operating_state != M_IDLE || !length(proxy.contained))
 		update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
@@ -110,6 +120,12 @@
 		return
 
 	process_item(item_to_work)
+
+/// Schedules a job to be performed, setting state and playing the work sound
+/obj/machinery/manufacturing/proc/do_work(callback, duration)
+	set_state(M_WORKING)
+	play_work_sound()
+	work_timer = addtimer(callback, duration, TIMER_STOPPABLE|TIMER_DELETE_ME)
 
 /// Returns TRUE if this machine can process this item.
 /obj/machinery/manufacturing/proc/check_item_type(obj/item/item)
