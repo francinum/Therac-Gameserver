@@ -1,5 +1,5 @@
 /// Have a living mob attempt to do a slapcraft. The mob is using the second item on the first item.
-/mob/living/proc/try_slapcraft(obj/item/first_item, obj/item/second_item)
+/mob/living/proc/try_slapcraft(obj/item/first_item, obj/item/second_item, try_reversed = TRUE)
 	// You cannot craft with items in storage, you must be holding them in hand
 	// or they must be on the floor
 	if((first_item.item_flags | second_item.item_flags) & IN_STORAGE)
@@ -9,7 +9,7 @@
 	// ..and the second item corresponds to the second step
 	var/list/available_recipes = slapcraft_recipes_for_type(first_item.type)
 	if(!available_recipes)
-		return FALSE
+		return try_reversed ? .(second_item, first_item, FALSE) : FALSE
 
 	var/list/recipes = list()
 	for(var/datum/slapcraft_recipe/recipe in available_recipes)
@@ -19,8 +19,8 @@
 			continue
 
 		// Get next suitable step that is available after the first one would be performed.
-		var/list/pretend_list = list()
-		pretend_list[step_one.type] = TRUE
+		var/list/pretend_list = new /list(length(recipe.steps))
+		pretend_list[1] = TRUE
 
 		var/datum/slapcraft_step/next_step = recipe.next_suitable_step(src, second_item, pretend_list, check_type_only = TRUE)
 		if(!next_step)
@@ -31,7 +31,7 @@
 		recipes += recipe
 
 	if(!length(recipes))
-		return FALSE
+		return try_reversed ? .(second_item, first_item, FALSE) : FALSE
 
 	var/datum/slapcraft_recipe/target_recipe
 	// If we have only one recipe, choose it instantly
@@ -84,16 +84,22 @@
 		return TRUE
 
 	if(QDELING(assembly) && assembly.being_finished)
-		var/in_hands = FALSE
-		if(length(assembly.finished_items) == 1)
-			var/atom/movable/finished_item = assembly.finished_items[1]
-			if(isitem(finished_item) && put_in_hands(finished_item))
-				in_hands = TRUE
-
-		if(!in_hands)
-			for(var/atom/movable/finished_item as anything in assembly.finished_items)
-				finished_item.forceMove(fallback_loc)
-
-		assembly.finished_items = null
-
+		try_unpack_slapcraft_assembly(assembly, fallback_loc)
 	return TRUE
+
+/// "Unpack" a finished slapcraft assembly, pulling all items out of it
+/mob/living/proc/try_unpack_slapcraft_assembly(obj/item/slapcraft_assembly/assembly, atom/fallback_loc = drop_location())
+	if(!assembly.being_finished)
+		return
+
+	var/in_hands = FALSE
+	if(length(assembly.finished_items) == 1)
+		var/atom/movable/finished_item = assembly.finished_items[1]
+		if(isitem(finished_item) && put_in_hands(finished_item))
+			in_hands = TRUE
+
+	if(!in_hands)
+		for(var/atom/movable/finished_item as anything in assembly.finished_items)
+			finished_item.forceMove(fallback_loc)
+
+	assembly.finished_items = null

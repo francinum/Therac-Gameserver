@@ -51,13 +51,28 @@
 	if(recipe.can_disassemble)
 		. += span_boldnotice("Use in hand to disassemble this back into components.")
 
-/obj/item/slapcraft_assembly/attackby(obj/item/item, mob/user, params)
+/obj/item/slapcraft_assembly/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!isitem(target))
+		return ..()
+
+	// Get the next step
+	var/datum/slapcraft_step/next_step = recipe.next_suitable_step(user, target, step_states)
+	if(!next_step)
+		return ..()
+
+	// Try and do it
+	next_step.perform(user, target, src)
+	user.try_unpack_slapcraft_assembly(src)
+	return TRUE
+
+/obj/item/slapcraft_assembly/attackby(obj/item/item, mob/living/user, params)
 	// Get the next step
 	var/datum/slapcraft_step/next_step = recipe.next_suitable_step(user, item, step_states)
 	if(!next_step)
 		return ..()
 	// Try and do it
 	next_step.perform(user, item, src)
+	user.try_unpack_slapcraft_assembly(src)
 	return TRUE
 
 /obj/item/slapcraft_assembly/update_overlays()

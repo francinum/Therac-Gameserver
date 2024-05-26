@@ -40,9 +40,9 @@
 	steps = list(
 		/datum/slapcraft_step/stack/wood/one,
 		/datum/slapcraft_step/item/paper,
-		/datum/slapcraft_step/item/paper/second,
-		/datum/slapcraft_step/item/paper/third,
-		/datum/slapcraft_step/item/paper/fourth,
-		/datum/slapcraft_step/item/paper/fifth //okay maybe we need paper as a sheet type
+		/datum/slapcraft_step/item/paper,
+		/datum/slapcraft_step/item/paper,
+		/datum/slapcraft_step/item/paper,
+		/datum/slapcraft_step/item/paper
 	)
 	result_type = /obj/item/stack/sheet/paperframes

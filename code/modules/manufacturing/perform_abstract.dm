@@ -37,7 +37,7 @@
 			continue
 
 		// Get next suitable step that is available after the first one would be performed.
-		var/list/pretend_list = new /list(10) // This is purely magic. If you make a crafting recipe larger than 10 elements, 1. fuck you 2. make this bigger
+		var/list/pretend_list = new /list(length(recipe.steps))
 		pretend_list[1] = TRUE
 
 		var/list/next_recipe_steps = recipe.get_possible_next_steps(pretend_list)

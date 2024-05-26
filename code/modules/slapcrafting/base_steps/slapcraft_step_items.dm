@@ -56,14 +56,10 @@
 	desc = "Attach a metal ball."
 	todo_desc = "You could attach a metal ball..."
 	finished_desc = "A metal ball has been added."
-	item_types = list(/obj/item/wirerod)
+	item_types = list(/obj/item/metal_ball)
 
 	start_msg = "%USER% begins attaching a metal ball to the %TARGET%."
 	start_msg_self = "You begin attaching a metal ball to the %TARGET%."
-
-/datum/slapcraft_step/item/metal_ball/second
-
-/datum/slapcraft_step/item/metal_ball/third
 
 /datum/slapcraft_step/item/grenade
 	desc = "Attach a grenade."
@@ -105,7 +101,3 @@
 	blacklist_item_types = list(/obj/item/flashlight/lamp, /obj/item/flashlight/lantern)
 	finish_msg = "%USER% attaches a flashlight to the %TARGET%."
 	finish_msg_self = "You attach a flashlight to the %TARGET%."
-
-/// Disambiguation go BRRRR
-/datum/slapcraft_step/item/flashlight/again
-
