@@ -104,14 +104,23 @@
 /// Returns a list of steps that can be completed presently.
 /datum/slapcraft_recipe/proc/get_possible_next_steps(list/step_states)
 	RETURN_TYPE(/list)
+	var/list/possible = list()
+
 	// Optimize for a very simple operation.
 	if(step_order == SLAP_ORDER_STEP_BY_STEP)
 		for(var/i in 1 to length(step_states))
-			if(!step_states[i]) // Found the next incomplete step
-				return list(steps[i])
-		return list()
+			if(step_states[i]) // Ignore completed steps
+				continue
 
-	var/list/possible = list()
+			var/datum/slapcraft_step/step_type = steps[i]
+			possible += step_type
+
+			// Get all optional steps up to and including the next non optional step.
+			if(!initial(step_type.optional))
+				break
+
+		return possible
+
 	for(var/step_type in steps)
 		if(!check_correct_step(step_type, step_states))
 			continue
