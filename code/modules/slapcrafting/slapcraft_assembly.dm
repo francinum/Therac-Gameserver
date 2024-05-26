@@ -51,7 +51,7 @@
 	if(recipe.can_disassemble)
 		. += span_boldnotice("Use in hand to disassemble this back into components.")
 
-/obj/item/slapcraft_assembly/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/slapcraft_assembly/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	if(!isitem(target))
 		return ..()
 
