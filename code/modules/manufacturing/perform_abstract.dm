@@ -59,7 +59,7 @@
 		else
 			target_recipe = recipes[1]
 
-	var/obj/item/slapcraft_assembly/assembly = new(src)
+	var/obj/item/slapcraft_assembly/assembly = new(proxy)
 	assembly.set_recipe(target_recipe)
 
 	var/datum/slapcraft_step/step_one = SLAPCRAFT_STEP(target_recipe.steps[1])
@@ -88,7 +88,9 @@
 
 	for(var/step_type in possible_steps)
 		if(next_step[step_type])
-			time_to_perform = steps[next_step]
+			//time_to_perform = steps[next_step]
+			#warn testing
+			time_to_perform = 1.2 SECONDS
 			step_to_perform = step_type
 			break
 
@@ -125,6 +127,7 @@
 
 /obj/machinery/manufacturing/perform_abstract_step/test
 	ui_name = "Welder"
+	in_direction = WEST
 	out_direction = EAST
 	steps = list(/datum/slapcraft_step/tool/welder = 10 SECONDS)
 	work_sound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')

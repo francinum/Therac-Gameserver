@@ -38,7 +38,7 @@
 			<div class='flexColumn' style='width: 100%; justify-content: center; padding-top: 20px; align-items: center;'>
 				<div class='highlighterRed' style='width: 2em;border: 4px ridge #000000; background-color: #752d2d; text-align: center; cursor: pointer; width: 50%; height: 3.5em;'>
 					<div class='flexColumn' style='width: 100%; height: 100%; justify-content: center; align-items: center;'>
-						<div style='font-size: 3em'>
+						<div style='font-size: 3em' onClick=[onclick_callback(src, "restart=1")]>
 							<b>RESTART</b>
 						</div>
 					</div>

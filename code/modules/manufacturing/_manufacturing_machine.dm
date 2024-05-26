@@ -11,7 +11,7 @@
 	/// We can't use straight up storage because machines store things like disks in their contens
 	var/obj/storage_proxy/proxy
 
-	var/in_directions = ALL_CARDINALS
+	var/in_direction = NORTH
 	var/out_direction = SOUTH
 
 	/// Sound to play on work, can be a list or single sound.
@@ -40,6 +40,18 @@
 /obj/machinery/manufacturing/Destroy()
 	QDEL_NULL(proxy)
 	return ..()
+
+/obj/machinery/manufacturing/Topic(href, href_list)
+	. = ..()
+	if(.)
+		return
+
+	if(href_list["restart"])
+		if(operating_state != M_WORKING)
+			set_state(M_IDLE)
+			playsound(src.loc, 'sound/machines/terminal_off.ogg', 50, FALSE)
+			run_queue()
+		return TRUE
 
 /obj/machinery/manufacturing/on_deconstruction()
 	. = ..()
@@ -70,12 +82,12 @@
 /obj/machinery/manufacturing/BumpedBy(atom/movable/bumped_atom)
 	. = ..()
 	if(isitem(bumped_atom))
-		var/insertion_direction = get_dir(bumped_atom, src)
-		if(!(insertion_direction & in_directions))
+		var/insertion_direction = get_dir(src, bumped_atom)
+		if(!(insertion_direction & in_direction))
 			return
 
 		if(proxy.atom_storage.attempt_insert(bumped_atom))
-			proxy.contained[bumped_atom] = insertion_direction
+			proxy.contained += bumped_atom // Back of the queue
 			run_queue()
 
 /obj/machinery/manufacturing/drop_location()
@@ -90,6 +102,7 @@
 
 	if(new_state == M_WORKING)
 		proxy.atom_storage.close_all()
+
 	else if(work_timer)
 		deltimer(work_timer)
 		work_timer = null
