@@ -125,7 +125,7 @@ DEFINE_INTERACTABLE(/obj/machinery/bodyscanner_console)
 	mouse_drop_pointer = TRUE
 
 	var/obj/machinery/bodyscanner/linked_scanner
-	/// Data! Maybe there's something to be done with data disks here.
+	/// Data! Maybe there's something to be done with floppy disks here.
 	var/list/scan
 
 /obj/machinery/bodyscanner_console/Initialize(mapload)

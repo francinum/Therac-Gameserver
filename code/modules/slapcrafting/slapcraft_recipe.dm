@@ -27,8 +27,6 @@
 
 	/// Category this recipe is in the handbook.
 	var/category = SLAP_CAT_MISC
-	/// Subcategory this recipe is in the handbook.
-	var/subcategory = SLAP_SUBCAT_MISC
 
 	/// Appearance in the radial menu for the user to choose from if there are recipe collisions.
 	var/image/radial_appearance

@@ -11,9 +11,8 @@
 
 // General, default categories.
 #define SLAP_CAT_MISC "Misc."
-#define SLAP_SUBCAT_MISC "Misc."
 
-// Other categories and their subcategories
+// Other categories
 #define SLAP_CAT_PROCESSING "Processing"
 #define SLAP_CAT_COMPONENTS "Components"
 #define SLAP_CAT_WEAPONS "Weapons"

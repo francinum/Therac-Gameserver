@@ -241,7 +241,7 @@
 
 /// Design disks and designs - for adding limbs and organs to the limbgrower.
 /obj/item/disk/data/limbs
-	name = "limb design data disk"
+	name = "limb design floppy disk"
 	desc = "A disk containing limb and organ designs for a limbgrower."
 	icon_state = "datadisk1"
 	/// List of all limb designs this disk will contain on init.

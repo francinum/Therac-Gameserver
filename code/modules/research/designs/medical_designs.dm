@@ -62,7 +62,7 @@
 	mapload_design_flags = DESIGN_FAB_MEDICAL | DESIGN_FAB_OMNI
 
 /datum/design/dna_disk
-	name = "Genetic Data Disk"
+	name = "Genetic Floppy Disk"
 	desc = "Produce additional disks for storing genetic data."
 	id = "dna_disk"
 	build_type = FABRICATOR

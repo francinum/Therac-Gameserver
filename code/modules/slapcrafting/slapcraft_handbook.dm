@@ -1,6 +1,5 @@
 /datum/slapcraft_handbook
 	var/current_category = SLAP_CAT_WEAPONS
-	var/current_subcategory = SLAP_SUBCAT_MISC
 	var/current_recipe
 
 /// Gets the description of the step. This can include a href link.
@@ -67,14 +66,10 @@
 	for(var/category in GLOB.slapcraft_categorized_recipes)
 		dat += "<a href='?src=[REF(src)];preference=set_category;tab=[category]' [category == current_category ? "class='linkOn'" : ""]>[category]</a> "
 	dat += "<hr>"
-	var/list/subcategory_list = GLOB.slapcraft_categorized_recipes[current_category]
-	for(var/subcategory in subcategory_list)
-		dat += "<a href='?src=[REF(src)];preference=set_subcategory;tab=[subcategory]' [subcategory == current_subcategory ? "class='linkOn'" : ""]>[current_subcategory]</a> "
-	dat += "<hr>"
 
 	dat += "<table align='center'; width='100%'; height='100%'; style='background-color:#13171C'><tr><td width='65%'></td><td width='35%'></td></tr>"
 	var/even = FALSE
-	var/list/recipe_list = subcategory_list[current_subcategory]
+	var/list/recipe_list = GLOB.slapcraft_categorized_recipes[current_category]
 	for(var/datum/slapcraft_recipe/recipe as anything in recipe_list)
 		var/background_cl = even ? "#17191C" : "#23273C"
 		even = !even
@@ -94,8 +89,6 @@
 		switch(href_list["preference"])
 			if("set_category")
 				current_category = href_list["tab"]
-			if("set_subcategory")
-				current_subcategory = href_list["tab"]
 			if("set_recipe")
 				current_recipe = text2path(href_list["recipe"])
 			if("popup_recipe")
@@ -107,8 +100,7 @@
 				var/datum/slapcraft_recipe/recipe = SLAPCRAFT_RECIPE(recipe_type)
 				current_recipe = recipe_type
 				current_category = recipe.category
-				current_subcategory = recipe.subcategory
-				
+
 		show(usr)
 
 /datum/slapcraft_handbook/proc/popup_recipe(mob/user, recipe_type)
@@ -119,7 +111,7 @@
 	dat += print_recipe(recipe)
 	dat += "</table>"
 
-	var/datum/browser/popup = new(user, "[recipe_type]_popup", "[recipe.category] - [recipe.subcategory] - [recipe.name]", 500, 200)
+	var/datum/browser/popup = new(user, "[recipe_type]_popup", "[recipe.category] - [recipe.name]", 500, 200)
 	popup.set_content(dat.Join())
 	popup.open()
 	return

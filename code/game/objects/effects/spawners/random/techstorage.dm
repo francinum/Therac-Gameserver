@@ -6,7 +6,7 @@
 	spawn_all_loot = TRUE
 
 /obj/effect/spawner/random/techstorage/data_disk
-	name = "data disk spawner"
+	name = "floppy disk spawner"
 	icon_state = "disk"
 	spawn_all_loot = FALSE
 	loot = list(

@@ -3115,59 +3115,59 @@
 		new /obj/item/grown/shrub(C)
 
 /datum/supply_pack/data_disk
-	group = "Data Disks"
+	group = "Floppy Disks"
 
 /datum/supply_pack/data_disk/preloaded
-	name = "Data Disk (Omnifab)"
-	desc = "Contains an extremely expensive data disk for use in fabricators."
+	name = "Floppy Disk (Omnifab)"
+	desc = "Contains an extremely expensive floppy disk for use in fabricators."
 	cost = CARGO_CRATE_VALUE * 5
 	access = ACCESS_RESEARCH
 	contains = list(/obj/item/disk/data/hyper/preloaded/fabricator/omni)
 	crate_name = "omnifab disk crate"
 
 /datum/supply_pack/data_disk/preloaded/robotics
-	name = "Data Disk (Robofab)"
+	name = "Floppy Disk (Robofab)"
 	access = ACCESS_MECH_SCIENCE
 	contains = list(/obj/item/disk/data/hyper/preloaded/fabricator/robotics)
 	crate_name = "robofab disk crate"
 
 /datum/supply_pack/data_disk/preloaded/civ
-	name = "Data Disk (Civfab)"
+	name = "Floppy Disk (Civfab)"
 	contains = list(/obj/item/disk/data/hyper/preloaded/fabricator/civ)
 	crate_name = "civfab disk crate"
 
 /datum/supply_pack/data_disk/preloaded/engineering
-	name = "Data Disk (Engifab)"
+	name = "Floppy Disk (Engifab)"
 	access = ACCESS_ENGINE
 	contains = list(/obj/item/disk/data/hyper/preloaded/fabricator/engineering)
 	crate_name = "engifab disk crate"
 
 /datum/supply_pack/data_disk/preloaded/medical
-	name = "Data Disk (Medifab)"
+	name = "Floppy Disk (Medifab)"
 	access = ACCESS_MEDICAL
 	contains = list(/obj/item/disk/data/hyper/preloaded/fabricator/medical)
 	crate_name = "medifab disk crate"
 
 /datum/supply_pack/data_disk/preloaded/supply
-	name = "Data Disk (Supplyfab)"
+	name = "Floppy Disk (Supplyfab)"
 	access = ACCESS_CARGO
 	contains = list(/obj/item/disk/data/hyper/preloaded/fabricator/supply)
 	crate_name = "supplyfab disk crate"
 
 /datum/supply_pack/data_disk/preloaded/security
-	name = "Data Disk (Secfab)"
+	name = "Floppy Disk (Secfab)"
 	access = ACCESS_SECURITY
 	contains = list(/obj/item/disk/data/hyper/preloaded/fabricator/security)
 	crate_name = "secfab disk crate"
 
 /datum/supply_pack/data_disk/preloaded/service
-	name = "Data Disk (Servicefab)"
+	name = "Floppy Disk (Servicefab)"
 	access = ACCESS_SERVICE
 	contains = list(/obj/item/disk/data/hyper/preloaded/fabricator/service)
 	crate_name = "servicefab disk crate"
 
 /datum/supply_pack/data_disk/preloaded/imprinter
-	name = "Data Disk (Imprinter)"
+	name = "Floppy Disk (Imprinter)"
 	access = ACCESS_ENGINE
 	contains = list(/obj/item/disk/data/hyper/preloaded/fabricator/imprinter)
 	crate_name = "imprinter disk crate"

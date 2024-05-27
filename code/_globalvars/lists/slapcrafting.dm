@@ -15,9 +15,7 @@ GLOBAL_LIST_EMPTY(slapcraft_recipes)
 		// Add the recipe to the categorized global list, which is used for the handbook UI
 		if(!GLOB.slapcraft_categorized_recipes[recipe.category])
 			GLOB.slapcraft_categorized_recipes[recipe.category] = list()
-		if(!GLOB.slapcraft_categorized_recipes[recipe.category][recipe.subcategory])
-			GLOB.slapcraft_categorized_recipes[recipe.category][recipe.subcategory] = list()
-		GLOB.slapcraft_categorized_recipes[recipe.category][recipe.subcategory] += recipe
+		GLOB.slapcraft_categorized_recipes[recipe.category] += recipe
 
 /proc/init_slapcraft_steps()
 	var/list/step_list = GLOB.slapcraft_steps
