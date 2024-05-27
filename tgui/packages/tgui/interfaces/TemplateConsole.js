@@ -4,7 +4,7 @@ import { useBackend, useSharedState } from '../backend';
 import { Box, Button, Flex, Icon, Input, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const RecipeConsole = (props, context) => {
+export const TemplateConsole = (props, context) => {
   return (
     <Window
       width={780}
