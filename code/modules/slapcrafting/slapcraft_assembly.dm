@@ -40,7 +40,7 @@
 		if(!recipe.check_correct_step(step_type, step_states))
 			continue
 
-		if(recipe.examine_overrides[i])
+		if(recipe.examine_overrides && recipe.examine_overrides[i])
 			. += span_boldnotice(recipe.examine_overrides[i])
 			continue
 

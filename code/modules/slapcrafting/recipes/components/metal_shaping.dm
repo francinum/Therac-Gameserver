@@ -5,7 +5,7 @@
 	examine_hint = "You could cut this into rods with a welder..."
 	category = SLAP_CAT_COMPONENTS
 	steps = list(
-		/datum/slapcraft_step/stack/iron/one,
+		/datum/slapcraft_step/item/stack/iron/one,
 		/datum/slapcraft_step/tool/welder
 	)
 	result_type = /obj/item/stack/rods/two
@@ -17,7 +17,7 @@
 	category = SLAP_CAT_COMPONENTS
 	can_disassemble = FALSE
 	steps = list(
-		/datum/slapcraft_step/stack/iron/one,
+		/datum/slapcraft_step/item/stack/iron/one,
 		/datum/slapcraft_step/tool/welder,
 		/datum/slapcraft_step/attack/bludgeon/heavy/metal
 	)
@@ -33,7 +33,7 @@
 	category = SLAP_CAT_COMPONENTS
 	can_disassemble = FALSE
 	steps = list(
-		/datum/slapcraft_step/stack/iron/one,
+		/datum/slapcraft_step/item/stack/iron/one,
 		/datum/slapcraft_step/tool/welder,
 		/datum/slapcraft_step/attack/bludgeon/heavy/metal
 	)

@@ -16,7 +16,7 @@
 	steps = list(
 		/datum/slapcraft_step/spear,
 		/datum/slapcraft_step/item/grenade,
-		/datum/slapcraft_step/stack/or_other/binding
+		/datum/slapcraft_step/item/stack/or_other/binding
 	)
 	result_type = /obj/item/spear/explosive
 
@@ -48,7 +48,7 @@
 	category = SLAP_CAT_WEAPONS
 	steps = list(
 		/datum/slapcraft_step/item/cattleprod,
-		/datum/slapcraft_step/stack/teleprod_crystal
+		/datum/slapcraft_step/item/stack/teleprod_crystal
 	)
 	result_type = /obj/item/melee/baton/security/cattleprod/teleprod
 
@@ -56,7 +56,7 @@
 	desc = "Start with a stunprod."
 	item_types = list(/obj/item/melee/baton/security/cattleprod)
 
-/datum/slapcraft_step/stack/teleprod_crystal
+/datum/slapcraft_step/item/stack/teleprod_crystal
 	desc = "Attach a bluespace crystal to the igniter."
 	item_types = list(/obj/item/stack/ore/bluespace_crystal)
 
@@ -68,12 +68,12 @@
 	category = SLAP_CAT_WEAPONS
 	steps = list(
 		/datum/slapcraft_step/item/glass_shard/insert, //this is for different glass types
-		/datum/slapcraft_step/stack/or_other/shiv_wrap
+		/datum/slapcraft_step/item/stack/or_other/shiv_wrap
 
 	)
 	result_type = /obj/item/knife/shiv
 
-/datum/slapcraft_step/stack/or_other/shiv_wrap
+/datum/slapcraft_step/item/stack/or_other/shiv_wrap
 	desc = "Wrap some cloth or tape around the base."
 	todo_desc = "You could use some cloth or tape to hold the shard without cutting your hand..."
 	item_types = list(
@@ -91,7 +91,7 @@
 	examine_hint = "You could attach a metal ball to make a crude mace..."
 	category = SLAP_CAT_WEAPONS
 	steps = list(
-		/datum/slapcraft_step/stack/rod/one,
+		/datum/slapcraft_step/item/stack/rod/one,
 		/datum/slapcraft_step/item/metal_ball,
 		/datum/slapcraft_step/tool/welder/weld_together
 	)

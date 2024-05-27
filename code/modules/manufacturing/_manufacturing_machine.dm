@@ -95,10 +95,12 @@
 		return get_step(src, out_direction)
 	return ..()
 
-/// Change the operating state of the machine.
+/// Change the operating state of the machine. Returns the old state.
 /obj/machinery/manufacturing/proc/set_state(new_state)
 	if(operating_state == new_state)
 		return
+
+	. = operating_state
 
 	if(new_state == M_WORKING)
 		proxy.atom_storage.close_all()
@@ -151,20 +153,22 @@
 /obj/machinery/manufacturing/proc/eject_item(obj/item/item)
 	if(istype(item, /obj/item/slapcraft_assembly))
 		var/obj/item/slapcraft_assembly/assembly = item
-		if(!assembly.being_finished)
-			return
-
-		var/drop_loc = drop_location()
-		for(var/atom/movable/AM in assembly.finished_items)
-			AM.forceMove(drop_loc)
+		if(assembly.being_finished)
+			var/drop_loc = drop_location()
+			for(var/atom/movable/AM in assembly.finished_items)
+				AM.forceMove(drop_loc)
 
 	if(!QDELETED(item))
 		item.forceMove(drop_location())
 		return
 
 /obj/machinery/manufacturing/proc/play_work_sound()
-	return
+	if(islist(work_sound))
+		playsound(src, pick(work_sound), 100)
+	else
+		playsound(src, work_sound, 100)
 
+/// Attempts to create an assembly out of an item. Returns the assembly if successful, null on failure.
 /obj/machinery/manufacturing/proc/attempt_create_assembly(obj/item/item)
 	RETURN_TYPE(/obj/item/slapcraft_assembly)
 	return

@@ -1541,7 +1541,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge)
 "mW" = (
-/obj/machinery/manufacturing/perform_abstract_step/test,
+/obj/machinery/manufacturing/apply_item,
 /turf/open/floor/iron,
 /area/station/commons/storage/primary)
 "mY" = (
@@ -1604,6 +1604,14 @@
 	},
 /turf/open/floor/plating,
 /area/station/hallway/secondary/entry)
+"oe" = (
+/obj/machinery/manufacturing/apply_item{
+	in_direction = 1;
+	item_input_dir = 4;
+	out_direction = 2
+	},
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "oo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1993,6 +2001,12 @@
 /obj/structure/cable/smart_cable/color/yellow,
 /turf/open/floor/iron,
 /area/station/science)
+"Bh" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "Bn" = (
 /obj/machinery/airalarm/unlocked{
 	dir = 1;
@@ -2215,6 +2229,13 @@
 /obj/structure/cable/smart_cable/color/yellow,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"HF" = (
+/obj/effect/landmark/start,
+/obj/machinery/conveyor/auto{
+	dir = 2
+	},
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "Ir" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -2346,6 +2367,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/station/engineering/gravity_generator)
+"MQ" = (
+/obj/machinery/conveyor/auto{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "MZ" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Gravity Generator"
@@ -2574,6 +2601,12 @@
 "Tt" = (
 /turf/open/floor/plating,
 /area/station/maintenance/aft)
+"Tw" = (
+/obj/machinery/conveyor/auto{
+	dir = 6
+	},
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "Ty" = (
 /obj/structure/filingcabinet/security,
 /turf/open/floor/iron,
@@ -2585,6 +2618,12 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
+"UE" = (
+/obj/machinery/conveyor/auto{
+	dir = 2
+	},
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "UI" = (
 /obj/machinery/door/airlock,
 /obj/structure/cable/smart_cable/color/yellow,
@@ -2641,6 +2680,11 @@
 /area/station/engineering/atmos)
 "XZ" = (
 /obj/effect/landmark/blobstart,
+/obj/machinery/manufacturing/apply_item{
+	in_direction = 4;
+	item_input_dir = 2;
+	out_direction = 8
+	},
 /turf/open/floor/iron,
 /area/station/commons/storage/primary)
 "Yc" = (
@@ -7595,7 +7639,7 @@ dJ
 dJ
 dI
 dJ
-dJ
+Bh
 dJ
 dJ
 dJ
@@ -7687,7 +7731,7 @@ dJ
 dJ
 dI
 dJ
-dJ
+Bh
 dJ
 dJ
 dJ
@@ -7871,7 +7915,7 @@ dJ
 dJ
 dI
 dJ
-dJ
+Bh
 dJ
 dJ
 dJ
@@ -7963,7 +8007,7 @@ dJ
 dJ
 dI
 dJ
-dJ
+Bh
 dJ
 dJ
 dJ
@@ -8050,12 +8094,12 @@ cJ
 by
 pC
 dw
-dJ
-dJ
-dJ
-dI
-dJ
-dJ
+Tw
+UE
+oe
+HF
+UE
+MQ
 dJ
 dJ
 dJ

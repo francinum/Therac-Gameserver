@@ -6,8 +6,8 @@
 	examine_hint = "You could add a metal rod to make a mouse trap..."
 	category = SLAP_CAT_MISC
 	steps = list(
-		/datum/slapcraft_step/stack/cardboard/one,
-		/datum/slapcraft_step/stack/rod/one
+		/datum/slapcraft_step/item/stack/cardboard/one,
+		/datum/slapcraft_step/item/stack/rod/one
 	)
 	result_type = /obj/item/assembly/mousetrap
 
@@ -38,7 +38,7 @@
 	examine_hint = "With a plank of wood and some paper, you could make a paper frame for a wall or window..."
 	category = SLAP_CAT_MISC
 	steps = list(
-		/datum/slapcraft_step/stack/wood/one,
+		/datum/slapcraft_step/item/stack/wood/one,
 		/datum/slapcraft_step/item/paper,
 		/datum/slapcraft_step/item/paper,
 		/datum/slapcraft_step/item/paper,

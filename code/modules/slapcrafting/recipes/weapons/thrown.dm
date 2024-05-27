@@ -5,7 +5,7 @@
 	steps = list(
 		//this looks deranged but it makes more sense to use cable on a ball, rather then the other way around.
 		/datum/slapcraft_step/item/metal_ball,
-		/datum/slapcraft_step/stack/cable/fifteen,
+		/datum/slapcraft_step/item/stack/cable/fifteen,
 		/datum/slapcraft_step/item/metal_ball,
 		/datum/slapcraft_step/item/metal_ball
 	)

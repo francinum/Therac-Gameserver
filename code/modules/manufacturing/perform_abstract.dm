@@ -15,12 +15,6 @@
 		steps[idx] = typecacheof(path)
 		steps[steps[idx]] = old_value
 
-/obj/machinery/manufacturing/perform_abstract_step/play_work_sound()
-	if(islist(work_sound))
-		playsound(src, pick(work_sound), 100)
-	else
-		playsound(src, work_sound, 100)
-
 /obj/machinery/manufacturing/perform_abstract_step/attempt_create_assembly(obj/item/item)
 	var/list/available_recipes = slapcraft_recipes_for_type(item.type)
 	if(!available_recipes)
@@ -92,14 +86,14 @@
 	if(isnull(step_to_perform))
 		next_step = null
 		if(length(assembly.recipe.steps) < 2)
-			assembly.disassemble(dump_loc_override = src)
+			assembly.disassemble(dump_loc_override = proxy)
 		jam()
 		return
 
-	do_work(CALLBACK(src, PROC_REF(complete_step), assembly, step_to_perform), time_to_perform)
+	do_work(CALLBACK(src, PROC_REF(complete_step), assembly, SLAPCRAFT_STEP(step_to_perform)), time_to_perform)
 
 /obj/machinery/manufacturing/perform_abstract_step/proc/complete_step(obj/item/slapcraft_assembly/assembly, datum/slapcraft_step/step_to_perform)
-	assembly.finished_step(null, SLAPCRAFT_STEP(step_to_perform))
+	step_to_perform.perform(null, null, assembly, TRUE, TRUE)
 
 	var/step_index = steps.Find(next_step)
 	// If this is the last step, spit it out and be done with it

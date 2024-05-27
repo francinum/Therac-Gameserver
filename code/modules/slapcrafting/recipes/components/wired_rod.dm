@@ -3,8 +3,8 @@
 	examine_hint = "With ten cable, you could attach something to this rod..."
 	category = SLAP_CAT_COMPONENTS
 	steps = list(
-		/datum/slapcraft_step/stack/rod/one,
-		/datum/slapcraft_step/stack/cable/ten
+		/datum/slapcraft_step/item/stack/rod/one,
+		/datum/slapcraft_step/item/stack/cable/ten
 	)
 	result_type = /obj/item/wirerod
 

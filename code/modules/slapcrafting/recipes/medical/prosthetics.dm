@@ -6,7 +6,7 @@
 	category = SLAP_CAT_MEDICAL
 	steps = list(
 		/datum/slapcraft_step/item/flashlight,
-		/datum/slapcraft_step/stack/cable/fifteen,
+		/datum/slapcraft_step/item/stack/cable/fifteen,
 		/datum/slapcraft_step/item/flashlight
 	)
 	result_type = /obj/item/organ/eyes/robotic/flashlight

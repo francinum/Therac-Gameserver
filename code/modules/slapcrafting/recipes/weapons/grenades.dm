@@ -5,7 +5,7 @@
 	steps = list(
 		/datum/slapcraft_step/reagent_container/ied_can,
 		/datum/slapcraft_step/item/igniter,
-		/datum/slapcraft_step/stack/cable/five
+		/datum/slapcraft_step/item/stack/cable/five
 		)
 	result_type = /obj/item/grenade/iedcasing
 
@@ -23,7 +23,7 @@
 	category = SLAP_CAT_WEAPONS
 	steps = list(
 		/datum/slapcraft_step/booze_bottle,
-		/datum/slapcraft_step/stack/or_other/molotov_fuse
+		/datum/slapcraft_step/item/stack/or_other/molotov_fuse
 		)
 	result_type = /obj/item/reagent_containers/food/drinks/bottle/molotov
 
@@ -33,7 +33,7 @@
 	insert_item_into_result = TRUE //the rest is handled in bottle.dm
 	item_types = list(/obj/item/reagent_containers/food/drinks/bottle)
 
-/datum/slapcraft_step/stack/or_other/molotov_fuse
+/datum/slapcraft_step/item/stack/or_other/molotov_fuse
 	desc = "Add a rag, cloth, or something else to work as a fuse."
 	todo_desc = "Now you just need some kind of fuse..."
 	item_types = list(
