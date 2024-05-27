@@ -57,7 +57,6 @@
 	var/obj/item/slapcraft_assembly/assembly = item
 
 	if(!grab_item_from_input())
-		jam()
 		return
 
 	// The item that will be used on the assembly

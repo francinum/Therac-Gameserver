@@ -71,7 +71,6 @@
 			jam()
 			return
 
-
 	var/list/possible_steps = assembly.get_possible_next_steps()
 
 	var/time_to_perform = null

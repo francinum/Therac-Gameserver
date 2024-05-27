@@ -22,8 +22,11 @@
 	/// The state of the machine
 	var/operating_state = M_IDLE
 
-	/// Timer ID for active work
-	var/work_timer
+	/// If TRUE, this machine will process every second.
+	var/needs_processing = FALSE
+
+	/// Timer ID for the work timer
+	var/work_end_timer = null
 
 /obj/machinery/manufacturing/Initialize(mapload)
 	. = ..()
@@ -66,6 +69,11 @@
 
 	if(!is_operational)
 		set_state(M_IDLE)
+		if(needs_processing)
+			STOP_PROCESSING(SSmachines, src)
+
+	else if(needs_processing)
+		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/manufacturing/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
@@ -95,6 +103,12 @@
 		return get_step(src, out_direction)
 	return ..()
 
+/obj/machinery/manufacturing/process()
+	if(operating_state != M_IDLE)
+		return
+
+	run_queue()
+
 /// Change the operating state of the machine. Returns the old state.
 /obj/machinery/manufacturing/proc/set_state(new_state)
 	if(operating_state == new_state)
@@ -105,9 +119,9 @@
 	if(new_state == M_WORKING)
 		proxy.atom_storage.close_all()
 
-	else if(work_timer)
-		deltimer(work_timer)
-		work_timer = null
+	else if(work_end_timer)
+		deltimer(work_end_timer)
+		work_end_timer = null
 
 	operating_state = new_state
 	update_appearance(UPDATE_OVERLAYS|UPDATE_ICON)
@@ -124,7 +138,6 @@
 /// The core loop of the machine. Goes through proxy contents and attempts to run process_item() on them.
 /obj/machinery/manufacturing/proc/run_queue()
 	if(operating_state != M_IDLE || !length(proxy.contained))
-		update_appearance(UPDATE_ICON|UPDATE_OVERLAYS)
 		return
 
 	var/obj/item/item_to_work = proxy.contained[1]
@@ -140,7 +153,7 @@
 /obj/machinery/manufacturing/proc/do_work(callback, duration)
 	set_state(M_WORKING)
 	play_work_sound()
-	work_timer = addtimer(callback, duration, TIMER_STOPPABLE|TIMER_DELETE_ME)
+	work_end_timer = addtimer(callback, duration, TIMER_DELETE_ME|TIMER_STOPPABLE)
 
 /// Returns TRUE if this machine can process this item.
 /obj/machinery/manufacturing/proc/check_item_type(obj/item/item)
