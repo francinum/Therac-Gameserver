@@ -27,7 +27,7 @@
 
 // Only relevant for welding tools I believe.
 /datum/slapcraft_step/tool/on_perform(mob/living/user, obj/item/item, obj/item/slapcraft_assembly/assembly)
-	item.use(required_fuel)
+	item?.use(required_fuel)
 
 /datum/slapcraft_step/tool/crowbar
 	list_desc = "crowbar"

@@ -88,13 +88,14 @@
 		error_list = list()
 	)
 
-	if(check_types && !check_type(item.type))
-		return FALSE
+	if(item)
+		if(check_types && !check_type(item.type))
+			return FALSE
 
-	if(!can_perform(user, item, assembly, error_list))
-		if(check_types && check_type_only)
-			return TRUE
-		return FALSE
+		if(!can_perform(user, item, assembly, error_list))
+			if(check_types && check_type_only)
+				return TRUE
+			return FALSE
 
 	//Check if we finish the assembly, and whether that's possible
 	if(assembly)
