@@ -20,4 +20,4 @@
 #define SLAP_CAT_ROBOTS "Robots" //currently empty, will be used for simple bots
 #define SLAP_CAT_CLOTHING "Clothing"
 #define SLAP_CAT_MEDICAL "Medical"
-#define SLAP_CAT_RUSTIC "Rustic"
+#define SLAP_CAT_IMPROVISED_TOOL "Improvised Tools"

@@ -8,3 +8,4 @@
 		/datum/slapcraft_step/tool/welder/weld_together
 	)
 	result_type = /obj/item/pickaxe/improvised
+	can_be_machined = FALSE

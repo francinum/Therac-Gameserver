@@ -22,7 +22,7 @@
 			operating_state = "ERR"
 			state_color = COLOR_WHITE
 
-	var/datum/slapcraft_recipe/loaded_recipe = SLAPCRAFT_RECIPE(inserted_disk?.read(DATA_IDX_MANU_TEMPLATE)?[1])
+	var/datum/slapcraft_recipe/loaded_recipe = inserted_disk?.read(DATA_IDX_MANU_TEMPLATE)?[1]
 
 	. += {"
 	<div style='width:100%;height: 100%'>

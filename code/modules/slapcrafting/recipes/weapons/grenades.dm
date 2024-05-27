@@ -1,5 +1,5 @@
 /datum/slapcraft_recipe/ied
-	name = "improvised explosive device"
+	name = "Improvised Explosive Device"
 	examine_hint = "You could craft an IED, starting by filling this with fuel and adding an igniter..."
 	category = SLAP_CAT_WEAPONS
 	steps = list(
@@ -8,6 +8,7 @@
 		/datum/slapcraft_step/item/stack/cable/five
 		)
 	result_type = /obj/item/grenade/iedcasing
+	can_be_machined = FALSE
 
 /datum/slapcraft_step/reagent_container/ied_can
 	desc = "Start with a soda can filled with welding fuel."
@@ -18,7 +19,7 @@
 	insert_item_into_result = TRUE
 
 /datum/slapcraft_recipe/molotov
-	name = "molotov cocktail"
+	name = "Molotov Cocktail"
 	examine_hint = "With a bottle of flammable liquid and something to light, you could create a molotov..."
 	category = SLAP_CAT_WEAPONS
 	steps = list(
@@ -26,6 +27,7 @@
 		/datum/slapcraft_step/item/stack/or_other/molotov_fuse
 		)
 	result_type = /obj/item/reagent_containers/food/drinks/bottle/molotov
+	can_be_machined = FALSE
 
 /datum/slapcraft_step/booze_bottle
 	desc = "Get a bottle full of alcohol or another flammable substance."

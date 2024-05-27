@@ -23,6 +23,9 @@
 
 	var/list/recipes = list()
 	for(var/datum/slapcraft_recipe/recipe in available_recipes)
+		if(!recipe.can_be_machined)
+			continue
+
 		//Always start from step one.
 		var/datum/slapcraft_step/step_one = SLAPCRAFT_STEP(recipe.steps[1])
 		if(!step_one.perform_check(null, item, null))
@@ -68,9 +71,9 @@
 			assembly = attempt_create_assembly(item_to_use)
 			other_item = item
 
-		if(!assembly)
-			jam()
-			return
+	if(!assembly?.recipe.can_be_machined)
+		jam()
+		return
 
 	var/time_to_perform = null
 	var/step_to_perform = locate(/datum/slapcraft_step/item) in assembly.get_possible_next_steps()

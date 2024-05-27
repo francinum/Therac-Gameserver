@@ -27,6 +27,8 @@
 
 	/// Category this recipe is in the handbook.
 	var/category = SLAP_CAT_MISC
+	/// If TRUE, this recipe will be performable by manufacturing machines
+	var/can_be_machined = TRUE
 
 	/// Appearance in the radial menu for the user to choose from if there are recipe collisions.
 	var/image/radial_appearance

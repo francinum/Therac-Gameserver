@@ -14,6 +14,9 @@
 	var/in_direction = WEST
 	var/out_direction = EAST
 
+	/// Automatically set when inserting or removing a disk. This is the "desired" recipe.
+	var/datum/slapcraft_recipe/loaded_recipe = null
+
 	/// Sound to play on work, can be a list or single sound.
 	var/list/work_sound
 	/// A list of items contained within us.
@@ -74,6 +77,24 @@
 
 	else if(needs_processing)
 		START_PROCESSING(SSmachines, src)
+
+/obj/machinery/manufacturing/insert_disk(mob/user, obj/item/disk/data/disk)
+	. = ..()
+	if(!.)
+		return
+
+	var/list/data = inserted_disk.read(DATA_IDX_MANU_TEMPLATE)
+	loaded_recipe = length(data) ? data[1] : null
+
+	if(!istype(loaded_recipe))
+		loaded_recipe = null
+
+/obj/machinery/manufacturing/eject_disk(mob/user)
+	. = ..()
+	if(!.)
+		return
+
+	loaded_recipe = null
 
 /obj/machinery/manufacturing/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()

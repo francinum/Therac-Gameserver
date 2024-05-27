@@ -1,6 +1,6 @@
 //Spears
 /datum/slapcraft_recipe/spear
-	name = "makeshift spear"
+	name = "Makeshift Spear"
 	examine_hint = "You could attach a shard of glass to make a crude spear..."
 	category = SLAP_CAT_WEAPONS
 	steps = list(
@@ -8,9 +8,10 @@
 		/datum/slapcraft_step/item/glass_shard/insert //this is for different glass types
 	)
 	result_type = /obj/item/spear
+	can_be_machined = FALSE
 
 /datum/slapcraft_recipe/explosive_lance
-	name = "explosive lance"
+	name = "Explosive Lance"
 	examine_hint = "You could attach a grenade, though that might be a bad idea..."
 	category = SLAP_CAT_WEAPONS
 	steps = list(
@@ -19,6 +20,7 @@
 		/datum/slapcraft_step/item/stack/or_other/binding
 	)
 	result_type = /obj/item/spear/explosive
+	can_be_machined = FALSE
 
 /datum/slapcraft_step/spear
 	desc = "Start with a spear."
@@ -33,7 +35,7 @@
 
 //Stunprods
 /datum/slapcraft_recipe/stunprod
-	name = "stunprod"
+	name = "Stun Prod"
 	examine_hint = "You could attach an igniter to use as a stunprod..."
 	category = SLAP_CAT_WEAPONS
 	steps = list(
@@ -41,9 +43,10 @@
 		/datum/slapcraft_step/item/igniter
 	)
 	result_type = /obj/item/melee/baton/security/cattleprod
+	can_be_machined = FALSE
 
 /datum/slapcraft_recipe/teleprod
-	name = "teleprod"
+	name = "Teleprod"
 	examine_hint = "A bluespace crystal could fit in the igniter..."
 	category = SLAP_CAT_WEAPONS
 	steps = list(
@@ -51,6 +54,7 @@
 		/datum/slapcraft_step/item/stack/teleprod_crystal
 	)
 	result_type = /obj/item/melee/baton/security/cattleprod/teleprod
+	can_be_machined = FALSE
 
 /datum/slapcraft_step/item/cattleprod
 	desc = "Start with a stunprod."
@@ -63,7 +67,7 @@
 
 //shivs
 /datum/slapcraft_recipe/glass_shiv
-	name = "glass shiv"
+	name = "Glass Shiv"
 	examine_hint = "With some cloth or tape wrapped around the base, this could work as a shiv..."
 	category = SLAP_CAT_WEAPONS
 	steps = list(
@@ -72,6 +76,7 @@
 
 	)
 	result_type = /obj/item/knife/shiv
+	can_be_machined = FALSE
 
 /datum/slapcraft_step/item/stack/or_other/shiv_wrap
 	desc = "Wrap some cloth or tape around the base."
@@ -87,7 +92,7 @@
 
 //misc. weapons
 /datum/slapcraft_recipe/mace
-	name = "iron mace"
+	name = "Iron Mace"
 	examine_hint = "You could attach a metal ball to make a crude mace..."
 	category = SLAP_CAT_WEAPONS
 	steps = list(
@@ -96,3 +101,4 @@
 		/datum/slapcraft_step/tool/welder/weld_together
 	)
 	result_type = /obj/item/mace
+	can_be_machined = FALSE

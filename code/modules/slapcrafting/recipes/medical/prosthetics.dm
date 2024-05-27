@@ -1,7 +1,7 @@
 //this is incredibly silly, but it's not like they function as eyes.
 //it would still be nice to add more sane prosthetic crafts later.
 /datum/slapcraft_recipe/flashlight_eyes
-	name = "flashlight eyes"
+	name = "Flashlight Eyes"
 	examine_hint = "You could connect two flashlights with some cable. Not sure why you'd want to..."
 	category = SLAP_CAT_MEDICAL
 	steps = list(

@@ -68,7 +68,7 @@ export const RecipeCatalog = (props, context) => {
 
   return (
     <Section
-      title="Catalog"
+      title="Recipes"
     >
       <Flex>
         <Flex.Item ml={-1} mr={1}>
@@ -142,8 +142,8 @@ export const RecipeCatalog = (props, context) => {
                       fluid
                       tooltip={recipe.desc}
                       tooltipPosition="left"
-                      onClick={() => act('add', {
-                        id: recipe.name,
+                      onClick={() => act('load', {
+                        id: recipe.path,
                       })}>
                       Load
                     </Button>

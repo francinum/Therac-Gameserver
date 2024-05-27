@@ -1,5 +1,5 @@
 /datum/slapcraft_recipe/wirerod
-	name = "wired rod"
+	name = "Wired Rod"
 	examine_hint = "With ten cable, you could attach something to this rod..."
 	category = SLAP_CAT_COMPONENTS
 	steps = list(
@@ -9,7 +9,7 @@
 	result_type = /obj/item/wirerod
 
 /datum/slapcraft_recipe/wirerod_dissasemble
-	name = "unwired rod"
+	name = "Wired Rod (Disassemble)"
 	examine_hint = "You could cut the wire off with wirecutters..."
 	category = SLAP_CAT_COMPONENTS
 	steps = list(

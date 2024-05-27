@@ -1,7 +1,7 @@
 //generic "shaping metal sheet(s) into items" recipies go here.
 //these are a bit silly, and a more fleshed-out method of making metal crafts by hand would be nice to add later.
 /datum/slapcraft_recipe/metal_rods
-	name = "metal rods"
+	name = "Metal Rods"
 	examine_hint = "You could cut this into rods with a welder..."
 	category = SLAP_CAT_COMPONENTS
 	steps = list(
@@ -12,7 +12,7 @@
 
 
 /datum/slapcraft_recipe/metal_ball
-	name = "metal ball"
+	name = "Metal Ball"
 	examine_hint = "You could form this into a ball, starting by heating it with a welder..."
 	category = SLAP_CAT_COMPONENTS
 	can_disassemble = FALSE
@@ -28,7 +28,7 @@
 	todo_desc = "You'll need to hammer the metal into shape..."
 
 /datum/slapcraft_recipe/pipe_from_metal
-	name = "metal pipe"
+	name = "Atmospheric Pipe"
 	examine_hint = "You could form this into a pipe, starting by heating it with a welder..."
 	category = SLAP_CAT_COMPONENTS
 	can_disassemble = FALSE

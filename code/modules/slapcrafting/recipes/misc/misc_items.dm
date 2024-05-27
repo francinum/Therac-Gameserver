@@ -2,7 +2,7 @@
 //Try to avoid adding to this if you can so it's easier to find recipes.
 
 /datum/slapcraft_recipe/mousetrap
-	name = "mouse trap"
+	name = "Mouse Trap"
 	examine_hint = "You could add a metal rod to make a mouse trap..."
 	category = SLAP_CAT_MISC
 	steps = list(
@@ -13,7 +13,7 @@
 
 //paper
 /datum/slapcraft_recipe/papersack
-	name = "paper sack"
+	name = "Paper Sack"
 	examine_hint = "With a cutting tool and more paper, you could make a bag..."
 	category = SLAP_CAT_MISC
 	steps = list(
@@ -24,7 +24,7 @@
 	result_type = /obj/item/storage/box/papersack
 
 /datum/slapcraft_recipe/papercup
-	name = "paper cup"
+	name = "Paper Cup"
 	examine_hint = "If you cut this and add a second sheet of paper, you could make a cup..."
 	category = SLAP_CAT_MISC
 	steps = list(
@@ -34,7 +34,7 @@
 	result_type = /obj/item/reagent_containers/food/drinks/sillycup
 
 /datum/slapcraft_recipe/paperframe
-	name = "paper frame"
+	name = "Paper Frame"
 	examine_hint = "With a plank of wood and some paper, you could make a paper frame for a wall or window..."
 	category = SLAP_CAT_MISC
 	steps = list(

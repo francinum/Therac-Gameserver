@@ -1,13 +1,14 @@
 /datum/slapcraft_recipe/torch
 	name = "torch"
 	examine_hint = "You could craft a torch, starting by adding dried leaf to a log..."
-	category = SLAP_CAT_RUSTIC
+	category = SLAP_CAT_IMPROVISED_TOOL
 	steps = list(
 		/datum/slapcraft_step/log,
 		/datum/slapcraft_step/dried_leaf,
 		/datum/slapcraft_step/tool/knife/carve_torch
 	)
 	result_type = /obj/item/flashlight/flare/torch
+	can_be_machined = FALSE
 
 /datum/slapcraft_step/log
 	desc = "Start with a log."

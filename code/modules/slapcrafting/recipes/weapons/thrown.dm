@@ -1,5 +1,5 @@
 /datum/slapcraft_recipe/bola
-	name = "bola"
+	name = "Bola"
 	examine_hint = "You could tie some weighted balls together with cable to make a bola..."
 	category = SLAP_CAT_WEAPONS
 	steps = list(
@@ -10,3 +10,4 @@
 		/datum/slapcraft_step/item/metal_ball
 	)
 	result_type = /obj/item/restraints/legcuffs/bola
+
