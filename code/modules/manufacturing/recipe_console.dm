@@ -44,7 +44,7 @@
 
 	switch(action)
 		if("load")
-			var/datum/slapcraft_recipe/recipe = SLAPCRAFT_RECIPE(params["type"])
+			var/datum/slapcraft_recipe/recipe = SLAPCRAFT_RECIPE(params["path"])
 			if(!istype(recipe) || !recipe.can_be_machined)
 				message_admins("Potential HREF abuse: [key_name_admin(usr)], invalid recipe typepath given to recipe console.")
 				return TRUE
