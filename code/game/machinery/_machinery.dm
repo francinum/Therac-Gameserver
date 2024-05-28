@@ -623,6 +623,10 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 	update_last_used(usr)
 	return ..()
 
+/obj/machinery/ui_close(mob/user)
+	if(user.machine == src)
+		user.unset_machine()
+
 /obj/machinery/Topic(href, href_list)
 	..()
 	if(!can_interact(usr))
