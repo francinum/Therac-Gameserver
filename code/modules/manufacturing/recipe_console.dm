@@ -4,6 +4,7 @@
 	icon_screen = "supply"
 	circuit = /obj/item/circuitboard/computer/cargo
 	light_color = COLOR_BRIGHT_ORANGE
+	has_disk_slot = TRUE
 
 /obj/machinery/computer/template/ui_static_data(mob/user)
 	var/list/data = list()
@@ -26,10 +27,15 @@
 				"path" = R.type,
 			)
 
-	for(var/list/category as anything in data)
-		if(!length(category))
-			data -= category
+	for(var/category_name as anything in data["recipe_index"])
+		if(!length(data["recipe_index"][category_name]["recipes"]))
+			data["recipe_index"] -= category_name
 
+	return data
+
+/obj/machinery/computer/template/ui_data(mob/user)
+	var/list/data = list()
+	data["disk_loaded"] = !!inserted_disk
 	return data
 
 /obj/machinery/computer/template/ui_interact(mob/user, datum/tgui/ui)
@@ -53,3 +59,17 @@
 				inserted_disk.set_data(DATA_IDX_DESIGNS, list(recipe))
 				#warn playsound
 			return TRUE
+
+// /obj/machinery/computer/template/insert_disk(mob/user, obj/item/disk/data/disk)
+// 	. = ..()
+// 	if(!.)
+// 		return
+
+// 	ui_interact(user)
+
+// /obj/machinery/computer/template/eject_disk(mob/user)
+// 	. = ..()
+// 	if(!.)
+// 		return
+
+// 	ui_interact(user)

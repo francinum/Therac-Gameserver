@@ -1,14 +1,14 @@
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, Flex, Icon, Input, Section, Stack, Table, Tabs } from '../components';
+import { Box, Button, Flex, Icon, Input, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const TemplateConsole = (props, context) => {
   return (
     <Window
-      width={780}
-      height={750}>
+      width={550}
+      height={500}>
       <Window.Content scrollable>
         <RecipeContent />
       </Window.Content>
@@ -20,8 +20,56 @@ export const RecipeContent = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Box>
+      <RecipeLoader />
       <RecipeCatalog />
     </Box>
+  );
+};
+
+export const RecipeLoader = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { recipe_index, disk_loaded } = data;
+
+  const [stagedRecipeName, setStagedRecipeName] = useSharedState(
+    context,
+    'staged_recipe_name',
+    null,
+  );
+
+  let stagedRecipe;
+  if (stagedRecipeName) {
+    const allItems = Object.values(recipe_index).flat() || [];
+
+    stagedRecipe = allItems.find((item) => item.name === stagedRecipeName);
+  }
+
+  if (!disk_loaded) {
+    return <NoticeBox>No disk loaded</NoticeBox>;
+  }
+
+  return (
+    <Section title="Disk Loader">
+      {!stagedRecipe ? (
+        <NoticeBox>No template selected</NoticeBox>
+      ) : (
+        <Table>
+          <Table.Row className="candystripe">
+            <Table.Cell>{stagedRecipe.name}</Table.Cell>
+            <Table.Cell collapsing>
+              <Button
+                disabled={!stagedRecipe}
+                onClick={() =>
+                  act('load', {
+                    path: stagedRecipe.path,
+                  })}
+              >
+                Load
+              </Button>
+            </Table.Cell>
+          </Table.Row>
+        </Table>
+      )}
+    </Section>
   );
 };
 
@@ -66,8 +114,14 @@ export const RecipeCatalog = (props, context) => {
     ? { recipes: searchForRecipes(recipe_index, searchText) }
     : recipe_index.find(category => category.name === activeCategoryName);
 
+  const [
+    stagedRecipeName,
+    setStagedRecipeName,
+  ] = useSharedState(context, 'staged_recipe_name', null);
+
   return (
     <Section
+      fill
       title="Recipes"
     >
       <Flex>
@@ -133,19 +187,13 @@ export const RecipeCatalog = (props, context) => {
                   </Table.Cell>
                   <Table.Cell
                     collapsing
-                    color="label"
-                    textAlign="right" />
-                  <Table.Cell
-                    collapsing
                     textAlign="right">
                     <Button
-                      fluid
                       tooltip={recipe.desc}
                       tooltipPosition="left"
-                      onClick={() => act('load', {
-                        id: recipe.path,
-                      })}>
-                      Load
+                      onClick={() => { setStagedRecipeName(recipe.name); }}
+                    >
+                      Select
                     </Button>
                   </Table.Cell>
                 </Table.Row>
