@@ -4,7 +4,7 @@ import { useBackend, useSharedState } from '../backend';
 import { Button, Flex, Icon, Input, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const TemplateConsole = (props, context) => {
+export const TemplateConsole = (props) => {
   return (
     <Window
       width={550}
@@ -16,8 +16,8 @@ export const TemplateConsole = (props, context) => {
   );
 };
 
-export const RecipeContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RecipeContent = (props) => {
+  const { act, data } = useBackend();
   return (
     <Stack fill vertical>
       <Stack.Item>
@@ -37,12 +37,11 @@ export const RecipeContent = (props, context) => {
   );
 };
 
-export const RecipeLoader = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RecipeLoader = (props) => {
+  const { act, data } = useBackend();
   const { recipe_index, disk_loaded } = data;
 
   const [stagedRecipeName, setStagedRecipeName] = useSharedState(
-    context,
     'staged_recipe_name',
     null,
   );
@@ -104,21 +103,21 @@ const searchForRecipes = (recipes, search) => {
   ])(recipes);
 };
 
-export const RecipeCatalog = (props, context) => {
+export const RecipeCatalog = (props) => {
   const { express } = props;
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
 
   const recipe_index = Object.values(data.recipe_index);
 
   const [
     activeCategoryName,
     setActiveCategoryName,
-  ] = useSharedState(context, 'category', recipe_index[0]?.name);
+  ] = useSharedState('category', recipe_index[0]?.name);
 
   const [
     searchText,
     setSearchText,
-  ] = useSharedState(context, "search_text", "");
+  ] = useSharedState("search_text", "");
 
   const activeCategory = activeCategoryName === "search_results"
     ? { recipes: searchForRecipes(recipe_index, searchText) }
@@ -127,7 +126,7 @@ export const RecipeCatalog = (props, context) => {
   const [
     stagedRecipeName,
     setStagedRecipeName,
-  ] = useSharedState(context, 'staged_recipe_name', null);
+  ] = useSharedState('staged_recipe_name', null);
 
   return (
     <Section
