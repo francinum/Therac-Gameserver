@@ -87,10 +87,14 @@
 
 
 /obj/item/disk/data/proc/set_data(index, data)
+	if(read_only)
+		return FALSE
+
 	if(memory.len < index)
 		memory.len = index
 
 	memory[index] = data
+	return TRUE
 
 /obj/item/disk/data/proc/clear(index)
 	if(memory.len < index)

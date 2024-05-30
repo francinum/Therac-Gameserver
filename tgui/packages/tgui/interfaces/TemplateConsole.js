@@ -1,7 +1,7 @@
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, Flex, Icon, Input, NoticeBox, Section, Stack, Table, Tabs } from '../components';
+import { Button, Flex, Icon, Input, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const TemplateConsole = (props, context) => {
@@ -19,10 +19,21 @@ export const TemplateConsole = (props, context) => {
 export const RecipeContent = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Box>
-      <RecipeLoader />
-      <RecipeCatalog />
-    </Box>
+    <Stack fill vertical>
+      <Stack.Item>
+        <Section title="Write To Disk">
+          <RecipeLoader />
+          { data.disk_error && (
+            <NoticeBox>
+              {data.disk_error}
+            </NoticeBox>
+          )}
+        </Section>
+      </Stack.Item>
+      <Stack.Item grow>
+        <RecipeCatalog />
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -36,41 +47,40 @@ export const RecipeLoader = (props, context) => {
     null,
   );
 
-  let stagedRecipe;
-  if (stagedRecipeName) {
-    const allItems = Object.values(recipe_index).flat() || [];
-
-    stagedRecipe = allItems.find((item) => item.name === stagedRecipeName);
-  }
+  let stagedRecipe = findRecipeByName(stagedRecipeName, recipe_index);
 
   if (!disk_loaded) {
     return <NoticeBox>No disk loaded</NoticeBox>;
   }
 
+  if (!stagedRecipe) {
+    return <NoticeBox>No template selected</NoticeBox>;
+  }
+
   return (
-    <Section title="Disk Loader">
-      {!stagedRecipe ? (
-        <NoticeBox>No template selected</NoticeBox>
-      ) : (
-        <Table>
-          <Table.Row className="candystripe">
-            <Table.Cell>{stagedRecipe.name}</Table.Cell>
-            <Table.Cell collapsing>
-              <Button
-                disabled={!stagedRecipe}
-                onClick={() =>
-                  act('load', {
-                    path: stagedRecipe.path,
-                  })}
-              >
-                Load
-              </Button>
-            </Table.Cell>
-          </Table.Row>
-        </Table>
-      )}
-    </Section>
+    <Table>
+      <Table.Row className="candystripe">
+        <Table.Cell>{stagedRecipe.name}</Table.Cell>
+        <Table.Cell collapsing>
+          <Button
+            disabled={!stagedRecipe}
+            onClick={() =>
+              act('load', {
+                path: stagedRecipe.path,
+              })}
+          >
+            Load
+          </Button>
+        </Table.Cell>
+      </Table.Row>
+    </Table>
   );
+};
+
+const findRecipeByName = (name, recipe_index) => {
+  return Object.values(recipe_index)
+    .flatMap(category => category.recipes)
+    .find(recipe => recipe.name === name) || null;
 };
 
 /**

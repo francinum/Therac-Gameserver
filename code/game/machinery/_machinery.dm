@@ -1077,18 +1077,19 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 		to_chat(user, span_warning("The machine already has a design disk inserted!"))
 		return FALSE
 
-	if(user && user.transferItemToLoc(disk, src))
-		user.visible_message(
-			span_notice("[user] inserts a floppy disk into [src]."),
-			span_notice("You insert [disk] into [src]."),
-		)
-		inserted_disk = disk
-		updateUsrDialog()
-		return TRUE
+	if(user)
+		if(user.transferItemToLoc(disk, src))
+			user.visible_message(
+				span_notice("[user] inserts a floppy disk into [src]."),
+				span_notice("You insert [disk] into [src]."),
+			)
+		else
+			return FALSE
 
 	inserted_disk = disk
 	disk.forceMove(src)
 	updateUsrDialog()
+	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 30)
 	return TRUE
 
 /// Eject an inserted disk. Pass a user to put the disk in their hands.
@@ -1110,6 +1111,7 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 	if(.)
 		selected_disk = internal_disk
 		updateUsrDialog()
+		playsound(src, 'sound/machines/terminal_eject.ogg', 30)
 	return .
 
 /// Toggle the selected disk between internal and inserted.
