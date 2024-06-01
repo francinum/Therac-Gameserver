@@ -92,6 +92,13 @@
 		return 0
 	return round(cell.charge*(1 - damage/maxHealth))
 
+/obj/item/organ/cell/can_use(mob/user, amt)
+	if(!cell)
+		return FALSE
+	if(organ_flags & ORGAN_DEAD)
+		return FALSE
+	return cell.can_use(amt = amt)
+
 /obj/item/organ/cell/use(amount, force)
 	if(organ_flags & ORGAN_DEAD)
 		return FALSE

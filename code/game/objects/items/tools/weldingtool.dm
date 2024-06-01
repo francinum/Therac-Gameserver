@@ -186,9 +186,21 @@
 	return reagents.get_reagent_amount(/datum/reagent/fuel)
 
 
+/obj/item/weldingtool/can_use(mob/user, amt)
+	if(!isOn())
+		return FALSE
+
+	if(!check_fuel())
+		return FALSE
+
+	if(amt > get_fuel())
+		return FALSE
+
+	return TRUE
+
 // Uses fuel from the welding tool.
 /obj/item/weldingtool/use(used = 0)
-	if(!isOn() || !check_fuel())
+	if(!can_use())
 		return FALSE
 
 	if(used > 0)

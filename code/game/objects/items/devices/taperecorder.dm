@@ -115,7 +115,7 @@
 		return ..()
 	eject(user)
 
-/obj/item/taperecorder/proc/can_use(mob/user)
+/obj/item/taperecorder/can_use(mob/user, amt)
 	if(user && ismob(user))
 		if(!user.incapacitated())
 			return TRUE

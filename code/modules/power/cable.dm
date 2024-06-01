@@ -511,10 +511,6 @@
 	. = ..()
 	set_cable_layer_mode(FALSE)
 
-/obj/item/stack/cable_coil/use(used, transfer, check)
-	. = ..()
-	update_appearance()
-
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/chair/stool) in get_turf(user))
 		user.visible_message(span_suicide("[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

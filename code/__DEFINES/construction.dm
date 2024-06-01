@@ -134,3 +134,16 @@
 
 /// How many sheets does it cost to make a fulltile window
 #define SHEETS_FOR_FULLTILE_WINDOW 2
+
+// Sequences defines for /datum/construction_sequence
+/// Sequence is in the middle of being finished
+#define SEQUENCE_IN_PROGRESS 0
+/// Sequence is fully complete.
+#define SEQUENCE_FINISHED 1
+/// Sequence is fully incomplete.
+#define SEQUENCE_NOT_STARTED -1
+
+// attempt_step() return values
+#define STEP_FAIL 0
+#define STEP_FORWARD 1
+#define STEP_BACKWARD -1

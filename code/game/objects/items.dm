@@ -1333,6 +1333,10 @@ DEFINE_INTERACTABLE(/obj/item)
 /obj/item/proc/use(used)
 	return TRUE
 
+/// Generic proc to check if the item is usable. Return TRUE if able.
+/obj/item/proc/can_use(mob/user, amt)
+	return TRUE
+
 /// Plays item's usesound, if any.
 /obj/item/proc/play_tool_sound(atom/target, volume=50)
 	if(target && usesound && volume)

@@ -394,6 +394,13 @@
 					return FALSE
 	return TRUE
 
+/obj/item/stack/can_use(mob/user, amt)
+	if(is_zero_amount(delete_if_zero = TRUE))
+		return FALSE
+	if(amt > amount)
+		return FALSE
+	return TRUE
+
 /obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return 0 = borked; return 1 = had enough
 	if(check && is_zero_amount(delete_if_zero = TRUE))
 		return FALSE

@@ -539,7 +539,7 @@ BLIND     // can't see anything
 		var/mob/living/carbon/C = loc
 		C.update_slots_for_item(src, force_obscurity_update = TRUE)
 
-/obj/item/clothing/proc/can_use(mob/user)
+/obj/item/clothing/can_use(mob/user, amt)
 	if(user && ismob(user))
 		if(!user.incapacitated())
 			return 1

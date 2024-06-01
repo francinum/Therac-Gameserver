@@ -53,7 +53,7 @@
 //This proc only checks if the painter can be used.
 //Call this if you don't want the painter to be used right after this check, for example
 //because you're expecting user input.
-/obj/item/airlock_painter/proc/can_use(mob/user)
+/obj/item/airlock_painter/can_use(mob/user, amt)
 	if(!ink)
 		to_chat(user, span_warning("There is no toner cartridge installed in [src]!"))
 		return FALSE

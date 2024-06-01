@@ -10,6 +10,9 @@
 	var/damtype = BRUTE
 	var/force = 0
 
+	/// Construction datum.
+	var/datum/construction/construction
+
 	var/current_skin //Has the item been reskinned?
 	var/list/unique_reskin //List of options to reskin.
 
@@ -50,8 +53,26 @@
 			STOP_PROCESSING(SSobj, src)
 		stack_trace("Obj of type [type] processing after Destroy(), please fix this.")
 	SStgui.close_uis(src)
+	if(construction)
+		qdel(construction)
 	return ..()
 
+
+/obj/attack_hand(mob/living/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	if(construction?.interact_with(user))
+		return TRUE
+
+/obj/attackby(obj/item/attacking_item, mob/user, params)
+	. = ..()
+	if(.)
+		return
+
+	if(construction?.interact_with(user, attacking_item))
+		return TRUE
 
 /obj/assume_air(datum/gas_mixture/giver)
 	if(loc)

@@ -81,12 +81,17 @@
 /obj/item/stock_parts/cell/proc/percent() // return % charge of cell
 	return 100 * charge / maxcharge
 
+/obj/item/stock_parts/cell/can_use(mob/user, amt)
+	if(charge < amt)
+		return FALSE
+	return TRUE
+
 // use power from a cell
 /obj/item/stock_parts/cell/use(amount, force)
 	if(rigged && amount > 0)
 		explode()
 		return FALSE
-	if(!force && charge < amount)
+	if(!force && !can_use(amt = amount))
 		return FALSE
 	charge = max(charge - amount, 0)
 	if(!istype(loc, /obj/machinery/power/apc))
@@ -318,6 +323,9 @@
 	custom_materials = list(/datum/material/glass=1000)
 	chargerate = INFINITY
 	ratingdesc = FALSE
+
+/obj/item/stock_parts/cell/infinite/can_use(mob/user, amt)
+	return TRUE
 
 /obj/item/stock_parts/cell/infinite/use()
 	return TRUE
