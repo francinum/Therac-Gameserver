@@ -54,14 +54,29 @@
 /// Sets the parent.
 /datum/construction/proc/set_parent(obj/new_parent)
 	PRIVATE_PROC(TRUE)
+	if(parent)
+		UnregisterSignal(
+			parent,
+			list(
+				COMSIG_OBJ_DECONSTRUCT,
+				COMSIG_ATOM_ATTACK_HAND_SECONDARY,
+				COMSIG_PARENT_ATTACKBY,
+				COMSIG_PARENT_ATTACKBY_SECONDARY,
+			)
+		)
+
 	parent = new_parent
+
+	RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(parent_deconstructed))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(parent_attack_hand_secondary))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(parent_attackby))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(parent_attackby_secondary))
 
 /// Transfer parent status to another object.
 /datum/construction/proc/transfer_parent(obj/new_parent, qdel_old = TRUE)
 	. = parent
 	set_parent(new_parent)
 	qdel(.)
-	//SEND_SIGNAL(src, COMSIG_CONSTRUCTION_TRANSFER_PARENT, new_parent, .)
 
 /// Each step has been completed, what now?
 /datum/construction/proc/constructed(mob/user)
@@ -75,8 +90,9 @@
 
 /// Completely disassemble the object.
 /datum/construction/proc/fully_deconstruct()
+	var/atom/drop_loc = parent.drop_location()
 	for(var/datum/construction_sequence/sequence as anything in sequences)
-		sequence.fully_deconstruct()
+		sequence.fully_deconstruct(drop_loc)
 
 /// Called by sequence/proc/update_completion().
 /datum/construction/proc/completion_changed(mob/living/user)
@@ -97,13 +113,18 @@
 		deconstructed(user)
 		return
 
-/datum/construction/proc/interact_with(mob/living/user, obj/item/I)
+/datum/construction/proc/interact_with(mob/living/user, obj/item/I, deconstructing)
+	set waitfor = FALSE
+
 	var/list/available_interactions = list()
 	for(var/datum/construction_sequence/sequence as anything in sequences)
-		available_interactions += sequence.get_available_steps(user, I)
+		available_interactions += sequence.get_available_steps(user, I, deconstructing)
 
 	if(!length(available_interactions))
 		return FALSE
+
+	// Passed this point, all interactions are blocking
+	. = TRUE
 
 	var/datum/construction_step/step
 	if(length(available_interactions) != 1)
@@ -111,17 +132,17 @@
 
 		var/choice = tgui_input_list(user, "Select an action", "Construction", available_interactions)
 		if(!choice)
-			return FALSE
+			return
 
 		if(!user.canUseTopic(parent, USE_CLOSE|USE_DEXTERITY))
-			return FALSE
+			return
 
 		if(!user.is_holding(I))
-			return FALSE
+			return
 
 		step = available_interactions[choice]
 		if(!step?.can_do_action(user, I))
-			return FALSE
+			return
 	else
 		step = available_interactions[available_interactions[1]]
 		if(isnull(step)) // Steps can insert nulls as noop options.

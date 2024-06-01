@@ -2,7 +2,6 @@
 	name = "template console"
 	desc = "Used to order supplies, approve requests, and control the shuttle."
 	icon_screen = "supply"
-	circuit = /obj/item/circuitboard/computer/cargo
 	light_color = COLOR_BRIGHT_ORANGE
 	has_disk_slot = TRUE
 

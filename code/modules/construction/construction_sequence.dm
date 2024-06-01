@@ -1,4 +1,5 @@
 /datum/construction_sequence
+	var/name = "NO NAME SEQUENCE"
 	/// The construction datum this belongs to.
 	var/datum/construction/parent
 	/// A list of steps to complete, in order.
@@ -27,7 +28,7 @@
 	return QDEL_HINT_IWILLGC
 
 /// Called by /datum/construction/proc/fully_deconstruct
-/datum/construction_sequence/proc/fully_deconstruct()
+/datum/construction_sequence/proc/fully_deconstruct(atom/drop_loc)
 	if(check_completion() == SEQUENCE_NOT_STARTED)
 		return
 
@@ -35,7 +36,7 @@
 		if(!step.complete)
 			continue
 
-		step.deconstruct()
+		step.deconstruct(drop_loc)
 
 	update_completion()
 
@@ -44,22 +45,19 @@
 	return complete
 
 /// Returns a list of steps that can be performed.
-/datum/construction_sequence/proc/get_available_steps(mob/living/user, obj/item/I)
-	var/list/out = list()
-
-	var/datum/construction_step/step = steps[step_index]
-	if(step.can_do_action(user, I))
-		out[step.name] = step
-
-	// You can also undo the last step
-	if(step_index > 1)
+/datum/construction_sequence/proc/get_available_steps(mob/living/user, obj/item/I, deconstructing = FALSE)
+	var/datum/construction_step/step
+	if(deconstructing)
+		if(step_index == 1)
+			return
 		step = steps[step_index - 1]
 		if(step.can_do_action(user, I))
-			out[step.decon_name] = step
-			// Insert item as a decon step means removing that item.
-			if(istype(step, /datum/construction_step/insert_item))
-				out["Do Nothing"] = null
-	return out
+			return list("[step.decon_name] ([name])" = step)
+
+	else
+		step = steps[step_index]
+		if(step.can_do_action(user, I))
+			return list("[step.name] ([name])" = step)
 
 /// Attempt an action in this sequence. Returns TRUE if one was performed.
 /datum/construction_sequence/proc/attempt_step(datum/construction_step/step, mob/living/user, obj/item/I)

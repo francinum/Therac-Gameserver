@@ -160,7 +160,7 @@
 		. = "es"
 
 //mobs(and atoms but atoms don't really matter write your own proc overrides) also have gender!
-/mob/p_they(capitalized, temp_gender)
+/atom/p_they(capitalized, temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 	. = "it"
@@ -174,7 +174,7 @@
 	if(capitalized)
 		. = capitalize(.)
 
-/mob/p_their(capitalized, temp_gender)
+/atom/p_their(capitalized, temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 	. = "its"
@@ -188,7 +188,7 @@
 	if(capitalized)
 		. = capitalize(.)
 
-/mob/p_theirs(capitalized, temp_gender)
+/atom/p_theirs(capitalized, temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 	. = "its"
@@ -202,7 +202,7 @@
 	if(capitalized)
 		. = capitalize(.)
 
-/mob/p_them(capitalized, temp_gender)
+/atom/p_them(capitalized, temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 	. = "it"
@@ -216,35 +216,35 @@
 	if(capitalized)
 		. = capitalize(.)
 
-/mob/p_have(temp_gender)
+/atom/p_have(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 	. = "has"
 	if(temp_gender == PLURAL)
 		. = "have"
 
-/mob/p_are(temp_gender)
+/atom/p_are(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 	. = "is"
 	if(temp_gender == PLURAL)
 		. = "are"
 
-/mob/p_were(temp_gender)
+/atom/p_were(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 	. = "was"
 	if(temp_gender == PLURAL)
 		. = "were"
 
-/mob/p_do(temp_gender)
+/atom/p_do(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 	. = "does"
 	if(temp_gender == PLURAL)
 		. = "do"
 
-/mob/p_dont(temp_gender)
+/atom/p_dont(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 
@@ -252,13 +252,13 @@
 	if(temp_gender == PLURAL || temp_gender == NEUTER)
 		. = "don't"
 
-/mob/p_s(temp_gender)
+/atom/p_s(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 	if(temp_gender != PLURAL)
 		. = "s"
 
-/mob/p_es(temp_gender)
+/atom/p_es(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
 	if(temp_gender != PLURAL)

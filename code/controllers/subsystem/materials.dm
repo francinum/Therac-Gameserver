@@ -206,3 +206,18 @@ SUBSYSTEM_DEF(materials)
 		return reagent.name
 
 	CRASH("Bad argument to GetMaterialName() argument: [(isnum(id_or_instance) || istext(id_or_instance)) ? "[id_or_instance]" : "[REF(id_or_instance)]"]")
+
+/// Takes a list of material refs and converts them to a human readable list of names.
+/datum/controller/subsystem/materials/proc/MaterialListToText(list/materials)
+	var/static/list/cache = list()
+	var/key = json_encode(materials)
+	. = cache[key]
+	if(.)
+		return .
+
+	var/list/material_names = list()
+	for(var/datum/material/mat as anything in materials)
+		material_names += mat.name
+
+	. = english_list(material_names)
+	cache[key] = .

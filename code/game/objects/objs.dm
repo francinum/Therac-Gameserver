@@ -10,9 +10,6 @@
 	var/damtype = BRUTE
 	var/force = 0
 
-	/// Construction datum.
-	var/datum/construction/construction
-
 	var/current_skin //Has the item been reskinned?
 	var/list/unique_reskin //List of options to reskin.
 
@@ -53,8 +50,6 @@
 			STOP_PROCESSING(SSobj, src)
 		stack_trace("Obj of type [type] processing after Destroy(), please fix this.")
 	SStgui.close_uis(src)
-	if(construction)
-		qdel(construction)
 	return ..()
 
 

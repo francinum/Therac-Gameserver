@@ -32,9 +32,10 @@
 
 /// Returns TRUE if the action can be attempted with the given item.
 /datum/construction_step/proc/can_do_action(mob/living/user, obj/item/I)
+	SHOULD_CALL_PARENT(TRUE)
 	// Non-reversible recipes cannot regress.
-	if(!parent.reversible)
-		return !completed
+	if(!sequence.parent.reversible)
+		return !complete
 	return TRUE
 
 /// Attempt to perform an action on this step. This can be construction or deconstruction.
@@ -42,7 +43,7 @@
 	return STEP_FAIL
 
 /// Called during attempt_action to deconstruct this step. User is nullable.
-/datum/construction_step/proc/deconstruct(mob/living/user)
+/datum/construction_step/proc/deconstruct(mob/living/user, atom/drop_loc)
 	complete = FALSE
 
 /// Provides feedback to the user based on the completion status of the step.
