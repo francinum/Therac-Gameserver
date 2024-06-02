@@ -1,5 +1,6 @@
 /datum/component/construction
 	dupe_mode = COMPONENT_DUPE_HIGHLANDER
+	can_transfer = TRUE
 
 	/// Contains all of the behaviors
 	var/datum/construction_template/template
@@ -37,6 +38,8 @@
 /datum/component/construction/TransferComponent()
 	if(QDELETED(parent) || !isobj(parent))
 		return COMPONENT_INCOMPATIBLE
+
+	template.parent = parent
 
 /datum/component/construction/proc/parent_deconstructed(datum/source, disassembled)
 	SIGNAL_HANDLER
