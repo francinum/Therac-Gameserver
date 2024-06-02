@@ -8,7 +8,7 @@
 	/// The duration of the action.
 	var/action_duration = 0 SECONDS
 
-/datum/construction_step/use_tool/can_do_action(mob/living/user, obj/item/I)
+/datum/construction_step/use_tool/can_do_action(mob/living/user, obj/item/I, deconstructing)
 	. = ..()
 	if(!.)
 		return

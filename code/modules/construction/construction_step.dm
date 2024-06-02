@@ -31,11 +31,12 @@
 	return
 
 /// Returns TRUE if the action can be attempted with the given item.
-/datum/construction_step/proc/can_do_action(mob/living/user, obj/item/I)
+/datum/construction_step/proc/can_do_action(mob/living/user, obj/item/I, deconstructing)
 	SHOULD_CALL_PARENT(TRUE)
+
 	// Non-reversible recipes cannot regress.
-	if(!sequence.parent.reversible)
-		return !complete
+	if(deconstructing)
+		return sequence.parent.reversible && complete
 	return TRUE
 
 /// Attempt to perform an action on this step. This can be construction or deconstruction.

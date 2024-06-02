@@ -118,7 +118,7 @@
 			return
 
 		step = available_interactions[choice]
-		if(!step?.can_do_action(user, I))
+		if(!step?.can_do_action(user, I, deconstructing))
 			return
 	else
 		step = available_interactions[available_interactions[1]]

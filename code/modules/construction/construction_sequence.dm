@@ -51,12 +51,12 @@
 		if(step_index == 1)
 			return
 		step = steps[step_index - 1]
-		if(step.can_do_action(user, I))
+		if(step.can_do_action(user, I, deconstructing))
 			return list("[step.decon_name] ([name])" = step)
 
 	else
 		step = steps[step_index]
-		if(step.can_do_action(user, I))
+		if(step.can_do_action(user, I, deconstructing))
 			return list("[step.name] ([name])" = step)
 
 /// Attempt an action in this sequence. Returns TRUE if one was performed.

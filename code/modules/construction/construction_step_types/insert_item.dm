@@ -42,13 +42,13 @@
 
 	set_used_item(new default_item_path)
 
-/datum/construction_step/insert_item/can_do_action(mob/living/user, obj/item/I)
+/datum/construction_step/insert_item/can_do_action(mob/living/user, obj/item/I, deconstructing)
 	. = ..()
 	if(!.)
 		return
 
 	if(isnull(I)) // attack_hand
-		return complete
+		return complete && deconstructing
 
 	if(!accepted_types[I.type])
 		return FALSE
@@ -99,7 +99,7 @@
 /datum/construction_step/insert_item/stack
 	var/amount_to_use = 0
 
-/datum/construction_step/insert_item/stack/can_do_action(mob/living/user, obj/item/I)
+/datum/construction_step/insert_item/stack/can_do_action(mob/living/user, obj/item/I, deconstructing)
 	. = ..()
 	if(!.)
 		return
