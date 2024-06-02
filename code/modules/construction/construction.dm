@@ -1,165 +1,60 @@
-/datum/construction
-	/// The object this belongs to. Use set_parent().
-	var/obj/parent
+/datum/component/construction
+	dupe_mode = COMPONENT_DUPE_HIGHLANDER
 
-	/// The list of construction sequences.
-	var/list/sequences = list()
-	/// A list of items inside us that were used for construction.
-	var/list/obj/item/contained_items = list()
-	/// If TRUE, call setup_default_state
-	var/default_state = TRUE
-	/// If TRUE, this construction is reversible. Undoing every step will run on_deconstruct()
-	var/reversible = TRUE
-	/// If TRUE, will qdel the parent during deconstructed()
-	var/qdel_on_deconstruct = TRUE
+	/// Contains all of the behaviors
+	var/datum/construction_template/template
 
-	/// If TRUE, a step is currently being performed, and a new one cannot be started.
-	var/performing_step = FALSE
+/datum/component/construction/Initialize(template_type)
+	if(QDELETED(parent) || !isobj(parent) || !ispath(template_type, /datum/construction_template))
+		return COMPONENT_INCOMPATIBLE
 
-/datum/construction/New(obj/new_parent)
-	if(QDELETED(new_parent))
-		return
+	template = new template_type(src, parent)
 
-	// Set parent object
-	set_parent(new_parent)
-
-	// New all sequences and set us as parent
-	var/list/sequence_instances = list()
-	for(var/datum/construction_sequence/sequence as anything in sequences)
-		sequence = new sequence(src)
-		sequence_instances += sequence
-	sequences = sequence_instances
-
-	// Setup the default state.
-	setup_default_state()
-
-/datum/construction/Destroy(force, ...)
-	SHOULD_CALL_PARENT(FALSE)
-	parent = null
-	QDEL_LIST(sequences)
-	contained_items = null
-	return QDEL_HINT_IWILLGC
-
-/// Sets the initial states of all steps and sequences.
-/datum/construction/proc/setup_default_state()
-	PRIVATE_PROC(TRUE)
-
-	for(var/datum/construction_sequence/sequence as anything in sequences)
-		for(var/datum/construction_step/step as anything in sequence.steps)
-			if(step.has_default_state)
-				step.default_state()
-
-		sequence.update_completion()
-
-/// Sets the parent.
-/datum/construction/proc/set_parent(obj/new_parent)
-	PRIVATE_PROC(TRUE)
-	if(parent)
-		UnregisterSignal(
-			parent,
-			list(
-				COMSIG_OBJ_DECONSTRUCT,
-				COMSIG_ATOM_ATTACK_HAND_SECONDARY,
-				COMSIG_PARENT_ATTACKBY,
-				COMSIG_PARENT_ATTACKBY_SECONDARY,
-			)
-		)
-
-	parent = new_parent
-
+/datum/component/construction/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(parent_deconstructed))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(parent_attack_hand_secondary))
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(parent_attackby))
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(parent_attackby_secondary))
 
-/// Transfer parent status to another object.
-/datum/construction/proc/transfer_parent(obj/new_parent, qdel_old = TRUE)
-	. = parent
-	set_parent(new_parent)
-	qdel(.)
+/datum/component/construction/UnregisterFromParent()
+	template.parent = null
 
-/// Each step has been completed, what now?
-/datum/construction/proc/constructed(mob/user)
-	return
+	UnregisterSignal(
+		parent,
+		list(
+			COMSIG_OBJ_DECONSTRUCT,
+			COMSIG_ATOM_ATTACK_HAND_SECONDARY,
+			COMSIG_PARENT_ATTACKBY,
+			COMSIG_PARENT_ATTACKBY_SECONDARY,
+		)
+	)
 
-/// Each step has been completed, what now?
-/datum/construction/proc/deconstructed(mob/user)
-	if(qdel_on_deconstruct)
-		qdel(parent)
-	return
+/datum/component/construction/Destroy(force, silent)
+	QDEL_NULL(template)
+	return ..()
 
-/// Completely disassemble the object.
-/datum/construction/proc/fully_deconstruct()
-	var/atom/drop_loc = parent.drop_location()
-	for(var/datum/construction_sequence/sequence as anything in sequences)
-		sequence.fully_deconstruct(drop_loc)
+// Parent sets this to COMPONENT_INCOMPATIBLE for some reason, so we need to not do that.
+/datum/component/construction/TransferComponent()
+	if(QDELETED(parent) || !isobj(parent))
+		return COMPONENT_INCOMPATIBLE
 
-/// Called by sequence/proc/update_completion().
-/datum/construction/proc/completion_changed(mob/living/user)
-	var/completed_sequences = 0
-	var/empty_sequences = 0
-	for(var/datum/construction_sequence/sequence as anything in sequences)
-		switch(sequence.check_completion())
-			if(SEQUENCE_FINISHED)
-				completed_sequences++
-			if(SEQUENCE_NOT_STARTED)
-				empty_sequences++
+/datum/component/construction/proc/parent_deconstructed(datum/source, disassembled)
+	SIGNAL_HANDLER
 
-	if(completed_sequences == length(sequences))
-		constructed(user)
-		return
+	if(disassembled)
+		template.fully_deconstruct()
 
-	if(empty_sequences == length(sequences))
-		deconstructed(user)
-		return
+/datum/component/construction/proc/parent_attack_hand_secondary(datum/source, mob/user)
+	SIGNAL_HANDLER
+	if(template.interact_with(user, null, TRUE))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/datum/construction/proc/interact_with(mob/living/user, obj/item/I, deconstructing)
-	set waitfor = FALSE
+/datum/component/construction/proc/parent_attackby(datum/source, obj/item/I, mob/living/user)
+	SIGNAL_HANDLER
+	if(template.interact_with(user, I, FALSE))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
-	var/list/available_interactions = list()
-	for(var/datum/construction_sequence/sequence as anything in sequences)
-		available_interactions += sequence.get_available_steps(user, I, deconstructing)
-
-	if(!length(available_interactions))
-		return FALSE
-
-	// Passed this point, all interactions are blocking
-	. = TRUE
-
-	var/datum/construction_step/step
-	if(length(available_interactions) != 1)
-		disambiguate_list(available_interactions)
-
-		var/choice = tgui_input_list(user, "Select an action", "Construction", available_interactions)
-		if(!choice)
-			return
-
-		if(!user.canUseTopic(parent, USE_CLOSE|USE_DEXTERITY))
-			return
-
-		if(!user.is_holding(I))
-			return
-
-		step = available_interactions[choice]
-		if(!step?.can_do_action(user, I))
-			return
-	else
-		step = available_interactions[available_interactions[1]]
-		if(isnull(step)) // Steps can insert nulls as noop options.
-			return
-
-	step.sequence.attempt_step(step, user, I)
-	return TRUE
-
-/datum/construction/proc/disambiguate_list(list/L)
-	var/list/tally = list()
-	var/list/out = list()
-
-	for(var/entry in L)
-		var/existing = tally[entry]
-		if(existing && existing != "Do Nothing")
-			out["[entry] ([existing + 1])"] = L[entry]
-		else
-			out[entry] = L[entry]
-
-	. = L = out
+/datum/component/construction/proc/parent_attackby_secondary(datum/source, obj/item/I, mob/living/user)
+	SIGNAL_HANDLER
+	if(template.interact_with(user, I, TRUE))
+		return COMPONENT_CANCEL_ATTACK_CHAIN

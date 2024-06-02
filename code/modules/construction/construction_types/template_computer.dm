@@ -15,17 +15,21 @@
 
 /obj/item/wrench/test/Initialize(mapload)
 	. = ..()
-	construction = new /datum/construction/computer(src)
+	//AddComponent(/datum/component/construction, /datum/construction_template/computer)
+	AddComponent(/datum/component/construction, /datum/construction_template/test)
 
-/datum/construction/computer/constructed(mob/living/user)
+/datum/construction_template/computer/constructed(mob/living/user)
 	if(istype(parent, /obj/machinery/computer/template))
 		return
 
 	var/obj/machinery/computer/template/C = new /obj/machinery/computer/template(parent.drop_location())
-	C.construction = src
 	transfer_parent(C)
 
-/datum/construction/computer
+/datum/construction_template/test
+	sequences = list(
+		/datum/construction_sequence/test
+	)
+/datum/construction_template/computer
 	sequences = list(
 		/datum/construction_sequence/finish_frame,
 		/datum/construction_sequence/insert_electronics,

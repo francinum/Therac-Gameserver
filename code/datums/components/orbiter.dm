@@ -56,7 +56,7 @@
 	orbiter_list += newcomp.orbiter_list
 	newcomp.orbiter_list = null
 
-/datum/component/orbiter/PostTransfer()
+/datum/component/orbiter/TransferComponent()
 	if(!isatom(parent) || isarea(parent) || !get_turf(parent))
 		return COMPONENT_INCOMPATIBLE
 	move_react(parent)

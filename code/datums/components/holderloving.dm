@@ -48,7 +48,7 @@
 		COMSIG_ATOM_EXITED,
 	))
 
-/datum/component/holderloving/PostTransfer()
+/datum/component/holderloving/TransferComponent()
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 

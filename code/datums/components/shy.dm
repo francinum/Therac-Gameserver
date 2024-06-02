@@ -59,7 +59,7 @@
 		COMSIG_TRY_ALT_ACTION,
 	))
 
-/datum/component/shy/PostTransfer()
+/datum/component/shy/TransferComponent()
 	if(!ismob(parent))
 		return COMPONENT_INCOMPATIBLE
 

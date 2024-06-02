@@ -32,6 +32,7 @@
 
 /obj/item/stack/fastener/bolts
 	name = "pile of bolts"
+	singular_name = "bolt"
 	desc = "A pile of metal bolts."
 	mats_per_unit = list(
 		/datum/material/iron = MINERAL_MATERIAL_AMOUNT / 20
@@ -39,6 +40,7 @@
 
 /obj/item/stack/fastener/nuts
 	name = "pile of nuts"
+	singular_name = "nut"
 	desc = "A pile of metal nuts."
 	mats_per_unit = list(
 		/datum/material/iron = MINERAL_MATERIAL_AMOUNT / 20

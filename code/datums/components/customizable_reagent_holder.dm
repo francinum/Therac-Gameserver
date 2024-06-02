@@ -71,7 +71,7 @@
 	))
 	REMOVE_TRAIT(parent, TRAIT_CUSTOMIZABLE_REAGENT_HOLDER, src)
 
-/datum/component/customizable_reagent_holder/PostTransfer()
+/datum/component/customizable_reagent_holder/TransferComponent()
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	var/atom/atom_parent = parent

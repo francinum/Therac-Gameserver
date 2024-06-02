@@ -34,7 +34,7 @@
 
 /obj/item/mecha_parts/chassis/ripley
 	name = "\improper Ripley chassis"
-	construct_type = /datum/component/construction/unordered/mecha_chassis/ripley
+	construct_type = /datum/component/legacy_construction/unordered/mecha_chassis/ripley
 
 /obj/item/mecha_parts/part/ripley_torso
 	name = "\improper Ripley torso"
@@ -65,7 +65,7 @@
 
 /obj/item/mecha_parts/chassis/odysseus
 	name = "\improper Odysseus chassis"
-	construct_type = /datum/component/construction/unordered/mecha_chassis/odysseus
+	construct_type = /datum/component/legacy_construction/unordered/mecha_chassis/odysseus
 
 /obj/item/mecha_parts/part/odysseus_head
 	name = "\improper Odysseus head"
@@ -101,7 +101,7 @@
 
 /obj/item/mecha_parts/chassis/gygax
 	name = "\improper Gygax chassis"
-	construct_type = /datum/component/construction/unordered/mecha_chassis/gygax
+	construct_type = /datum/component/legacy_construction/unordered/mecha_chassis/gygax
 
 /obj/item/mecha_parts/part/gygax_torso
 	name = "\improper Gygax torso"
@@ -144,7 +144,7 @@
 
 /obj/item/mecha_parts/chassis/durand
 	name = "\improper Durand chassis"
-	construct_type = /datum/component/construction/unordered/mecha_chassis/durand
+	construct_type = /datum/component/legacy_construction/unordered/mecha_chassis/durand
 
 /obj/item/mecha_parts/part/durand_torso
 	name = "\improper Durand torso"
@@ -186,7 +186,7 @@
 
 /obj/item/mecha_parts/chassis/clarke
 	name = "\improper Clarke chassis"
-	construct_type = /datum/component/construction/unordered/mecha_chassis/clarke
+	construct_type = /datum/component/legacy_construction/unordered/mecha_chassis/clarke
 
 /obj/item/mecha_parts/part/clarke_torso
 	name = "\improper Clarke torso"
@@ -212,7 +212,7 @@
 
 /obj/item/mecha_parts/chassis/honker
 	name = "\improper H.O.N.K chassis"
-	construct_type = /datum/component/construction/unordered/mecha_chassis/honker
+	construct_type = /datum/component/legacy_construction/unordered/mecha_chassis/honker
 
 /obj/item/mecha_parts/part/honker_torso
 	name = "\improper H.O.N.K torso"
@@ -249,7 +249,7 @@
 
 /obj/item/mecha_parts/chassis/phazon
 	name = "\improper Phazon chassis"
-	construct_type = /datum/component/construction/unordered/mecha_chassis/phazon
+	construct_type = /datum/component/legacy_construction/unordered/mecha_chassis/phazon
 
 /obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -295,7 +295,7 @@
 
 /obj/item/mecha_parts/chassis/savannah_ivanov
 	name = "\improper Savannah-Ivanov chassis"
-	construct_type = /datum/component/construction/unordered/mecha_chassis/savannah_ivanov
+	construct_type = /datum/component/legacy_construction/unordered/mecha_chassis/savannah_ivanov
 
 /obj/item/mecha_parts/part/savannah_ivanov_torso
 	name="\improper Savannah-Ivanov torso"

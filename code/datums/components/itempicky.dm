@@ -19,7 +19,7 @@
 /datum/component/itempicky/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_LIVING_TRY_PUT_IN_HAND)
 
-/datum/component/itempicky/PostTransfer()
+/datum/component/itempicky/TransferComponent()
 	if(!ismob(parent))
 		return COMPONENT_INCOMPATIBLE
 

@@ -5,13 +5,13 @@
 #define ITEM_MOVE_INSIDE "move_inside"
 
 
-/datum/component/construction
+/datum/component/legacy_construction
 	var/list/steps
 	var/result
 	var/index = 1
 	var/desc
 
-/datum/component/construction/Initialize()
+/datum/component/legacy_construction/Initialize()
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -19,35 +19,35 @@
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY,PROC_REF(action))
 	update_parent(index)
 
-/datum/component/construction/proc/examine(datum/source, mob/user, list/examine_list)
+/datum/component/legacy_construction/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
 	if(desc)
 		examine_list += desc
 
-/datum/component/construction/proc/on_step()
+/datum/component/legacy_construction/proc/on_step()
 	if(index > steps.len)
 		spawn_result()
 	else
 		update_parent(index)
 
-/datum/component/construction/proc/action(datum/source, obj/item/I, mob/living/user)
+/datum/component/legacy_construction/proc/action(datum/source, obj/item/I, mob/living/user)
 	SIGNAL_HANDLER
 
 	return INVOKE_ASYNC(src, PROC_REF(check_step), I, user)
 
-/datum/component/construction/proc/update_index(diff)
+/datum/component/legacy_construction/proc/update_index(diff)
 	index += diff
 	on_step()
 
-/datum/component/construction/proc/check_step(obj/item/I, mob/living/user)
+/datum/component/legacy_construction/proc/check_step(obj/item/I, mob/living/user)
 	var/diff = is_right_key(I)
 	if(diff && custom_action(I, user, diff))
 		update_index(diff)
 		return TRUE
 	return FALSE
 
-/datum/component/construction/proc/is_right_key(obj/item/I) // returns index step
+/datum/component/legacy_construction/proc/is_right_key(obj/item/I) // returns index step
 	var/list/L = steps[index]
 	if(check_used_item(I, L["key"]))
 		return FORWARD //to the first step -> forward
@@ -55,7 +55,7 @@
 		return BACKWARD //to the last step -> backwards
 	return FALSE
 
-/datum/component/construction/proc/check_used_item(obj/item/I, key)
+/datum/component/legacy_construction/proc/check_used_item(obj/item/I, key)
 	if(!key)
 		return FALSE
 
@@ -67,7 +67,7 @@
 
 	return FALSE
 
-/datum/component/construction/proc/custom_action(obj/item/I, mob/living/user, diff)
+/datum/component/legacy_construction/proc/custom_action(obj/item/I, mob/living/user, diff)
 	var/target_index = index + diff
 	var/list/current_step = steps[index]
 	var/list/target_step
@@ -113,7 +113,7 @@
 				if(ispath(target_step_key, /obj/item/stack))
 					new target_step_key(drop_location(), target_step["amount"])
 
-/datum/component/construction/proc/spawn_result()
+/datum/component/legacy_construction/proc/spawn_result()
 	// Some constructions result in new components being added.
 	if(ispath(result, /datum/component))
 		parent.AddComponent(result)
@@ -123,7 +123,7 @@
 		new result(drop_location())
 		qdel(parent)
 
-/datum/component/construction/proc/update_parent(step_index)
+/datum/component/legacy_construction/proc/update_parent(step_index)
 	var/list/step = steps[step_index]
 	var/atom/parent_atom = parent
 
@@ -133,7 +133,7 @@
 	if(step["icon_state"])
 		parent_atom.icon_state = step["icon_state"]
 
-/datum/component/construction/proc/drop_location()
+/datum/component/legacy_construction/proc/drop_location()
 	var/atom/parent_atom = parent
 	return parent_atom.drop_location()
 
@@ -142,7 +142,7 @@
 // Unordered construction.
 // Takes a list of part types, to be added in any order, as steps.
 // Calls spawn_result() when every type has been added.
-/datum/component/construction/unordered/check_step(obj/item/I, mob/living/user)
+/datum/component/legacy_construction/unordered/check_step(obj/item/I, mob/living/user)
 	for(var/typepath in steps)
 		if(istype(I, typepath) && custom_action(I, user, typepath))
 			steps -= typepath
@@ -150,14 +150,14 @@
 			return TRUE
 	return FALSE
 
-/datum/component/construction/unordered/on_step()
+/datum/component/legacy_construction/unordered/on_step()
 	if(!steps.len)
 		spawn_result()
 	else
 		update_parent(steps.len)
 
-/datum/component/construction/unordered/update_parent(steps_left)
+/datum/component/legacy_construction/unordered/update_parent(steps_left)
 	return
 
-/datum/component/construction/unordered/custom_action(obj/item/I, mob/living/user, typepath)
+/datum/component/legacy_construction/unordered/custom_action(obj/item/I, mob/living/user, typepath)
 	return TRUE

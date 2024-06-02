@@ -52,23 +52,6 @@
 	SStgui.close_uis(src)
 	return ..()
 
-
-/obj/attack_hand(mob/living/user, list/modifiers)
-	. = ..()
-	if(.)
-		return
-
-	if(construction?.interact_with(user))
-		return TRUE
-
-/obj/attackby(obj/item/attacking_item, mob/user, params)
-	. = ..()
-	if(.)
-		return
-
-	if(construction?.interact_with(user, attacking_item))
-		return TRUE
-
 /obj/assume_air(datum/gas_mixture/giver)
 	if(loc)
 		return loc.assume_air(giver)

@@ -1,7 +1,7 @@
 ////////////////////////////////
 ///// Construction datums //////
 ////////////////////////////////
-/datum/component/construction/mecha
+/datum/component/legacy_construction/mecha
 	var/base_icon
 
 	// Component typepaths.
@@ -24,7 +24,7 @@
 	var/outer_plating
 	var/outer_plating_amount
 
-/datum/component/construction/mecha/spawn_result()
+/datum/component/legacy_construction/mecha/spawn_result()
 	if(!result)
 		return
 	// Remove default mech power cell, as we replace it with a new one.
@@ -42,10 +42,10 @@
 // Default proc to generate mech steps.
 // Override if the mech needs an entirely custom process (See HONK mech)
 // Otherwise override specific steps as needed (Ripley, Clarke, Phazon)
-/datum/component/construction/mecha/proc/get_steps()
+/datum/component/legacy_construction/mecha/proc/get_steps()
 	return get_frame_steps() + get_circuit_steps() + (circuit_weapon ? get_circuit_weapon_steps() : list()) + get_stockpart_steps() + get_inner_plating_steps() + get_outer_plating_steps()
 
-/datum/component/construction/mecha/update_parent(step_index)
+/datum/component/legacy_construction/mecha/update_parent(step_index)
 	steps = get_steps()
 	..()
 	// By default, each step in mech construction has a single icon_state:
@@ -55,7 +55,7 @@
 	if(!steps[index]["icon_state"] && base_icon)
 		parent_atom.icon_state = "[base_icon][index - 1]"
 
-/datum/component/construction/unordered/mecha_chassis/custom_action(obj/item/I, mob/living/user, typepath)
+/datum/component/legacy_construction/unordered/mecha_chassis/custom_action(obj/item/I, mob/living/user, typepath)
 	. = user.transferItemToLoc(I, parent)
 	if(.)
 		var/atom/parent_atom = parent
@@ -63,7 +63,7 @@
 		parent_atom.add_overlay(I.icon_state+"+o")
 		qdel(I)
 
-/datum/component/construction/unordered/mecha_chassis/spawn_result()
+/datum/component/legacy_construction/unordered/mecha_chassis/spawn_result()
 	var/atom/parent_atom = parent
 	parent_atom.icon = 'icons/mecha/mech_construction.dmi'
 	parent_atom.set_density(TRUE)
@@ -71,7 +71,7 @@
 	..()
 
 // Default proc for the first steps of mech construction.
-/datum/component/construction/mecha/proc/get_frame_steps()
+/datum/component/legacy_construction/mecha/proc/get_frame_steps()
 	return list(
 		list(
 			"key" = TOOL_WRENCH,
@@ -97,7 +97,7 @@
 
 // Default proc for the circuit board steps of a mech.
 // Second set of steps by default.
-/datum/component/construction/mecha/proc/get_circuit_steps()
+/datum/component/legacy_construction/mecha/proc/get_circuit_steps()
 	return list(
 		list(
 			"key" = circuit_control,
@@ -125,7 +125,7 @@
 
 // Default proc for weapon circuitboard steps
 // Used by combat mechs
-/datum/component/construction/mecha/proc/get_circuit_weapon_steps()
+/datum/component/legacy_construction/mecha/proc/get_circuit_weapon_steps()
 	return list(
 		list(
 			"key" = circuit_weapon,
@@ -142,7 +142,7 @@
 
 // Default proc for stock part installation
 // Third set of steps by default
-/datum/component/construction/mecha/proc/get_stockpart_steps()
+/datum/component/legacy_construction/mecha/proc/get_stockpart_steps()
 	var/prevstep_text = circuit_weapon ? "Weapons control module is secured." : "Peripherals control module is secured."
 	return list(
 		list(
@@ -182,7 +182,7 @@
 
 // Default proc for inner armor plating
 // Fourth set of steps by default
-/datum/component/construction/mecha/proc/get_inner_plating_steps()
+/datum/component/legacy_construction/mecha/proc/get_inner_plating_steps()
 	var/list/first_step
 	if(ispath(inner_plating, /obj/item/stack/sheet))
 		first_step = list(
@@ -218,7 +218,7 @@
 
 // Default proc for outer armor plating
 // Fifth set of steps by default
-/datum/component/construction/mecha/proc/get_outer_plating_steps()
+/datum/component/legacy_construction/mecha/proc/get_outer_plating_steps()
 	var/list/first_step
 	if(ispath(outer_plating, /obj/item/stack/sheet))
 		first_step = list(
@@ -253,8 +253,8 @@
 	)
 
 
-/datum/component/construction/unordered/mecha_chassis/ripley
-	result = /datum/component/construction/mecha/ripley
+/datum/component/legacy_construction/unordered/mecha_chassis/ripley
+	result = /datum/component/legacy_construction/mecha/ripley
 	steps = list(
 		/obj/item/mecha_parts/part/ripley_torso,
 		/obj/item/mecha_parts/part/ripley_left_arm,
@@ -263,7 +263,7 @@
 		/obj/item/mecha_parts/part/ripley_right_leg
 	)
 
-/datum/component/construction/mecha/ripley
+/datum/component/legacy_construction/mecha/ripley
 	result = /obj/vehicle/sealed/mecha/working/ripley
 	base_icon = "ripley"
 
@@ -276,7 +276,7 @@
 	outer_plating=/obj/item/stack/rods
 	outer_plating_amount = 10
 
-/datum/component/construction/mecha/ripley/get_outer_plating_steps()
+/datum/component/legacy_construction/mecha/ripley/get_outer_plating_steps()
 	return list(
 		list(
 			"key" = /obj/item/stack/rods,
@@ -291,7 +291,7 @@
 		),
 	)
 
-/datum/component/construction/mecha/ripley/custom_action(obj/item/I, mob/living/user, diff)
+/datum/component/legacy_construction/mecha/ripley/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
 		return FALSE
 
@@ -395,8 +395,8 @@
 				user.visible_message(span_notice("[user] unfastens the external armor layer."), span_notice("You unfasten the external armor layer."))
 	return TRUE
 
-/datum/component/construction/unordered/mecha_chassis/gygax
-	result = /datum/component/construction/mecha/gygax
+/datum/component/legacy_construction/unordered/mecha_chassis/gygax
+	result = /datum/component/legacy_construction/mecha/gygax
 	steps = list(
 		/obj/item/mecha_parts/part/gygax_torso,
 		/obj/item/mecha_parts/part/gygax_left_arm,
@@ -406,7 +406,7 @@
 		/obj/item/mecha_parts/part/gygax_head
 	)
 
-/datum/component/construction/mecha/gygax
+/datum/component/legacy_construction/mecha/gygax
 	result = /obj/vehicle/sealed/mecha/combat/gygax
 	base_icon = "gygax"
 
@@ -420,10 +420,10 @@
 	outer_plating=/obj/item/mecha_parts/part/gygax_armor
 	outer_plating_amount=1
 
-/datum/component/construction/mecha/gygax/action(datum/source, atom/used_atom, mob/user)
+/datum/component/legacy_construction/mecha/gygax/action(datum/source, atom/used_atom, mob/user)
 	return INVOKE_ASYNC(src, PROC_REF(check_step), used_atom,user)
 
-/datum/component/construction/mecha/gygax/custom_action(obj/item/I, mob/living/user, diff)
+/datum/component/legacy_construction/mecha/gygax/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
 		return FALSE
 
@@ -537,8 +537,8 @@
 				user.visible_message(span_notice("[user] unfastens Gygax Armor Plates."), span_notice("You unfasten Gygax Armor Plates."))
 	return TRUE
 
-/datum/component/construction/unordered/mecha_chassis/clarke
-	result = /datum/component/construction/mecha/clarke
+/datum/component/legacy_construction/unordered/mecha_chassis/clarke
+	result = /datum/component/legacy_construction/mecha/clarke
 	steps = list(
 		/obj/item/mecha_parts/part/clarke_torso,
 		/obj/item/mecha_parts/part/clarke_left_arm,
@@ -546,7 +546,7 @@
 		/obj/item/mecha_parts/part/clarke_head
 	)
 
-/datum/component/construction/mecha/clarke
+/datum/component/legacy_construction/mecha/clarke
 	result = /obj/vehicle/sealed/mecha/working/clarke
 	base_icon = "clarke"
 
@@ -559,7 +559,7 @@
 	outer_plating = /obj/item/stack/sheet/mineral/gold
 	outer_plating_amount = 5
 
-/datum/component/construction/mecha/clarke/get_frame_steps()
+/datum/component/legacy_construction/mecha/clarke/get_frame_steps()
 	return list(
 		list(
 			"key" = /obj/item/stack/conveyor,
@@ -591,7 +591,7 @@
 
 
 
-/datum/component/construction/mecha/clarke/custom_action(obj/item/I, mob/living/user, diff)
+/datum/component/legacy_construction/mecha/clarke/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
 		return FALSE
 
@@ -703,8 +703,8 @@
 	return TRUE
 
 
-/datum/component/construction/unordered/mecha_chassis/honker
-	result = /datum/component/construction/mecha/honker
+/datum/component/legacy_construction/unordered/mecha_chassis/honker
+	result = /datum/component/legacy_construction/mecha/honker
 	steps = list(
 		/obj/item/mecha_parts/part/honker_torso,
 		/obj/item/mecha_parts/part/honker_left_arm,
@@ -714,7 +714,7 @@
 		/obj/item/mecha_parts/part/honker_head
 	)
 
-/datum/component/construction/mecha/honker
+/datum/component/legacy_construction/mecha/honker
 	result = /obj/vehicle/sealed/mecha/combat/honker
 	steps = list(
 		list(
@@ -778,18 +778,18 @@
 		),
 	)
 
-/datum/component/construction/mecha/honker/get_steps()
+/datum/component/legacy_construction/mecha/honker/get_steps()
 	return steps
 
 // HONK doesn't have any construction step icons, so we just set an icon once.
-/datum/component/construction/mecha/honker/update_parent(step_index)
+/datum/component/legacy_construction/mecha/honker/update_parent(step_index)
 	if(step_index == 1)
 		var/atom/parent_atom = parent
 		parent_atom.icon = 'icons/mecha/mech_construct.dmi'
 		parent_atom.icon_state = "honker_chassis"
 	..()
 
-/datum/component/construction/mecha/honker/custom_action(obj/item/I, mob/living/user, diff)
+/datum/component/legacy_construction/mecha/honker/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
 		return FALSE
 
@@ -817,8 +817,8 @@
 			user.visible_message(span_notice("[user] puts [I] on [parent]."), span_notice("You put [I] on [parent]."))
 	return TRUE
 
-/datum/component/construction/unordered/mecha_chassis/durand
-	result = /datum/component/construction/mecha/durand
+/datum/component/legacy_construction/unordered/mecha_chassis/durand
+	result = /datum/component/legacy_construction/mecha/durand
 	steps = list(
 		/obj/item/mecha_parts/part/durand_torso,
 		/obj/item/mecha_parts/part/durand_left_arm,
@@ -828,7 +828,7 @@
 		/obj/item/mecha_parts/part/durand_head
 	)
 
-/datum/component/construction/mecha/durand
+/datum/component/legacy_construction/mecha/durand
 	result = /obj/vehicle/sealed/mecha/combat/durand
 	base_icon = "durand"
 
@@ -842,7 +842,7 @@
 	outer_plating = /obj/item/mecha_parts/part/durand_armor
 	outer_plating_amount = 1
 
-/datum/component/construction/mecha/durand/custom_action(obj/item/I, mob/living/user, diff)
+/datum/component/legacy_construction/mecha/durand/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
 		return FALSE
 
@@ -959,8 +959,8 @@
 
 //PHAZON
 
-/datum/component/construction/unordered/mecha_chassis/phazon
-	result = /datum/component/construction/mecha/phazon
+/datum/component/legacy_construction/unordered/mecha_chassis/phazon
+	result = /datum/component/legacy_construction/mecha/phazon
 	steps = list(
 		/obj/item/mecha_parts/part/phazon_torso,
 		/obj/item/mecha_parts/part/phazon_left_arm,
@@ -970,7 +970,7 @@
 		/obj/item/mecha_parts/part/phazon_head
 	)
 
-/datum/component/construction/mecha/phazon
+/datum/component/legacy_construction/mecha/phazon
 	result = /obj/vehicle/sealed/mecha/combat/phazon
 	base_icon = "phazon"
 
@@ -984,7 +984,7 @@
 	outer_plating = /obj/item/mecha_parts/part/phazon_armor
 	outer_plating_amount = 1
 
-/datum/component/construction/mecha/phazon/get_stockpart_steps()
+/datum/component/legacy_construction/mecha/phazon/get_stockpart_steps()
 	return list(
 		list(
 			"key" = /obj/item/stock_parts/scanning_module,
@@ -1040,7 +1040,7 @@
 		)
 	)
 
-/datum/component/construction/mecha/phazon/get_outer_plating_steps()
+/datum/component/legacy_construction/mecha/phazon/get_outer_plating_steps()
 	return list(
 		list(
 			"key" = outer_plating,
@@ -1068,7 +1068,7 @@
 		)
 	)
 
-/datum/component/construction/mecha/phazon/custom_action(obj/item/I, mob/living/user, diff)
+/datum/component/legacy_construction/mecha/phazon/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
 		return FALSE
 
@@ -1204,8 +1204,8 @@
 
 //savannah_ivanov
 
-/datum/component/construction/unordered/mecha_chassis/savannah_ivanov
-	result = /datum/component/construction/mecha/savannah_ivanov
+/datum/component/legacy_construction/unordered/mecha_chassis/savannah_ivanov
+	result = /datum/component/legacy_construction/mecha/savannah_ivanov
 	steps = list(
 		/obj/item/mecha_parts/part/savannah_ivanov_torso,
 		/obj/item/mecha_parts/part/savannah_ivanov_head,
@@ -1215,7 +1215,7 @@
 		/obj/item/mecha_parts/part/savannah_ivanov_right_leg
 	)
 
-/datum/component/construction/mecha/savannah_ivanov
+/datum/component/legacy_construction/mecha/savannah_ivanov
 	result = /obj/vehicle/sealed/mecha/combat/savannah_ivanov
 	base_icon = "savannah_ivanov"
 
@@ -1229,7 +1229,7 @@
 	outer_plating = /obj/item/mecha_parts/part/savannah_ivanov_armor
 	outer_plating_amount = 1
 
-/datum/component/construction/mecha/savannah_ivanov/custom_action(obj/item/I, mob/living/user, diff)
+/datum/component/legacy_construction/mecha/savannah_ivanov/custom_action(obj/item/I, mob/living/user, diff)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -1346,8 +1346,8 @@
 
 //ODYSSEUS
 
-/datum/component/construction/unordered/mecha_chassis/odysseus
-	result = /datum/component/construction/mecha/odysseus
+/datum/component/legacy_construction/unordered/mecha_chassis/odysseus
+	result = /datum/component/legacy_construction/mecha/odysseus
 	steps = list(
 		/obj/item/mecha_parts/part/odysseus_torso,
 		/obj/item/mecha_parts/part/odysseus_head,
@@ -1357,7 +1357,7 @@
 		/obj/item/mecha_parts/part/odysseus_right_leg
 	)
 
-/datum/component/construction/mecha/odysseus
+/datum/component/legacy_construction/mecha/odysseus
 	result = /obj/vehicle/sealed/mecha/medical/odysseus
 	base_icon = "odysseus"
 
@@ -1370,7 +1370,7 @@
 	outer_plating = /obj/item/stack/sheet/plasteel
 	outer_plating_amount = 5
 
-/datum/component/construction/mecha/odysseus/custom_action(obj/item/I, mob/living/user, diff)
+/datum/component/legacy_construction/mecha/odysseus/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
 		return FALSE
 

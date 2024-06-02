@@ -293,7 +293,7 @@
  *
  * Do not call `qdel(src)` from this function, `return COMPONENT_INCOMPATIBLE` instead
  */
-/datum/component/proc/PostTransfer()
+/datum/component/proc/TransferComponent()
 	return COMPONENT_INCOMPATIBLE //Do not support transfer by default as you must properly support it
 
 /**
@@ -507,7 +507,7 @@
 	if(target.parent)
 		target.ClearFromParent()
 	target.parent = src
-	var/result = target.PostTransfer()
+	var/result = target.TransferComponent()
 	switch(result)
 		if(COMPONENT_INCOMPATIBLE)
 			var/c_type = target.type

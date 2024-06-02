@@ -51,6 +51,6 @@
 /datum/component/multiple_lives/InheritComponent(datum/component/multiple_lives/new_comp , lives_left)
 	src.lives_left += new_comp ? new_comp.lives_left : lives_left
 
-/datum/component/multiple_lives/PostTransfer()
+/datum/component/multiple_lives/TransferComponent()
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE

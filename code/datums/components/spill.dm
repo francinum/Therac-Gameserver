@@ -25,7 +25,7 @@
 	dropsound = _dropsound
 	drop_memory = _drop_memory
 
-/datum/component/spill/PostTransfer()
+/datum/component/spill/TransferComponent()
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 

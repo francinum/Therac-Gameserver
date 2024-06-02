@@ -1,7 +1,7 @@
 /datum/construction_sequence
 	var/name = "NO NAME SEQUENCE"
 	/// The construction datum this belongs to.
-	var/datum/construction/parent
+	var/datum/construction_template/parent
 	/// A list of steps to complete, in order.
 	var/list/steps = list()
 	/// Current index
@@ -10,7 +10,7 @@
 	/// Either SEQUENCE_IN_PROGRESS, SEQUENCE_FINISHED, or SEQUENCE_NOT_STARTED. Set by update_completion()
 	var/complete = SEQUENCE_NOT_STARTED
 
-/datum/construction_sequence/New(datum/construction/new_parent)
+/datum/construction_sequence/New(datum/construction_template/new_parent)
 	parent = new_parent
 	var/list/step_instances = list()
 	for(var/datum/construction_step/step as anything in steps)
@@ -27,7 +27,7 @@
 	QDEL_LIST(steps)
 	return QDEL_HINT_IWILLGC
 
-/// Called by /datum/construction/proc/fully_deconstruct
+/// Called by /datum/component/construction/proc/fully_deconstruct
 /datum/construction_sequence/proc/fully_deconstruct(atom/drop_loc)
 	if(check_completion() == SEQUENCE_NOT_STARTED)
 		return
