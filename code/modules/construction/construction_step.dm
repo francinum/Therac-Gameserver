@@ -68,8 +68,8 @@
 
 /datum/construction_step/proc/parse_text(text, mob/living/user, obj/item/I)
 	var/the_user = "[user]"
-	var/the_item = lowertext("[I]")
-	var/the_object = lowertext("[sequence.parent.parent]")
+	var/the_item = "\the [I]"
+	var/the_object = "\the [sequence.parent.parent]"
 
 	text = replacetext(text, "$USER$", the_user)
 	text = replacetext(text, "$ITEM$", the_item)

@@ -72,9 +72,9 @@
 		return STEP_FORWARD
 
 	else
-
+		var/used_item = src.used_item
 		deconstruct(user)
-		provide_feedback(user)
+		provide_feedback(user, used_item)
 		return STEP_BACKWARD
 
 /datum/construction_step/insert_item/deconstruct(mob/living/user)
@@ -117,6 +117,19 @@
 		return STEP_FORWARD
 
 	else
+		var/used_item = src.used_item
 		deconstruct(user)
-		provide_feedback(user)
+		provide_feedback(user, used_item)
 		return STEP_BACKWARD
+
+/datum/construction_step/insert_item/stack/parse_text(text, mob/living/user, obj/item/I)
+	var/obj/item/stack/S = I
+
+	var/the_user = "[user]"
+	var/the_item = amount_to_use == 1 ? "\the [S.singular_name]" : "\the [S]"
+	var/the_object = "\the [sequence.parent.parent]"
+
+	text = replacetext(text, "$USER$", the_user)
+	text = replacetext(text, "$ITEM$", the_item)
+	text = replacetext(text, "$OBJECT$", the_object)
+	return text
