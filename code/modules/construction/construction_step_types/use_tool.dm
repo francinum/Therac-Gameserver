@@ -25,7 +25,7 @@
 	return TRUE
 
 /datum/construction_step/use_tool/attempt_action(mob/living/user, obj/item/I)
-	if(!I.use_tool(sequence.parent.parent, user, action_duration))
+	if(!I.use_tool(parent_template.parent, user, action_duration))
 		return STEP_FAIL
 
 	complete = !complete

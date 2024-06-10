@@ -66,7 +66,7 @@
 		if(!user.temporarilyRemoveItemFromInventory(I))
 			return STEP_FAIL
 
-		complete = TRUE
+		complete = SEQUENCE_FINISHED
 		set_used_item(I)
 		provide_feedback(user, I)
 		return STEP_FORWARD
@@ -83,16 +83,16 @@
 		used_item = null
 		return
 
-	used_item.forceMove(sequence.parent.parent.drop_location())
+	used_item.forceMove(parent_template.parent.drop_location())
 
 /datum/construction_step/insert_item/proc/set_used_item(obj/item/new_item)
 	if(isnull(new_item))
-		sequence?.parent?.contained_items -= new_item
+		parent_template?.contained_items -= new_item
 		used_item = null
 		return
 
 	used_item = new_item
-	sequence.parent.contained_items += used_item
+	parent_template.contained_items += used_item
 	used_item.moveToNullspace()
 
 //* STACKS!! *//
@@ -111,7 +111,7 @@
 	if(!complete)
 		var/obj/item/stack/S = I
 		I = S.split_stack(user, amount_to_use, null)
-		complete = TRUE
+		complete = SEQUENCE_FINISHED
 		set_used_item(I)
 		provide_feedback(user, I)
 		return STEP_FORWARD
@@ -127,7 +127,7 @@
 
 	var/the_user = "[user]"
 	var/the_item = amount_to_use == 1 ? "\the [S.singular_name]" : "\the [S]"
-	var/the_object = "\the [sequence.parent.parent]"
+	var/the_object = "\the [parent_template.parent]"
 
 	text = replacetext(text, "$USER$", the_user)
 	text = replacetext(text, "$ITEM$", the_item)

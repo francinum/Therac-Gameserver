@@ -26,8 +26,8 @@
 
 	// New all sequences and set us as parent
 	var/list/sequence_instances = list()
-	for(var/datum/construction_sequence/sequence as anything in sequences)
-		sequence = new sequence(src)
+	for(var/datum/construction_step/sequence/sequence as anything in sequences)
+		sequence = new sequence(null, src)
 		RegisterSignal(sequence, COMSIG_CONSTRUCTION_SEQUENCE_COMPLETION_CHANGED, PROC_REF(completion_changed))
 		sequence_instances += sequence
 	sequences = sequence_instances
@@ -39,14 +39,13 @@
 	contained_items = null
 	QDEL_LIST(sequences)
 	component = null
-	parent = null
 	return ..()
 
 /// Sets the initial states of all steps and sequences.
 /datum/construction_template/proc/setup_default_state()
 	PRIVATE_PROC(TRUE)
 
-	for(var/datum/construction_sequence/sequence as anything in sequences)
+	for(var/datum/construction_step/sequence/sequence as anything in sequences)
 		sequence.default_state()
 
 /// Transfer parent status to another object.
@@ -68,8 +67,8 @@
 /// Completely disassemble the object.
 /datum/construction_template/proc/fully_deconstruct()
 	var/atom/drop_loc = parent.drop_location()
-	for(var/datum/construction_sequence/sequence as anything in sequences)
-		sequence.fully_deconstruct(drop_loc)
+	for(var/datum/construction_step/sequence/sequence as anything in sequences)
+		sequence.deconstruct(drop_loc)
 
 /// Called by sequence/proc/update_completion().
 /datum/construction_template/proc/completion_changed(datum/source, mob/living/user, old_state)
@@ -77,8 +76,8 @@
 
 	var/completed_sequences = 0
 	var/empty_sequences = 0
-	for(var/datum/construction_sequence/sequence as anything in sequences)
-		switch(sequence.check_completion())
+	for(var/datum/construction_step/sequence/sequence as anything in sequences)
+		switch(sequence.complete)
 			if(SEQUENCE_FINISHED)
 				completed_sequences++
 			if(SEQUENCE_NOT_STARTED)
@@ -98,7 +97,7 @@
 	set waitfor = FALSE
 
 	var/list/available_interactions = list()
-	for(var/datum/construction_sequence/sequence as anything in sequences)
+	for(var/datum/construction_step/sequence/sequence as anything in sequences)
 		available_interactions += sequence.try_get_steps_for(user, I, deconstructing)
 
 	if(!length(available_interactions))
@@ -129,7 +128,7 @@
 		if(isnull(step)) // Steps can insert nulls as noop options.
 			return
 
-	step.sequence.attempt_step(step, user, I)
+	step.parent_sequence.attempt_step(step, user, I)
 	return TRUE
 
 /datum/construction_template/proc/disambiguate_list(list/L)
@@ -150,5 +149,5 @@
 	if(constructed)
 		return
 
-	for(var/datum/construction_sequence/sequence as anything in sequences)
+	for(var/datum/construction_step/sequence/sequence as anything in sequences)
 		. += sequence.examine(user, "")

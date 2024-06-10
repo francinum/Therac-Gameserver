@@ -1,10 +1,10 @@
 /datum/construction_template/test
 	sequences = list(
-		/datum/construction_sequence/test
+		/datum/construction_step/sequence/test
 	)
 	qdel_on_deconstruct = FALSE
 
-/datum/construction_sequence/test
+/datum/construction_step/sequence/test
 	name = "TEST"
 	steps = list(
 		/datum/construction_step/insert_item/stack/bolts,

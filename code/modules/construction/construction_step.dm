@@ -10,19 +10,28 @@
 	/// If TRUE, will call default_state()
 	var/has_default_state = FALSE
 
+	/// If TRUE, this step can be deconstructed
+	var/reversible = TRUE
+
 	/// Parent sequence datum.
-	var/datum/construction_sequence/sequence
+	var/datum/construction_step/sequence/parent_sequence
+	/// The construction datum this belongs to.
+	var/datum/construction_template/parent_template
 
 	/// A boolean value if this step has been performed or not.
-	var/complete = FALSE
+	var/complete = SEQUENCE_NOT_STARTED
 
-/datum/construction_step/New(datum/construction_sequence/parent)
-	sequence = parent
+/datum/construction_step/New(datum/construction_step/sequence/parent_sequence, datum/construction_template/parent_template)
+	src.parent_sequence = parent_sequence
+	src.parent_template = parent_template
 
 /datum/construction_step/Destroy(force, ...)
 	. = ..()
-	if(!QDELETED(sequence))
+	if(!QDELETED(parent_template))
 		return QDEL_HINT_LETMELIVE
+
+	parent_sequence = null
+	parent_template = null
 
 	return QDEL_HINT_IWILLGC
 
@@ -36,7 +45,7 @@
 
 	// Non-reversible recipes cannot regress.
 	if(deconstructing)
-		return sequence.parent.reversible && complete
+		return parent_sequence.reversible && complete
 	return TRUE
 
 /// Attempt to perform an action on this step. This can be construction or deconstruction.
@@ -45,7 +54,13 @@
 
 /// Called during attempt_action to deconstruct this step. User is nullable.
 /datum/construction_step/proc/deconstruct(mob/living/user, atom/drop_loc)
-	complete = FALSE
+	SHOULD_CALL_PARENT(TRUE)
+	complete = SEQUENCE_NOT_STARTED
+
+/// Returns a k:v list of [step_name : step] that can be completed with the given parameters.
+/datum/construction_step/proc/try_get_steps_for(mob/living/user, obj/item/I, deconstructing = FALSE) as /list
+	if(can_do_action(user, I, deconstructing))
+		. += list("[deconstructing ? decon_name : name] ([parent_sequence.name])" = src)
 
 /// Provides feedback to the user based on the completion status of the step.
 /datum/construction_step/proc/provide_feedback(mob/living/user, obj/item/I)
@@ -70,7 +85,7 @@
 /datum/construction_step/proc/parse_text(text, mob/living/user, obj/item/I)
 	var/the_user = "[user]"
 	var/the_item = "\the [I]"
-	var/the_object = "\the [sequence.parent.parent]"
+	var/the_object = "\the [parent_template]"
 
 	text = replacetext(text, "$USER$", the_user)
 	text = replacetext(text, "$ITEM$", the_item)

@@ -27,37 +27,37 @@
 
 /datum/construction_template/test
 	sequences = list(
-		/datum/construction_sequence/test
+		/datum/construction_step/sequence/test
 	)
 /datum/construction_template/computer
 	sequences = list(
-		/datum/construction_sequence/finish_frame,
-		/datum/construction_sequence/insert_electronics,
+		/datum/construction_step/sequence/finish_frame,
+		/datum/construction_step/sequence/insert_electronics,
 	)
 
-/datum/construction_sequence/finish_frame
+/datum/construction_step/sequence/finish_frame
 	name = "Finish Frame"
 	steps = list(
-		/datum/construction_sequence/weld_panels,
-		/datum/construction_sequence/mount_bolts,
-		/datum/construction_sequence/mount_nuts,
+		/datum/construction_step/sequence/weld_panels,
+		/datum/construction_step/sequence/mount_bolts,
+		/datum/construction_step/sequence/mount_nuts,
 	)
 
-/datum/construction_sequence/insert_electronics
+/datum/construction_step/sequence/insert_electronics
 	name = "Insert Electronics"
 	steps = list(
 		/datum/construction_step/insert_item/stack/wires,
 		/datum/construction_step/use_tool/wirecutters/secure_wires,
 	)
 
-/datum/construction_sequence/weld_panels
+/datum/construction_step/sequence/weld_panels
 	name = "Weld Panels"
 	steps = list(
 		/datum/construction_step/insert_item/stack/iron_sheet,
 		/datum/construction_step/use_tool/welder/weld_panels,
 	)
 
-/datum/construction_sequence/mount_bolts
+/datum/construction_step/sequence/mount_bolts
 	name = "Mount Bolts"
 	steps = list(
 		/datum/construction_step/insert_item/stack/bolts,
@@ -65,7 +65,7 @@
 	)
 	optional = TRUE
 
-/datum/construction_sequence/mount_nuts
+/datum/construction_step/sequence/mount_nuts
 	name = "Mount Nuts"
 	steps = list(
 		/datum/construction_step/insert_item/stack/nuts,
