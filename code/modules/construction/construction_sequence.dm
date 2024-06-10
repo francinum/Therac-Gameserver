@@ -69,7 +69,9 @@
 /datum/construction_step/sequence/try_get_steps_for(mob/living/user, obj/item/I, deconstructing = FALSE)
 	var/list/possible_steps = get_possible_steps(deconstructing)
 	for(var/datum/construction_step/step as anything in possible_steps)
-		. += step.try_get_steps_for(arglist(args))
+		var/list/step_struct = step.try_get_steps_for(arglist(args))
+		if(step_struct)
+			. += step.try_get_steps_for(arglist(args))
 
 /datum/construction_step/sequence/proc/get_possible_steps(deconstructing) as /list
 	PRIVATE_PROC(TRUE)
@@ -106,7 +108,7 @@
 		return .
 
 	// Deconstruction
-	for(var/i in 1 to length(steps))
+	for(var/i in length(steps) to 1 step -1)
 		var/datum/construction_step/step = steps[i]
 
 		if(!istype(step, /datum/construction_step/sequence))
@@ -162,7 +164,7 @@
 			. += sequence.examine(user, tree_depth_string)
 			continue
 
-		if(step.complete)
+		if(step.complete == SEQUENCE_FINISHED)
 			. += span_info("[tree_depth_string][step.name]")
 		else
 			. += span_alert("[tree_depth_string][step.name]")

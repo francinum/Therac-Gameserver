@@ -48,7 +48,7 @@
 		return
 
 	if(isnull(I)) // attack_hand
-		return complete && deconstructing
+		return (complete == SEQUENCE_FINISHED) && deconstructing
 
 	if(!accepted_types[I.type])
 		return FALSE
@@ -62,7 +62,7 @@
 	return TRUE
 
 /datum/construction_step/insert_item/attempt_action(mob/living/user, obj/item/I)
-	if(!complete)
+	if(complete != SEQUENCE_FINISHED)
 		if(!user.temporarilyRemoveItemFromInventory(I))
 			return STEP_FAIL
 
@@ -104,11 +104,11 @@
 	if(!.)
 		return
 
-	if(!complete && !I.can_use(amount_to_use))
+	if((complete != SEQUENCE_FINISHED) && !I.can_use(amount_to_use))
 		return FALSE
 
 /datum/construction_step/insert_item/stack/attempt_action(mob/living/user, obj/item/I)
-	if(!complete)
+	if(complete != SEQUENCE_FINISHED)
 		var/obj/item/stack/S = I
 		I = S.split_stack(user, amount_to_use, null)
 		complete = SEQUENCE_FINISHED

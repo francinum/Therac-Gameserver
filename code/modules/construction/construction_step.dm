@@ -45,7 +45,7 @@
 
 	// Non-reversible recipes cannot regress.
 	if(deconstructing)
-		return parent_sequence.reversible && complete
+		return parent_sequence.reversible && (complete != SEQUENCE_NOT_STARTED)
 	return TRUE
 
 /// Attempt to perform an action on this step. This can be construction or deconstruction.
@@ -65,7 +65,7 @@
 /// Provides feedback to the user based on the completion status of the step.
 /datum/construction_step/proc/provide_feedback(mob/living/user, obj/item/I)
 	var/text = ""
-	if(complete)
+	if(complete == SEQUENCE_FINISHED)
 		if(feedback_construct)
 			text = parse_text(feedback_construct, user, I)
 		else

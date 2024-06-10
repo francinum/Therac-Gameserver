@@ -28,10 +28,14 @@
 	if(!I.use_tool(parent_template.parent, user, action_duration))
 		return STEP_FAIL
 
-	complete = !complete
+	if(complete != SEQUENCE_FINISHED)
+		complete = SEQUENCE_FINISHED
+	else
+		complete = SEQUENCE_NOT_STARTED
+
 	provide_feedback(user, I)
 
-	if(complete)
+	if(complete == SEQUENCE_FINISHED)
 		return STEP_FORWARD
 	else
 		return STEP_BACKWARD
