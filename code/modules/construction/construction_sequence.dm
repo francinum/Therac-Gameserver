@@ -121,6 +121,9 @@
 			continue
 
 		var/datum/construction_step/sequence/sequence = step
+		if(sequence.complete == SEQUENCE_NOT_STARTED)
+			continue
+
 		if(!sequence.optional)
 			. += sequence.get_possible_steps(deconstructing)
 			return .
