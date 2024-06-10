@@ -16,6 +16,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(parent_attack_hand_secondary))
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(parent_attackby))
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(parent_attackby_secondary))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(parent_examine))
 
 /datum/component/construction/UnregisterFromParent()
 	template.parent = null
@@ -27,6 +28,7 @@
 			COMSIG_ATOM_ATTACK_HAND_SECONDARY,
 			COMSIG_PARENT_ATTACKBY,
 			COMSIG_PARENT_ATTACKBY_SECONDARY,
+			COMSIG_PARENT_EXAMINE,
 		)
 	)
 
@@ -61,3 +63,7 @@
 	SIGNAL_HANDLER
 	if(template.interact_with(user, I, TRUE))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/component/construction/proc/parent_examine(atom/source, mob/user, list/examine_text)
+	SIGNAL_HANDLER
+	examine_text += template.examine(user)

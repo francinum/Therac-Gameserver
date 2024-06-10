@@ -44,3 +44,7 @@
 
 /datum/construction_step/use_tool/wirecutters
 	tool_type = TOOL_WIRECUTTER
+
+/datum/construction_step/use_tool/welder
+	tool_type = TOOL_WELDER
+	amount_to_use = 1

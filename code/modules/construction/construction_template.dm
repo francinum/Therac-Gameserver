@@ -18,6 +18,8 @@
 	/// If TRUE, a step is currently being performed, and a new one cannot be started.
 	var/performing_step = FALSE
 
+	var/constructed = FALSE
+
 /datum/construction_template/New(component_owner, obj_owner)
 	component = component_owner
 	parent = obj_owner
@@ -26,6 +28,7 @@
 	var/list/sequence_instances = list()
 	for(var/datum/construction_sequence/sequence as anything in sequences)
 		sequence = new sequence(src)
+		RegisterSignal(sequence, COMSIG_CONSTRUCTION_SEQUENCE_COMPLETION_CHANGED, PROC_REF(completion_changed))
 		sequence_instances += sequence
 	sequences = sequence_instances
 
@@ -44,17 +47,14 @@
 	PRIVATE_PROC(TRUE)
 
 	for(var/datum/construction_sequence/sequence as anything in sequences)
-		for(var/datum/construction_step/step as anything in sequence.steps)
-			if(step.has_default_state)
-				step.default_state()
-
-		sequence.update_completion()
+		sequence.default_state()
 
 /// Transfer parent status to another object.
 /datum/construction_template/proc/transfer_parent(obj/new_parent, qdel_old = TRUE)
 	. = parent
 	new_parent.TakeComponent(component)
-	qdel(.)
+	if(qdel_old)
+		qdel(.)
 
 /// Each step has been completed, what now?
 /datum/construction_template/proc/constructed(mob/user)
@@ -72,7 +72,9 @@
 		sequence.fully_deconstruct(drop_loc)
 
 /// Called by sequence/proc/update_completion().
-/datum/construction_template/proc/completion_changed(mob/living/user)
+/datum/construction_template/proc/completion_changed(datum/source, mob/living/user, old_state)
+	SIGNAL_HANDLER
+
 	var/completed_sequences = 0
 	var/empty_sequences = 0
 	for(var/datum/construction_sequence/sequence as anything in sequences)
@@ -83,10 +85,12 @@
 				empty_sequences++
 
 	if(completed_sequences == length(sequences))
+		constructed = TRUE
 		constructed(user)
 		return
 
 	if(empty_sequences == length(sequences))
+		constructed = FALSE
 		deconstructed(user)
 		return
 
@@ -95,7 +99,7 @@
 
 	var/list/available_interactions = list()
 	for(var/datum/construction_sequence/sequence as anything in sequences)
-		available_interactions += sequence.get_available_steps(user, I, deconstructing)
+		available_interactions += sequence.try_get_steps_for(user, I, deconstructing)
 
 	if(!length(available_interactions))
 		return FALSE
@@ -140,3 +144,11 @@
 			out[entry] = L[entry]
 
 	. = L = out
+
+/datum/construction_template/proc/examine(mob/user) as /list
+	. = list()
+	if(constructed)
+		return
+
+	for(var/datum/construction_sequence/sequence as anything in sequences)
+		. += sequence.examine(user, "")

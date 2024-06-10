@@ -15,8 +15,8 @@
 
 /obj/item/wrench/test/Initialize(mapload)
 	. = ..()
-	//AddComponent(/datum/component/construction, /datum/construction_template/computer)
-	AddComponent(/datum/component/construction, /datum/construction_template/test)
+	AddComponent(/datum/component/construction, /datum/construction_template/computer)
+	//AddComponent(/datum/component/construction, /datum/construction_template/test)
 
 /datum/construction_template/computer/constructed(mob/living/user)
 	if(istype(parent, /obj/machinery/computer/template))
@@ -38,12 +38,9 @@
 /datum/construction_sequence/finish_frame
 	name = "Finish Frame"
 	steps = list(
-		/datum/construction_step/insert_item/stack/iron_sheet,
-		/datum/construction_step/use_tool/welder,
-		/datum/construction_step/insert_item/stack/bolts,
-		/datum/construction_step/use_tool/screwdriver/secure_bolts,
-		/datum/construction_step/insert_item/stack/nuts,
-		/datum/construction_step/use_tool/wrench/secure_nuts
+		/datum/construction_sequence/weld_panels,
+		/datum/construction_sequence/mount_bolts,
+		/datum/construction_sequence/mount_nuts,
 	)
 
 /datum/construction_sequence/insert_electronics
@@ -53,7 +50,30 @@
 		/datum/construction_step/use_tool/wirecutters/secure_wires,
 	)
 
-/datum/construction_step/use_tool/welder
+/datum/construction_sequence/weld_panels
+	name = "Weld Panels"
+	steps = list(
+		/datum/construction_step/insert_item/stack/iron_sheet,
+		/datum/construction_step/use_tool/welder/weld_panels,
+	)
+
+/datum/construction_sequence/mount_bolts
+	name = "Mount Bolts"
+	steps = list(
+		/datum/construction_step/insert_item/stack/bolts,
+		/datum/construction_step/use_tool/screwdriver/secure_bolts,
+	)
+	optional = TRUE
+
+/datum/construction_sequence/mount_nuts
+	name = "Mount Nuts"
+	steps = list(
+		/datum/construction_step/insert_item/stack/nuts,
+		/datum/construction_step/use_tool/wrench/secure_nuts
+	)
+	optional = TRUE
+
+/datum/construction_step/use_tool/welder/weld_panels
 	name = "Weld Panels"
 	decon_name = "Unweld Panels"
 	feedback_construct = "$USER$ welds the panels to $OBJECT$."
