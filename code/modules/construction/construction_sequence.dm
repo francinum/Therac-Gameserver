@@ -71,7 +71,7 @@
 	for(var/datum/construction_step/step as anything in possible_steps)
 		var/list/step_struct = step.try_get_steps_for(arglist(args))
 		if(step_struct)
-			. += step.try_get_steps_for(arglist(args))
+			. += step_struct
 
 /datum/construction_step/sequence/proc/get_possible_steps(deconstructing) as /list
 	PRIVATE_PROC(TRUE)
@@ -88,6 +88,9 @@
 				continue
 
 			var/datum/construction_step/sequence/sequence = step
+			if(sequence.complete == SEQUENCE_FINISHED)
+				continue
+
 			if(!sequence.optional)
 				. += sequence.get_possible_steps(deconstructing)
 				return .

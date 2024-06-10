@@ -100,6 +100,8 @@
 	for(var/datum/construction_step/sequence/sequence as anything in sequences)
 		available_interactions += sequence.try_get_steps_for(user, I, deconstructing)
 
+	list_clear_nulls(available_interactions)
+
 	if(!length(available_interactions))
 		return FALSE
 

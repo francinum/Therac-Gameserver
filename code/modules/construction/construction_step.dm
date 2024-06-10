@@ -60,7 +60,7 @@
 /// Returns a k:v list of [step_name : step] that can be completed with the given parameters.
 /datum/construction_step/proc/try_get_steps_for(mob/living/user, obj/item/I, deconstructing = FALSE) as /list
 	if(can_do_action(user, I, deconstructing))
-		. += list("[deconstructing ? decon_name : name] ([parent_sequence.name])" = src)
+		return list("[deconstructing ? decon_name : name] ([parent_sequence.name])" = src)
 
 /// Provides feedback to the user based on the completion status of the step.
 /datum/construction_step/proc/provide_feedback(mob/living/user, obj/item/I)
@@ -85,7 +85,7 @@
 /datum/construction_step/proc/parse_text(text, mob/living/user, obj/item/I)
 	var/the_user = "[user]"
 	var/the_item = "\the [I]"
-	var/the_object = "\the [parent_template]"
+	var/the_object = "\the [parent_template.parent]"
 
 	text = replacetext(text, "$USER$", the_user)
 	text = replacetext(text, "$ITEM$", the_item)
