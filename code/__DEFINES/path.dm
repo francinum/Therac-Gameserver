@@ -17,6 +17,6 @@
  * If you really want to optimize things, optimize this, cuz this gets called a lot.
  * We do early next.density check despite it being already checked in LinkBlockedWithAccess for short-circuit performance
  */
-#define CAN_STEP(cur_turf, next) (next && (next != avoid) && !next.density && !(simulated_only && isspaceturf(next)) && !cur_turf.LinkBlockedWithAccess(next, caller, access))
+#define CAN_STEP(cur_turf, next, simulated_only, pass_info, avoid) (next && (next != avoid) && !next.density && !(simulated_only && isspaceturf(next)) && !cur_turf.LinkBlockedWithAccess(next, pass_info))
 /// Another helper macro for JPS, for telling when a node has forced neighbors that need expanding
-#define STEP_NOT_HERE_BUT_THERE(cur_turf, dirA, dirB) ((!CAN_STEP(cur_turf, get_step(cur_turf, dirA)) && CAN_STEP(cur_turf, get_step(cur_turf, dirB))))
+#define STEP_NOT_HERE_BUT_THERE(cur_turf, dirA, dirB) ((!CAN_STEP(cur_turf, get_step(cur_turf, dirA), simulated_only, pass_info, avoid) && CAN_STEP(cur_turf, get_step(cur_turf, dirB), simulated_only, pass_info, avoid)))

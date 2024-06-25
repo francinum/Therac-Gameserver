@@ -117,10 +117,14 @@
 	/// The callback to invoke when we're done working, passing in the completed var/list/path
 	var/datum/callback/on_finish
 
+	/// Datum that holds the canpass info of this pathing attempt. This is what CanAstarPass sees
+	var/datum/can_pass_info/pass_info
+
 	var/time_spent_pathfinding
 
 /datum/pathfind/New(atom/movable/caller, atom/goal, access, max_distance, mintargetdist, simulated_only, avoid, skip_first, diagonal_safety, datum/callback/on_finish)
 	src.caller = caller
+	src.pass_info = new(caller, access)
 	end = get_turf(goal)
 	open = new /datum/heap(GLOBAL_PROC_REF(HeapPathWeightCompare))
 	sources = new()
@@ -237,27 +241,32 @@
 	if(length(path) < 2)
 		return
 	var/list/modified_path = list()
+	var/datum/can_pass_info/pass_info = src.pass_info
 
 	for(var/i in 1 to length(path) - 1)
 		var/turf/current_turf = path[i]
 		var/turf/next_turf = path[i+1]
 		var/movement_dir = get_dir(current_turf, next_turf)
+
 		if(!(movement_dir & (movement_dir - 1))) //cardinal movement, no need to verify
 			modified_path += current_turf
 			continue
+
 		//If default diagonal movement step is invalid, replace with alternative two steps
 		if(movement_dir & NORTH)
-			if(!CAN_STEP(current_turf,get_step(current_turf,NORTH)))
+			if(!CAN_STEP(current_turf,get_step(current_turf, NORTH), simulated_only, pass_info, avoid))
 				modified_path += current_turf
 				modified_path += get_step(current_turf, movement_dir & ~NORTH)
 			else
 				modified_path += current_turf
+
 		else
-			if(!CAN_STEP(current_turf,get_step(current_turf,SOUTH)))
+			if(!CAN_STEP(current_turf, get_step(current_turf, SOUTH), simulated_only, pass_info, avoid))
 				modified_path += current_turf
 				modified_path += get_step(current_turf, movement_dir & ~SOUTH)
 			else
 				modified_path += current_turf
+
 	modified_path += path[length(path)]
 
 	return modified_path
@@ -280,6 +289,7 @@
 
 	var/turf/current_turf = original_turf
 	var/turf/lag_turf = original_turf
+	var/datum/can_pass_info/pass_info = src.pass_info
 
 	while(TRUE)
 		if(path)
@@ -287,7 +297,7 @@
 		lag_turf = current_turf
 		current_turf = get_step(current_turf, heading)
 		steps_taken++
-		if(!CAN_STEP(lag_turf, current_turf))
+		if(!CAN_STEP(lag_turf, current_turf, simulated_only, pass_info, avoid))
 			return
 
 		if(current_turf == end || (mintargetdist && (get_dist(current_turf, end) <= mintargetdist)))
@@ -341,6 +351,7 @@
 	var/steps_taken = 0
 	var/turf/current_turf = original_turf
 	var/turf/lag_turf = original_turf
+	var/datum/can_pass_info/pass_info = src.pass_info
 
 	while(TRUE)
 		if(path)
@@ -348,7 +359,7 @@
 		lag_turf = current_turf
 		current_turf = get_step(current_turf, heading)
 		steps_taken++
-		if(!CAN_STEP(lag_turf, current_turf))
+		if(!CAN_STEP(lag_turf, current_turf, simulated_only, pass_info, avoid))
 			return
 
 		if(current_turf == end || (mintargetdist && (get_dist(current_turf, end) <= mintargetdist)))
@@ -412,7 +423,7 @@
  * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
  * * no_id: When true, doors with public access will count as impassible
 */
-/turf/proc/LinkBlockedWithAccess(turf/destination_turf, atom/movable/caller, list/access, no_id = FALSE)
+/turf/proc/LinkBlockedWithAccess(turf/destination_turf, datum/can_pass_info/pass_info)
 	var/actual_dir = get_dir(src, destination_turf)
 	if(actual_dir == 0)
 		return FALSE
@@ -429,7 +440,7 @@
 
 		for(var/first_step_direction in list(first_step_direction_a,first_step_direction_b))
 			var/turf/midstep_turf = get_step(destination_turf,first_step_direction)
-			var/way_blocked = midstep_turf.density || LinkBlockedWithAccess(midstep_turf,caller, access, no_id = no_id) || midstep_turf.LinkBlockedWithAccess(destination_turf,caller,access, no_id = no_id)
+			var/way_blocked = midstep_turf.density || LinkBlockedWithAccess(midstep_turf, pass_info) || midstep_turf.LinkBlockedWithAccess(destination_turf, pass_info)
 			if(!way_blocked)
 				return FALSE
 
@@ -443,7 +454,7 @@
 		//		return TRUE
 
 		if(TURF_PATHING_PASS_PROC)
-			if(!destination_turf.CanAStarPass(access, actual_dir, caller, no_id = no_id))
+			if(!destination_turf.CanAStarPass(actual_dir, pass_info))
 				. = TRUE
 
 		if(TURF_PATHING_PASS_NO)
@@ -458,7 +469,7 @@
 	for(var/obj/border in border_objects)
 		if(!border.density && border.can_astar_pass == CANASTARPASS_DENSITY)
 			continue
-		if(!border.CanAStarPass(access, actual_dir, no_id = no_id))
+		if(!border.CanAStarPass(actual_dir, pass_info))
 			return TRUE
 
 	// Destination blockers check
@@ -467,9 +478,132 @@
 		// This is an optimization because of the massive call count of this code
 		if(!iter_object.density && iter_object.can_astar_pass == CANASTARPASS_DENSITY)
 			continue
-		if(!iter_object.CanAStarPass(access, reverse_dir, caller, no_id))
+		if(!iter_object.CanAStarPass(reverse_dir, pass_info))
 			return TRUE
 
 	if(!destination_turf.astar_pass_unstable && !astar_pass_unstable)
 		destination_turf.astar_pass_cache = ASTAR_CACHE_PASSABLE
 	return FALSE
+
+// Could easily be a struct if/when we get that
+/**
+ * Holds all information about what an atom can move through
+ * Passed into CanAStarPass to provide context for a pathing attempt
+ *
+ * Also used to check if using a cached path_map is safe
+ * There are some vars here that are unused. They exist to cover cases where caller_ref is used
+ * They're the properties of caller_ref used in those cases.
+ * It's kinda annoying, but there's some proc chains we can't convert to this datum
+ */
+/datum/can_pass_info
+	/// If we have no id, public airlocks are walls
+	var/no_id = FALSE
+
+	/// What we can pass through. Mirrors /atom/movable/pass_flags
+	var/pass_flags = NONE
+	/// What access we have, airlocks, windoors, etc
+	var/list/access = null
+	/// What sort of movement do we have. Mirrors /atom/movable/movement_type
+	var/movement_type = NONE
+	/// Are we being thrown?
+	var/thrown = FALSE
+	/// Are we anchored
+	var/anchored = FALSE
+
+	/// Are we a ghost? (they have effectively unique pathfinding)
+	var/is_observer = FALSE
+	/// Are we a living mob?
+	var/is_living = FALSE
+	/// Are we a bot?
+	var/is_bot = FALSE
+	/// Can we ventcrawl?
+	var/can_ventcrawl = FALSE
+	/// What is the size of our mob
+	var/mob_size = null
+	/// Is our mob incapacitated
+	var/incapacitated = FALSE
+	/// Is our mob incorporeal
+	var/incorporeal_move = FALSE
+	/// If our mob has a rider, what does it look like
+	var/datum/can_pass_info/rider_info = null
+	/// If our mob is buckled to something, what's it like
+	var/datum/can_pass_info/buckled_info = null
+
+	/// Do we have gravity
+	var/has_gravity = TRUE
+	/// Pass information for the object we are pulling, if any
+	var/list/grab_infos = null
+
+	/// Cameras have a lot of BS can_z_move overrides
+	/// Let's avoid this
+	var/camera_type
+
+	/// Weakref to the caller used to generate this info
+	/// Should not use this almost ever, it's for context and to allow for proc chains that
+	/// Require a movable
+	var/datum/weakref/caller_ref = null
+
+/datum/can_pass_info/New(atom/movable/construct_from, list/access, no_id = FALSE, call_depth = 0, ignore_grabs = FALSE)
+	// No infiniloops
+	if(call_depth > 10)
+		return
+	if(access)
+		src.access = access.Copy()
+	src.no_id = no_id
+
+	if(isnull(construct_from))
+		return
+
+	src.caller_ref = WEAKREF(construct_from)
+	src.pass_flags = construct_from.pass_flags
+	src.movement_type = construct_from.movement_type
+	src.thrown = !!construct_from.throwing
+	src.anchored = construct_from.anchored
+	src.has_gravity = construct_from.has_gravity()
+
+	if(ismob(construct_from))
+		var/mob/living/mob_construct = construct_from
+		src.incapacitated = mob_construct.incapacitated()
+		if(mob_construct.buckled)
+			src.buckled_info = new(mob_construct.buckled, access, no_id, call_depth + 1)
+
+	if(isobserver(construct_from))
+		src.is_observer = TRUE
+
+	if(isliving(construct_from))
+		var/mob/living/living_construct = construct_from
+		src.is_living = TRUE
+		src.can_ventcrawl = HAS_TRAIT(living_construct, TRAIT_VENTCRAWLER_ALWAYS) || HAS_TRAIT(living_construct, TRAIT_VENTCRAWLER_NUDE)
+		src.mob_size = living_construct.mob_size
+		src.incorporeal_move = living_construct.incorporeal_move
+		if(!ignore_grabs && LAZYLEN(living_construct.active_grabs))
+			grab_infos = list()
+			for(var/atom/movable/grabbed_by in living_construct.recursively_get_all_grabbed_movables())
+				grab_infos += new(grabbed_by, access, no_id, call_depth + 1, ignore_grabs = TRUE)
+
+	if(iscameramob(construct_from))
+		src.camera_type = construct_from.type
+	src.is_bot = isbot(construct_from)
+
+/// List of vars on /datum/can_pass_info to use when checking two instances for equality
+GLOBAL_LIST_INIT(can_pass_info_vars, GLOBAL_PROC_REF(can_pass_check_vars))
+
+/proc/can_pass_check_vars()
+	var/datum/can_pass_info/lamb = new()
+	var/datum/isaac = new()
+	var/list/altar = assoc_to_keys(lamb.vars - isaac.vars)
+	// Don't compare against calling atom, it's not relevant here
+	altar -= "caller_ref"
+	if(!("caller_ref" in lamb.vars))
+		CRASH("caller_ref var was not found in /datum/can_pass_info, why are we filtering for it?")
+	// We will bespoke handle pulling_info
+	altar -= "pulling_info"
+	if(!("pulling_info" in lamb.vars))
+		CRASH("pulling_info var was not found in /datum/can_pass_info, why are we filtering for it?")
+	return altar
+
+/datum/can_pass_info/proc/compare_against(datum/can_pass_info/check_against)
+	for(var/comparable_var in GLOB.can_pass_info_vars)
+		if(!(vars[comparable_var] ~= check_against[comparable_var]))
+			return FALSE
+	return TRUE
