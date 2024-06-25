@@ -51,7 +51,7 @@
 	flipped = TRUE
 	setDir(direction)
 
-	flags_1 |= ON_BORDER_1
+	set_border_object(TRUE)
 	for(var/D in list(turn(direction, 90), turn(direction, -90)))
 		var/obj/structure/table/neighbor = locate() in get_step(src, D)
 		if(!neighbor)
@@ -76,7 +76,7 @@
 	verbs -= /obj/structure/table/proc/verbunflip
 
 	flipped = 0
-	flags_1 &= ~ON_BORDER_1
+	set_border_object(FALSE)
 	setDir(0)
 
 	for(var/D in list(turn(dir, 90), turn(dir, -90)))

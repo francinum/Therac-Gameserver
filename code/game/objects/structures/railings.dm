@@ -3,13 +3,13 @@
 	desc = "Basic railing meant to protect idiots like you from falling."
 	icon = 'icons/obj/fluff.dmi'
 	icon_state = "railing"
-	flags_1 = ON_BORDER_1
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW|PASSSTRUCTURE
 	/// armor more or less consistent with grille. max_integrity about one time and a half that of a grille.
 	armor = list(BLUNT = 50, PUNCTURE = 70, SLASH = 90, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, FIRE = 0, ACID = 0)
 	max_integrity = 75
+	astar_pass_unstable = TRUE
 
 	var/climbable = TRUE
 	///Initial direction of the railing.
@@ -26,7 +26,9 @@
 	if(climbable)
 		AddElement(/datum/element/climbable)
 
-	if(density && flags_1 & ON_BORDER_1) // blocks normal movement from and to the direction it's facing.
+	set_border_object(TRUE)
+
+	if(density) // blocks normal movement from and to the direction it's facing.
 		var/static/list/loc_connections = list(
 			COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 		)

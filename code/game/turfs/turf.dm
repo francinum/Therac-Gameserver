@@ -83,6 +83,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
 	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
 	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
+	var/tmp/astar_pass_cache = ASTAR_CACHE_DIRTY
+	var/list/border_objects
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list(

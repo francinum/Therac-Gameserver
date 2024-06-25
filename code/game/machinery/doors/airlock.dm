@@ -96,6 +96,7 @@
 	icon_state = "closed"
 
 	max_integrity = 300
+	astar_pass_unstable = TRUE
 
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	integrity_failure = 0.25

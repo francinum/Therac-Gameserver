@@ -8,6 +8,7 @@
 	#ifndef ZASDBG //Multi-Z zone debugging
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	#endif
+	astar_pass_unstable = TRUE
 	pathing_pass_method = TURF_PATHING_PASS_PROC
 
 	z_flags = Z_ATMOS_IN_DOWN|Z_ATMOS_IN_UP|Z_ATMOS_OUT_DOWN|Z_ATMOS_OUT_UP | Z_MIMIC_BELOW|Z_MIMIC_OVERWRITE|Z_MIMIC_NO_AO

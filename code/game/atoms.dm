@@ -183,6 +183,10 @@
 
 	/// How this atom should react to having its astar blocking checked
 	var/can_astar_pass = CANASTARPASS_DENSITY
+	/// If this is TRUE, this object will prevent the turf its on from caching it's AStar results and dirty it's cache
+	/// On turfs, it is the # of atoms preventing caching. Can include the turf itself.
+	/// ONLY MEANINGFUL ON TURFS AND OBJS!
+	var/tmp/astar_pass_unstable = FALSE
 
 /**
  * Called when an atom is created in byond (built in engine proc)
@@ -1983,7 +1987,6 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_DENSITY_CHANGE, density, new_value)
 	. = density
 	density = new_value
-
 
 ///Setter for the `base_pixel_x` variable to append behavior related to its changing.
 /atom/proc/set_base_pixel_x(new_value)

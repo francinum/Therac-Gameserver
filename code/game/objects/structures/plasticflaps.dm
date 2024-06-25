@@ -7,6 +7,7 @@
 	armor = list(BLUNT = 100, PUNCTURE = 80, SLASH = 100, LASER = 80, ENERGY = 100, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
 	density = FALSE
 	anchored = TRUE
+	astar_pass_unstable = TRUE
 	can_atmos_pass = CANPASS_NEVER
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 

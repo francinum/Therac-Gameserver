@@ -51,6 +51,7 @@
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
+	set_border_object(TRUE)
 
 /obj/structure/necropolis_gate/Destroy(force)
 	if(force)

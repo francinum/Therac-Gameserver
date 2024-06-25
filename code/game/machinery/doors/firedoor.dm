@@ -368,6 +368,7 @@
 
 /obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
+	astar_pass_unstable = TRUE
 	can_crush = FALSE
 	flags_1 = ON_BORDER_1
 	can_atmos_pass = CANPASS_PROC
@@ -387,6 +388,7 @@
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
+	set_border_object(TRUE)
 
 /obj/machinery/door/firedoor/border_only/adjust_lights_starting_offset()
 	light_xoffset = 0

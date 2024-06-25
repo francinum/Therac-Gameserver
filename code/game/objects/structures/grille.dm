@@ -12,6 +12,7 @@
 	anchored = TRUE
 	pass_flags_self = PASSGRILLE
 	can_atmos_pass = CANPASS_ALWAYS
+	astar_pass_unstable = TRUE
 	flags_1 = CONDUCT_1
 	//pressure_resistance = 5*ONE_ATMOSPHERE
 	armor = list(BLUNT = 50, PUNCTURE = 70, SLASH = 90, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, FIRE = 0, ACID = 0)

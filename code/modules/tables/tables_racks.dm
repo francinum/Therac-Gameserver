@@ -31,6 +31,7 @@
 	flags_1 = BUMP_PRIORITY_1
 	mouse_drop_pointer = TRUE
 
+	astar_pass_unstable = TRUE
 	/// A url-encoded list defining the bounds that objects can be placed on. Just a visual enhancement
 	var/placable_bounds = "x1=6&y1=11&x2=27&y2=27"
 

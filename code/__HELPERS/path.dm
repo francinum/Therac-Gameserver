@@ -38,16 +38,6 @@
 	// We use += here to ensure the list is still pointing at the same thing
 	return_list += path
 
-/**
- * A helper macro to see if it's possible to step from the first turf into the second one, minding things like door access and directional windows.
- * Note that this can only be used inside the [datum/pathfind][pathfind datum] since it uses variables from said datum.
- * If you really want to optimize things, optimize this, cuz this gets called a lot.
- * We do early next.density check despite it being already checked in LinkBlockedWithAccess for short-circuit performance
- */
-#define CAN_STEP(cur_turf, next) (next && !next.density && !(simulated_only && isspaceturf(next)) && !cur_turf.LinkBlockedWithAccess(next, caller, access) && (next != avoid))
-/// Another helper macro for JPS, for telling when a node has forced neighbors that need expanding
-#define STEP_NOT_HERE_BUT_THERE(cur_turf, dirA, dirB) ((!CAN_STEP(cur_turf, get_step(cur_turf, dirA)) && CAN_STEP(cur_turf, get_step(cur_turf, dirB))))
-
 /// The JPS Node datum represents a turf that we find interesting enough to add to the open list and possibly search for new tiles from
 /datum/jps_node
 	/// The turf associated with this node
@@ -127,6 +117,8 @@
 	/// The callback to invoke when we're done working, passing in the completed var/list/path
 	var/datum/callback/on_finish
 
+	var/time_spent_pathfinding
+
 /datum/pathfind/New(atom/movable/caller, atom/goal, access, max_distance, mintargetdist, simulated_only, avoid, skip_first, diagonal_safety, datum/callback/on_finish)
 	src.caller = caller
 	end = get_turf(goal)
@@ -175,21 +167,29 @@
 	if(QDELETED(caller))
 		return FALSE
 
+	var/tick = TICK_USAGE
+
+	var/list/cardinals = list(EAST, WEST, NORTH, SOUTH)
+	var/list/diagonals = list(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST)
+
 	while(!open.is_empty() && !path)
 		var/datum/jps_node/current_processed_node = open.pop() //get the lower f_value turf in the open list
 		if(max_distance && (current_processed_node.number_tiles > max_distance))//if too many steps, don't process that path
 			continue
 
 		var/turf/current_turf = current_processed_node.tile
-		for(var/scan_direction in list(EAST, WEST, NORTH, SOUTH))
+		for(var/scan_direction in cardinals)
 			lateral_scan_spec(current_turf, scan_direction, current_processed_node)
 
-		for(var/scan_direction in list(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
+		for(var/scan_direction in diagonals)
 			diag_scan_spec(current_turf, scan_direction, current_processed_node)
 
 		// Stable, we'll just be back later
 		if(TICK_CHECK)
+			time_spent_pathfinding += TICK_USAGE_TO_MS(tick)
 			return TRUE
+
+	time_spent_pathfinding += TICK_USAGE_TO_MS(tick)
 	return TRUE
 
 /**
@@ -217,6 +217,7 @@
 		path.Cut(1,2)
 	on_finish.Invoke(path)
 	on_finish = null
+	to_chat(world, span_danger("JPS took [time_spent_pathfinding / 1000] seconds to find a path [length(path)] tiles long (~[time_spent_pathfinding / length(path)]ms per tile)."))
 	qdel(src)
 
 /// Called when we've hit the goal with the node that represents the last tile, then sets the path var to that path so it can be returned by [datum/pathfind/proc/search]
@@ -412,7 +413,16 @@
  * * no_id: When true, doors with public access will count as impassible
 */
 /turf/proc/LinkBlockedWithAccess(turf/destination_turf, atom/movable/caller, list/access, no_id = FALSE)
-	if(destination_turf.x != x && destination_turf.y != y) //diagonal
+	var/actual_dir = get_dir(src, destination_turf)
+	if(actual_dir == 0)
+		return FALSE
+
+	var/is_diagonal_movement = ISDIAGONALDIR(actual_dir)
+
+	if((destination_turf.astar_pass_cache != ASTAR_CACHE_DIRTY) && !is_diagonal_movement && !astar_pass_unstable && !destination_turf.astar_pass_unstable)
+		return astar_pass_cache
+
+	if(is_diagonal_movement) //diagonal
 		var/in_dir = get_dir(destination_turf,src) // eg. northwest (1+8) = 9 (00001001)
 		var/first_step_direction_a = in_dir & 3 // eg. north   (1+8)&3 (0000 0011) = 1 (0000 0001)
 		var/first_step_direction_b = in_dir & 12 // eg. west   (1+8)&12 (0000 1100) = 8 (0000 1000)
@@ -422,26 +432,30 @@
 			var/way_blocked = midstep_turf.density || LinkBlockedWithAccess(midstep_turf,caller, access, no_id = no_id) || midstep_turf.LinkBlockedWithAccess(destination_turf,caller,access, no_id = no_id)
 			if(!way_blocked)
 				return FALSE
+
 		return TRUE
-	var/actual_dir = get_dir(src, destination_turf)
 
 	/// These are generally cheaper than looping contents so they go first
 	switch(destination_turf.pathing_pass_method)
-		// This is already assumed to be true
+		// This is already assumed to be true in the macro that invokes this proc
 		//if(TURF_PATHING_PASS_DENSITY)
 		//	if(destination_turf.density)
 		//		return TRUE
-		if(TURF_PATHING_PASS_PROC)
-			if(!destination_turf.CanAStarPass(access, actual_dir , caller, no_id = no_id))
-				return TRUE
-		if(TURF_PATHING_PASS_NO)
-			return TRUE
 
-	var/static/list/directional_blocker_cache = typecacheof(list(/obj/structure/window, /obj/machinery/door/window, /obj/structure/railing, /obj/machinery/door/firedoor/border_only))
+		if(TURF_PATHING_PASS_PROC)
+			if(!destination_turf.CanAStarPass(access, actual_dir, caller, no_id = no_id))
+				. = TRUE
+
+		if(TURF_PATHING_PASS_NO)
+			. = TRUE
+
+	if(. == TRUE)
+		if(!destination_turf.astar_pass_unstable && !astar_pass_unstable)
+			destination_turf.astar_pass_cache = ASTAR_CACHE_UNPASSABLE
+		return .
+
 	// Source border object checks
-	for(var/obj/border in src)
-		if(!directional_blocker_cache[border.type])
-			continue
+	for(var/obj/border in border_objects)
 		if(!border.density && border.can_astar_pass == CANASTARPASS_DENSITY)
 			continue
 		if(!border.CanAStarPass(access, actual_dir, no_id = no_id))
@@ -455,4 +469,7 @@
 			continue
 		if(!iter_object.CanAStarPass(access, reverse_dir, caller, no_id))
 			return TRUE
+
+	if(!destination_turf.astar_pass_unstable && !astar_pass_unstable)
+		destination_turf.astar_pass_cache = ASTAR_CACHE_PASSABLE
 	return FALSE

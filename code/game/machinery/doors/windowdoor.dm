@@ -8,10 +8,10 @@
 	resistance_flags = ACID_PROOF
 	var/base_state = "left"
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
+	astar_pass_unstable = TRUE
 	integrity_failure = 0
 	armor = list(BLUNT = 20, PUNCTURE = 50, SLASH = 90, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, FIRE = 70, ACID = 100)
 	visible = FALSE
-	flags_1 = ON_BORDER_1
 	opacity = FALSE
 	pass_flags_self = PASSGLASS
 	can_atmos_pass = CANPASS_PROC
@@ -52,6 +52,7 @@
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
+	set_border_object(TRUE)
 
 	zas_update_loc()
 	become_atmos_sensitive()

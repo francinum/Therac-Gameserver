@@ -36,7 +36,7 @@
 /datum/element/climbable/proc/can_climb(atom/source, mob/user)
 	var/dir_step = get_dir(user, source.loc)
 	//To jump over a railing you have to be standing next to it, not far behind it.
-	if(source.flags_1 & ON_BORDER_1 && user.loc != source.loc && (dir_step & source.dir) == source.dir)
+	if((source.flags_1 & ON_BORDER_1) && user.loc != source.loc && (dir_step & source.dir) == source.dir)
 		return FALSE
 	return TRUE
 

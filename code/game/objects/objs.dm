@@ -37,9 +37,14 @@
 	uses_integrity = TRUE
 
 /obj/vv_edit_var(vname, vval)
-	if(vname == NAMEOF(src, obj_flags))
-		if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
-			return FALSE
+	switch(vname)
+		if(NAMEOF(src, obj_flags))
+			if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
+				return FALSE
+
+		if(NAMEOF(src, flags_1))
+			set_border_object(vval & ON_BORDER_1)
+
 	return ..()
 
 /obj/Destroy(force)
@@ -52,6 +57,38 @@
 	SStgui.close_uis(src)
 	return ..()
 
+
+/obj/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	if(density || astar_pass_unstable)
+		if(isturf(loc))
+			var/turf/T = loc
+			T.astar_pass_unstable += 1
+			T.astar_pass_cache = ASTAR_CACHE_DIRTY
+
+		if(isturf(old_loc))
+			var/turf/T = old_loc
+			T.astar_pass_unstable -= 1
+			T.astar_pass_cache = ASTAR_CACHE_DIRTY
+
+/obj/set_density(new_value)
+	. = ..()
+	if(isnull(.))
+		return
+
+	if(!isturf(loc))
+		return
+
+	if(astar_pass_unstable)
+		return
+
+	var/turf/T = loc
+	if(density)
+		T.astar_pass_unstable += 1
+	else
+		T.astar_pass_unstable -= 1
+
+	T.astar_pass_cache = ASTAR_CACHE_DIRTY
 
 /obj/assume_air(datum/gas_mixture/giver)
 	if(loc)
@@ -367,3 +404,16 @@
 
 	for(var/atom/movable/AM as anything in T)
 		AM.zFall()
+
+/obj/proc/set_border_object(state)
+	if(state)
+		if(!(flags_1 & ON_BORDER_1))
+			AddElement(/datum/element/border_object)
+		flags_1 |= ON_BORDER_1
+
+	else
+		if((flags_1 & ON_BORDER_1))
+			RemoveElement(/datum/element/border_object)
+		flags_1 &= ~ON_BORDER_1
+
+	return state

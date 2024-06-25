@@ -159,11 +159,16 @@
 
 	if(opacity)
 		AddElement(/datum/element/light_blocking)
+
 	switch(light_system)
 		if(OVERLAY_LIGHT)
 			AddComponent(/datum/component/overlay_lighting)
 		if(OVERLAY_LIGHT_DIRECTIONAL)
 			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
+
+	if(isobj(src) && isturf(loc) && (density || astar_pass_unstable))
+		loc:astar_pass_unstable += 1
+		loc:astar_pass_cache = ASTAR_CACHE_DIRTY
 
 /atom/movable/Destroy(force)
 	QDEL_NULL(language_holder)
@@ -313,6 +318,9 @@
 		CRASH("Illegal abstract_move() on [type]!")
 
 	RESOLVE_ACTIVE_MOVEMENT
+
+	if(new_loc == loc)
+		return
 
 	var/atom/old_loc = loc
 	var/direction = get_dir(old_loc, new_loc)
@@ -577,7 +585,6 @@
 				qdel(bound_overlay)
 		else	// Not a turf, so we need to destroy immediately instead of waiting for the destruction timer to proc.
 			qdel(bound_overlay)
-
 	return TRUE
 
 // Make sure you know what you're doing if you call this, this is intended to only be called by byond directly.
