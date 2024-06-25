@@ -217,7 +217,7 @@
 		path.Cut(1,2)
 	on_finish.Invoke(path)
 	on_finish = null
-	to_chat(world, span_danger("JPS took [time_spent_pathfinding / 1000] seconds to find a path [length(path)] tiles long (~[time_spent_pathfinding / length(path)]ms per tile)."))
+	to_chat(world, span_debug("JPS took [time_spent_pathfinding / 1000] seconds to find a path [length(path)] tiles long (~[time_spent_pathfinding / length(path)]ms per tile)."))
 	qdel(src)
 
 /// Called when we've hit the goal with the node that represents the last tile, then sets the path var to that path so it can be returned by [datum/pathfind/proc/search]
