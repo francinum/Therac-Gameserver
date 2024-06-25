@@ -418,10 +418,13 @@
 	if(!trajectory)
 		qdel(src)
 		return FALSE
+
 	if(impacted[A]) // NEVER doublehit
 		return FALSE
+
 	var/datum/point/point_cache = trajectory.copy_to()
 	var/turf/T = get_turf(A)
+
 	if(ricochets < ricochets_max && check_ricochet_flag(A) && check_ricochet(A))
 		ricochets++
 		if(A.handle_ricochet(src))
@@ -538,26 +541,33 @@
 	// 1. special bumped border object check
 	if((bumped?.flags_1 & (ON_BORDER_1|BUMP_PRIORITY_1)) && can_hit_target(bumped, original == bumped, TRUE, TRUE))
 		return bumped
+
 	// 2. original
 	if(can_hit_target(original, TRUE, FALSE, original == bumped))
 		return original
+
 	var/list/atom/considering = list()  // let's define this ONCE
 	// 3. mobs
 	for(var/mob/living/iter_possible_target in our_turf)
 		if(can_hit_target(iter_possible_target, iter_possible_target == original, TRUE, iter_possible_target == bumped))
 			considering += iter_possible_target
+
 	if(considering.len)
 		var/mob/living/hit_living = pick(considering)
 		return hit_living.lowest_buckled_mob()
+
 	// 4. objs and other dense things
 	for(var/i in our_turf)
 		if(can_hit_target(i, i == original, TRUE, i == bumped))
 			considering += i
+
 	if(considering.len)
 		return pick(considering)
+
 	// 5. turf
 	if(can_hit_target(our_turf, our_turf == original, TRUE, our_turf == bumped))
 		return our_turf
+
 	// 6. nothing
 		// (returns null)
 
@@ -566,36 +576,46 @@
 /obj/projectile/proc/can_hit_target(atom/target, direct_target = FALSE, ignore_loc = FALSE, cross_failed = FALSE)
 	if(QDELETED(target) || impacted[target])
 		return FALSE
+
 	if(!ignore_loc && (loc != target.loc) && !(can_hit_turfs && direct_target && loc == target))
 		return FALSE
+
 	// if pass_flags match, pass through entirely - unless direct target is set.
 	if((target.pass_flags_self & pass_flags) && !direct_target)
 		return FALSE
+
 	if(!ignore_source_check && firer)
 		var/mob/M = firer
 		if((target == firer) || ((target == firer.loc) && ismecha(firer.loc)) || (target in firer.buckled_mobs) || (istype(M) && (M.buckled == target)))
 			return FALSE
+
 	if(ignored_factions?.len && ismob(target) && !direct_target)
 		var/mob/target_mob = target
 		if(faction_check(target_mob.faction, ignored_factions))
 			return FALSE
+
 	if(target.density || cross_failed) //This thing blocks projectiles, hit it regardless of layer/mob stuns/etc.
 		return TRUE
+
 	if(!isliving(target))
-		if(isturf(target)) // non dense turfs
+		// non dense turfs
+		if(isturf(target))
 			return can_hit_turfs && direct_target
+		// check layer
 		if(target.layer < hit_threshhold)
 			return FALSE
-		else if(!direct_target) // non dense objects do not get hit unless specifically clicked
+		// non dense objects do not get hit unless specifically clicked
+		else if(!direct_target)
 			return FALSE
+
 	else
 		var/mob/living/L = target
+		// direct clicks always hit at this point
 		if(direct_target)
 			return TRUE
 		if(L.stat == DEAD)
 			return FALSE
-		if(HAS_TRAIT(L, TRAIT_IMMOBILIZED) && HAS_TRAIT(L, TRAIT_FLOORED) && HAS_TRAIT(L, TRAIT_HANDS_BLOCKED))
-			return FALSE
+
 		if(!hit_prone_targets)
 			if(!L.density)
 				return FALSE
@@ -629,6 +649,7 @@
 	// that hopefully won't also involve a ton of overhead
 	if(can_hit_target(original, TRUE, FALSE))
 		Impact(original) // try to hit thing clicked on
+
 	// else, try to hit mobs
 	else // because if we impacted original and pierced we'll already have select target'd and hit everything else we should be hitting
 		for(var/mob/M in loc) // so I guess we're STILL doing a for loop of mobs because living movement would otherwise have snowflake code for projectile CanPass
