@@ -84,12 +84,14 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 	name = PLANE_MASTERS_GAME
 	controlled_planes = list(
 		FLOOR_PLANE,
+		WALL_PLANE,
 		GAME_PLANE,
 		MASSIVE_OBJ_PLANE,
 		GHOST_PLANE,
 		POINT_PLANE,
 		LIGHTING_PLANE,
 		LIGHTING_PLANE_ADDITIVE,
+
 	)
 
 /// Controller of all planes we're ok with changing with colorblind logic
@@ -98,6 +100,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 	controlled_planes = list(
 		PLANE_SPACE_PARALLAX,
 		GRAVITY_PULSE_PLANE,
+		WALL_PLANE,
 		FLOOR_PLANE,
 		GAME_PLANE,
 		MASSIVE_OBJ_PLANE,
