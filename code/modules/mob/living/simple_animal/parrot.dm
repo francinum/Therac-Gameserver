@@ -111,12 +111,7 @@
 /mob/living/simple_animal/parrot/Initialize(mapload)
 	. = ..()
 	if(!ears)
-		var/headset = pick(/obj/item/radio/headset/headset_sec, \
-						/obj/item/radio/headset/headset_eng, \
-						/obj/item/radio/headset/headset_med, \
-						/obj/item/radio/headset/headset_sci, \
-						/obj/item/radio/headset/headset_cargo)
-		ears = new headset(src)
+		ears = new /obj/item/radio/headset/headset_eng(src)
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
@@ -657,7 +652,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 					item = I
 					break
 		if(item)
-			if(!length(get_path_to(src, item))) // WHY DO WE DISREGARD THE PATH AHHHHHH
+			if(!length(jps_path_to(src, item))) // WHY DO WE DISREGARD THE PATH AHHHHHH
 				item = null
 				continue
 			return item

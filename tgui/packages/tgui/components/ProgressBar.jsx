@@ -4,10 +4,11 @@
  * @license MIT
  */
 
-import { clamp01, scale, keyOfMatchingRange, toFixed } from 'common/math';
+import { clamp01, keyOfMatchingRange, scale, toFixed } from 'common/math';
 import { classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from './Box';
+
 import { CSS_COLORS } from '../constants';
+import { computeBoxClassName, computeBoxProps } from './Box';
 
 export const ProgressBar = (props) => {
   const {
@@ -28,6 +29,7 @@ export const ProgressBar = (props) => {
   // We permit colors to be in hex format, rgb()/rgba() format,
   // a name for a color-<name> class, or a base CSS class.
   const outerProps = computeBoxProps(rest);
+
   const outerClasses = ['ProgressBar', className, computeBoxClassName(rest)];
   const fillStyles = {
     width: clamp01(scaledValue) * 100 + '%',
@@ -37,8 +39,7 @@ export const ProgressBar = (props) => {
     outerClasses.push('ProgressBar--color--' + effectiveColor);
   } else {
     // Otherwise, set styles directly.
-    outerProps.style =
-      (outerProps.style || '') + `borderClor: ${effectiveColor};`;
+    outerProps.style = { ...outerProps.style, borderColor: effectiveColor };
     fillStyles['backgroundColor'] = effectiveColor;
   }
 

@@ -1,4 +1,5 @@
 import { classes } from 'common/react';
+
 import { useBackend } from '../backend';
 import { Icon, Section, Table, Tooltip } from '../components';
 import { Window } from '../layouts';
@@ -9,6 +10,7 @@ const commandJobs = [
   'Chief Engineer',
   'Research Director',
   'Medical Director',
+  'Quartermaster',
 ];
 
 // PARIAH EDIT
@@ -19,11 +21,11 @@ export const CrewManifest = (props) => {
   } = useBackend();
 
   return (
-    <Window title="Crew Manifest" width={350} height={500}>
+    <Window title="Staff Manifest" width={350} height={500}>
       <Window.Content scrollable>
         {Object.entries(manifest).map(([dept, crew]) => (
           <Section
-            className={'CrewManifest--' + dept}
+            className={'CrewManifest--' + dept.replace(/\s+/g, '')}
             key={dept}
             title={
               dept +

@@ -1,5 +1,6 @@
-import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
+import { flow } from 'common/fp';
+
 import { useBackend, useSharedState } from '../backend';
 import {
   AnimatedNumber,
@@ -126,7 +127,7 @@ const CargoStatus = (props) => {
           )) ||
             location}
         </LabeledList.Item>
-        <LabeledList.Item label="CentCom Message">{message}</LabeledList.Item>
+        <LabeledList.Item label="Notice">{message}</LabeledList.Item>
         {!!loan && !requestonly && (
           <LabeledList.Item label="Loan">
             {(!loan_dispatched && (
@@ -170,7 +171,7 @@ export const CargoCatalog = (props) => {
   const { express } = props;
   const { act, data } = useBackend();
 
-  const { self_paid, app_cost } = data;
+  const { self_paid, app_cost, uiCurrency = ' cr' } = data;
 
   const supplies = Object.values(data.supplies);
 
@@ -204,7 +205,7 @@ export const CargoCatalog = (props) => {
       }
     >
       <Flex>
-        <Flex.Item ml={-1} mr={1}>
+        <Flex.Item minWidth="30%" ml={-1} mr={1}>
           <Tabs vertical>
             <Tabs.Tab
               key="search_results"
@@ -290,7 +291,7 @@ export const CargoCatalog = (props) => {
                           ? Math.round(pack.cost * 1.1)
                           : pack.cost,
                       )}
-                      {' cr'}
+                      {uiCurrency}
                     </Button>
                   </Table.Cell>
                 </Table.Row>

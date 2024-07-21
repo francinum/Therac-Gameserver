@@ -106,6 +106,12 @@
 /// Uncomment this to enable debugging tools for map making.
 //#define DEBUG_MAPS
 
+/// Set this value to FALSE to test job requirements working.
+#define BYPASS_JOB_LIMITS_WHEN_DEBUGGING (TRUE)
+
+/// Force codex SQLite generation and loading despite being a debug server.
+//#define FORCE_CODEX_DATABASE 1
+
 /////////////////////// REFERENCE TRACKING
 
 ///Used to find the sources of harddels, quite laggy, don't be surpised if it freezes your client for a good while
@@ -184,12 +190,16 @@
 #warn compiling in TESTING mode. testing() debug messages will be visible.
 #endif
 
-#ifdef CIBUILDING
+#if defined(CIBUILDING) && !defined(OPENDREAM)
 #define UNIT_TESTS
 #endif
 
 #ifdef CITESTING
 #define TESTING
+#endif
+
+#ifndef FORCE_CODEX_DATABASE
+#define FORCE_CODEX_DATABASE 0
 #endif
 
 #ifdef UNIT_TESTS
@@ -200,6 +210,7 @@
 #define GC_FAILURE_HARD_LOOKUP
 //Test at full capacity, the extra cost doesn't matter
 #define TIMER_DEBUG
+#define BYPASS_JOB_LIMITS_WHEN_DEBUGGING (TRUE)
 #endif
 
 #ifdef TGS
@@ -207,12 +218,17 @@
 #define CBT
 #endif
 
-#if !defined(CBT) && !defined(SPACEMAN_DMM)
-#warn Building with Dream Maker is no longer supported and will result in errors.
-#warn In order to build, run BUILD.bat in the root directory.
-#warn Consider switching to VSCode editor instead, where you can press Ctrl+Shift+B to build.
-//Hi, Hijacking this to do DMEd-Specific Icon Overrides
-#define SIMPLE_MAPHELPERS
+#if defined(OPENDREAM)
+	#if !defined(CIBUILDING)
+		#warn You are building with OpenDream. Remember to build TGUI manually.
+		#warn You can do this by running tgui-build.cmd from the bin directory.
+	#endif
+#else
+	#if !defined(CBT) && !defined(SPACEMAN_DMM)
+		#warn Building with Dream Maker is no longer supported and will result in errors.
+		#warn In order to build, run BUILD.cmd in the root directory.
+		#warn Consider switching to VSCode editor instead, where you can press Ctrl+Shift+B to build.
+	#endif
 #endif
 
 #ifdef ZASDBG

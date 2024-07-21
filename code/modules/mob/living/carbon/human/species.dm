@@ -138,8 +138,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/heatmod = 1
 	///multiplier for stun durations
 	var/stunmod = 1
-	///multiplier for money paid at payday
-	var/payday_modifier = 1
 	///Base electrocution coefficient.  Basically a multiplier for damage from electrocutions.
 	var/siemens_coeff = 1
 	///To use MUTCOLOR with a fixed color that's independent of the mcolor feature in DNA.
@@ -1049,7 +1047,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Set damage and find hit bodypart using weighted rng
 	var/target_zone = deprecise_zone(user.zone_selected)
 	var/bodyzone_modifier = GLOB.bodyzone_gurps_mods[target_zone]
-	var/roll = !HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER) ? user.stat_roll(11, STRENGTH, SKILL_MELEE_COMBAT, (target.gurps_stats.get_skill(SKILL_MELEE_COMBAT) + bodyzone_modifier), 7) : SUCCESS
+	var/roll = !HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER) ? user.stat_roll(10, /datum/rpg_skill/skirmish, bodyzone_modifier, -7).outcome : SUCCESS
 	// If we succeeded, hit the target area.
 	var/attacking_zone = (roll >= SUCCESS) ? target_zone : target.get_random_valid_zone()
 	var/obj/item/bodypart/affecting

@@ -623,6 +623,11 @@
 		else
 			to_chat(M, cannot_see_str)
 
+/mob/living/broadcast_examine(atom/examined)
+	if(stat != CONSCIOUS)
+		return
+	return ..()
+
 /mob/dead/broadcast_examine(atom/examined)
 	return //Observers arent real the government is lying to you
 
@@ -1178,7 +1183,7 @@
 /**
  * Fully update the name of a mob
  *
- * This will update a mob's name, real_name, mind.name, GLOB.data_core records, pda, id and traitor text
+ * This will update a mob's name, real_name, mind.name, SSdatacore records, pda, id and traitor text
  *
  * Calling this proc without an oldname will only update the mob and skip updating the pda, id and records ~Carn
  */
@@ -1221,7 +1226,7 @@
 
 	return TRUE
 
-///Updates GLOB.data_core records with new name , see mob/living/carbon/human
+///Updates SSdatacore records with new name , see mob/living/carbon/human
 /mob/proc/replace_records_name(oldname,newname)
 	return
 
