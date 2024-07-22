@@ -23,7 +23,6 @@
 	max_amount = 10
 	amount = 10
 
-
 /obj/item/stack/fastener/Initialize(mapload, new_amount, merge, list/mat_override, mat_amt, absorption_capacity)
 	. = ..()
 	#warn temp

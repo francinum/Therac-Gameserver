@@ -1,12 +1,13 @@
 /// Machinery for performing steps without actually using a resource
-/obj/machinery/manufacturing/perform_abstract_step
+/obj/machinery/manufacturing/abstract_step
+	name = "This shouldn't exist"
 	/// A k:v list of step_path : time to complete. step_path becomes a typecache during init.
 	var/list/steps
 
 	/// The typecache of steps to perform next.
 	var/list/next_step
 
-/obj/machinery/manufacturing/perform_abstract_step/Initialize(mapload)
+/obj/machinery/manufacturing/abstract_step/Initialize(mapload)
 	. = ..()
 	var/idx
 	for(var/path in steps)
@@ -15,7 +16,7 @@
 		steps[idx] = typecacheof(path)
 		steps[steps[idx]] = old_value
 
-/obj/machinery/manufacturing/perform_abstract_step/attempt_create_assembly(obj/item/item)
+/obj/machinery/manufacturing/abstract_step/attempt_create_assembly(obj/item/item)
 	var/list/available_recipes = slapcraft_recipes_for_type(item.type)
 	if(!available_recipes)
 		return
@@ -66,7 +67,7 @@
 
 	return assembly
 
-/obj/machinery/manufacturing/perform_abstract_step/process_item(obj/item/item)
+/obj/machinery/manufacturing/abstract_step/process_item(obj/item/item)
 	var/obj/item/slapcraft_assembly/assembly = item
 
 	next_step ||= steps[1]
@@ -98,7 +99,7 @@
 
 	do_work(CALLBACK(src, PROC_REF(complete_step), assembly, SLAPCRAFT_STEP(step_to_perform)), time_to_perform)
 
-/obj/machinery/manufacturing/perform_abstract_step/proc/complete_step(obj/item/slapcraft_assembly/assembly, datum/slapcraft_step/step_to_perform)
+/obj/machinery/manufacturing/abstract_step/proc/complete_step(obj/item/slapcraft_assembly/assembly, datum/slapcraft_step/step_to_perform)
 	step_to_perform.perform(null, null, assembly, TRUE, TRUE)
 
 	var/step_index = steps.Find(next_step)
@@ -118,16 +119,3 @@
 
 	next_step = steps[step_index + 1]
 	process_item(assembly)
-
-/obj/machinery/manufacturing/perform_abstract_step/test
-	ui_name = "Welder"
-	steps = list(/datum/slapcraft_step/tool/welder = 10 SECONDS)
-	work_sound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
-
-/obj/machinery/manufacturing/perform_abstract_step/stamp
-	ui_name = "Stamper"
-	steps = list(/datum/slapcraft_step/attack/bludgeon = 2 SECONDS)
-
-/obj/machinery/manufacturing/perform_abstract_step/cut
-	ui_name = "Cutter"
-	steps = list(/datum/slapcraft_step/attack/sharp = 2 SECONDS)

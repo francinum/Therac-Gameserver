@@ -16,13 +16,12 @@
 /obj/item/wrench/test/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/construction, /datum/construction_template/computer)
-	//AddComponent(/datum/component/construction, /datum/construction_template/test)
 
 /datum/construction_template/computer/constructed(mob/living/user)
 	if(istype(parent, /obj/machinery/computer/template))
 		return
 
-	var/obj/machinery/computer/template/C = new /obj/machinery/computer/template(parent.drop_location())
+	var/obj/machinery/computer/template/C = new /obj/machinery/computer/template(parent.drop_location(), FALSE, FALSE)
 	transfer_parent(C)
 
 /datum/construction_template/test

@@ -15,6 +15,9 @@
 	grind_results = list(/datum/reagent/silicon = 20)
 	greyscale_colors = CIRCUIT_COLOR_GENERIC
 
+	/// Simple circuitboards work using the construction component
+	var/simple = FALSE
+
 	var/build_path = null
 	///determines if the circuit board originated from a vendor off station or not.
 	var/onstation = TRUE
