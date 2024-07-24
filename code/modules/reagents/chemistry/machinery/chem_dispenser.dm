@@ -13,8 +13,9 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
 	processing_flags = NONE
-	// This munches power due to it being the chemist's main machine, and chemfactories don't exist.
-	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 5
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 10
 
 	var/powerefficiency = 0.1
 	var/amount = 30
@@ -302,25 +303,6 @@
 	work_animation()
 	visible_message(span_danger("[src] malfunctions, spraying chemicals everywhere!"))
 
-/obj/machinery/chem_dispenser/RefreshParts()
-	. = ..()
-	heater_coefficient = initial(heater_coefficient)
-	var/newpowereff = 0.0666666
-	var/parts_rating = 0
-	var/bin_ratings = 0
-	var/bin_count = 0
-	for(var/obj/item/stock_parts/matter_bin/matter_bin in component_parts)
-		bin_ratings += matter_bin.rating
-		bin_count += 1
-		parts_rating += matter_bin.rating
-	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
-		newpowereff += 0.0166666666*capacitor.rating
-		parts_rating += capacitor.rating
-	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
-		parts_rating += manipulator.rating
-	heater_coefficient = initial(heater_coefficient) * (bin_ratings / bin_count)
-	powerefficiency = round(newpowereff, 0.01)
-
 /obj/machinery/chem_dispenser/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
 	if(!user)
 		return FALSE
@@ -400,6 +382,10 @@
 	icon_state = "minidispenser"
 	base_icon_state = "minidispenser"
 	maximum_cartridges = 15
+
+	idle_power_usage = parent_type::idle_power_usage * 0.8
+	active_power_usage = parent_type::active_power_usage * 0.8
+
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/mini
 
 /obj/machinery/chem_dispenser/big
@@ -407,6 +393,10 @@
 	icon_state = "bigdispenser"
 	base_icon_state = "bigdispenser"
 	maximum_cartridges = 35
+
+	idle_power_usage = parent_type::idle_power_usage * 1.2
+	active_power_usage = parent_type::active_power_usage * 1.2
+
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/big
 
 /obj/machinery/chem_dispenser/abductor
@@ -419,4 +409,8 @@
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/abductor
 	working_state = null
 	nopower_state = null
+
 	use_power = NO_POWER_USE
+	idle_power_usage = parent_type::idle_power_usage * 1.4
+	active_power_usage = parent_type::active_power_usage * 1.4
+

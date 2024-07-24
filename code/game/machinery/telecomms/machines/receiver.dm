@@ -12,7 +12,10 @@
 	desc = "This machine has a dish-like shape and green lights. It is designed to detect and process subspace radio activity."
 	telecomms_type = /obj/machinery/telecomms/receiver
 	density = TRUE
-	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 2
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 6
+
 	circuit = /obj/item/circuitboard/machine/telecomms/receiver
 
 /obj/machinery/telecomms/receiver/receive_signal(datum/signal/subspace/signal)

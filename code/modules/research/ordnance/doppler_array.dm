@@ -7,6 +7,10 @@
 	base_icon_state = "tdoppler"
 	density = TRUE
 	verb_say = "states coldly"
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 7
+
 	var/cooldown = 10
 	var/next_announce = 0
 	var/max_dist = 150

@@ -4,7 +4,12 @@
 	icon = 'icons/obj/machines/medipen_refiller.dmi'
 	icon_state = "medipen_refiller"
 	density = TRUE
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 2
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
+
 	circuit = /obj/item/circuitboard/machine/medipen_refiller
+
 	/// list of medipen subtypes it can refill
 	var/list/allowed = list(
 		/obj/item/reagent_containers/hypospray/medipen = /datum/reagent/medicine/epinephrine,
@@ -20,18 +25,6 @@
 /obj/machinery/medipen_refiller/Initialize(mapload)
 	. = ..()
 	create_reagents(100, TRANSPARENT)
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		reagents.maximum_volume += 100 * B.rating
-
-/obj/machinery/medipen_refiller/RefreshParts()
-	. = ..()
-	var/new_volume = 100
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		new_volume += 100 * B.rating
-	if(!reagents)
-		create_reagents(new_volume, TRANSPARENT)
-	reagents.maximum_volume = new_volume
-	return TRUE
 
 ///  handles the messages and animation, calls refill to end the animation
 /obj/machinery/medipen_refiller/attackby(obj/item/I, mob/user, params)

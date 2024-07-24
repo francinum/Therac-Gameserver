@@ -4,7 +4,12 @@
 	icon = 'icons/obj/machines/sheetifier.dmi'
 	icon_state = "base_machine"
 	density = TRUE
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
+
 	circuit = /obj/item/circuitboard/machine/sheetifier
+
 	layer = BELOW_OBJ_LAYER
 	var/busy_processing = FALSE
 

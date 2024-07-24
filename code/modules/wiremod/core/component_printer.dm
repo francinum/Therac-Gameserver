@@ -6,6 +6,9 @@
 	icon_state = "fab-idle"
 	circuit = /obj/item/circuitboard/machine/component_printer
 
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
+
 	has_disk_slot = TRUE
 
 	/// The internal material bus
@@ -247,6 +250,10 @@
 	desc = "Allows you to duplicate module components so that you don't have to recreate them. Scan a module component over this machine to add it as an entry."
 	icon = 'icons/obj/wiremod_fab.dmi'
 	icon_state = "module-fab-idle"
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
+
 	circuit = /obj/item/circuitboard/machine/module_duplicator
 
 	/// The internal material bus

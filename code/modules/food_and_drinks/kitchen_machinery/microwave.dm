@@ -7,7 +7,12 @@
 	icon_state = "mw"
 	layer = BELOW_OBJ_LAYER
 	density = TRUE
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
+
 	circuit = /obj/item/circuitboard/machine/microwave
+
 	pass_flags = PASSTABLE
 	light_color = LIGHT_COLOR_DIM_YELLOW
 	light_power = 3
@@ -16,8 +21,10 @@
 	var/dirty = 0 // 0 to 100 // Does it need cleaning?
 	var/dirty_anim_playing = FALSE
 	var/broken = 0 // 0, 1 or 2 // How broken is it???
+
 	var/max_n_of_items = 10
-	var/efficiency = 0
+	var/efficiency = 1
+
 	var/datum/looping_sound/microwave/soundloop
 	var/list/ingredients = list() // may only contain /atom/movables
 
@@ -41,15 +48,6 @@
 		QDEL_NULL(wires)
 	QDEL_NULL(soundloop)
 	. = ..()
-
-/obj/machinery/microwave/RefreshParts()
-	. = ..()
-	efficiency = 0
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		efficiency += M.rating
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		max_n_of_items = 10 * M.rating
-		break
 
 /obj/machinery/microwave/examine(mob/user)
 	. = ..()

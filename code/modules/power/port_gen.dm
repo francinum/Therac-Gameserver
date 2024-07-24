@@ -81,8 +81,12 @@
 /obj/machinery/power/port_gen/pacman
 	name = "\improper P.A.C.M.A.N.-type portable generator"
 	circuit = /obj/item/circuitboard/machine/pacman
+
+	power_gen = 10000
+	consumption = 1
+
 	var/sheets = 0
-	var/max_sheets = 100
+	var/max_sheets = 50
 	var/sheet_name = ""
 	var/sheet_path = /obj/item/stack/sheet/mineral/plasma
 	var/sheet_left = 0 // How much is left of the sheet
@@ -100,20 +104,6 @@
 /obj/machinery/power/port_gen/pacman/Destroy()
 	DropFuel()
 	return ..()
-
-/obj/machinery/power/port_gen/pacman/RefreshParts()
-	. = ..()
-	var/temp_rating = 0
-	var/consumption_coeff = 0
-	for(var/obj/item/stock_parts/SP in component_parts)
-		if(istype(SP, /obj/item/stock_parts/matter_bin))
-			max_sheets = SP.rating * SP.rating * 50
-		else if(istype(SP, /obj/item/stock_parts/capacitor))
-			temp_rating += SP.rating
-		else
-			consumption_coeff += SP.rating
-	power_gen = round(initial(power_gen) * temp_rating * 2)
-	consumption = consumption_coeff
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
 	. = ..()

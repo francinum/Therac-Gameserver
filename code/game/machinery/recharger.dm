@@ -8,6 +8,9 @@
 	pass_flags = PASSTABLE
 	zmm_flags = ZMM_MANGLE_PLANES
 
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 2
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
+
 	var/obj/item/charging = null
 	var/recharge_coeff = 1
 	var/using_power = FALSE //Did we put power into "charging" last process()?
@@ -20,11 +23,6 @@
 		/obj/item/ammo_box/magazine/recharge,
 		/obj/item/modular_computer,
 	))
-
-/obj/machinery/recharger/RefreshParts()
-	. = ..()
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_coeff = C.rating
 
 /obj/machinery/recharger/examine(mob/user)
 	. = ..()

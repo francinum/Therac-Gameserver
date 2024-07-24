@@ -19,7 +19,11 @@
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
 	density = TRUE
+
 	use_power = NO_POWER_USE
+	idle_power_usage = 0
+	active_power_usage = 0
+
 	circuit = /obj/item/circuitboard/machine/smes
 
 	var/capacity = 10e6 // maximum charge
@@ -63,17 +67,14 @@
 
 /obj/machinery/power/smes/RefreshParts()
 	SHOULD_CALL_PARENT(FALSE)
-	var/IO = 0
 	var/MC = 0
 	var/C
-	for(var/obj/item/stock_parts/capacitor/CP in component_parts)
-		IO += CP.rating
-	input_level_max = initial(input_level_max) * IO
-	output_level_max = initial(output_level_max) * IO
 	for(var/obj/item/stock_parts/cell/PC in component_parts)
 		MC += PC.maxcharge
 		C += PC.charge
+
 	capacity = MC * 100 // 1 Kilowatt to 0.1 megawatts
+
 	if(!initial(charge) && !charge)
 		charge = C * 100 // 1 Kilowatt to 0.1 megawatts
 

@@ -8,25 +8,18 @@
 	obj_flags = NO_BUILD // Becomes undense when the door is open
 	occupant_typecache = list(/mob/living, /obj/item/bodypart/head, /obj/item/organ/brain)
 	circuit = /obj/item/circuitboard/machine/dnascanner
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 4
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 4
+
 	var/locked = FALSE
-	var/damage_coeff
-	var/scan_level
-	var/precision_coeff
+	var/damage_coeff = 1
+	var/scan_level = 1
+	var/precision_coeff = 1
+
 	var/message_cooldown
 	var/breakout_time = 1200
 	var/obj/machinery/computer/scan_consolenew/linked_console = null
-
-/obj/machinery/dna_scannernew/RefreshParts()
-	. = ..()
-	scan_level = 0
-	damage_coeff = 0
-	precision_coeff = 0
-	for(var/obj/item/stock_parts/scanning_module/P in component_parts)
-		scan_level += P.rating
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		precision_coeff = M.rating
-	for(var/obj/item/stock_parts/micro_laser/P in component_parts)
-		damage_coeff = P.rating
 
 /obj/machinery/dna_scannernew/examine(mob/user)
 	. = ..()

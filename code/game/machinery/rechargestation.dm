@@ -9,9 +9,12 @@
 	circuit = /obj/item/circuitboard/machine/cyborgrecharger
 	occupant_typecache = list(/mob/living/silicon/robot, /mob/living/carbon/human)
 	processing_flags = NONE
-	var/recharge_speed
-	var/repairs
 
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 5
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
+
+	var/recharge_speed = 20
+	var/repairs = 0
 
 /obj/machinery/recharge_station/Initialize(mapload)
 	. = ..()
@@ -31,17 +34,6 @@
 		return
 	GLOB.roundstart_station_borgcharger_areas += area_name
 
-/obj/machinery/recharge_station/RefreshParts()
-	. = ..()
-	recharge_speed = 0
-	repairs = 0
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_speed += C.rating * 100
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		repairs += M.rating - 1
-	for(var/obj/item/stock_parts/cell/C in component_parts)
-		recharge_speed *= C.maxcharge / 10000
-
 /obj/machinery/recharge_station/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
@@ -55,7 +47,6 @@
 		end_processing()
 	else //Turned on
 		begin_processing()
-
 
 /obj/machinery/recharge_station/process(delta_time)
 	if(occupant)

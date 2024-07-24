@@ -81,7 +81,12 @@
 	icon_state = "stacker"
 	desc = "A machine that automatically stacks acquired materials. Controlled by a nearby console."
 	density = TRUE
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
+
 	circuit = /obj/item/circuitboard/machine/stacking_machine
+
 	input_dir = EAST
 	output_dir = WEST
 	var/obj/machinery/mineral/stacking_unit_console/console

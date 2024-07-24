@@ -15,8 +15,12 @@
 	max_integrity = 250
 	armor = list(BLUNT = 0, PUNCTURE = 0, SLASH = 90, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 10)
 	circuit = /obj/item/circuitboard/machine/space_heater
+
 	//We don't use area power, we always use the cell
 	use_power = NO_POWER_USE
+	idle_power_usage = 0
+	active_power_usage = 0
+
 	///The cell we spawn with
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell
 	///Is the machine on?
@@ -126,24 +130,6 @@
 	if(delta_temperature)
 		enviroment.temperature += delta_temperature
 	cell.use(required_energy / efficiency)
-
-/obj/machinery/space_heater/RefreshParts()
-	. = ..()
-	var/laser = 0
-	var/cap = 0
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		laser += M.rating
-	for(var/obj/item/stock_parts/capacitor/M in component_parts)
-		cap += M.rating
-
-	heating_power = laser * 40000
-
-	settable_temperature_range = cap * 30
-	efficiency = (cap + 1) * 10000
-
-	target_temperature = clamp(target_temperature,
-		max(settable_temperature_median - settable_temperature_range, TCMB),
-		settable_temperature_median + settable_temperature_range)
 
 /obj/machinery/space_heater/emp_act(severity)
 	. = ..()
@@ -413,26 +399,6 @@
 		icon_state = "sheater-heat"
 		return
 	icon_state = "sheater-off"
-
-/obj/machinery/space_heater/improvised_chem_heater/RefreshParts()
-	. = ..()
-	var/lasers_rating = 0
-	var/capacitors_rating = 0
-	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
-		lasers_rating += laser.rating
-	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
-		capacitors_rating += capacitor.rating
-
-	heating_power = lasers_rating * 20000
-
-	settable_temperature_range = capacitors_rating * 50 //-20 - 80 at base
-	efficiency = (capacitors_rating + 1) * 10000
-
-	target_temperature = clamp(target_temperature,
-		max(settable_temperature_median - settable_temperature_range, TCMB),
-		settable_temperature_median + settable_temperature_range)
-
-	chem_heating_power = efficiency/20000 //1-2.5
 
 #undef HEATER_MODE_STANDBY
 #undef HEATER_MODE_HEAT

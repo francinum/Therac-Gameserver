@@ -11,6 +11,9 @@
 	circuit = /obj/item/circuitboard/machine/smartfridge
 	zmm_flags = ZMM_MANGLE_PLANES
 
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 2
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
+
 	/// What path boards used to construct it should build into when dropped. Needed so we don't accidentally have them build variants with items preloaded in them.
 	var/base_build_path = /obj/machinery/smartfridge
 	/// Maximum number of items that can be loaded into the machine
@@ -33,11 +36,6 @@
 				amount = 1
 			for(var/i in 1 to amount)
 				load(new typekey(src))
-
-/obj/machinery/smartfridge/RefreshParts()
-	. = ..()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 1500 * B.rating
 
 /obj/machinery/smartfridge/examine(mob/user)
 	. = ..()
@@ -269,6 +267,11 @@
 	icon_state = "drying_rack"
 	visible_contents = FALSE
 	base_build_path = /obj/machinery/smartfridge/drying_rack //should really be seeing this without admin fuckery.
+
+	use_power = FALSE
+	idle_power_usage = 0
+	active_power_usage = 0
+
 	var/drying = FALSE
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
@@ -424,7 +427,7 @@
 	desc = "A refrigerated storage unit for organ storage."
 	max_n_of_items = 20 //vastly lower to prevent processing too long
 	base_build_path = /obj/machinery/smartfridge/organ
-	var/repair_rate = 0
+	var/repair_rate = 0.05
 
 /obj/machinery/smartfridge/organ/accept_check(obj/item/O)
 	if(isorgan(O) || isbodypart(O))
@@ -438,12 +441,6 @@
 	if(isorgan(O))
 		var/obj/item/organ/organ = O
 		organ.organ_flags |= ORGAN_FROZEN
-
-/obj/machinery/smartfridge/organ/RefreshParts()
-	. = ..()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 20 * B.rating
-		repair_rate = max(0, (0.1) * (B.rating - 1) * 0.5)
 
 /obj/machinery/smartfridge/organ/process(delta_time)
 	for(var/obj/item/organ/organ in contents)

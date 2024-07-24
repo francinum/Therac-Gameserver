@@ -16,6 +16,11 @@
 
 	hide = TRUE
 
+	// Thermo machines do not passively use power, they ONLY manually use it!
+	idle_power_usage = 0
+	active_power_usage = 0
+	use_power = FALSE
+
 	move_resist = MOVE_RESIST_DEFAULT
 	vent_movement = NONE
 	pipe_flags = PIPING_ONE_PER_TURF
@@ -35,15 +40,18 @@
 	///Percentage of power rating to use
 	var/power_setting = 20 // Start at 20 so we don't obliterate the station power supply.
 	/// How much gussy we can store in liters, this is affected by refresh_parts()
-	var/internal_volume = 400
+	var/internal_volume = 600
 
 	var/interactive = TRUE // So mapmakers can disable interaction.
 	var/color_index = 1
 
 /obj/machinery/atmospherics/components/unary/thermomachine/Initialize(mapload)
 	. = ..()
-	RefreshParts()
 	update_appearance()
+	if(airs[1])
+		airs[1].volume = internal_volume
+	else
+		airs[1] = new /datum/gas_mixture(internal_volume)
 
 /obj/machinery/atmospherics/components/unary/thermomachine/is_connectable()
 	if(!anchored || panel_open)
@@ -60,29 +68,6 @@
 		deconstruct(TRUE)
 		return
 	return..()
-
-/obj/machinery/atmospherics/components/unary/thermomachine/RefreshParts()
-	. = ..()
-	var/cap_rating = 0
-	for(var/obj/item/stock_parts/capacitor/cap in component_parts)
-		cap_rating += cap.rating
-
-	var/bin_rating = 0
-	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
-		cap_rating += bin.rating
-
-	var/manip_rating = 0
-	for(var/obj/item/stock_parts/manipulator/man in component_parts)
-		manip_rating += man.rating
-
-	max_power_rating = initial(max_power_rating) * (cap_rating / 2) //more powerful
-	internal_volume = initial(internal_volume) + (200 * bin_rating) //more air
-	heatsink_temperature = initial(heatsink_temperature) / ((manip_rating + bin_rating) / 2) //more efficient
-	set_power_level(power_setting)
-	if(airs[1])
-		airs[1].volume = internal_volume
-	else
-		airs[1] = new /datum/gas_mixture(200)
 
 /obj/machinery/atmospherics/components/unary/thermomachine/update_icon_state()
 	var/colors_to_use = ""

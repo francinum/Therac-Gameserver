@@ -11,7 +11,12 @@
 	output_dir = SOUTH
 	req_access = list(ACCESS_MINERAL_STOREROOM)
 	layer = BELOW_OBJ_LAYER
+
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 4
 	circuit = /obj/item/circuitboard/machine/ore_redemption
+
 	needs_item_input = TRUE
 	processing_flags = START_PROCESSING_MANUALLY
 

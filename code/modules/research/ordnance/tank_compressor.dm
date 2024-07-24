@@ -11,6 +11,9 @@
 	icon_state = "tank_compressor-open"
 	density = TRUE
 
+	idle_power_usage = 0
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
+
 	var/active = FALSE
 	var/transfer_rate = TANK_COMPRESSOR_MAX_TRANSFER_RATE
 	var/datum/gas_mixture/leaked_gas_buffer

@@ -7,7 +7,12 @@
 	pass_flags_self = PASSMACHINE | LETPASSTHROW
 	pixel_z = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
+
+	idle_power_usage = 0
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 3
+
 	circuit = /obj/item/circuitboard/machine/hydroponics
+
 	use_power = NO_POWER_USE
 	///The amount of water in the tray (max 100)
 	var/waterlevel = 100
@@ -157,18 +162,6 @@
 /obj/machinery/hydroponics/constructable/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/hydroponics))
-
-/obj/machinery/hydroponics/constructable/RefreshParts()
-	. = ..()
-	var/tmp_capacity = 0
-	for (var/obj/item/stock_parts/matter_bin/M in component_parts)
-		tmp_capacity += M.rating
-	for (var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating = M.rating
-	maxwater = tmp_capacity * 50 // Up to 300
-	maxnutri = (tmp_capacity * 5) + STATIC_NUTRIENT_CAPACITY // Up to 50 Maximum
-	reagents.maximum_volume = maxnutri
-	nutridrain = 1/rating
 
 /obj/machinery/hydroponics/constructable/examine(mob/user)
 	. = ..()

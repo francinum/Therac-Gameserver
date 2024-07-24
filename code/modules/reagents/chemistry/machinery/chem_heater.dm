@@ -7,6 +7,10 @@
 	base_icon_state = "mixer"
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.4
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 4
+
 	circuit = /obj/item/circuitboard/machine/chem_heater
 
 	var/obj/item/reagent_containers/beaker = null
@@ -72,12 +76,6 @@
 		beaker = new_beaker
 	update_appearance()
 	return TRUE
-
-/obj/machinery/chem_heater/RefreshParts()
-	. = ..()
-	heater_coefficient = 0.1
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		heater_coefficient *= M.rating
 
 /obj/machinery/chem_heater/examine(mob/user)
 	. = ..()

@@ -8,8 +8,13 @@
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
 	base_icon_state = "tele"
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 10
+
 	circuit = /obj/item/circuitboard/machine/teleporter_hub
-	var/accuracy = 0
+
+	var/accuracy = 2
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated = FALSE//Calibration prevents mutation
 
@@ -22,13 +27,6 @@
 		power_station.teleporter_hub = null
 		power_station = null
 	return ..()
-
-/obj/machinery/teleport/hub/RefreshParts()
-	. = ..()
-	var/A = 0
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		A += M.rating
-	accuracy = A
 
 /obj/machinery/teleport/hub/examine(mob/user)
 	. = ..()
@@ -108,7 +106,12 @@
 	desc = "The power control station for a bluespace teleporter. Used for toggling power, and can activate a test-fire to prevent malfunctions."
 	icon_state = "controller"
 	base_icon_state = "controller"
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 3
+
 	circuit = /obj/item/circuitboard/machine/teleporter_station
+
 	var/engaged = FALSE
 	var/obj/machinery/computer/teleporter/teleporter_console
 	var/obj/machinery/teleport/hub/teleporter_hub
@@ -118,13 +121,6 @@
 /obj/machinery/teleport/station/Initialize(mapload)
 	. = ..()
 	link_console_and_hub()
-
-/obj/machinery/teleport/station/RefreshParts()
-	. = ..()
-	var/E
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		E += C.rating
-	efficiency = E - 1
 
 /obj/machinery/teleport/station/examine(mob/user)
 	. = ..()

@@ -199,13 +199,6 @@ Possible to do for anyone motivated enough:
 	if(outgoing_call)
 		outgoing_call.ConnectionFailure(src)
 
-/obj/machinery/holopad/RefreshParts()
-	. = ..()
-	var/holograph_range = 4
-	for(var/obj/item/stock_parts/capacitor/B in component_parts)
-		holograph_range += 1 * B.rating
-	holo_range = holograph_range
-
 /obj/machinery/holopad/examine(mob/user)
 	. = ..()
 	if(isAI(user))

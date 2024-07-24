@@ -7,8 +7,15 @@ DEFINE_INTERACTABLE(/obj/machinery/rnd/production)
 	name = "technology fabricator"
 	desc = "Makes researched and prototype items with materials and energy."
 	layer = BELOW_OBJ_LAYER
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 5
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
+
 	/// Materials needed / coeff = actual.
 	var/efficiency_coeff = 1
+	/// # of units of materials we can hold
+	var/material_capacity = 150000
+
 	var/datum/component/remote_materials/materials
 	var/allowed_buildtypes = NONE
 
@@ -34,14 +41,20 @@ DEFINE_INTERACTABLE(/obj/machinery/rnd/production)
 /obj/machinery/rnd/production/Initialize(mapload)
 	. = ..()
 	queue = list()
-	selected_disk = internal_disk
-	create_reagents(0, OPENCONTAINER)
 	matching_designs = list()
+	selected_disk = internal_disk
+
+	create_reagents(0, OPENCONTAINER)
+
 	materials = AddComponent(/datum/component/remote_materials, "lathe", mapload, mat_container_flags=BREAKDOWN_FLAGS_LATHE)
-	RefreshParts()
+	materials.set_local_size(material_capacity)
+
 	update_icon(UPDATE_OVERLAYS)
+
 	if(internal_disk)
 		compile_categories()
+
+	calculate_efficiency()
 
 /obj/machinery/rnd/production/Destroy()
 	materials = null
@@ -65,18 +78,6 @@ DEFINE_INTERACTABLE(/obj/machinery/rnd/production)
 		for(var/obj/item/reagent_containers/glass/G in component_parts)
 			reagents.maximum_volume += G.volume
 			G.reagents.trans_to(src, G.reagents.total_volume)
-	if(materials)
-		var/total_storage = 0
-		for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-			total_storage += M.rating * 75000
-		materials.set_local_size(total_storage)
-	var/total_rating = 1.2
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_rating = clamp(total_rating - (M.rating * 0.1), 0, 1)
-	if(total_rating == 0)
-		efficiency_coeff = INFINITY
-	else
-		efficiency_coeff = 1/total_rating
 
 //we eject the materials upon deconstruction.
 /obj/machinery/rnd/production/on_deconstruction()

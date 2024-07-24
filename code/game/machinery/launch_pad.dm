@@ -5,7 +5,9 @@
 	desc = "A bluespace pad able to thrust matter through bluespace, teleporting it to or from nearby locations."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "lpad-idle"
+
 	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2.5
+
 	hud_possible = list(DIAG_LAUNCHPAD_HUD = 'icons/mob/huds/hud.dmi')
 	circuit = /obj/item/circuitboard/machine/launchpad
 	var/icon_teleport = "lpad-beam"
@@ -22,14 +24,6 @@
 	var/hidden = FALSE
 	/// The beam on teleportation
 	var/teleport_beam = "sm_arc_supercharged"
-
-/obj/machinery/launchpad/RefreshParts()
-	. = ..()
-	var/max_range_multiplier = 0
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		max_range_multiplier += M.rating
-	range = initial(range)
-	range *= max_range_multiplier
 
 /obj/machinery/launchpad/Initialize(mapload)
 	. = ..()
@@ -231,7 +225,11 @@
 	icon_state = "blpad-idle"
 	icon_teleport = "blpad-beam"
 	anchored = FALSE
+
 	use_power = NO_POWER_USE
+	idle_power_usage = parent_type::idle_power_usage * 0.5
+	active_power_usage = parent_type::active_power_usage * 0.5
+
 	teleport_speed = 20
 	range = 8
 	stationary = FALSE

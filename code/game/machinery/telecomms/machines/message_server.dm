@@ -74,6 +74,10 @@
 	desc = "A machine that processes and routes PDA and request console messages."
 	telecomms_type = /obj/machinery/telecomms/message_server
 	density = TRUE
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 2
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 6
+
 	circuit = /obj/item/circuitboard/machine/telecomms/message_server
 
 	network_flags = NETWORK_FLAG_GEN_ID

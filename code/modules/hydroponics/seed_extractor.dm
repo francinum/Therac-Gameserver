@@ -60,6 +60,10 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "sextractor"
 	density = TRUE
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
+
 	circuit = /obj/item/circuitboard/machine/seed_extractor
 	/// Associated list of seeds, they are all weak refs.  We check the len to see how many refs we have for each
 	// seed
@@ -87,13 +91,6 @@
 		return CONTEXTUAL_SCREENTIP_SET
 
 	return NONE
-
-/obj/machinery/seed_extractor/RefreshParts()
-	. = ..()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_seeds = initial(max_seeds) * B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		seed_multiplier = initial(seed_multiplier) * M.rating
 
 /obj/machinery/seed_extractor/examine(mob/user)
 	. = ..()

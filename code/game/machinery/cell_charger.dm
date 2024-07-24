@@ -3,9 +3,14 @@
 	desc = "It charges power cells."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger"
+
 	power_channel = AREA_USAGE_EQUIP
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 2
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
+
 	circuit = /obj/item/circuitboard/machine/cell_charger
 	pass_flags = PASSTABLE
+
 	var/obj/item/stock_parts/cell/charging = null
 	var/charge_rate = 250
 
@@ -125,12 +130,6 @@
 
 	if(charging)
 		charging.emp_act(severity)
-
-/obj/machinery/cell_charger/RefreshParts()
-	. = ..()
-	charge_rate = 250
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		charge_rate *= C.rating
 
 /obj/machinery/cell_charger/process(delta_time)
 	if(!charging || !anchored || (machine_stat & (BROKEN|NOPOWER)))

@@ -4,12 +4,18 @@
 	icon = 'icons/obj/machines/biogenerator.dmi'
 	icon_state = "biogen-empty"
 	density = TRUE
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 3
+
 	circuit = /obj/item/circuitboard/machine/biogenerator
+
 	var/processing = FALSE
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/points = 0
-	var/efficiency = 0
-	var/productivity = 0
+
+	var/efficiency = 1
+	var/productivity = 1
 	var/max_items = 40
 
 	var/list/datum/design/design_map
@@ -47,20 +53,6 @@
 	if(A == beaker)
 		beaker = null
 		update_appearance()
-
-/obj/machinery/biogenerator/RefreshParts()
-	. = ..()
-	var/E = 0
-	var/P = 0
-	var/max_storage = 40
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		P += B.rating
-		max_storage = 40 * B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
-	efficiency = E
-	productivity = P
-	max_items = max_storage
 
 /obj/machinery/biogenerator/examine(mob/user)
 	. = ..()

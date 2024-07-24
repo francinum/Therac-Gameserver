@@ -19,6 +19,9 @@
 	icon_state = "explosive_compressor"
 	density = TRUE
 
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 3
+
 	/// The raw core inserted in the machine.
 	var/obj/item/raw_anomaly_core/inserted_core
 	/// The TTV inserted in the machine.

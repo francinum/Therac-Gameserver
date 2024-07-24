@@ -8,6 +8,9 @@
 	density = TRUE
 	opacity = FALSE
 
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 5
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
+
 	var/mob/living/carbon/victim = null ///Keeps track of the victim to apply effects if it teleports away
 	var/interrogating = FALSE ///Is the device currently interrogating someone?
 	var/start_time = 0 ///Time when the interrogation was started, to calculate effect in case of interruption

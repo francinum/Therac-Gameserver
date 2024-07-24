@@ -7,11 +7,14 @@
 	icon_state = "processor1"
 	layer = BELOW_OBJ_LAYER
 	density = TRUE
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 3
+
 	circuit = /obj/item/circuitboard/machine/processor
+
 	var/broken = FALSE
 	var/processing = FALSE
-	var/rating_speed = 1
-	var/rating_amount = 1
 	var/list/processor_contents
 	/*
 	 * Static, nested list. The first layer contains all food processor types.
@@ -38,22 +41,15 @@
 		for(var/machine_type in typesof(recipe.required_machine))
 			LAZYADD(processor_inputs[machine_type], typecache)
 
-/obj/machinery/processor/RefreshParts()
-	. = ..()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		rating_amount = B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating_speed = M.rating
-
 /obj/machinery/processor/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += span_notice("The status display reads: Outputting <b>[rating_amount]</b> item(s) at <b>[rating_speed*100]%</b> speed.")
+		. += span_notice("The status display reads: Outputting <b>[1]</b> item(s) at <b>[100]%</b> speed.")
 
 /obj/machinery/processor/proc/process_food(datum/food_processor_process/recipe, atom/movable/what)
 	if(recipe.output && loc && !QDELETED(src))
 		var/list/cached_mats = recipe.preserve_materials && what.custom_materials
-		var/cached_multiplier = (recipe.food_multiplier * rating_amount)
+		var/cached_multiplier = recipe.food_multiplier
 		for(var/i in 1 to cached_multiplier)
 			var/atom/processed_food = new recipe.output(drop_location())
 			what.reagents.copy_to(processed_food, what.reagents.total_volume, multiplier = 1 / cached_multiplier)
@@ -136,8 +132,8 @@
 			continue
 		total_time += recipe.time
 	var/offset = prob(50) ? -2 : 2
-	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = (total_time / rating_speed)*5) //start shaking
-	sleep(total_time / rating_speed)
+	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = (total_time)*5) //start shaking
+	sleep(total_time)
 	for(var/atom/movable/O in processor_contents)
 		var/datum/food_processor_process/P = PROCESSOR_SELECT_RECIPE(O)
 		if (!P)
@@ -236,9 +232,9 @@
 		if(S.stat != DEAD)
 			LAZYREMOVE(processor_contents, S)
 			S.forceMove(drop_location())
-			S.visible_message(span_notice("[C] crawls free of the processor!"))
+			S.visible_message(span_notice("[S] crawls free of the processor!"))
 			return
-		for(var/i in 1 to (C+rating_amount-1))
+		for(var/i in 1 to C - 1)
 			var/atom/movable/item = new S.coretype(drop_location())
 			adjust_item_drop_location(item)
 			SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.colour)

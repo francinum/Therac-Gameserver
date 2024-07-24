@@ -9,7 +9,12 @@
 	obj_flags = NO_BUILD
 	can_buckle = TRUE
 	buckle_lying = 90
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 2
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 3
+
 	circuit = /obj/item/circuitboard/machine/stasis
+
 	fair_market_price = 10
 	payment_department = ACCOUNT_MED
 	var/stasis_enabled = TRUE

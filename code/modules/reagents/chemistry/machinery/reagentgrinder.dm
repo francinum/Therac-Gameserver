@@ -7,6 +7,10 @@
 	icon_state = "juicer1"
 	base_icon_state = "juicer"
 	layer = BELOW_OBJ_LAYER
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
+
 	circuit = /obj/item/circuitboard/machine/reagentgrinder
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
@@ -63,12 +67,6 @@
 			EX_ACT(beaker, EXPLODE_HEAVY)
 		if(EXPLODE_LIGHT)
 			EX_ACT(beaker, EXPLODE_LIGHT)
-
-/obj/machinery/reagentgrinder/RefreshParts()
-	. = ..()
-	speed = 1
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		speed = M.rating
 
 /obj/machinery/reagentgrinder/examine(mob/user)
 	. = ..()

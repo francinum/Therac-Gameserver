@@ -19,7 +19,10 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 	pass_flags_self = PASSMACHINE | LETPASSTHROW
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.05
 	layer = BELOW_OBJ_LAYER
-	circuit = /obj/item/circuitboard/machine/deep_fryer
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
+
 	var/obj/item/food/deepfryholder/frying //What's being fried RIGHT NOW?
 	var/cook_time = 0
 	var/oil_use = 0.025 //How much cooking oil is used per second
@@ -44,14 +47,6 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 /obj/machinery/deepfryer/Destroy()
 	QDEL_NULL(fry_loop)
 	return ..()
-
-/obj/machinery/deepfryer/RefreshParts()
-	. = ..()
-	var/oil_efficiency
-	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		oil_efficiency += M.rating
-	oil_use = initial(oil_use) - (oil_efficiency * 0.00475)
-	fry_speed = oil_efficiency
 
 /obj/machinery/deepfryer/examine(mob/user)
 	. = ..()

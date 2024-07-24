@@ -7,9 +7,15 @@
 	base_icon_state = "harvester"
 	verb_say = "states"
 	state_open = FALSE
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 5
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
+
 	circuit = /obj/item/circuitboard/machine/harvester
+
 	light_color = LIGHT_COLOR_BLUE
-	var/interval = 20
+
+	var/interval = 4 SECONDS
 	var/harvesting = FALSE
 	var/warming_up = FALSE
 	var/list/operation_order = list() //Order of wich we harvest limbs.
@@ -20,14 +26,6 @@
 	. = ..()
 	if(prob(1))
 		name = "auto-autopsy"
-
-/obj/machinery/harvester/RefreshParts()
-	. = ..()
-	interval = 0
-	var/max_time = 40
-	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		max_time -= L.rating
-	interval = max(max_time,1)
 
 /obj/machinery/harvester/update_icon_state()
 	if(state_open)

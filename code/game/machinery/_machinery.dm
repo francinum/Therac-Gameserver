@@ -736,18 +736,6 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 
 /obj/machinery/proc/RefreshParts()
 	SHOULD_CALL_PARENT(TRUE)
-	//reset to baseline
-	idle_power_usage = initial(idle_power_usage)
-	active_power_usage = initial(active_power_usage)
-	if(!component_parts || !component_parts.len)
-		return
-	var/parts_energy_rating = 0
-	for(var/obj/item/stock_parts/part in component_parts)
-		parts_energy_rating += part.energy_rating
-
-	idle_power_usage = initial(idle_power_usage) * (1 + parts_energy_rating)
-	active_power_usage = initial(active_power_usage) * (1 + parts_energy_rating)
-	update_current_power_usage()
 
 	internal_disk = locate() in component_parts
 	selected_disk = internal_disk
@@ -1197,3 +1185,21 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 
 		log_game("[key_name(user)] moved [data] from an external disk to [src] ([get_area_name(src)])")
 		return TRUE
+
+/proc/dump_data()
+	var/list/data = list()
+	for(var/obj/machinery/path as anything in subtypesof(/obj/machinery))
+		if(!ispath(initial(path.circuit)))
+			continue
+
+		var/obj/machinery/machine = new path(get_turf(usr))
+		machine.RefreshParts()
+
+		data[path] = list(
+			"Idle" = machine.idle_power_usage,
+			"Active" = machine.active_power_usage
+		)
+
+		qdel(machine)
+
+	text2file(json_encode(data), "data/machine_part_info.json")

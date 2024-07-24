@@ -25,14 +25,6 @@
 	..()
 	add_avail(power_gen)
 
-/obj/machinery/power/rtg/RefreshParts()
-	. = ..()
-	var/part_level = 0
-	for(var/obj/item/stock_parts/SP in component_parts)
-		part_level += SP.rating
-
-	power_gen = initial(power_gen) * part_level
-
 /obj/machinery/power/rtg/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
@@ -102,10 +94,6 @@
 	desc = "You really shouldn't be seeing this if you're not a coder or jannie."
 	power_gen = 20000
 	circuit = null
-
-/obj/machinery/power/rtg/debug/RefreshParts()
-	SHOULD_CALL_PARENT(FALSE)
-	return
 
 /obj/machinery/power/rtg/debug/station
 	name = "Debug RTG"

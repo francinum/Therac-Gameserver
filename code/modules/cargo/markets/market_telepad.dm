@@ -16,14 +16,15 @@
 	circuit = /obj/item/circuitboard/machine/ltsrbt
 	density = TRUE
 
-	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 2
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 5
 
 	/// Divider for power_usage_per_teleport.
 	var/power_efficiency = 1
 	/// Power used per teleported which gets divided by power_efficiency.
 	var/power_usage_per_teleport = 10000
 	/// The time it takes for the machine to recharge before being able to send or receive items.
-	var/recharge_time = 0
+	var/recharge_time = 2 SECONDS
 	/// Current recharge progress.
 	var/recharge_cooldown = 0
 	/// Base recharge time in seconds which is used to get recharge_time.
@@ -46,21 +47,6 @@
 		for(var/datum/market_purchase/P in queue)
 			SSblackmarket.queue_item(P)
 	. = ..()
-
-/obj/machinery/ltsrbt/RefreshParts()
-	. = ..()
-	recharge_time = base_recharge_time
-	// On tier 4 recharge_time should be 20 and by default it is 80 as scanning modules should be tier 1.
-	for(var/obj/item/stock_parts/scanning_module/scan in component_parts)
-		recharge_time -= scan.rating * 10
-	recharge_cooldown = recharge_time
-
-	power_efficiency = 0
-	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
-		power_efficiency += laser.rating
-	// Shouldn't happen but you never know.
-	if(!power_efficiency)
-		power_efficiency = 1
 
 /// Adds /datum/market_purchase to queue unless the machine is free, then it sets the purchase to be instantly received
 /obj/machinery/ltsrbt/proc/add_to_queue(datum/market_purchase/purchase)

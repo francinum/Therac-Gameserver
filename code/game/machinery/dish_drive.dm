@@ -5,7 +5,10 @@
 	Or you can just drop your plates on the floor, like civilized folk."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "synthesizer"
+
+	idle_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.04
 	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.04
+
 	density = FALSE
 	circuit = /obj/item/circuitboard/machine/dish_drive
 	pass_flags = PASSTABLE
@@ -68,14 +71,6 @@
 
 /obj/machinery/dish_drive/RefreshParts()
 	. = ..()
-	var/total_rating = 0
-	for(var/obj/item/stock_parts/S in component_parts)
-		total_rating += S.rating
-	if(total_rating >= 9)
-		update_mode_power_usage(ACTIVE_POWER_USE, 0)
-	else
-		update_mode_power_usage(IDLE_POWER_USE, max(0, initial(idle_power_usage) - total_rating))
-		update_mode_power_usage(ACTIVE_POWER_USE, max(0, initial(active_power_usage) - total_rating))
 	var/obj/item/circuitboard/machine/dish_drive/board = locate() in component_parts
 	if(board)
 		suction_enabled = board.suction

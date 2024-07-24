@@ -52,8 +52,10 @@ GLOBAL_LIST_EMPTY(fax_machines)
 	icon = 'icons/obj/machines/fax.dmi'
 	base_icon_state = "fax"
 	icon_state = "fax"
-	idle_power_usage = 10
-	active_power_usage = 100
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.2
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 0.2
+
 	circuit = /obj/item/circuitboard/machine/fax_machine
 	/// Whether this machine can send faxes
 	var/sending_enabled = TRUE

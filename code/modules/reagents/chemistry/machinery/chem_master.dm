@@ -12,8 +12,11 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
 	base_icon_state = "mixer"
-	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.2
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 2
+
 	circuit = /obj/item/circuitboard/machine/chem_master
 
 	/// Input reagents container

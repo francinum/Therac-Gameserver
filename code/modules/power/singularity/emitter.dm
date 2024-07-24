@@ -12,6 +12,9 @@
 
 	use_power = NO_POWER_USE
 
+	idle_power_usage = 0
+	active_power_usage = 300
+
 	/// The icon state used by the emitter when it's on.
 	var/icon_state_on = "emitter_+a"
 	/// The icon state used by the emitter when it's on and low on power.
@@ -80,23 +83,6 @@
 	. = ..()
 	if(!anchored && welded) //make sure they're keep in sync in case it was forcibly unanchored by badmins or by a megafauna.
 		welded = FALSE
-
-/obj/machinery/power/emitter/RefreshParts()
-	. = ..()
-	var/max_fire_delay = 12 SECONDS
-	var/fire_shoot_delay = 12 SECONDS
-	var/min_fire_delay = 2.4 SECONDS
-	var/power_usage = 350
-	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
-		max_fire_delay -= 2 SECONDS * laser.rating
-		min_fire_delay -= 0.4 SECONDS * laser.rating
-		fire_shoot_delay -= 2 SECONDS * laser.rating
-	maximum_fire_delay = max_fire_delay
-	minimum_fire_delay = min_fire_delay
-	fire_delay = fire_shoot_delay
-	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
-		power_usage -= 50 * manipulator.rating
-	update_mode_power_usage(ACTIVE_POWER_USE, power_usage)
 
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()

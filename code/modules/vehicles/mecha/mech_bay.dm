@@ -5,6 +5,11 @@
 	dir = EAST
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "recharge_port"
+
+
+	idle_power_usage = 0
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 6000
+
 	circuit = /obj/item/circuitboard/machine/mech_recharger
 	///Weakref to currently recharging mech on our recharging_turf
 	var/datum/weakref/recharging_mech_ref
@@ -39,13 +44,6 @@
 /obj/machinery/mech_bay_recharge_port/setDir(new_dir)
 	. = ..()
 	recharging_turf = get_step(loc, dir)
-
-/obj/machinery/mech_bay_recharge_port/RefreshParts()
-	. = ..()
-	var/total_rating = 0
-	for(var/obj/item/stock_parts/capacitor/cap in component_parts)
-		total_rating += cap.rating
-	recharge_power = total_rating * 12.5
 
 /obj/machinery/mech_bay_recharge_port/examine(mob/user)
 	. = ..()

@@ -3,11 +3,14 @@
 	desc = "A bluespace quantum-linked telepad used for teleporting objects to other quantum pads."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad-idle"
-	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 10
+
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 3
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 30
+
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/quantumpad
-	var/teleport_cooldown = 400 //30 seconds base due to base parts
-	var/teleport_speed = 50
+	var/teleport_cooldown = 30 SECONDS //30 seconds base due to base parts
+	var/teleport_speed = 4 SECONDS
 	var/last_teleport //to handle the cooldown
 	var/teleporting = FALSE //if it's in the process of teleporting
 	var/power_efficiency = 1
@@ -38,20 +41,6 @@
 		. += span_notice("The panel is <i>screwed</i> in, obstructing the linking device.")
 	else
 		. += span_notice("The <i>linking</i> device is now able to be <i>scanned<i> with a multitool.")
-
-/obj/machinery/quantumpad/RefreshParts()
-	. = ..()
-	var/E = 0
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		E += C.rating
-	power_efficiency = E
-	E = 0
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
-	teleport_speed = initial(teleport_speed)
-	teleport_speed -= (E*10)
-	teleport_cooldown = initial(teleport_cooldown)
-	teleport_cooldown -= (E * 100)
 
 /obj/machinery/quantumpad/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "qpad-idle-open", "qpad-idle", I))
