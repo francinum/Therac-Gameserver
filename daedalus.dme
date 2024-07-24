@@ -4139,7 +4139,6 @@
 #include "code\modules\research\designs.dm"
 #include "code\modules\research\destructive_analyzer.dm"
 #include "code\modules\research\rdmachines.dm"
-#include "code\modules\research\stock_parts.dm"
 #include "code\modules\research\anomaly\anomaly_core.dm"
 #include "code\modules\research\anomaly\anomaly_refinery.dm"
 #include "code\modules\research\anomaly\raw_anomaly.dm"
