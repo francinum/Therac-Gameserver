@@ -7,9 +7,6 @@
 	/// See parse_text
 	var/feedback_deconstruct = ""
 
-	/// If TRUE, will call default_state()
-	var/has_default_state = FALSE
-
 	/// If TRUE, this step can be deconstructed
 	var/reversible = TRUE
 
@@ -37,6 +34,7 @@
 
 /// Initializes this step's default state, spawning any items or setting vars.
 /datum/construction_step/proc/default_state()
+	complete = SEQUENCE_FINISHED
 	return
 
 /// Returns TRUE if the action can be attempted with the given item.
@@ -92,3 +90,6 @@
 	text = replacetext(text, "$OBJECT$", the_object)
 
 	return text
+
+/datum/construction_step/proc/remove_atom_from_parts(atom/movable/AM)
+	return

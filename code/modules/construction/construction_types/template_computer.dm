@@ -13,22 +13,8 @@
 	feedback_construct = "$USER$ wrenches something to $OBJECT$."
 	feedback_deconstruct = "$USER$ unwrenches something from $OBJECT$."
 
-/obj/item/wrench/test/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/construction, /datum/construction_template/computer)
-
-/datum/construction_template/computer/constructed(mob/living/user)
-	if(istype(parent, /obj/machinery/computer/template))
-		return
-
-	var/obj/machinery/computer/template/C = new /obj/machinery/computer/template(parent.drop_location(), FALSE, FALSE)
-	transfer_parent(C)
-
-/datum/construction_template/test
-	sequences = list(
-		/datum/construction_step/sequence/test
-	)
-/datum/construction_template/computer
+/datum/construction_template/basic/computer
+	result_path = /obj/machinery/computer/template
 	sequences = list(
 		/datum/construction_step/sequence/finish_frame,
 		/datum/construction_step/sequence/insert_electronics,

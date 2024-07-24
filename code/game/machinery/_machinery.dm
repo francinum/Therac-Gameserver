@@ -137,6 +137,7 @@
 	var/processing_flags = START_PROCESSING_ON_INIT
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
+
 	var/obj/item/circuitboard/circuit // Circuit to be created and inserted when the machinery is created
 
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
@@ -175,7 +176,7 @@
 	COOLDOWN_DECLARE(hibernating)
 
 GLOBAL_REAL_VAR(machinery_default_armor) = list()
-/obj/machinery/Initialize(mapload)
+/obj/machinery/Initialize(mapload, load_circuit = TRUE)
 	if(!armor)
 		armor = machinery_default_armor
 
@@ -184,9 +185,10 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 	SETUP_SMOOTHING()
 	QUEUE_SMOOTH(src)
 
-	if(ispath(circuit, /obj/item/circuitboard))
+	if(ispath(circuit, /obj/item/circuitboard) && load_circuit)
 		circuit = new circuit(src)
-		circuit.apply_default_parts(src)
+		circuit.set_parent(src)
+		circuit.construction.setup_default_state()
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
 		begin_processing()
@@ -308,11 +310,11 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 ///Called when the value of `machine_stat` changes, so we can react to it.
 /obj/machinery/proc/on_set_machine_stat(old_value)
 	//From off to on.
-	if((old_value & (NOPOWER|BROKEN|MAINT)) && !(machine_stat & (NOPOWER|BROKEN|MAINT)))
+	if((old_value & (NOPOWER|BROKEN|MAINT|NOT_FULLY_CONSTRUCTED)) && !(machine_stat & (NOPOWER|BROKEN|MAINT|NOT_FULLY_CONSTRUCTED)))
 		set_is_operational(TRUE)
 		return
 	//From on to off.
-	if(machine_stat & (NOPOWER|BROKEN|MAINT))
+	if(machine_stat & (NOPOWER|BROKEN|MAINT|NOT_FULLY_CONSTRUCTED))
 		set_is_operational(FALSE)
 
 
@@ -830,8 +832,9 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 	// The circuit should also be in component parts, so don't early return.
 	if(deleting_atom == circuit)
 		circuit = null
+
 	if((deleting_atom in component_parts) && !QDELETED(src))
-		component_parts.Remove(deleting_atom)
+		circuit.construction.remove_atom_from_parts(deleting_atom)
 		// It would be unusual for a component_part to be qdel'd ordinarily.
 		deconstruct(FALSE)
 	return ..()
@@ -898,70 +901,6 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 		return FALSE
 	if(can_be_unfasten_wrench(user, TRUE) != SUCCESSFUL_UNFASTEN) //if we aren't explicitly successful, cancel the fuck out
 		return FALSE
-	return TRUE
-
-/obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/replacer_tool)
-	if(!istype(replacer_tool))
-		return FALSE
-
-	if((flags_1 & NODECONSTRUCT_1) && !replacer_tool.works_from_distance)
-		return FALSE
-
-	var/shouldplaysound = 0
-	if(!component_parts)
-		return FALSE
-
-	if(!panel_open && !replacer_tool.works_from_distance)
-		to_chat(user, display_parts(user))
-		if(shouldplaysound)
-			replacer_tool.play_rped_sound()
-		return FALSE
-
-	var/obj/item/circuitboard/machine/machine_board = locate(/obj/item/circuitboard/machine) in component_parts
-	var/required_type
-	if(replacer_tool.works_from_distance)
-		to_chat(user, display_parts(user))
-	if(!machine_board)
-		return FALSE
-
-	for(var/obj/item/primary_part as anything in component_parts)
-		for(var/design_type in machine_board.req_components)
-			if(ispath(primary_part.type, design_type))
-				required_type = design_type
-				break
-		for(var/obj/item/secondary_part in replacer_tool.contents)
-			if(!istype(secondary_part, required_type) || !istype(primary_part, required_type))
-				continue
-			// If it's a corrupt or rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
-			if(istype(secondary_part, /obj/item/stock_parts/cell) && replacer_tool.works_from_distance)
-				var/obj/item/stock_parts/cell/checked_cell = secondary_part
-				// If it's rigged or corrupted, max the charge. Then explode it.
-				if(checked_cell.rigged || checked_cell.corrupted)
-					checked_cell.charge = checked_cell.maxcharge
-					checked_cell.explode()
-			if(secondary_part.get_part_rating() > primary_part.get_part_rating())
-				if(istype(secondary_part,/obj/item/stack)) //conveniently this will mean primary_part is also a stack and I will kill the first person to prove me wrong
-					var/obj/item/stack/primary_stack = primary_part
-					var/obj/item/stack/secondary_stack = secondary_part
-					var/used_amt = primary_stack.get_amount()
-					if(!secondary_stack.use(used_amt))
-						continue //if we don't have the exact amount to replace we don't
-					var/obj/item/stack/secondary_inserted = new secondary_stack.merge_type(null,used_amt)
-					component_parts += secondary_inserted
-				else
-					if(replacer_tool.atom_storage.attempt_remove(secondary_part, src))
-						component_parts += secondary_part
-						secondary_part.forceMove(src)
-				replacer_tool.atom_storage.attempt_insert(primary_part, user, TRUE)
-				component_parts -= primary_part
-				to_chat(user, span_notice("[capitalize(primary_part.name)] replaced with [secondary_part.name]."))
-				shouldplaysound = 1 //Only play the sound when parts are actually replaced!
-				break
-
-	RefreshParts()
-
-	if(shouldplaysound)
-		replacer_tool.play_rped_sound()
 	return TRUE
 
 /obj/machinery/proc/display_parts(mob/user)

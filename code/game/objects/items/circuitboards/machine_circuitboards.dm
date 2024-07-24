@@ -449,12 +449,13 @@
 	needs_anchored = FALSE
 	var/is_special_type = FALSE
 
-/obj/item/circuitboard/machine/smartfridge/apply_default_parts(obj/machinery/smartfridge/smartfridge)
-	build_path = smartfridge.base_build_path
-	if(!fridges_name_paths.Find(build_path, fridges_name_paths))
-		name = "[initial(smartfridge.name)] (Machine Board)" //if it's a unique type, give it a unique name.
-		is_special_type = TRUE
-	return ..()
+#warn this is dumb
+// /obj/item/circuitboard/machine/smartfridge/apply_default_parts(obj/machinery/smartfridge/smartfridge)
+// 	build_path = smartfridge.base_build_path
+// 	if(!fridges_name_paths.Find(build_path, fridges_name_paths))
+// 		name = "[initial(smartfridge.name)] (Machine Board)" //if it's a unique type, give it a unique name.
+// 		is_special_type = TRUE
+// 	return ..()
 
 /obj/item/circuitboard/machine/smartfridge/screwdriver_act(mob/living/user, obj/item/tool)
 	if (is_special_type)
@@ -557,20 +558,22 @@
 		return
 	if(isnull(display_vending_names_paths[choice]))
 		return
-	set_type(display_vending_names_paths[choice])
+	#warn set type vendort bs
+	// set_type(display_vending_names_paths[choice])
 	return TRUE
 
-/obj/item/circuitboard/machine/vendor/proc/set_type(obj/machinery/vending/typepath)
-	build_path = typepath
-	name = "[vending_names_paths[build_path]] Vendor (Machine Board)"
-	req_components = list(initial(typepath.refill_canister) = 1)
+#warn this is also dumb
+// /obj/item/circuitboard/machine/vendor/proc/set_type(obj/machinery/vending/typepath)
+// 	build_path = typepath
+// 	name = "[vending_names_paths[build_path]] Vendor (Machine Board)"
+// 	req_components = list(initial(typepath.refill_canister) = 1)
 
-/obj/item/circuitboard/machine/vendor/apply_default_parts(obj/machinery/machine)
-	for(var/typepath in vending_names_paths)
-		if(istype(machine, typepath))
-			set_type(typepath)
-			break
-	return ..()
+// /obj/item/circuitboard/machine/vendor/apply_default_parts(obj/machinery/machine)
+// 	for(var/typepath in vending_names_paths)
+// 		if(istype(machine, typepath))
+// 			set_type(typepath)
+// 			break
+// 	return ..()
 
 /obj/item/circuitboard/machine/vending/donksofttoyvendor
 	name = "Donksoft Toy Vendor (Machine Board)"

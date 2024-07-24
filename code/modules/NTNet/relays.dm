@@ -40,7 +40,7 @@
 	relay_enabled = new_value
 	if(.) //Turned off
 		set_is_operational(FALSE)
-	else if(!dos_failure && !(machine_stat & (NOPOWER|BROKEN|MAINT))) //Turned on
+	else if(!dos_failure && !(machine_stat & (NOPOWER|BROKEN|MAINT|NOT_FULLY_CONSTRUCTED))) //Turned on
 		set_is_operational(TRUE)
 
 
@@ -51,17 +51,17 @@
 	. = dos_failure
 	dos_failure = new_value
 	if(.) //Failure ended
-		if(relay_enabled && !(machine_stat & (NOPOWER|BROKEN|MAINT)))
+		if(relay_enabled && !(machine_stat & (NOPOWER|BROKEN|MAINT|NOT_FULLY_CONSTRUCTED)))
 			set_is_operational(TRUE)
 	else //Failure started
 		set_is_operational(FALSE)
 
 
 /obj/machinery/ntnet_relay/on_set_machine_stat(old_value)
-	if(old_value & (NOPOWER|BROKEN|MAINT))
-		if(relay_enabled && !dos_failure && !(machine_stat & (NOPOWER|BROKEN|MAINT))) //From off to on.
+	if(old_value & (NOPOWER|BROKEN|MAINT|NOT_FULLY_CONSTRUCTED))
+		if(relay_enabled && !dos_failure && !(machine_stat & (NOPOWER|BROKEN|MAINT|NOT_FULLY_CONSTRUCTED))) //From off to on.
 			set_is_operational(TRUE)
-	else if(machine_stat & (NOPOWER|BROKEN|MAINT)) //From on to off.
+	else if(machine_stat & (NOPOWER|BROKEN|MAINT|NOT_FULLY_CONSTRUCTED)) //From on to off.
 		set_is_operational(FALSE)
 
 

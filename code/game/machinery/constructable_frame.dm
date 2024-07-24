@@ -230,50 +230,6 @@
 					qdel(src)
 				return
 
-			if(istype(P, /obj/item/storage/part_replacer) && P.contents.len && get_req_components_amt())
-				var/obj/item/storage/part_replacer/replacer = P
-				var/list/added_components = list()
-				var/list/part_list = list()
-
-				//Assemble a list of current parts, then sort them by their rating!
-				for(var/obj/item/co in replacer)
-					part_list += co
-				//Sort the parts. This ensures that higher tier items are applied first.
-				part_list = sortTim(part_list, GLOBAL_PROC_REF(cmp_rped_sort))
-
-				for(var/path in req_components)
-					while(req_components[path] > 0 && (locate(path) in part_list))
-						var/obj/item/part = (locate(path) in part_list)
-						part_list -= part
-						if(istype(part,/obj/item/stack))
-							var/obj/item/stack/S = part
-							var/used_amt = min(round(S.get_amount()), req_components[path])
-							if(!used_amt || !S.use(used_amt))
-								continue
-							var/NS = new S.merge_type(src, used_amt)
-							added_components[NS] = path
-							req_components[path] -= used_amt
-						else
-							added_components[part] = path
-							if(replacer.atom_storage.attempt_remove(part, src))
-								req_components[path]--
-
-				for(var/obj/item/part in added_components)
-					if(istype(part,/obj/item/stack))
-						var/obj/item/stack/incoming_stack = part
-						for(var/obj/item/stack/merge_stack in components)
-							if(incoming_stack.can_merge(merge_stack))
-								incoming_stack.merge(merge_stack)
-								if(QDELETED(incoming_stack))
-									break
-					if(!QDELETED(part)) //If we're a stack and we merged we might not exist anymore
-						components += part
-						part.forceMove(src)
-					to_chat(user, span_notice("You add [part] to [src]."))
-				if(added_components.len)
-					replacer.play_rped_sound()
-				return
-
 			if(isitem(P) && get_req_components_amt())
 				for(var/I in req_components)
 					if(istype(P, I) && (req_components[I] > 0))

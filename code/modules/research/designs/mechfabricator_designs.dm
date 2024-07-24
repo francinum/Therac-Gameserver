@@ -1028,16 +1028,6 @@
 	search_metadata = "boris"
 	mapload_design_flags = DESIGN_FAB_ROBOTICS
 
-/datum/design/borg_upgrade_rped
-	name = "Cyborg Upgrade (RPED)"
-	id = "borg_upgrade_rped"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/rped
-	materials = list(/datum/material/iron = 10000, /datum/material/glass = 5000)
-	construction_time = 120
-	category = list(DCAT_SILICON)
-	mapload_design_flags = DESIGN_FAB_ROBOTICS
-
 /datum/design/borg_upgrade_circuit_app
 	name = "Cyborg Upgrade (Circuit Manipulator)"
 	id = "borg_upgrade_circuitapp"

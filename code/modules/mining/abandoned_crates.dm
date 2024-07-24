@@ -150,7 +150,8 @@
 		if(26 to 30)
 			new /obj/item/vending_refill/sovietsoda(src)
 			var/obj/item/circuitboard/machine/vendor/board = new (src)
-			board.set_type(/obj/machinery/vending/sovietsoda)
+			#warn set_type vendor garbage
+			// board.set_type(/obj/machinery/vending/sovietsoda)
 		if(31 to 35)
 			new /obj/item/seeds/firelemon(src)
 		if(36 to 40)

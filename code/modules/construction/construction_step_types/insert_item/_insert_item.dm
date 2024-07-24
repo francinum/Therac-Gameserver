@@ -37,6 +37,7 @@
 	set_used_item(null)
 
 /datum/construction_step/insert_item/default_state()
+	. = ..()
 	if(!ispath(default_item_path))
 		CRASH("Construction step [type] has no default item path!")
 
@@ -85,15 +86,21 @@
 
 	used_item.forceMove(parent_template.parent.drop_location())
 
-/datum/construction_step/insert_item/proc/set_used_item(obj/item/new_item)
-	if(isnull(new_item))
-		parent_template?.contained_items -= new_item
+/datum/construction_step/insert_item/proc/set_used_item(obj/item/item)
+	if(isnull(item))
+		LAZYREMOVE(parent_template?.parent.component_parts, item)
+		parent_template?.parent.component_parts -= item
 		used_item = null
 		return
 
-	used_item = new_item
-	parent_template.contained_items += used_item
-	used_item.moveToNullspace()
+	LAZYADD(parent_template?.parent.component_parts, item)
+	used_item = item
+	used_item.forceMove(parent_template.parent)
+
+/datum/construction_step/insert_item/remove_atom_from_parts(atom/movable/AM)
+	if(AM == used_item)
+		set_used_item(null)
+		return TRUE
 
 //* STACKS!! *//
 /datum/construction_step/insert_item/stack

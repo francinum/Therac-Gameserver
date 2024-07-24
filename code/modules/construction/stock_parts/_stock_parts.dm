@@ -55,7 +55,6 @@
 	desc = "An advanced capacitor used in the construction of a variety of devices."
 	icon_state = "adv_capacitor"
 	rating = 2
-	energy_rating = 3
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 
 /obj/item/stock_parts/scanning_module/adv
@@ -63,7 +62,6 @@
 	desc = "A compact, high resolution scanning module used in the construction of certain devices."
 	icon_state = "adv_scan_module"
 	rating = 2
-	energy_rating = 3
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=20)
 
 /obj/item/stock_parts/manipulator/nano
@@ -71,7 +69,6 @@
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "nano_mani"
 	rating = 2
-	energy_rating = 3
 	custom_materials = list(/datum/material/iron=30)
 
 /obj/item/stock_parts/micro_laser/high
@@ -79,7 +76,6 @@
 	desc = "A tiny laser used in certain devices."
 	icon_state = "high_micro_laser"
 	rating = 2
-	energy_rating = 3
 	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
 
 /obj/item/stock_parts/matter_bin/adv
@@ -87,7 +83,6 @@
 	desc = "A container designed to hold compressed matter awaiting reconstruction."
 	icon_state = "advanced_matter_bin"
 	rating = 2
-	energy_rating = 3
 	custom_materials = list(/datum/material/iron=80)
 
 //Rating 3
@@ -97,7 +92,6 @@
 	desc = "A super-high capacity capacitor used in the construction of a variety of devices."
 	icon_state = "super_capacitor"
 	rating = 3
-	energy_rating = 5
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 
 /obj/item/stock_parts/scanning_module/phasic
@@ -105,7 +99,6 @@
 	desc = "A compact, high resolution phasic scanning module used in the construction of certain devices."
 	icon_state = "super_scan_module"
 	rating = 3
-	energy_rating = 5
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=20)
 
 /obj/item/stock_parts/manipulator/pico
@@ -113,7 +106,6 @@
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "pico_mani"
 	rating = 3
-	energy_rating = 5
 	custom_materials = list(/datum/material/iron=30)
 
 /obj/item/stock_parts/micro_laser/ultra
@@ -121,7 +113,6 @@
 	icon_state = "ultra_high_micro_laser"
 	desc = "A tiny laser used in certain devices."
 	rating = 3
-	energy_rating = 5
 	custom_materials = list(/datum/material/iron=10, /datum/material/glass=20)
 
 /obj/item/stock_parts/matter_bin/super
@@ -129,7 +120,6 @@
 	desc = "A container designed to hold compressed matter awaiting reconstruction."
 	icon_state = "super_matter_bin"
 	rating = 3
-	energy_rating = 5
 	custom_materials = list(/datum/material/iron=80)
 
 // Subspace stock parts

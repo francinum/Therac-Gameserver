@@ -31,13 +31,8 @@
 	/// Timer ID for the work timer
 	var/work_end_timer = null
 
-	var/construction_component_path
-
 /obj/machinery/manufacturing/Initialize(mapload, initialize_component = TRUE)
 	. = ..()
-
-	if(construction_component_path)
-		AddComponent(/datum/component/construction, construction_component_path)
 
 	proxy = new
 	proxy.create_storage(5, WEIGHT_CLASS_GIGANTIC, WEIGHT_CLASS_BULKY * 5)

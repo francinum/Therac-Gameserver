@@ -2,16 +2,6 @@
 /////////////Stock Parts////////////////
 ////////////////////////////////////////
 
-/datum/design/rped
-	name = "Rapid Part Exchange Device"
-	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
-	id = "rped"
-	build_type = FABRICATOR
-	materials = list(/datum/material/iron = 10000, /datum/material/glass = 5000) //hardcore
-	build_path = /obj/item/storage/part_replacer
-	category = list(DCAT_STOCK_PART)
-	mapload_design_flags = DESIGN_FAB_ENGINEERING | DESIGN_FAB_OMNI
-
 //Capacitors
 /datum/design/basic_capacitor
 	name = "Basic Capacitor"

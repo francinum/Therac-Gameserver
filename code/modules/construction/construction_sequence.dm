@@ -1,6 +1,4 @@
 /datum/construction_step/sequence
-	has_default_state = TRUE
-
 	/// A list of steps to complete, in order.
 	var/list/steps = list()
 
@@ -44,11 +42,7 @@
 
 /datum/construction_step/sequence/default_state()
 	for(var/datum/construction_step/step as anything in steps)
-		if(step.has_default_state)
-			step.default_state()
-
-	update_completion()
-
+		step.default_state()
 
 /// Called by /datum/component/construction/proc/fully_deconstruct
 /datum/construction_step/sequence/deconstruct(atom/drop_loc)
@@ -212,6 +206,11 @@
 
 	if(old_state != complete)
 		SEND_SIGNAL(src, COMSIG_CONSTRUCTION_SEQUENCE_COMPLETION_CHANGED, user, old_state)
+
+/datum/construction_step/sequence/remove_atom_from_parts(atom/movable/AM)
+	for(var/datum/construction_step/step as anything in steps)
+		if(step.remove_atom_from_parts(AM))
+			return TRUE
 
 /datum/construction_step/sequence/proc/child_sequence_completion_changed(datum/source, mob/user, old_state)
 	SIGNAL_HANDLER

@@ -292,7 +292,8 @@
 	..()
 
 /obj/machinery/smartfridge/drying_rack/default_deconstruction_screwdriver()
-/obj/machinery/smartfridge/drying_rack/exchange_parts()
+#warn whatever this is
+// /obj/machinery/smartfridge/drying_rack/exchange_parts()
 /obj/machinery/smartfridge/drying_rack/spawn_frame()
 
 /obj/machinery/smartfridge/drying_rack/default_deconstruction_crowbar(obj/item/crowbar/C, ignore_panel = 1)

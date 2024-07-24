@@ -1,13 +1,11 @@
 /datum/construction_template
 	/// The component this belong to
-	var/datum/component/construction/component
+	var/obj/item/circuitboard/circuit_parent
 	/// The object this belongs to.
-	var/obj/parent
+	var/obj/machinery/parent
 
 	/// The list of construction sequences.
 	var/list/sequences = list()
-	/// A list of items inside us that were used for construction.
-	var/list/obj/item/contained_items = list()
 	/// If TRUE, call setup_default_state
 	var/default_state = TRUE
 	/// If TRUE, this construction is reversible. Undoing every step will run on_deconstruct()
@@ -20,9 +18,8 @@
 
 	var/constructed = FALSE
 
-/datum/construction_template/New(component_owner, obj_owner)
-	component = component_owner
-	parent = obj_owner
+/datum/construction_template/New(circuit)
+	circuit_parent = circuit
 
 	// New all sequences and set us as parent
 	var/list/sequence_instances = list()
@@ -32,31 +29,63 @@
 		sequence_instances += sequence
 	sequences = sequence_instances
 
-	// Setup the default state.
-	setup_default_state()
-
 /datum/construction_template/Destroy(force, ...)
-	contained_items = null
 	QDEL_LIST(sequences)
-	component = null
+	circuit_parent = null
 	return ..()
 
 /// Sets the initial states of all steps and sequences.
 /datum/construction_template/proc/setup_default_state()
-	PRIVATE_PROC(TRUE)
-
 	for(var/datum/construction_step/sequence/sequence as anything in sequences)
 		sequence.default_state()
 
 /// Transfer parent status to another object.
-/datum/construction_template/proc/transfer_parent(obj/new_parent, qdel_old = TRUE)
-	. = parent
-	new_parent.TakeComponent(component)
-	if(qdel_old)
-		qdel(.)
+/datum/construction_template/proc/set_parent(obj/machinery/new_parent, qdel_old = TRUE)
+	var/obj/machinery/old_parent = parent
+	if(old_parent)
+		UnregisterSignal(
+			parent,
+			list(
+				COMSIG_OBJ_DECONSTRUCT,
+				COMSIG_ATOM_ATTACK_HAND_SECONDARY,
+				COMSIG_PARENT_ATTACKBY,
+				COMSIG_PARENT_ATTACKBY_SECONDARY,
+				COMSIG_PARENT_EXAMINE,
+			)
+		)
+
+	if(isnull(new_parent))
+		if(qdel_old)
+			qdel(old_parent)
+		return old_parent
+
+	parent = new_parent
+
+	RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(parent_deconstructed))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(parent_attack_hand_secondary))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(parent_attackby))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(parent_attackby_secondary))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(parent_examine))
+
+	if(old_parent)
+		new_parent.component_parts = old_parent.component_parts
+		for(var/obj/item/I in new_parent.component_parts)
+			I.forceMove(new_parent)
+
+		old_parent.component_parts = null
+
+	new_parent.RefreshParts()
+
+	if(old_parent && qdel_old)
+		qdel(old_parent)
+	return old_parent
 
 /// Each step has been completed, what now?
 /datum/construction_template/proc/constructed(mob/user)
+	return
+
+/// Going from fully complete to missing any number of steps.
+/datum/construction_template/proc/partially_deconstructed(mob/user)
 	return
 
 /// Each step has been completed, what now?
@@ -86,12 +115,15 @@
 	if(completed_sequences == length(sequences))
 		constructed = TRUE
 		constructed(user)
-		return
 
 	if(empty_sequences == length(sequences))
 		constructed = FALSE
 		deconstructed(user)
-		return
+
+	else
+		if(constructed)
+			partially_deconstructed(user)
+
 
 /datum/construction_template/proc/interact_with(mob/living/user, obj/item/I, deconstructing)
 	set waitfor = FALSE
@@ -133,6 +165,11 @@
 	step.parent_sequence.attempt_step(step, user, I)
 	return TRUE
 
+/datum/construction_template/proc/remove_atom_from_parts(atom/movable/AM)
+	for(var/datum/construction_step/sequence/sequence as anything in sequences)
+		if(sequence.remove_atom_from_parts(AM))
+			return
+
 /datum/construction_template/proc/disambiguate_list(list/L)
 	var/list/tally = list()
 	var/list/out = list()
@@ -153,3 +190,46 @@
 
 	for(var/datum/construction_step/sequence/sequence as anything in sequences)
 		. += sequence.examine(user, "")
+
+/datum/construction_template/proc/parent_deconstructed(datum/source, disassembled)
+	SIGNAL_HANDLER
+
+	if(disassembled)
+		fully_deconstruct()
+
+/datum/construction_template/proc/parent_attack_hand_secondary(datum/source, mob/user)
+	SIGNAL_HANDLER
+	if(interact_with(user, null, TRUE))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/construction_template/proc/parent_attackby(datum/source, obj/item/I, mob/living/user)
+	SIGNAL_HANDLER
+	if(interact_with(user, I, FALSE))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/construction_template/proc/parent_attackby_secondary(datum/source, obj/item/I, mob/living/user)
+	SIGNAL_HANDLER
+	if(interact_with(user, I, TRUE))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/construction_template/proc/parent_examine(atom/source, mob/user, list/examine_text)
+	SIGNAL_HANDLER
+	examine_text += examine(user)
+
+// Basic templates hold a machinery path to produce.
+/datum/construction_template/basic
+	var/obj/machinery/result_path
+
+/datum/construction_template/basic/partially_deconstructed(mob/user)
+	if(istype(parent, /obj/structure/frame))
+		return
+
+	parent.set_machine_stat(parent.machine_stat | NOT_FULLY_CONSTRUCTED)
+
+/datum/construction_template/basic/constructed(mob/user)
+	if(istype(parent, /obj/structure/frame))
+		var/obj/machinery/result = new result_path(parent.loc, FALSE)
+		return
+
+	parent.set_machine_stat(parent.machine_stat & ~NOT_FULLY_CONSTRUCTED)
+	parent.RefreshParts()

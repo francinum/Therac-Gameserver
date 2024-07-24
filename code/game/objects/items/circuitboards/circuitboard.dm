@@ -15,6 +15,9 @@
 	grind_results = list(/datum/reagent/silicon = 20)
 	greyscale_colors = CIRCUIT_COLOR_GENERIC
 
+	var/obj/machinery/parent
+	var/datum/construction_template/construction
+
 	/// Simple circuitboards work using the construction component
 	var/simple = FALSE
 
@@ -30,6 +33,12 @@
 
 /obj/item/circuitboard/Initialize(mapload)
 	set_greyscale(new_config = /datum/greyscale_config/circuit)
+
+	construction = new construction(src)
+	return ..()
+
+/obj/item/circuitboard/Destroy(force)
+	set_parent(null)
 	return ..()
 
 /obj/item/circuitboard/examine(mob/user)
@@ -60,49 +69,10 @@
 
 	. += span_info("It requires [english_list(nice_list)].")
 
-/obj/item/circuitboard/proc/apply_default_parts(obj/machinery/machine)
-	if(LAZYLEN(machine.component_parts))
-		// This really shouldn't happen. If it somehow does, print out a stack trace and gracefully handle it.
-		stack_trace("apply_defauly_parts called on machine that already had component_parts: [machine]")
-
-		// Move to nullspace so you don't trigger handle_atom_del logic and remove existing parts.
-		for(var/obj/item/part as anything in machine.component_parts)
-			part.moveToNullspace(loc)
-			qdel(part)
-
-	// List of components always contains the circuit board used to build it.
-	machine.component_parts = list(src)
-	forceMove(machine)
-
-	if(machine.circuit != src)
-		// This really shouldn't happen. If it somehow does, print out a stack trace and gracefully handle it.
-		stack_trace("apply_default_parts called from a circuit board that does not belong to machine: [machine]")
-
-		// Move to nullspace so you don't trigger handle_atom_del logic, remove old circuit, add new circuit.
-		machine.circuit.moveToNullspace()
-		qdel(machine.circuit)
-		machine.circuit = src
-
-	if(!req_components)
-		return
-
-	for(var/comp_path in req_components)
-		var/comp_amt = req_components[comp_path]
-		if(!comp_amt)
-			continue
-
-		if(def_components && def_components[comp_path])
-			comp_path = def_components[comp_path]
-
-		if(ispath(comp_path, /obj/item/stack))
-			machine.component_parts += new comp_path(machine, comp_amt)
-		else
-			for(var/component in 1 to comp_amt)
-				machine.component_parts += new comp_path(machine)
-
-	machine.RefreshParts()
-
-	return
+/obj/item/circuitboard/proc/set_parent(obj/machinery/machine)
+	var/obj/machinery/old_parent = parent
+	parent = machine
+	construction.set_parent(parent, !QDELING(old_parent))
 
 /**
  * Used to allow the circuitboard to configure a machine in some way, shape or form.

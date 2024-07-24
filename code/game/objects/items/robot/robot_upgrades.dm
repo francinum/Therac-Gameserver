@@ -562,35 +562,6 @@
 			R.resize = 0.5
 			R.update_transform()
 
-/obj/item/borg/upgrade/rped
-	name = "engineering cyborg RPED"
-	desc = "A rapid part exchange device for the engineering cyborg."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "borgrped"
-	require_model = TRUE
-	model_type = list(/obj/item/robot_model/engineering, /obj/item/robot_model/saboteur)
-	model_flags = BORG_MODEL_ENGINEERING
-
-/obj/item/borg/upgrade/rped/action(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if(.)
-
-		var/obj/item/storage/part_replacer/cyborg/RPED = locate() in R
-		if(RPED)
-			to_chat(user, span_warning("This unit is already equipped with a RPED module!"))
-			return FALSE
-
-		RPED = new(R.model)
-		R.model.basic_modules += RPED
-		R.model.add_module(RPED, FALSE, TRUE)
-
-/obj/item/borg/upgrade/rped/deactivate(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if (.)
-		var/obj/item/storage/part_replacer/cyborg/RPED = locate() in R.model
-		if (RPED)
-			R.model.remove_module(RPED, TRUE)
-
 /obj/item/borg/upgrade/pinpointer
 	name = "medical cyborg crew pinpointer"
 	desc = "A crew pinpointer module for the medical cyborg. Permits remote access to the crew monitor."

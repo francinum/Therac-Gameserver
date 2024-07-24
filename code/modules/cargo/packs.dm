@@ -1561,14 +1561,6 @@
 	crate_name = "robotics assembly crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 
-/datum/supply_pack/science/rped
-	name = "RPED crate"
-	desc = "Need to rebuild the ORM but science got annihialted after a bomb test? Buy this for the most advanced parts NT can give you."
-	cost = CARGO_CRATE_VALUE * 3
-	access_view = FALSE
-	contains = list(/obj/item/storage/part_replacer/cargo)
-	crate_name = "\improper RPED crate"
-
 /datum/supply_pack/science/shieldwalls
 	name = "Shield Generator Crate"
 	desc = "These high powered Shield Wall Generators are guaranteed to keep any unwanted lifeforms on the outside, where they belong! Contains four shield wall generators. Requires Teleporter access to open."

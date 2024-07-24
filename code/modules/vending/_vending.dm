@@ -704,27 +704,28 @@ GLOBAL_LIST_EMPTY(vending_products)
 			to_chat(user, span_warning("[src]'s input compartment blinks red: Access denied."))
 			return FALSE
 
-/obj/machinery/vending/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
-	if(!istype(W))
-		return FALSE
-	if((flags_1 & NODECONSTRUCT_1) && !W.works_from_distance)
-		return FALSE
-	if(!component_parts || !refill_canister)
-		return FALSE
+#warn whatever this is
+// /obj/machinery/vending/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
+// 	if(!istype(W))
+// 		return FALSE
+// 	if((flags_1 & NODECONSTRUCT_1) && !W.works_from_distance)
+// 		return FALSE
+// 	if(!component_parts || !refill_canister)
+// 		return FALSE
 
-	var/moved = 0
-	if(panel_open || W.works_from_distance)
-		if(W.works_from_distance)
-			display_parts(user)
-		for(var/I in W)
-			if(istype(I, refill_canister))
-				moved += restock(I)
-	else
-		display_parts(user)
-	if(moved)
-		to_chat(user, span_notice("[moved] items restocked."))
-		W.play_rped_sound()
-	return TRUE
+// 	var/moved = 0
+// 	if(panel_open || W.works_from_distance)
+// 		if(W.works_from_distance)
+// 			display_parts(user)
+// 		for(var/I in W)
+// 			if(istype(I, refill_canister))
+// 				moved += restock(I)
+// 	else
+// 		display_parts(user)
+// 	if(moved)
+// 		to_chat(user, span_notice("[moved] items restocked."))
+// 		W.play_rped_sound()
+// 	return TRUE
 
 /obj/machinery/vending/on_deconstruction()
 	update_canister()
