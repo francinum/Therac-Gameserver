@@ -4,6 +4,7 @@
 	icon_state = "box_0"
 	density = TRUE
 	max_integrity = 250
+
 	var/obj/item/circuitboard/machine/circuit = null
 	var/state = 1
 

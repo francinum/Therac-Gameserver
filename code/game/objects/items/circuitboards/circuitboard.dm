@@ -18,8 +18,6 @@
 	var/obj/machinery/parent
 	var/datum/construction_template/construction
 
-	/// Simple circuitboards work using the construction component
-	var/simple = FALSE
 
 	var/build_path = null
 	///determines if the circuit board originated from a vendor off station or not.
@@ -72,7 +70,7 @@
 /obj/item/circuitboard/proc/set_parent(obj/machinery/machine)
 	var/obj/machinery/old_parent = parent
 	parent = machine
-	construction.set_parent(parent, !QDELING(old_parent))
+	construction.set_parent(parent)
 
 /**
  * Used to allow the circuitboard to configure a machine in some way, shape or form.

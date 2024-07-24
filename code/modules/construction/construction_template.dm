@@ -39,7 +39,7 @@
 	for(var/datum/construction_step/sequence/sequence as anything in sequences)
 		sequence.default_state()
 
-/// Transfer parent status to another object.
+/// Setter/unsetter for parent.
 /datum/construction_template/proc/set_parent(obj/machinery/new_parent, qdel_old = TRUE)
 	var/obj/machinery/old_parent = parent
 	if(old_parent)
@@ -68,17 +68,25 @@
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(parent_examine))
 
 	if(old_parent)
-		new_parent.component_parts = old_parent.component_parts
-		for(var/obj/item/I in new_parent.component_parts)
-			I.forceMove(new_parent)
+		parent.component_parts = old_parent.component_parts
+		for(var/obj/item/I in parent.component_parts)
+			I.forceMove(parent)
 
 		old_parent.component_parts = null
 
-	new_parent.RefreshParts()
+	if(ismachinery(parent))
+		parent.RefreshParts()
 
 	if(old_parent && qdel_old)
 		qdel(old_parent)
 	return old_parent
+
+/datum/construction_template/proc/transfer_to(obj/machinery/target)
+	var/old_parent = parent
+	parent.circuit = null
+	circuit_parent.set_parent(target)
+	circuit_parent.forceMove(target)
+	qdel(parent)
 
 /// Each step has been completed, what now?
 /datum/construction_template/proc/constructed(mob/user)
@@ -229,6 +237,7 @@
 /datum/construction_template/basic/constructed(mob/user)
 	if(istype(parent, /obj/structure/frame))
 		var/obj/machinery/result = new result_path(parent.loc, FALSE)
+		transfer_to(result)
 		return
 
 	parent.set_machine_stat(parent.machine_stat & ~NOT_FULLY_CONSTRUCTED)
