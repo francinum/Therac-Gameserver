@@ -185,10 +185,10 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 	SETUP_SMOOTHING()
 	QUEUE_SMOOTH(src)
 
-	if(ispath(circuit, /obj/item/circuitboard) && load_circuit)
+	if(ispath(circuit, /obj/item/circuitboard) && load_circuit == TRUE) // This is so incorrect args don't fuck shit up
 		circuit = new circuit(src)
 		circuit.set_parent(src)
-		circuit.construction.setup_default_state()
+		circuit.construction?.setup_default_state()
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
 		begin_processing()
@@ -766,7 +766,7 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 		return ..() //we don't have any parts.
 
 	//spawn_frame(disassembled)
-	circuit?.construction.fully_deconstruct()
+	circuit?.construction?.fully_deconstruct()
 
 	LAZYCLEARLIST(component_parts)
 	internal_disk = null //Component parts removes this.

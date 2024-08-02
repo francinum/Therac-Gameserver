@@ -101,7 +101,7 @@
 		qdel(parent)
 
 /// Completely disassemble the object.
-/datum/construction_template/proc/fully_deconstruct()
+/datum/construction_template/proc/fully_deconstruct(disassembled)
 	var/atom/drop_loc = parent.drop_location()
 	for(var/datum/construction_step/sequence/sequence as anything in sequences)
 		sequence.deconstruct(drop_loc)

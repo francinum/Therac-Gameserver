@@ -4,8 +4,12 @@
 		/datum/construction_step/sequence/insert_electronics,
 	)
 
+/datum/construction_template/computer/fully_deconstruct()
+	new /obj/structure/frame/computer(parent.loc)
+	. = ..()
+
 /datum/construction_template/computer/partially_deconstructed(mob/user)
-	if(istype(parent, /obj/structure/frame))
+	if(istype(parent, /obj/structure/frame/computer))
 		return
 
 	parent.set_machine_stat(parent.machine_stat | NOT_FULLY_CONSTRUCTED)

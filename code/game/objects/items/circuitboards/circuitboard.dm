@@ -32,7 +32,9 @@
 /obj/item/circuitboard/Initialize(mapload)
 	set_greyscale(new_config = /datum/greyscale_config/circuit)
 
-	construction = new construction(src)
+	#warn TESTING ONLY
+	if(construction)
+		construction = new construction(src)
 	return ..()
 
 /obj/item/circuitboard/Destroy(force)
@@ -70,7 +72,7 @@
 /obj/item/circuitboard/proc/set_parent(obj/machinery/machine, qdel_old = TRUE)
 	var/obj/machinery/old_parent = parent
 	parent = machine
-	construction.set_parent(parent, TRUE)
+	construction?.set_parent(parent, TRUE)
 
 /**
  * Used to allow the circuitboard to configure a machine in some way, shape or form.
