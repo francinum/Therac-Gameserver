@@ -477,7 +477,7 @@
 				for (var/obj/C in src)
 					C.forceMove(drop_location())
 				A.circuit = M
-				A.state = 3
+				//A.state = 3
 				A.icon_state = "3"
 				A.set_anchored(TRUE)
 				qdel(src)
@@ -488,7 +488,7 @@
 				for (var/obj/C in src)
 					C.forceMove(drop_location())
 				A.circuit = M
-				A.state = 4
+				//A.state = 4
 				A.icon_state = "4"
 				A.set_anchored(TRUE)
 				qdel(src)

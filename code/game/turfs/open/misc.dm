@@ -155,10 +155,10 @@
 			new_grille.set_anchored(TRUE)
 			return TRUE
 		if(RCD_MACHINE)
-			if(locate(/obj/structure/frame/machine) in src)
+			if(locate(/obj/structure/frame) in src)
 				return FALSE
-			var/obj/structure/frame/machine/new_machine = new(src)
-			new_machine.state = 2
+			var/obj/structure/frame/new_machine = new(src)
+			//new_machine.state = 2
 			new_machine.icon_state = "box_1"
 			new_machine.set_anchored(TRUE)
 			return TRUE
@@ -167,7 +167,7 @@
 				return FALSE
 			var/obj/structure/frame/computer/new_computer = new(src)
 			new_computer.set_anchored(TRUE)
-			new_computer.state = 1
+			//new_computer.state = 1
 			new_computer.setDir(the_rcd.computer_dir)
 			return TRUE
 		if(RCD_FURNISHING)

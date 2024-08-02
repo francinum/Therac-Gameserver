@@ -764,14 +764,16 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
 	on_deconstruction()
 	if(!LAZYLEN(component_parts))
 		return ..() //we don't have any parts.
-	spawn_frame(disassembled)
-	for(var/obj/item/part in component_parts)
-		part.forceMove(loc)
-	LAZYCLEARLIST(component_parts)
 
+	//spawn_frame(disassembled)
+	circuit?.construction.fully_deconstruct()
+
+	LAZYCLEARLIST(component_parts)
 	internal_disk = null //Component parts removes this.
 	eject_disk()
+
 	return ..()
+
 
 /**
  * Spawns a frame where this machine is. If the machine was not disassmbled, the
@@ -781,10 +783,11 @@ GLOBAL_REAL_VAR(machinery_default_armor) = list()
  * Arguments:
  * * disassembled - If FALSE, the machine was destroyed instead of disassembled and the frame spawns at reduced integrity.
  */
+#warn this
 /obj/machinery/proc/spawn_frame(disassembled)
-	var/obj/structure/frame/machine/new_frame = new /obj/structure/frame/machine(loc)
+	var/obj/structure/frame/new_frame = new /obj/structure/frame(loc)
 
-	new_frame.state = 2
+	//new_frame.state = 2
 
 	// If the new frame shouldn't be able to fit here due to the turf being blocked, spawn the frame deconstructed.
 	if(isturf(loc))

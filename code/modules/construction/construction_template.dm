@@ -61,7 +61,6 @@
 
 	parent = new_parent
 
-	RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(parent_deconstructed))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND_SECONDARY, PROC_REF(parent_attack_hand_secondary))
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(parent_attackby))
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY_SECONDARY, PROC_REF(parent_attackby_secondary))
@@ -121,15 +120,15 @@
 				empty_sequences++
 
 	if(completed_sequences == length(sequences))
-		constructed = TRUE
+		constructed = SEQUENCE_FINISHED
 		constructed(user)
 
 	if(empty_sequences == length(sequences))
-		constructed = FALSE
+		constructed = SEQUENCE_NOT_STARTED
 		deconstructed(user)
 
 	else
-		if(constructed)
+		if(constructed == SEQUENCE_FINISHED)
 			partially_deconstructed(user)
 
 
@@ -198,12 +197,6 @@
 
 	for(var/datum/construction_step/sequence/sequence as anything in sequences)
 		. += sequence.examine(user, "")
-
-/datum/construction_template/proc/parent_deconstructed(datum/source, disassembled)
-	SIGNAL_HANDLER
-
-	if(disassembled)
-		fully_deconstruct()
 
 /datum/construction_template/proc/parent_attack_hand_secondary(datum/source, mob/user)
 	SIGNAL_HANDLER

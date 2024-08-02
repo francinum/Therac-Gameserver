@@ -67,10 +67,10 @@
 
 	. += span_info("It requires [english_list(nice_list)].")
 
-/obj/item/circuitboard/proc/set_parent(obj/machinery/machine)
+/obj/item/circuitboard/proc/set_parent(obj/machinery/machine, qdel_old = TRUE)
 	var/obj/machinery/old_parent = parent
 	parent = machine
-	construction.set_parent(parent)
+	construction.set_parent(parent, TRUE)
 
 /**
  * Used to allow the circuitboard to configure a machine in some way, shape or form.

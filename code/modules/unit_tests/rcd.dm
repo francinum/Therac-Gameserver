@@ -27,7 +27,7 @@
 		adjacent_turf.rcd_act(engineer, rcd, rcd.mode)
 
 	var/frame_count = 0
-	for(var/obj/structure/frame/machine_frame in adjacent_turf.contents)
+	for(var/obj/structure/frame_frame in adjacent_turf.contents)
 		frame_count++
 
 	TEST_ASSERT_EQUAL(frame_count, 1, "Expected RCD machine frame stacking test to end up with exactly 1 machine frame.")
@@ -39,7 +39,7 @@
 		new_machine.deconstruct(TRUE)
 
 	frame_count = 0
-	for(var/obj/structure/frame/machine_frame in adjacent_turf.contents)
+	for(var/obj/structure/frame_frame in adjacent_turf.contents)
 		frame_count++
 
 	TEST_ASSERT_EQUAL(frame_count, 1, "Expected no density machine deconstruction frame stacking test to end up with exactly 1 machine frame.")
