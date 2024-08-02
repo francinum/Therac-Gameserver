@@ -69,10 +69,10 @@
 
 	. += span_info("It requires [english_list(nice_list)].")
 
-/obj/item/circuitboard/proc/set_parent(obj/machinery/machine, qdel_old = TRUE)
+/obj/item/circuitboard/proc/set_parent(obj/machinery/machine)
 	var/obj/machinery/old_parent = parent
 	parent = machine
-	construction?.set_parent(parent, TRUE)
+	construction?.set_parent(parent)
 
 /**
  * Used to allow the circuitboard to configure a machine in some way, shape or form.
@@ -90,3 +90,6 @@ micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
 
 /obj/item/circuitboard/machine
 	var/needs_anchored = TRUE // Whether this machine must be anchored to be constructed.
+
+/obj/item/circuitboard/computer
+	construction = /datum/construction_template/computer

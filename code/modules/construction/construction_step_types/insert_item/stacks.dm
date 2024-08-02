@@ -1,6 +1,6 @@
 //* STACKS!! *//
 /datum/construction_step/insert_item/stack
-	var/amount_to_use = 0
+	var/amount_to_use = 1
 
 /datum/construction_step/insert_item/stack/can_do_action(mob/living/user, obj/item/I, deconstructing)
 	. = ..()
@@ -13,10 +13,10 @@
 /datum/construction_step/insert_item/stack/attempt_action(mob/living/user, obj/item/I)
 	if(complete != SEQUENCE_FINISHED)
 		var/obj/item/stack/S = I
-		I = S.split_stack(user, amount_to_use, null)
+		S = S.split_stack(user, amount_to_use, null)
 		complete = SEQUENCE_FINISHED
-		set_used_item(I)
-		provide_feedback(user, I)
+		set_used_item(S)
+		provide_feedback(user, S)
 		return STEP_FORWARD
 
 	else
@@ -24,6 +24,11 @@
 		deconstruct(user)
 		provide_feedback(user, used_item)
 		return STEP_BACKWARD
+
+/datum/construction_step/insert_item/stack/create_default_item()
+	var/obj/item/stack/S = new default_item_path
+	S.amount = amount_to_use
+	return S
 
 /datum/construction_step/insert_item/stack/parse_text(text, mob/living/user, obj/item/I)
 	var/obj/item/stack/S = I
@@ -46,6 +51,8 @@
 	feedback_construct = "$USER$ puts $ITEM$ onto $OBJECT$, for some reason."
 	feedback_deconstruct = "$USER$ removes $ITEM$ from $OBJECT$."
 
+	default_item_path = /obj/item/stack/sheet/iron
+
 /// Use 1 cable
 /datum/construction_step/insert_item/stack/wires
 	name = "Insert Wires"
@@ -56,6 +63,8 @@
 	accepted_types = list(/obj/item/stack/cable_coil)
 	amount_to_use = 1
 
+	default_item_path = /obj/item/stack/cable_coil
+
 /// Use 1 nut
 /datum/construction_step/insert_item/stack/nuts
 	name = "Place Nuts"
@@ -65,6 +74,8 @@
 	feedback_construct = "$USER$ sets $ITEM$ into $OBJECT$."
 	feedback_deconstruct = "$USER$ removes $ITEM$ from $OBJECT$."
 
+	default_item_path = /obj/item/stack/fastener/nuts
+
 /// Use 1 bolt
 /datum/construction_step/insert_item/stack/bolts
 	name = "Place Bolts"
@@ -73,3 +84,5 @@
 	amount_to_use = 1
 	feedback_construct = "$USER$ sets $ITEM$ into $OBJECT$."
 	feedback_deconstruct = "$USER$ removes $ITEM$ from $OBJECT$."
+
+	default_item_path = /obj/item/stack/fastener/bolts

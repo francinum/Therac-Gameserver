@@ -6,6 +6,7 @@
 	max_integrity = 250
 
 	var/obj/item/circuitboard/circuit = null
+	var/list/component_parts
 
 /obj/structure/frame/examine(user)
 	. = ..()

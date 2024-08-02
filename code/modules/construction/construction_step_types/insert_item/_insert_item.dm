@@ -41,7 +41,10 @@
 	if(!ispath(default_item_path))
 		CRASH("Construction step [type] has no default item path!")
 
-	set_used_item(new default_item_path)
+	set_used_item(create_default_item())
+
+/datum/construction_step/insert_item/proc/create_default_item()
+	return new default_item_path
 
 /datum/construction_step/insert_item/can_do_action(mob/living/user, obj/item/I, deconstructing)
 	. = ..()

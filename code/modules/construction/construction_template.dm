@@ -40,7 +40,7 @@
 		sequence.default_state()
 
 /// Setter/unsetter for parent.
-/datum/construction_template/proc/set_parent(obj/machinery/new_parent, qdel_old = TRUE)
+/datum/construction_template/proc/set_parent(obj/machinery/new_parent, qdel_old = FALSE)
 	var/obj/machinery/old_parent = parent
 	if(old_parent)
 		UnregisterSignal(
@@ -83,9 +83,9 @@
 /datum/construction_template/proc/transfer_to(obj/machinery/target)
 	var/old_parent = parent
 	parent.circuit = null
-	circuit_parent.set_parent(target)
+	circuit_parent.set_parent(target, FALSE)
 	circuit_parent.forceMove(target)
-	qdel(parent)
+	qdel(old_parent)
 
 /// Each step has been completed, what now?
 /datum/construction_template/proc/constructed(mob/user)
