@@ -83,6 +83,7 @@
 /datum/construction_template/proc/transfer_to(obj/machinery/target)
 	var/old_parent = parent
 	parent.circuit = null
+	target.circuit = circuit_parent
 	circuit_parent.set_parent(target, FALSE)
 	circuit_parent.forceMove(target)
 	qdel(old_parent)
