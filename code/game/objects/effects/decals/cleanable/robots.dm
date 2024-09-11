@@ -102,7 +102,7 @@
 	return ..()
 
 
-/obj/effect/decal/cleanable/oil/fire_act(exposed_temperature, exposed_volume, turf/adjacent)
+/obj/effect/decal/cleanable/oil/fire_act(exposed_temperature, exposed_volume)
 	if(exposed_temperature < 480)
 		return
 	if(isturf(loc))

@@ -192,7 +192,8 @@
 
 	// Click on the floor to close airlocks
 	var/static/list/connections = list(
-		COMSIG_ATOM_ATTACK_HAND = PROC_REF(on_attack_hand)
+		COMSIG_ATOM_ATTACK_HAND = PROC_REF(on_attack_hand),
+		COMSIG_TURF_ADJACENT_FIRE_ACT = PROC_REF(on_adjacent_fire)
 	)
 	AddElement(/datum/element/connect_loc, connections)
 
@@ -709,6 +710,10 @@
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attack_hand), user, modifiers)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/door/airlock/proc/on_adjacent_fire(datum/source, temperature, volume)
+	SIGNAL_HANDLER
+	fire_act(temperature, volume)
 
 /obj/machinery/door/airlock/attack_hand(mob/user, list/modifiers)
 	. = ..()

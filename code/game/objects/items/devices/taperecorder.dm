@@ -105,7 +105,7 @@
 		mytape = null
 		update_appearance()
 
-/obj/item/taperecorder/fire_act(exposed_temperature, exposed_volume, turf/adjacent)
+/obj/item/taperecorder/fire_act(exposed_temperature, exposed_volume)
 	mytape.unspool() //Fires unspool the tape, which makes sense if you don't think about it
 	..()
 
@@ -346,7 +346,7 @@
 	var/list/icons_available = list()
 	var/radial_icon_file = 'icons/hud/radial_tape.dmi'
 
-/obj/item/tape/fire_act(exposed_temperature, exposed_volume, turf/adjacent)
+/obj/item/tape/fire_act(exposed_temperature, exposed_volume)
 	unspool()
 	..()
 

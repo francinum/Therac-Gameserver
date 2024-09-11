@@ -19,7 +19,6 @@
 	receive_ricochet_chance_mod = 0.5
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
-	var/heat_resistance = 800
 	var/decon_speed = 2 SECONDS
 	var/wtype = "glass"
 	var/fulltile = FALSE
@@ -77,12 +76,18 @@
 	RegisterSignal(src, COMSIG_OBJ_PAINTED, PROC_REF(on_painted))
 	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM, AfterRotation = CALLBACK(src,PROC_REF(AfterRotation)))
 
-	var/static/list/loc_connections = list(
+	var/static/list/loc_connections_border = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+		COMSIG_TURF_ADJACENT_FIRE_ACT = PROC_REF(on_adjacent_fire),
+	)
+	var/static/list/loc_connections_all = list(
+		COMSIG_TURF_ADJACENT_FIRE_ACT = PROC_REF(on_adjacent_fire),
 	)
 
 	if (flags_1 & ON_BORDER_1)
-		AddElement(/datum/element/connect_loc, loc_connections)
+		AddElement(/datum/element/connect_loc, loc_connections_border)
+	else
+		AddElement(/datum/element/connect_loc, loc_connections_all)
 
 /obj/structure/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
@@ -150,6 +155,9 @@
 	if(direction == dir && density)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
+
+/obj/structure/window/proc/on_adjacent_fire(datum/source, temperature, volume)
+	fire_act(temperature, volume)
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -421,7 +429,7 @@
 
 	. += mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1), appearance_flags = RESET_COLOR)
 
-/obj/structure/window/fire_act(exposed_temperature, exposed_volume, turf/adjacent)
+/obj/structure/window/fire_act(exposed_temperature, exposed_volume)
 	if (exposed_temperature > melting_point)
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
@@ -509,7 +517,6 @@
 	desc = "A window that is reinforced with metal rods."
 	icon_state = "rwindow"
 	reinf = TRUE
-	heat_resistance = 1600
 	armor = list(BLUNT = 30, PUNCTURE = 0, SLASH = 40, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, FIRE = 80, ACID = 100)
 	max_integrity = 75
 	explosion_block = 1
@@ -538,7 +545,6 @@
 	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through."
 	icon_state = "plasmawindow"
 	reinf = FALSE
-	heat_resistance = 25000
 	armor = list(BLUNT = 60, PUNCTURE = 5, SLASH = 40, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, FIRE = 99, ACID = 100)
 	max_integrity = 200
 	explosion_block = 1
@@ -575,7 +581,6 @@
 	desc = "A window made out of a plasma-silicate alloy and a rod matrix. It looks hopelessly tough to break and is most likely nigh fireproof."
 	icon_state = "plasmarwindow"
 	reinf = TRUE
-	heat_resistance = 50000
 	armor = list(BLUNT = 80, PUNCTURE = 20, SLASH = 90, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, FIRE = 99, ACID = 100)
 	max_integrity = 500
 	damage_deflection = 18
@@ -716,7 +721,6 @@
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	reinf = TRUE
-	heat_resistance = 1600
 	armor = list(BLUNT = 75, PUNCTURE = 0, SLASH = 90, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 80, ACID = 100)
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE
@@ -759,7 +763,6 @@
 	wtype = "shuttle"
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
-	heat_resistance = 1600
 	armor = list(BLUNT = 95, PUNCTURE = 0, SLASH = 100, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, FIRE = 80, ACID = 100)
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
@@ -799,7 +802,6 @@
 	canSmoothWith = SMOOTH_GROUP_PAPERFRAME
 	glass_amount = 2
 	glass_type = /obj/item/stack/sheet/paperframes
-	heat_resistance = 233
 	decon_speed = 10
 	can_atmos_pass = CANPASS_ALWAYS
 	resistance_flags = FLAMMABLE

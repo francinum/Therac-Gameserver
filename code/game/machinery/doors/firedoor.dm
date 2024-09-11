@@ -43,10 +43,15 @@
 	knock_sound = 'sound/effects/glassknock.ogg'
 	var/bash_sound = 'sound/effects/glassbash.ogg'
 
-
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_FIRE_ALERT, PROC_REF(handle_alert))
+
+	var/static/list/loc_connections = list(
+		COMSIG_TURF_ADJACENT_FIRE_ACT = PROC_REF(on_adjacent_fire),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/door/firedoor/LateInitialize()
@@ -181,6 +186,12 @@
 		digital_crowbar.use_charge(user)
 	obj_flags |= EMAGGED
 	INVOKE_ASYNC(src, PROC_REF(open))
+
+/obj/machinery/door/firedoor/fire_act(exposed_temperature, exposed_volume)
+	if(exposed_temperature < 10000)
+		return
+
+	return ..()
 
 /obj/machinery/door/firedoor/BumpedBy(atom/movable/AM)
 	if(panel_open || operating)
@@ -432,6 +443,10 @@
 		return density ? (AIR_BLOCKED|ZONE_BLOCKED) : ZONE_BLOCKED
 	else
 		return ZONE_BLOCKED
+
+/obj/machinery/door/firedoor/proc/on_adjacent_fire(datum/source, temperature, volume)
+	SIGNAL_HANDLER
+	fire_act(temperature, volume)
 
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"

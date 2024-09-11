@@ -27,3 +27,6 @@
 
 ///Called when turf no longer blocks light from passing through
 #define COMSIG_TURF_NO_LONGER_BLOCK_LIGHT "turf_no_longer_block_light"
+
+///from /obj/effect/hotspot/proc/expose_adjacent(): (temperature, volume)
+#define COMSIG_TURF_ADJACENT_FIRE_ACT "turf_adjacent_fire_act"

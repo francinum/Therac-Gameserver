@@ -144,11 +144,10 @@ If it gains pressure too slowly, it may leak or just rupture instead of explodin
 		qdel(src)
 		return
 
-	var/pressure = turf_air.returnPressure()
 	temperature = turf_air.temperature
 	var/volume = turf_air.volume
 
-	expose_loc(pressure, temperature, volume)
+	expose_loc(temperature, volume)
 
 	spread_to_adjacent(temperature, volume)
 
@@ -178,10 +177,17 @@ If it gains pressure too slowly, it may leak or just rupture instead of explodin
 				set_light_range(3)
 
 /// Expose our turf and all atoms inside of it
-/obj/effect/hotspot/proc/expose_loc(pressure, temperature, volume)
+/obj/effect/hotspot/proc/expose_loc(temperature, volume)
 	loc.fire_act(temperature, volume)
 	for(var/atom/movable/AM as anything in loc)
+		if(QDELETED(AM))
+			continue
 		AM.fire_act(temperature, volume)
+
+/// Expose an adjacent turf
+/obj/effect/hotspot/proc/expose_adjacent(turf/adjacent, temperature, volume)
+	adjacent.adjacent_fire_act(temperature, volume)
+	SEND_SIGNAL(adjacent, COMSIG_TURF_ADJACENT_FIRE_ACT, temperature, volume)
 
 /obj/effect/hotspot/proc/react_with_air(datum/gas_mixture/air, obj/effect/decal/cleanable/liquid_fuel)
 	var/datum/gas_mixture/burn_gas = air.removeRatio(zas_settings.fire_consumption_rate, air.group_multiplier)
@@ -199,8 +205,8 @@ If it gains pressure too slowly, it may leak or just rupture instead of explodin
 		if(!enemy_tile || isspaceturf(enemy_tile) || enemy_tile.active_hotspot)
 			continue
 
-		if(!(my_tile.open_directions & direction)) //Grab all valid bordering tiles
-			enemy_tile.fire_act(temp, volume, my_tile)
+		if(!(my_tile.open_directions & direction)) // If this direction is atmos blocked, burn it.
+			expose_adjacent(enemy_tile, temp, volume)
 			continue
 
 		if(!prob(50 + 50 * (firelevel/zas_settings.fire_firelevel_multiplier)))
@@ -415,29 +421,21 @@ If it gains pressure too slowly, it may leak or just rupture instead of explodin
 /turf/open/space/apply_fire_protection()
 	return
 
-/turf/fire_act(exposed_temperature, exposed_volume, turf/adjacent)
+/turf/fire_act(exposed_temperature, exposed_volume)
 	return
 
-/turf/open/floor/fire_act(exposed_temperature, exposed_volume, turf/adjacent)
-	if(!adjacent)
-		return
+/turf/proc/adjacent_fire_act(exposed_temperature, exposed_volume)
+	return
 
-	var/dir_to = get_dir(src, adjacent)
-
-	for(var/obj/structure/window/W in src)
-		if(W.dir == dir_to || W.fulltile) //Same direction or diagonal (full tile)
-			W.fire_act(exposed_temperature, exposed_volume, adjacent)
-
-	for(var/obj/machinery/door/window/door in src)
-		if(door.dir == dir_to) //Same direction or diagonal (full tile)
-			door.fire_act(exposed_temperature, exposed_volume, adjacent)
-
-/turf/closed/wall/fire_act(exposed_temperature, exposed_volume, turf/adjacent)
+/turf/closed/wall/fire_act(exposed_temperature, exposed_volume)
 	if(!uses_integrity)
 		burn(exposed_temperature)
 	else if (exposed_temperature > heat_capacity)
 		take_damage(log(Frand(0.9, 1.1) * (exposed_temperature - heat_capacity)), BURN)
 	return ..()
+
+/turf/closed/wall/adjacent_fire_act(exposed_temperature, exposed_volume)
+	fire_act(exposed_temperature, exposed_volume)
 
 /obj/effect/dummy/lighting_obj/moblight/fire
 	name = "fire"

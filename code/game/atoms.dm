@@ -945,7 +945,7 @@
 		return FALSE
 	return TRUE
 
-/atom/proc/fire_act(exposed_temperature, exposed_volume, turf/adjacent)
+/atom/proc/fire_act(exposed_temperature, exposed_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	return
 
