@@ -22,6 +22,9 @@
 	///Is the gamemode votable? !Not implimented!
 	var/votable = FALSE
 
+	///Does this mode have an admin panel?
+	var/has_admin_panel = FALSE
+
 	///Dynamically set to what the problem(s) was/were.
 	var/list/setup_error = list()
 
@@ -292,6 +295,10 @@
 
 /// Mode specific admin panel.
 /datum/game_mode/proc/admin_panel()
+	return
+
+/// Mode specific quick game panel options.
+/datum/game_mode/proc/game_panel()
 	return
 
 ///Stub for reference that gamemodes do infact, process.

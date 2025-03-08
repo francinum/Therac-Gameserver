@@ -93,6 +93,11 @@
 			return
 		SSticker.mode.admin_panel()
 
+	else if(href_list["set_gamemode"])
+		if(!check_rights(R_SERVER))
+			return
+		usr.client.set_game_mode()
+
 	else if(href_list["call_shuttle"])
 		if(!check_rights(R_ADMIN))
 			return

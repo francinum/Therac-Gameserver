@@ -20,6 +20,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /datum/game_mode/dynamic
 	name = "Dynamic"
 	required_enemies = 0
+	has_admin_panel = TRUE
 
 	// Threat logging vars
 	/// The "threat cap", threat shouldn't normally go above this and is used in ruleset calculations

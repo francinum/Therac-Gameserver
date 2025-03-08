@@ -15,33 +15,95 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
+// /datum/admins/proc/Game()
+// 	if(!check_rights(0))
+// 		return
+
+// 	//<center><B>Game Panel</B></center><hr>
+// 	var/dat = ""
+// 	if(SSticker.current_state <= GAME_STATE_PREGAME)
+
+// 		if(SSticker.mode)
+// 		dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart=1'>(Force Roundstart Rulesets)</A><br>"
+// 		if (GLOB.dynamic_forced_roundstart_ruleset.len > 0)
+// 			for(var/datum/dynamic_ruleset/roundstart/rule in GLOB.dynamic_forced_roundstart_ruleset)
+// 				dat += {"<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart_remove=\ref[rule]'>-> [rule.name] <-</A><br>"}
+// 			dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart_clear=1'>(Clear Rulesets)</A><br>"
+// 		dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_options=1'>(Dynamic mode options)</A><br>"
+// 	dat += "<hr/>"
+// 	if(SSticker.IsRoundInProgress() && SSticker.mode.has_admin_panel)
+// 		dat += "<a href='?src=[REF(src)];[HrefToken()];gamemode_panel=1'>Mode Panel</a><BR>"
+// 	// Quick-spawn Options
+// 	dat += {"
+// 		<BR>
+// 		<A href='?src=[REF(src)];[HrefToken()];create_object=1'>Create Object</A><br>
+// 		<A href='?src=[REF(src)];[HrefToken()];quick_create_object=1'>Quick Create Object</A><br>
+// 		<A href='?src=[REF(src)];[HrefToken()];create_turf=1'>Create Turf</A><br>
+// 		<A href='?src=[REF(src)];[HrefToken()];create_mob=1'>Create Mob</A><br>
+// 		"}
+// 	// Dupe marked atom
+// 	if(marked_datum && istype(marked_datum, /atom))
+// 		dat += "<A href='?src=[REF(src)];[HrefToken()];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
+
+// 	// usr << browse(dat, "window=admin2;size=240x280")
+// 	var/datum/browser/window = new(usr, "admin2", "Game Panel", 240, 280)
+// 	window.set_content(dat)
+// 	window.open()
+// 	return
+
 /datum/admins/proc/Game()
 	if(!check_rights(0))
 		return
 
-	var/dat = "<center><B>Game Panel</B></center><hr>"
-	if(SSticker.current_state <= GAME_STATE_PREGAME)
-		dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart=1'>(Force Roundstart Rulesets)</A><br>"
+	var/pg_disable = (SSticker.current_state <= GAME_STATE_PREGAME)
+
+	//<center><B>Game Panel</B></center><hr>
+	var/dat = ""
+	var/mode_button
+	if(pg_disable)
+		mode_button = "<a href='?src=[REF(src)];[HrefToken()];set_game_mode=1'>Change</a>"
+	else
+		mode_button = "<span class='linkOff'>Change</span>"
+	dat += {"Mode: [SSticker.mode.name] | [mode_button]<hr>"}
+	// // Block 1: Quick Mode Options
+	// var/mode_block = SSticker.mode.pregame_panel()
+	// if(!mode_block)
+	// 	dat += "Mode [SSticker.mode] has no pregame options"
+	// else
+	// 	dat += mode_block
+	// dat += "<hr>"
+	// temporary Block 1: Dynamic's Bullshit.
+	if(istype(SSticker.mode, /datum/game_mode/dynamic))
+		dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart=1' [pg_disable]>(Force Roundstart Rulesets)</A><br>"
 		if (GLOB.dynamic_forced_roundstart_ruleset.len > 0)
 			for(var/datum/dynamic_ruleset/roundstart/rule in GLOB.dynamic_forced_roundstart_ruleset)
-				dat += {"<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart_remove=\ref[rule]'>-> [rule.name] <-</A><br>"}
-			dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart_clear=1'>(Clear Rulesets)</A><br>"
-		dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_options=1'>(Dynamic mode options)</A><br>"
+				dat += {"<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart_remove=\ref[rule]' [pg_disable]>-> [rule.name] <-</A><br>"}
+			dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart_clear=1' [pg_disable]>(Clear Rulesets)</A><br>"
+		dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_options=1' [pg_disable]>(Dynamic mode options)</A><br>"
+		dat += "<hr/>"
+	if(SSticker.IsRoundInProgress() && SSticker.mode.has_admin_panel)
+		dat += "<a href='?src=[REF(src)];[HrefToken()];gamemode_panel=1'>Mode Panel</a>"
+	else
+		dat += "<span class='linkOff'>Mode Panel</span>"
 	dat += "<hr/>"
-	if(SSticker.IsRoundInProgress())
-		dat += "<a href='?src=[REF(src)];[HrefToken()];gamemode_panel=1'>(Game Mode Panel)</a><BR>"
-	dat += {"
-		<BR>
+	// Quick-spawn Options
+	dat += {"<h3>Quick Spawn</h3>
 		<A href='?src=[REF(src)];[HrefToken()];create_object=1'>Create Object</A><br>
 		<A href='?src=[REF(src)];[HrefToken()];quick_create_object=1'>Quick Create Object</A><br>
 		<A href='?src=[REF(src)];[HrefToken()];create_turf=1'>Create Turf</A><br>
 		<A href='?src=[REF(src)];[HrefToken()];create_mob=1'>Create Mob</A><br>
+		<hr>
 		"}
-
+	// Dupe marked atom
 	if(marked_datum && istype(marked_datum, /atom))
-		dat += "<A href='?src=[REF(src)];[HrefToken()];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
+		dat += "<A href='?src=[REF(src)];[HrefToken()];dupe_marked_datum=1'>Duplicate Marked Atom</A>"
+	else
+		dat += "<span class='linkOff'>Duplicate Marked Atom</span>"
 
-	usr << browse(dat, "window=admin2;size=240x280")
+	// usr << browse(dat, "window=admin2;size=240x280")
+	var/datum/browser/window = new(usr, "admin2", "Game Panel", 240, 360)
+	window.set_content(dat)
+	window.open()
 	return
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS

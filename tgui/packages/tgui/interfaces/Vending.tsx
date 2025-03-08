@@ -206,7 +206,7 @@ const VendingRow = (props) => {
       <Table.Cell collapsing>
         <ProductImage product={product} />
       </Table.Cell>
-      <Table.Cell bold>
+      <Table.Cell>
         {product.name.replace(/^\w/, (c) => c.toUpperCase())}
       </Table.Cell>
       <Table.Cell>
