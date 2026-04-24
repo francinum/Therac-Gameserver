@@ -12,11 +12,7 @@
 					"DM_EXE": "${config:dreammaker.byondPath}"
 				}
 			},
-			"problemMatcher": [
-				"$dreammaker",
-				"$tsc",
-				"$eslint-stylish"
-			],
+			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
 			"group": {
 				"kind": "build",
 				"isDefault": true
@@ -25,11 +21,29 @@
 			"label": "Build All"
 		},
 		{
+			"type": "process",
+			"command": "tools/build/build",
+			"windows": {
+				"command": ".\\tools\\build\\build.bat",
+				"args": ["-DLOWMEMORYMODE"]
+			},
+			"options": {
+				"env": {
+					"DM_EXE": "${config:dreammaker.byondPath}"
+				}
+			},
+			"problemMatcher": ["$dreammaker", "$tsc", "$eslint-stylish"],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"dependsOn": "dm: reparse",
+			"label": "Build All (Low Memory Mode)"
+		},
+		{
 			"type": "dreammaker",
 			"dme": "daedalus.dme",
-			"problemMatcher": [
-				"$dreammaker"
-			],
+			"problemMatcher": ["$dreammaker"],
 			"group": "build",
 			"label": "dm: build - daedalus.dme"
 		},
@@ -44,10 +58,7 @@
 			"windows": {
 				"command": ".\\bin\\tgui-build.cmd"
 			},
-			"problemMatcher": [
-				"$tsc",
-				"$eslint-stylish"
-			],
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
 			"group": "build",
 			"label": "tgui: build"
 		},
@@ -57,10 +68,7 @@
 			"windows": {
 				"command": ".\\bin\\tgui-dev.cmd"
 			},
-			"problemMatcher": [
-				"$tsc",
-				"$eslint-stylish"
-			],
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
 			"group": "build",
 			"label": "tgui: dev server"
 		},
@@ -70,10 +78,7 @@
 			"windows": {
 				"command": ".\\bin\\tgui-bench.cmd"
 			},
-			"problemMatcher": [
-				"$tsc",
-				"$eslint-stylish"
-			],
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
 			"group": "build",
 			"label": "tgui: bench"
 		},
@@ -83,18 +88,13 @@
 			"windows": {
 				"command": ".\\bin\\tgui-sonar.cmd"
 			},
-			"problemMatcher": [
-				"$tsc",
-				"$eslint-stylish"
-			],
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
 			"group": "build",
 			"label": "tgui: sonar"
 		},
 		{
 			"type": "opendream",
-			"problemMatcher": [
-				"$openDreamCompiler"
-			],
+			"problemMatcher": ["$openDreamCompiler"],
 			"group": "build",
 			"label": "OpenDream: compile daedalus.dme"
 		}

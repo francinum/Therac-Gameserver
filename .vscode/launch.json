@@ -15,7 +15,16 @@
 			"preLaunchTask": "Build All",
 			"dmb": "${workspaceFolder}/${command:CurrentDMB}",
 			"dreamDaemon": true
-		},{
+		},
+		{
+			"type": "byond",
+			"request": "launch",
+			"name": "Launch DreamDaemon (LowMemoryMode)",
+			"preLaunchTask": "Build All (Low Memory Mode)",
+			"dmb": "${workspaceFolder}/${command:CurrentDMB}",
+			"dreamDaemon": true
+		},
+		{
 			"type": "opendream",
 			"request": "launch",
 			"name": "OpenDream",

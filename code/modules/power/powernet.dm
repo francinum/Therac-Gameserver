@@ -7,6 +7,7 @@
 	var/list/cables = list() // all cables & junctions
 	var/list/nodes = list() // all connected machines
 	var/list/data_nodes = list() // all connected network equipment
+	var/list/phone_nodes = list() // all connected phone equipment
 
 	///The packet queue.
 	var/list/next_packet_queue = list()
@@ -76,6 +77,7 @@
 /datum/powernet/proc/remove_machine(obj/machinery/power/M)
 	nodes -= M
 	data_nodes -= M
+	phone_nodes -= M
 	M.powernet = null
 	if(is_empty())//the powernet is now empty...
 		qdel(src)///... delete it
@@ -92,6 +94,8 @@
 	M.powernet = src
 	if(M.network_flags & NETWORK_FLAG_POWERNET_DATANODE)
 		data_nodes[M] = M
+	if(M.network_flags & NETWORK_FLAG_POWERNET_PHONENODE)
+		phone_nodes[M] = M
 	nodes[M] = M
 
 /// Cycles the powernet's status, called by SSmachines, do not manually call.

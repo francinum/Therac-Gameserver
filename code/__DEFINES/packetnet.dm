@@ -15,6 +15,9 @@
 /// You should have a VERY good reason for this to be set on anything not of type [/obj/machinery/power]
 #define NETWORK_FLAG_POWERNET_DATANODE (1<<2)
 
+/// Add the machine to [/datum/powernet/var/list/phone_nodes]
+#define NETWORK_FLAG_POWERNET_PHONENODE (1<<3)
+
 /// Standard set of network flags, for use by most network-connected equipment.
 #define NETWORK_FLAGS_STANDARD_CONNECTION (NETWORK_FLAG_GEN_ID | NETWORK_FLAG_USE_DATATERMINAL)
 

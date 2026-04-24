@@ -5096,4 +5096,8 @@
 #include "modular_pariah\modules\indicators\code\typing_indicator.dm"
 #include "modular_pariah\modules\pixel_shift\code\pixel_shift.dm"
 #include "modular_pariah\modules\radiosound\code\headset.dm"
+#include "WorkInProgress\francinum\centrex\machinery\_phone_machinery.dm"
+#include "WorkInProgress\francinum\centrex\machinery\test_equipment.dm"
+#include "WorkInProgress\francinum\centrex\machinery\exchange\patchbox.dm"
+#include "WorkInProgress\francinum\centrex\wiring\phone_segment\_phone_segment.dm"
 // END_INCLUDE
