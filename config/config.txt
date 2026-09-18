@@ -5,6 +5,7 @@ $include dbconfig.txt
 $include comms.txt
 $include resources.txt
 $include interviews.txt
+$include server.txt
 $include pariah/pariah_config.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
@@ -26,12 +27,6 @@ STATIONNAME Outpost Antelope
 
 ## Community slug for AffectedArc's Web Map
 #WEBMAP_COMMUNITY daedalus
-
-## Hub subtitle: A line of text inserted under the server name. Should be no greater than 40 characters.
-HUB_SUBTITLE Now with custom lighting!
-
-## Put on byond hub: Uncomment this to put your server on the byond hub.
-#HUB
 
 ## Lobby time: This is the amount of time between rounds that players have to setup their characters and be ready.
 LOBBY_COUNTDOWN 120

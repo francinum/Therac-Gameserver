@@ -109,7 +109,8 @@
 	var/account_age = -1
 	///Linked Discord account ID. Null is valid if the bunker is disabled.
 	var/datum/discord_link_record/linked_discord_account = null
-
+	///SS13Lib Hub Connection blob
+	var/datum/ss13lib_auth_response/hub_info = null
 
 	preload_rsc = PRELOAD_RSC
 

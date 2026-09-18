@@ -54,6 +54,8 @@ GLOBAL_VAR(restart_counter)
 
 	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
+	SS13LIB //This needs to load after configs so we can build enough data to heartbeat.
+
 	load_admins()
 
 	//SetupLogs depends on the RoundID, so lets check
@@ -209,6 +211,8 @@ GLOBAL_VAR(restart_counter)
 
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC //redirect to server tools if necessary
+	SS13LIB_TOPIC //redirect to SS13Lib if necessary
+
 	var/list/response[] = list()
 	if (SSfail2topic?.IsRateLimited(addr))
 		response["statuscode"] = 429
@@ -275,6 +279,7 @@ GLOBAL_VAR(restart_counter)
 	del(src) //shut it down
 
 /world/Reboot(reason = 0, fast_track = FALSE)
+	SS13LIB_REBOOT
 	if (reason || fast_track) //special reboot, do none of the normal stuff
 		if (usr)
 			log_admin("[key_name(usr)] Has requested an immediate world restart via client side debugging tools")
@@ -320,7 +325,7 @@ GLOBAL_VAR(restart_counter)
 	var/new_status = ""
 	if(config)
 		var/server_name = CONFIG_GET(string/servername)
-		var/hub_subtitle = CONFIG_GET(string/hub_subtitle)
+		var/hub_subtitle = CONFIG_GET(string/legacy_hub_subtitle)
 		if(server_name)
 			new_status += "<b>[server_name]\]</b>"
 			new_status += " — (<a href=\"https://discord.daedalus13.net\">Discord</a>)<br>"

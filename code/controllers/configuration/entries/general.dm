@@ -38,6 +38,7 @@
 
 /// the line of text under server name on the hub
 /datum/config_entry/string/hub_subtitle
+	deprecated_by = /datum/config_entry/string/legacy_hub_subtitle
 
 /// Countdown between lobby and the round starting.
 /datum/config_entry/number/lobby_countdown
@@ -56,9 +57,6 @@
 	default = 40
 	integer = FALSE
 	min_val = 0
-
-/// if the game appears on the hub or not
-/datum/config_entry/flag/hub
 
 /// Pop requirement for the server to be removed from the hub
 /datum/config_entry/number/max_hub_pop

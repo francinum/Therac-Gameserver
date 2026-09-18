@@ -1,0 +1,52 @@
+
+## Put on byond hub: Uncomment this to put your server on the byond hub.
+#HUB
+
+## [MANDATORY]: Auth methods:
+# 'byond' is BYOND hub, 'hub' is SS13Lib
+# At least one of these should be set to 1.
+@HUB_AUTH_TYPE byond 1
+@HUB_AUTH_TYPE hub 1
+
+## [OPTIONAL]: BYOND Hub subtitle: A line of text inserted under the server name. Should be no greater than 40 characters.
+LEGACY_HUB_SUBTITLE Now with custom lighting!
+
+## [OPTIONAL]: SS13Lib Hub Description: 1024 characters, no styling. If unset, will use the legacy hub subtitle.
+#SS13_HUB_DESCRIPTION
+
+## [OPTIONAL]: Primary commmunity landing page.
+#@SS13HUB_LANDINGSITE https://daedalus13.net
+
+## [OPTIONAL]: Whitelisted primary toggle.
+#@SS13HUB_WHITELISTED
+
+## [OPTIONAL/WHITELIST]: Whitelist Link and Type.
+# Valid types are discord/wiki/web/github/forum/signal
+#@SS13HUB_WHITELIST_LINK web https://example.org
+
+## [OPTIONAL/WHITELIST]: Whitelist description, 64 characters maximum.
+#@SS13HUB_WHITELIST_INFO Please see here for whitelist information.
+
+## [OPTIONAL]: Pre-connection Terms of Service URL.
+#@SS13HUB_TERMS_OF_SERVICE https://example.org/tos
+
+## [MANDATORY]: Language: ISO 639-1 code for your server's primary language.
+# eg: en,ru,br
+#@SS13LIB_LANGUAGE en
+
+## [OPTIONAL]: Region: Server region. See 'code\__EXTLIB\ss13lib.dm' for the exact valid list.
+#@SS13LIB_REGION
+
+## [OPTIONAL]: Server Tags: Descriptive content tags.
+# Further documentation pending.
+# NOTE: Including `18+` or `nsfw` is required by guidelines if your server allows adult content.
+#@SERVER_TAGS nsfw
+
+## [OPTIONAL]: Connection Address: Override automatic IP detection with a specific connection URI.
+# You probably won't need this.
+#@OVERRIDE_CONNECTION_URL direct.myserver.invalid:1337
+
+
+## [OPTIONAL]: DA Private Key: Domain attestation private key.
+# See documentation for information on generation.
+#@DA_PRIVATE_KEY AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=

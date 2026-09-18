@@ -73,6 +73,7 @@ SUBSYSTEM_DEF(ticker)
 
 	var/round_start_time = 0
 	var/round_start_timeofday = 0
+	var/round_start_unix = 0
 	var/list/round_start_events
 	var/list/round_end_events
 	var/mode_result = "undefined"
@@ -289,6 +290,7 @@ SUBSYSTEM_DEF(ticker)
 	log_world("Game start took [(world.timeofday - init_start)/10]s")
 	round_start_time = world.time
 	round_start_timeofday = REALTIMEOFDAY
+	round_start_unix = rustg_unix_timestamp()
 	INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore,SetRoundStart))
 
 	SEND_SOUND(world, sound(SSstation.announcer.get_rand_welcome_sound(), channel = SSsounds.random_available_channel()))

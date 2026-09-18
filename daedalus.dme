@@ -235,8 +235,6 @@
 #include "code\__DEFINES\surgery.dm"
 #include "code\__DEFINES\tcg.dm"
 #include "code\__DEFINES\text.dm"
-#include "code\__DEFINES\tgs.config.dm"
-#include "code\__DEFINES\tgs.dm"
 #include "code\__DEFINES\tgui.dm"
 #include "code\__DEFINES\three_dsix.dm"
 #include "code\__DEFINES\time.dm"
@@ -360,6 +358,10 @@
 #include "code\__DEFINES\~pariah_defines\signals.dm"
 #include "code\__DEFINES\~pariah_defines\sound.dm"
 #include "code\__DEFINES\~pariah_defines\span.dm"
+#include "code\__EXTLIB\ss13lib.config.dm"
+#include "code\__EXTLIB\ss13lib.dm"
+#include "code\__EXTLIB\tgs.config.dm"
+#include "code\__EXTLIB\tgs.dm"
 #include "code\__HELPERS\_lists.dm"
 #include "code\__HELPERS\_logging.dm"
 #include "code\__HELPERS\_string_lists.dm"
@@ -543,6 +545,7 @@
 #include "code\controllers\configuration\entries\dbconfig.dm"
 #include "code\controllers\configuration\entries\game_options.dm"
 #include "code\controllers\configuration\entries\general.dm"
+#include "code\controllers\configuration\entries\hub.dm"
 #include "code\controllers\configuration\entries\interview.dm"
 #include "code\controllers\configuration\entries\resources.dm"
 #include "code\controllers\subsystem\achievements.dm"
@@ -577,6 +580,7 @@
 #include "code\controllers\subsystem\fire_burning.dm"
 #include "code\controllers\subsystem\fluids.dm"
 #include "code\controllers\subsystem\garbage.dm"
+#include "code\controllers\subsystem\heartbeat.dm"
 #include "code\controllers\subsystem\holomap.dm"
 #include "code\controllers\subsystem\icon_smooth.dm"
 #include "code\controllers\subsystem\id_access.dm"
@@ -5105,3 +5109,6 @@
 #include "modular_pariah\modules\pixel_shift\code\pixel_shift.dm"
 #include "modular_pariah\modules\radiosound\code\headset.dm"
 // END_INCLUDE
+
+//External Libraries
+#include "code\ext_modules\ss13lib\ss13lib.dme"
