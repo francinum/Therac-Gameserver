@@ -8,7 +8,7 @@
 
 #define SS13LIB_SERVER_LANGUAGE CONFIG_GET(string/ss13lib_language)
 
-#define SS13LIB_SERVER_DESCRIPTION CONFIG_GET(string/ss13_hub_description)
+#define SS13LIB_SERVER_DESCRIPTION (CONFIG_GET(string/ss13_hub_description) || CONFIG_GET(string/legacy_hub_subtitle))
 
 #define SS13LIB_SERVER_LINKS (world.__ss13lib_build_server_links())
 
@@ -39,10 +39,10 @@
 
 #define SS13LIB_WHITELISTED (world.__ss13lib_build_whitelisted())
 
-#warn INCOMPLETE WHITELIST SETUP
 /world/proc/__ss13lib_build_whitelisted()
 	if(CONFIG_GET(flag/ss13hub_whitelisted))
-		return list("link" = list("type" = "discord", "link" = "https://discord.gg/invite/example"), "description" = CONFIG_GET(string/ss13hub_whitelist_info))
+		var/list/link_info = CONFIG_GET(keyed_list/ss13hub_whitelist_link)
+		return list("link" = list("type" = link_info[1], "link" = link_info[link_info[1]]), "description" = CONFIG_GET(string/ss13hub_whitelist_info))
 
 #define SS13LIB_TERMS_OF_SERVICE CONFIG_GET(string/ss13hub_terms_of_service)
 
@@ -54,8 +54,14 @@
 
 #define SS13LIB_HUB_VISIBILITY (world.visibility)
 
-#define SS13LIB_AUTH_METHODS list("hub", "byond")
-#warn INCOMPLETE AUTH METHODS
+#define SS13LIB_AUTH_METHODS (world.__ss13lib_build_authmethods())
+
+/world/proc/__ss13lib_build_authmethods()
+	var/static/list/methods = list()
+	for(k,v in CONFIG_GET(keyed_list/hub_auth_type))
+		if(v)
+			methods.Add(k)
+	return methods
 
 #ifdef OPENDREAM
 #define SS13LIB_ENGINE "opendream"
