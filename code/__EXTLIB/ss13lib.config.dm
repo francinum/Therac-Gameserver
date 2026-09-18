@@ -58,7 +58,7 @@
 
 /world/proc/__ss13lib_build_authmethods()
 	var/static/list/methods = list()
-	for(k,v in CONFIG_GET(keyed_list/hub_auth_type))
+	for(var/k,v in CONFIG_GET(keyed_list/hub_auth_type))
 		if(v)
 			methods.Add(k)
 	return methods
