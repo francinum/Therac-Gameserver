@@ -241,11 +241,11 @@
 		config_value = TRUE
 
 		if(value == "0")
-			config_key = jointext(config_entry_words, splitter, length(config_entry_words) - 1)
+			config_key = jointext(config_entry_words, splitter, 1, length(config_entry_words))
 			config_value = FALSE
 			is_ambiguous = (length(config_entry_words) > 2)
 		else if(value == "1")
-			config_key = jointext(config_entry_words, splitter, length(config_entry_words) - 1)
+			config_key = jointext(config_entry_words, splitter, 1, length(config_entry_words))
 			is_ambiguous = (length(config_entry_words) > 2)
 		else
 			config_key = option_string
