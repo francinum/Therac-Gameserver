@@ -283,13 +283,10 @@
 /datum/config_entry/string/banappeals
 
 /datum/config_entry/string/wikiurl
-	default = "https://daedalus13.net/"
 
 /datum/config_entry/string/forumurl
-	default = "https://daedalus13.net/" /// Until we actually get a forum, we will use this as a placeholder.
 
 /datum/config_entry/string/rulesurl
-	default = "https://daedalus13.net/"
 
 /datum/config_entry/string/githuburl
 	default = "https://github.com/DaedalusDock/Gameserver"

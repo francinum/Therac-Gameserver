@@ -59,7 +59,7 @@
 	set hidden = TRUE
 	var/githuburl = CONFIG_GET(string/githuburl)
 	var/issue_key = CONFIG_GET(string/issue_key)
-	if(!issue_key)
+	if(!githuburl || !issue_key)
 		to_chat(src, span_danger("Issue Reporting is not properly configured."))
 		return
 	//Are we pre-interview or otherwise not allowed to do this?

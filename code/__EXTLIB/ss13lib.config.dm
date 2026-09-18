@@ -79,7 +79,7 @@
 
 #define SS13LIB_ROUND_SECURITY_LEVEL (get_security_level())
 
-#define SS13LIB_ROUND_GAMEMODE (SSticker?.mode_display_name || "LOADING")
+#define SS13LIB_ROUND_GAMEMODE (SSticker?.mode_display_name || SSticker?.mode?.name || "LOADING")
 
 #define SS13LIB_ROUND_ID (GLOB.round_id)
 
