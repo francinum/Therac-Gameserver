@@ -70,7 +70,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/map_loading = FALSE //!Are we loading in a new map?
 
 	var/current_runlevel //!for scheduling different subsystems for different stages of the round
-	var/sleep_offline_after_initializations = TRUE
 
 	/// During initialization, will be the instanced subsytem that is currently initializing.
 	/// Outside of initialization, returns null.
@@ -291,12 +290,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(tgs_prime)
 		world.TgsInitializationComplete()
 
-	if(sleep_offline_after_initializations)
-		world.sleep_offline = TRUE
 	sleep(1)
 
-	if(sleep_offline_after_initializations && CONFIG_GET(flag/resume_after_initializations))
-		world.sleep_offline = FALSE
 	initializations_finished_with_no_players_logged_in = initialized_tod < REALTIMEOFDAY - 10
 
 

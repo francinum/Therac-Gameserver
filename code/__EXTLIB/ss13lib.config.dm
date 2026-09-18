@@ -114,7 +114,7 @@
 // This currently fails loudly if no domain is provided.
 //#define SS13LIB_ATTEST_DOMAIN
 
-// Need to update rustg first.
+// Rustg doesn't build the ed25519 module by default and I'm Fuckin Lazy
 //#define SS13LIB_ED25519_SIGN(privkey, message)
 
 #define SS13LIB_ATTEST_PRIVKEY CONFIG_GET(string/da_private_key)

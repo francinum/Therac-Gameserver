@@ -2,6 +2,8 @@
 ## Put on byond hub: Uncomment this to put your server on the byond hub.
 #HUB
 
+## SS13Hub Configuration. Note that none of this can change after handshake.
+
 ## [MANDATORY]: Auth methods:
 # 'byond' is BYOND hub, 'hub' is SS13Lib
 # At least one of these should be set to 1.
@@ -12,35 +14,37 @@
 LEGACY_HUB_SUBTITLE Now with custom lighting!
 
 ## [OPTIONAL]: SS13Lib Hub Description: 1024 characters, no styling. If unset, will use the legacy hub subtitle.
-#SS13_HUB_DESCRIPTION
+#@SS13_HUB_DESCRIPTION Daedalus Test Hub Subscription
 
 ## [OPTIONAL]: Primary commmunity landing page.
 #@SS13HUB_LANDINGSITE https://daedalus13.net
 
-## [OPTIONAL]: Whitelisted primary toggle.
+## [OPTIONAL]: Whitelist: Enable whitelist interstitial before connection.
+# Note that this has no technical effect, and a whitelisting measure (such as the discord bunker) is required for enforcement.
 #@SS13HUB_WHITELISTED
 
 ## [OPTIONAL/WHITELIST]: Whitelist Link and Type.
-# Valid types are discord/wiki/web/github/forum/signal
-#@SS13HUB_WHITELIST_LINK web https://example.org
+# Valid types are discord/wiki/web/github/forum/signal (if you want to run your whitelists off github for some deranged reason)
+#@SS13HUB_WHITELIST_LINK github https://WebTest.org
 
 ## [OPTIONAL/WHITELIST]: Whitelist description, 64 characters maximum.
-#@SS13HUB_WHITELIST_INFO Please see here for whitelist information.
+#@SS13HUB_WHITELIST_INFO Please click the link below to whitelist.
 
-## [OPTIONAL]: Pre-connection Terms of Service URL.
+## [OPTIONAL]: Pre-connection Terms of Service URL. Shows as a modal before connection.
 #@SS13HUB_TERMS_OF_SERVICE https://example.org/tos
 
 ## [MANDATORY]: Language: ISO 639-1 code for your server's primary language.
 # eg: en,ru,br
-#@SS13LIB_LANGUAGE en
+@SS13LIB_LANGUAGE en
 
 ## [OPTIONAL]: Region: Server region. See 'code\__EXTLIB\ss13lib.dm' for the exact valid list.
-#@SS13LIB_REGION
+#@SS13LIB_REGION north_america_east
 
 ## [OPTIONAL]: Server Tags: Descriptive content tags.
 # Further documentation pending.
 # NOTE: Including `18+` or `nsfw` is required by guidelines if your server allows adult content.
 #@SERVER_TAGS nsfw
+#@SERVER_TAGS combat
 
 ## [OPTIONAL]: Connection Address: Override automatic IP detection with a specific connection URI.
 # You probably won't need this.

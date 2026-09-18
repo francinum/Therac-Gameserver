@@ -549,13 +549,6 @@
 	if (.)
 		Master.UpdateTickRate()
 
-/datum/config_entry/flag/resume_after_initializations
-
-/datum/config_entry/flag/resume_after_initializations/ValidateAndSet(str_val)
-	. = ..()
-	if(. && MC_RUNNING())
-		world.sleep_offline = !config_entry_value
-
 /datum/config_entry/number/rounds_until_hard_restart
 	default = -1
 	min_val = 0
