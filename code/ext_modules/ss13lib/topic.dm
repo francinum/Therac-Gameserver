@@ -18,6 +18,20 @@
 				response["domain"] = domain
 				response["signature"] = signature
 #endif
+		response["display_name"] = SS13LIB_SERVER_DISPLAY_NAME
+#ifdef SS13LIB_SERVER_DESCRIPTION
+		response["description"] = SS13LIB_SERVER_DESCRIPTION
+#endif
+#ifdef SS13LIB_REGION
+		response["region"] = SS13LIB_REGION
+#endif
+		response["pop"] = SS13LIB_PLAYER_COUNT
+#ifdef SS13LIB_PLAYER_LIMIT
+		response["pop_cap"] = SS13LIB_PLAYER_LIMIT
+#endif
+#ifdef SS13LIB_ROUND_MAP_NAME
+		response["map_name"] = SS13LIB_ROUND_MAP_NAME
+#endif
 		return json_encode(response)
 
 	if(parameters[SS13LIB_INFO_CODE])
