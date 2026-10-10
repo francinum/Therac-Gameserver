@@ -12,3 +12,12 @@
   MatoTheTomato, Kapu1178:
   - tweak: Adjusted the chatbox style slightly, to increase cool factor by approx.
       500%
+2026-09-20:
+  Kapu1178:
+  - rscadd: 'The Mind''s Eye Theatre: A new location for ghosts.'
+2026-09-22:
+  Kapu1178:
+  - bugfix: Embedded Controller airlocks function again.
+2026-09-29:
+  Kapu1178:
+  - bugfix: Stamina stuns behave in a more sane manner.
