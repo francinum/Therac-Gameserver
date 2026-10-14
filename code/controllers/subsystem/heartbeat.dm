@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(heartbeat)
 	name = "HABSORA"
-	wait = 30 SECONDS
+	wait = 4 MINUTES
 
 	var/datum/ss13lib/the_lib //The datum is general protected. it *SHOULD* be fine?
 
